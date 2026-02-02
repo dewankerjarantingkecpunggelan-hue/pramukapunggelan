@@ -1,0 +1,24 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/", "dest": "/home" },
+
+    { "src": "/home", "dest": "/index.html" },
+
+    { "src": "/kwarran", "dest": "/skkwarran.html" },
+    { "src": "/dapot", "dest": "/potensi.html" },
+    { "src": "/dkrpunggelan", "dest": "/about.html" },
+    { "src": "/profildkr", "dest": "/profil.html" },
+    { "src": "/mediaunduh", "dest": "/unduh.html" },
+    { "src": "/agenda", "dest": "/jadwal.html" },
+    { "src": "/rekrutmendkr", "dest": "/rekrutmen.html" },
+    { "src": "/twibbon", "dest": "/twibbon.html" },
+    { "src": "/warta", "dest": "/news.html" },
+    { "src": "/prada", "dest": "/prada.html" },
+    { "src": "/kirim-berita", "dest": "/kirim-berita.html" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/dashboard", "dest": "/dashboard.html" },
+    { "src": "/login", "dest": "/login.html" }
+  ]
+}
