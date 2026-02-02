@@ -570,13 +570,13 @@ body{
 // PROFIL STATIS PENULIS
 const authorProfiles = {
   "Aryo Jurnalistik": { img:"assets/images/aryo.jpg", info:"Publikasi resmi oleh Aryo Jurnalistik" },
-  "Sodikin": { img:"assets/images/dikin.jpg", info:"Publikasi resmi oleh Sodikin" },
+  "Sodikin": { img:"assets/images/kak dikin.jpg", info:"Publikasi resmi oleh Sodikin" },
   "Kwarran Punggelan": { img:"assets/images/logologo.png", info:"Publikasi resmi oleh Kwarran Punggelan" },
   "DKR Punggelan": { img:"assets/images/logo.png", info:"Publikasi resmi oleh DKR Punggelan" }
 };
 
 const AUTHOR = new URLSearchParams(location.search).get("name");
-const authorData = authorProfiles[AUTHOR] || { img:"assets/images/noimage.png", info:"Publikasi resmi oleh penulis" };
+const authorData = authorProfiles[AUTHOR] || { img:"assets/images/P_49_20230105095623.jpg", info:"Publikasi resmi oleh penulis" };
 
 // SET FOTO & INFO PENULIS
 document.getElementById("authorName").textContent = AUTHOR || "Penulis Tidak Dikenal";
@@ -672,5 +672,6 @@ document.body.appendChild(s);
 </script>
 </body>
 </html>
+
 
 
