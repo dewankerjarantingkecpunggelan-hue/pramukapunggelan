@@ -1,8 +1,6 @@
-// redirect domain sendiri tanpa Node fetch
 export default async function handler(req,res){
   const { code } = req.query;
 
-  // Panggil Google Apps Script JSON
   const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
 
   const response = await fetch(WEBAPP_URL);
@@ -10,7 +8,8 @@ export default async function handler(req,res){
 
   const found = json.find(r=>r.short === code);
   if(found){
-    return res.redirect(found.url); // redirect ke URL asli
+    res.writeHead(302, { Location: found.url });
+    res.end();
   } else {
     res.status(404).send("Short URL not found");
   }
