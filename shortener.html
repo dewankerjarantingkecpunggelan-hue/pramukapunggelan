@@ -8,16 +8,108 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <style>
-/* CSS tetap sama seperti versi kamu */
+:root{
+  --primary:#5b2c83;       /* Ungu Pramuka */
+  --primary-light:#6f3aa6;
+  --accent:#f1c40f;        /* Emas/Kuning */
+  --bg:#f4f4f9;
+  --card:#fff;
+  --text-dark:#333;
+  --radius:12px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
+
+body{background:var(--bg);color:var(--text-dark);line-height:1.5;}
+
+header{
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  padding:12px 20px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+header .brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+header .brand img{height:50px;width:50px;object-fit:contain;}
+header .brand h1{color:var(--primary);font-size:22px;font-weight:700;}
+
+.container{
+  max-width:800px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.headeri{text-align:center;margin-bottom:30px;}
+.headeri h1{color:var(--primary);font-size:32px;margin-bottom:6px;}
+.headeri p{color:#555;font-size:16px;}
+
+.card{
+  background:var(--card);
+  padding:24px;
+  border-radius:var(--radius);
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+  margin-bottom:24px;
+  transition: transform .2s;
+}
+
+.card:hover{transform: translateY(-4px);}
+
+.form-box input{
+  width:100%;
+  padding:12px 14px;
+  margin-bottom:12px;
+  border:1px solid #ccc;
+  border-radius:var(--radius);
+  font-size:15px;
+}
+
+.btn-purple{
+  display:inline-block;
+  background:var(--primary);
+  color:#fff;
+  padding:10px 20px;
+  border-radius:var(--radius);
+  font-weight:600;
+  font-size:16px;
+  border:none;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn-purple:hover{background:var(--primary-light);}
+
+#result a{color:var(--accent);font-weight:600;}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin-top:12px;}
+th,td{padding:10px;text-align:left;border-bottom:1px solid #eee;}
+th{background:var(--primary);color:#fff;border-radius:var(--radius);}
+tr:hover{background:#f9f9f9;}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:30px 20px;
+  background:var(--primary);
+  color:#fff;
+  font-size:14px;
+  margin-top:40px;
+}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="nav-container">
-    <div class="brand">
-      <img src="assets/images/logodkr.png" alt="Logo DKR">
-      <h1>Short URL</h1>
-    </div>
+  <div class="brand">
+    <img src="assets/images/logodkr.png" alt="Logo Pramuka">
+    <h1>Short URL • Pramuka</h1>
   </div>
 </header>
 
@@ -28,15 +120,15 @@
   </div>
 
   <div class="card form-box">
-    <input type="text" id="originalURL" placeholder="Masukkan URL panjang di sini" style="width:100%;margin-bottom:12px;">
-    <input type="text" id="shortCode" placeholder="Masukkan shortcode unik" style="width:100%;margin-bottom:12px;">
+    <input type="text" id="originalURL" placeholder="Masukkan URL panjang di sini">
+    <input type="text" id="shortCode" placeholder="Masukkan shortcode unik">
     <button class="btn-purple" onclick="createShortURL()">Buat Short URL</button>
     <p id="result" style="margin-top:12px;"></p>
   </div>
 
   <div class="card">
     <h3>Daftar Short URL</h3>
-    <table class="table" id="urlList">
+    <table id="urlList">
       <thead>
         <tr>
           <th>Short Code</th>
@@ -50,7 +142,7 @@
 </div>
 
 <footer>
-  <div class="credits">© 2026 Pramuka Punggelan Short URL</div>
+  © 2026 Pramuka Punggelan Short URL
 </footer>
 
 <script>
@@ -74,7 +166,6 @@ async function createShortURL(){
     const text = await res.text();
 
     if(text === "OK"){
-      // URL di domain sendiri
       document.getElementById("result").innerHTML = `
         Short URL: <a href="/${shortCode}" target="_blank">https://pramukapunggelan.vercel.app/${shortCode}</a>
       `;
@@ -100,8 +191,8 @@ async function loadURLList(){
   });
 }
 
-// Load saat halaman dibuka
 loadURLList();
 </script>
+
 </body>
 </html>
