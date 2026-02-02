@@ -1,21 +1,17 @@
-import { GoogleSpreadsheet } from "google-spreadsheet";
-
-const SHEET_ID = "1IC6SyvFS6VIo04LVYL5_88ztese824idJk6K0RTNC7k";
-const SHEET_NAME = "URL Shortener";
-const CREDENTIALS = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
-
+// redirect domain sendiri tanpa Node fetch
 export default async function handler(req,res){
   const { code } = req.query;
-  const doc = new GoogleSpreadsheet(SHEET_ID);
-  await doc.useServiceAccountAuth(CREDENTIALS);
-  await doc.loadInfo();
-  const sheet = doc.sheetsByTitle[SHEET_NAME];
-  const rows = await sheet.getRows();
-  const row = rows.find(r=>r.ShortCode === code);
 
-  if(row){
-    return res.redirect(row.OriginalURL);
+  // Panggil Google Apps Script JSON
+  const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
+
+  const response = await fetch(WEBAPP_URL);
+  const json = await response.json();
+
+  const found = json.find(r=>r.short === code);
+  if(found){
+    return res.redirect(found.url); // redirect ke URL asli
   } else {
-    return res.status(404).send("Short URL not found");
+    res.status(404).send("Short URL not found");
   }
 }
