@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Potensi Pramuka Punggelan</title>
+<link rel="icon" href="assets/images/logologo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+ <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      background:var(--bg);
+      color:#111;
+      line-height:1.6;
+    }
+
+   header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{font-size:22px;color:var(--primary);font-weight:600}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative;transition:.3s}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--primary)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--primary);cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600;text-decoration:none;transition:.3s}
+.btn-primary:hover{background:var(--primary-light)}
+@media(max-width:900px){
+  nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  nav.active{display:flex}
+  nav a{padding:12px 0;width:100%;text-align:left}
+  .dropdown{width:100%}
+  .dropdown > a{display:flex;justify-content:space-between;align-items:center;width:100%}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;padding-left:12px;margin-top:6px}
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+    /* ===== HERO ===== */
+    .hero{
+      height:380px;
+      background:url('assets/images/DSC00145.JPG') center/cover no-repeat;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(91,44,131,.55);
+    }
+    .hero-content{
+      position:relative;
+      color:#fff;
+      text-align:center;
+      max-width:720px;
+      padding:20px;
+    }
+    .hero::after{
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+    .hero-content h1{margin:0 0 12px;font-size:34px}
+    .hero-content p{margin:0 0 20px}
+
+    /* ===== MAIN ===== */
+    main{
+      max-width:var(--max);
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    h2{color:var(--primary);margin-top:0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:#fff;
+      padding:20px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 16px rgba(0,0,0,.05);
+    }
+
+    .form-box{
+      background:#fff;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+      text-align:center;
+    }
+
+    
+/* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
+}
+
+/* Sticky Button Mobile */
+.sticky-jurnalistik{
+  display:none;
+}
+
+@media(max-width:720px){
+  .sticky-jurnalistik{
+    display:flex;
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#5b2c83;
+    color:#fff;
+    padding:14px 20px;
+    border-radius:30px;
+    font-weight:800;
+    gap:8px;
+    z-index:9999;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    cursor:pointer;
+  }
+
+  body{
+    padding-bottom:0px;
+  }
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  background:var(--secondary);
+  color:var(--dark);
+}
+.container{max-width:1200px;margin:auto;padding:24px}
+.headeri{
+  background:#fff;border-radius:16px;padding:24px;
+  margin-bottom:24px;text-align:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.08)
+}
+.card{
+  background:#fff;border-radius:16px;padding:20px;
+  margin-bottom:24px;box-shadow:0 8px 20px rgba(0,0,0,.05);
+  overflow-x:auto
+}
+.card h3{text-align:center;margin-bottom:16px}
+.table{width:100%;border-collapse:collapse;min-width:600px}
+.table th,.table td{
+  padding:12px;border-bottom:1px solid #eee;text-align:center
+}
+.table th{background:#f9fafb;position:sticky;top:0}
+.table tr:nth-child(even){background:#fafafa}
+.table tr:hover{background:var(--hover)}
+.footer{text-align:center;font-size:13px;color:#666;margin-top:32px}
+
+.saka-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+.saka-card{
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:20px;
+  background:#fff;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  transition:.2s;
+}
+.saka-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 22px rgba(0,0,0,.1);
+}
+
+.saka-title{
+  font-size:18px;
+  font-weight:700;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+
+.saka-sub{
+  font-size:14px;
+  color:#555;
+  margin-bottom:14px;
+}
+
+.saka-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  font-size:14px;
+  border-bottom:1px dashed #eee;
+}
+.saka-row:last-child{border-bottom:none}
+
+.saka-label{color:#666}
+.saka-value{font-weight:600;color:#111}
+
+.saka-footer{
+  margin-top:12px;
+  font-size:13px;
+  color:#444;
+  background:#f9fafb;
+  padding:10px;
+  border-radius:10px;
+}
+
+.gudep-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+  gap:24px;
+}
+
+.gudep-card{
+  background:#fff;
+  border-radius:18px;
+  padding:22px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+
+.gudep-header{
+  margin-bottom:14px;
+}
+.gudep-title{
+  font-size:18px;
+  font-weight:700;
+  color:var(--primary);
+}
+.gudep-sub{
+  font-size:13px;
+  color:#555;
+}
+
+.gudep-section{
+  margin-top:14px;
+}
+.gudep-section h4{
+  margin:0 0 8px;
+  font-size:14px;
+  color:#374151;
+  border-left:4px solid var(--primary);
+  padding-left:8px;
+}
+
+.gudep-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  padding:6px 0;
+  border-bottom:1px dashed #eee;
+}
+.gudep-row:last-child{border-bottom:none}
+
+.gudep-label{color:#666}
+.gudep-value{font-weight:600;color:#111}
+
+.gudep-badge{
+  display:inline-block;
+  padding:4px 10px;
+  font-size:12px;
+  background:#e8f5ee;
+  color:var(--primary);
+  border-radius:999px;
+  font-weight:600;
+  margin-right:6px;
+}
+
+/* ===== GOVERNMENT STYLE ===== */
+.headeri{
+  border-top:8px solid #5b2c83;
+  border-radius:12px;
+}
+
+.headeri h1{
+  font-size:30px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+
+.headeri p{
+  font-size:15px;
+  font-weight:500;
+}
+
+/* SECTION TITLE */
+.card h3{
+  text-transform:uppercase;
+  font-size:16px;
+  letter-spacing:.8px;
+  color:#5b2c83;
+  border-bottom:3px solid #e5e7eb;
+  padding-bottom:10px;
+}
+
+/* GOLONGAN ICON */
+.golongan-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.golongan-icon{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+}
+
+/* GOLONGAN TITLE */
+.golongan-title{
+  font-size:15px;
+  font-weight:700;
+  color:#5b2c83;
+}
+
+/* TABEL PEMERINTAHAN */
+.table th{
+  background:#5b2c83;
+  color:#fff;
+  font-size:14px;
+}
+
+.table td{
+  font-size:14px;
+}
+
+/* BADGE RESMI */
+.gudep-badge{
+  background:#e6f4ea;
+  color:#5b2c83;
+  border:1px solid #cce3d5;
+}
+
+/* FOOTER */
+.footer{
+  border-top:2px solid #e5e7eb;
+  padding-top:16px;
+  font-weight:500;
+}
+
+/* ===== SAKA HEADER + LOGO ===== */
+.saka-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:10px;
+}
+
+.saka-logo{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
+
+.saka-title{
+  font-size:18px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+.rekap-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.rekap-card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px 20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:transform .2s, box-shadow .2s;
+}
+
+.rekap-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 22px rgba(0,0,0,.12);
+}
+
+.rekap-title{
+  font-size:16px;
+  font-weight:700;
+  color:var(--primary);
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.rekap-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  font-size:14px;
+  border-bottom:1px dashed #eee;
+}
+.rekap-row:last-child{border-bottom:none}
+
+.rekap-label{color:#555;}
+.rekap-value{font-weight:600;color:#111;}
+
+/* ===== PRINT / PDF MODE ===== */
+@media print{
+  body{
+    background:#fff !important;
+  }
+
+  header, footer, .menu-toggle, nav, .btn-primary{
+    display:none !important;
+  }
+
+  .card{
+    box-shadow:none !important;
+    border:1px solid #000 !important;
+    margin-bottom:20px;
+    page-break-inside:avoid;
+  }
+
+  .rekap-card, .gudep-card{
+    box-shadow:none !important;
+    border:1px solid #000;
+  }
+
+  h3{
+    color:#000 !important;
+    border-bottom:2px solid #000 !important;
+  }
+
+  .kop-laporan{
+    display:block !important;
+  }
+}
+
+.format-badge{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:600;
+  color:#111;
+}
+
+.format-badge i{
+  font-size:18px;
+  color:var(--primary);
+}
+
+.data-meta{
+  margin:40px auto 10px;
+  max-width:1200px;
+  padding:0 16px;
+}
+
+.data-meta-box{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:#f8fafc;
+  border-left:5px solid var(--primary);
+  border-radius:10px;
+  padding:14px 18px;
+  font-size:14px;
+  color:#374151;
+}
+
+.data-meta-box i{
+  font-size:26px;
+  color:var(--primary);
+}
+
+.data-meta-title{
+  font-weight:700;
+  color:#111827;
+}
+
+.data-meta-sub{
+  font-size:13px;
+  color:#6b7280;
+}
+
+</style>
+</head>
+<body>
+  <div class="kop-laporan" style="display:none;text-align:center;margin-bottom:24px">
+  <img src="assets/images/kopdkr.png" style="height:80px"><br>
+  <hr style="border:2px solid #000;margin-top:12px">
+</div>
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="home">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="kwarran">Pengurus Kwarran</a>
+            <a href="dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="mediaunduh">Media Unduh</a>
+            <a href="agenda">Agenda Kegiatan</a>
+            <a href="rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="twibbon">Twibbon</a>
+        <a href="warta">Berita</a>
+        <a href="login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+
+<div class="container">
+
+<div class="headeri">
+  <img src="assets/images/sikapdasimu.png" style="height:64px;margin-bottom:10px">
+  <h1>Sistem Rekapitulasi Data Potensi Pramuka</h1>
+  <p>Kwartir Ranting Gerakan Pramuka Punggelan</p>
+</div>
+
+
+<div class="card">
+  <input id="searchInput" type="text"
+    placeholder="Cari Nama Gudep / NPSN / Nama SAKA…"
+    style="width:100%;padding:14px;font-size:16px;border-radius:12px;border:1px solid #ccc">
+</div>
+
+<div class="card">
+  <h3>Rekap Peserta Didik</h3>
+  <div class="rekap-grid" id="pesertaBody"></div>
+</div>
+
+<div class="card">
+  <h3>Visualisasi Peserta Didik Pramuka</h3>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px">
+    
+    <div>
+      <canvas id="chartPesertaBar" height="260"></canvas>
+    </div>
+
+    <div>
+      <canvas id="chartPesertaPie" height="260"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <h3>Rekap Pembina</h3>
+  <div class="rekap-grid" id="pembinaBody"></div>
+</div>
+
+<div class="card">
+  <h3>Rekap Pramuka Garuda</h3>
+  <div class="rekap-grid" id="garudaBody"></div>
+</div>
+
+<div class="card">
+  <h3>Rekap Satuan Karya & Satuan Komunitas Pramuka</h3>
+  <div class="rekap-grid" id="sakaBody"></div>
+</div>
+
+<div class="card" id="detailGudep" style="display:none">
+  <h3>Detail Gugus Depan</h3>
+  <div class="gudep-grid" id="detailGudepBody"></div>
+</div>
+
+<div class="card" id="detailSaka" style="display:none">
+  <h3>Detail Satuan Karya & Satuan Komunitas Pramuka</h3>
+  <div class="saka-grid" id="detailSakaBody"></div>
+</div>
+
+<div class="card">
+  <h3>Media Unduh</h3>
+
+  <div class="rekap-grid">
+    <div class="rekap-card">
+      <div class="rekap-title">Data Potensi Pramuka</div>
+<div class="rekap-row">
+  <span class="rekap-label">Format</span>
+  <span class="rekap-value format-badge">
+    <i class='bx bx-spreadsheet'></i> Excel
+  </span>
+</div>
+<div class="rekap-row">
+  <span class="rekap-label">Ukuran</span>
+  <span class="rekap-value">1.2 MB</span>
+</div>
+      <a 
+        href="assets/unduh/data-potensi.xlsx"
+        download
+        class="btn-primary"
+        style="display:block;text-align:center;margin-top:12px"
+      >
+        <i class='bx bx-download'></i> Download
+      </a>
+    </div>
+    
+    <div class="rekap-card">
+      <div class="rekap-title">Data Potensi Pramuka</div>
+<div class="rekap-row">
+  <span class="rekap-label">Format</span>
+  <span class="rekap-value format-badge">
+    <i class='bx bxs-file-pdf'></i> PDF
+  </span>
+</div>
+<div class="rekap-row">
+  <span class="rekap-label">Ukuran</span>
+  <span class="rekap-value">1.2 MB</span>
+</div>
+      <a 
+        href="assets/unduh/data-potensi.xlsx"
+        download
+        class="btn-primary"
+        style="display:block;text-align:center;margin-top:12px"
+      >
+        <i class='bx bx-download'></i> Download
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="data-meta">
+  <div class="data-meta-box">
+    <i class='bx bx-data'></i>
+    <div class="data-meta-text">
+      <div class="data-meta-title">
+        Data Versi <span>v1.0</span>
+      </div>
+      <div class="data-meta-sub">
+        Terakhir diperbarui: <span>17 Agustus 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>
+        Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.
+      </p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>
+        Dindikpora Kec. Punggelan<br>
+        Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462
+      </p>
+      <p>
+        Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+          kwarrankecamatanpunggelan@gmail.com
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+          dewankerjarantingkecpunggelan@gmail.com
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li>
+          <a href="https://pramukabanjarnegara.or.id" target="_blank">
+            Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramukajateng.or.id" target="_blank">
+            Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramuka.or.id" target="_blank">
+            Kwartir Nasional <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+      <div class="socials">
+        <a href="https://facebook.com/DkrPunggelan" target="_blank">
+          <i class='bx bxl-facebook'></i>
+        </a>
+        <a href="https://x.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-twitter'></i>
+        </a>
+        <a href="https://youtube.com" target="_blank">
+          <i class='bx bxl-youtube'></i>
+        </a>
+        <a href="https://instagram.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="credits">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbz-wZs5Y2T6m2SluhdH8_XUOPm3beilTUWpLxpIcGl7gwWexs6QKKrTMThGDPQMAnU0/exec";
+let RAW=null;
+
+/* JSONP */
+function loadData(){
+  const s=document.createElement("script");
+  s.src=ENDPOINT+"?callback=handle";
+  document.body.appendChild(s);
+}
+function handle(data){
+  RAW=data;
+  renderRekap(data.gudep,data.saka);
+renderCharts(data.gudep);
+}
+
+/* ================= REKAP ================= */
+function renderRekap(gudep, saka){
+  const peserta = {};
+  const garuda = {};
+  let pbP = 0, pbW = 0;
+
+  gudep.forEach(g=>{
+    pbP += g.PembinaPutra;
+    pbW += g.PembinaPutri;
+
+    g.golonganPramuka.forEach(x=>{
+      // PESERTA DIDIK
+      if(!peserta[x.golongan]) peserta[x.golongan]={p:0,w:0};
+      peserta[x.golongan].p += x.jumlahPutra;
+      peserta[x.golongan].w += x.jumlahPutri;
+
+      // GARUDA
+      if(!garuda[x.golongan]) garuda[x.golongan]={p:0,w:0};
+      const totalGaruda = g.Garuda || 0;
+      const totalPD = x.jumlahPutra + x.jumlahPutri || 1;
+
+      garuda[x.golongan].p += Math.round((x.jumlahPutra/totalPD)*totalGaruda);
+      garuda[x.golongan].w += Math.round((x.jumlahPutri/totalPD)*totalGaruda);
+    });
+  });
+
+  /* ===== PESERTA DIDIK ===== */
+  pesertaBody.innerHTML="";
+  Object.keys(peserta).forEach(k=>{
+    const v=peserta[k];
+    pesertaBody.innerHTML+=
+      `<tr><td>${k}</td><td>${v.p}</td><td>${v.w}</td><td><b>${v.p+v.w}</b></td></tr>`;
+  });
+
+  /* ===== PEMBINA (AMAN) ===== */
+  pembinaBody.innerHTML=
+    `<tr><td>Pembina Gudep</td><td>${pbP}</td><td>${pbW}</td><td><b>${pbP+pbW}</b></td></tr>`;
+
+  /* ===== GARUDA (FIX) ===== */
+  garudaBody.innerHTML="";
+  Object.keys(garuda).forEach(k=>{
+    const v=garuda[k];
+    garudaBody.innerHTML+=
+      `<tr><td>${k}</td><td>${v.p}</td><td>${v.w}</td><td><b>${v.p+v.w}</b></td></tr>`;
+  });
+
+  /* ===== SAKA (AMAN) ===== */
+  sakaBody.innerHTML="";
+  saka.forEach(s=>{
+    sakaBody.innerHTML+=
+      `<tr><td>${s.NamaSAKA}</td><td>${s.AnggotaPutra}</td><td>${s.AnggotaPutri}</td><td><b>${s.AnggotaPutra+s.AnggotaPutri}</b></td></tr>`;
+  });
+}
+
+
+/* ================= SEARCH ================= */
+searchInput.addEventListener("input",e=>{
+  const q=e.target.value.toLowerCase().trim();
+  detailGudep.style.display="none";
+  detailSaka.style.display="none";
+
+  if(!q){renderRekap(RAW.gudep,RAW.saka);return;}
+
+  const g=RAW.gudep.filter(x=>
+    x.NamaGudep.toLowerCase().includes(q) || x.NPSN.includes(q)
+  );
+  const s=RAW.saka.filter(x=>x.NamaSAKA.toLowerCase().includes(q));
+
+  renderRekap(g,s);
+  if(g.length) showGudep(g);
+  if(s.length) showSaka(s);
+});
+
+function logoGolongan(g){
+  g = g.toLowerCase();
+  if(g.includes("siaga")) return "assets/images/siaga.png";
+  if(g.includes("penggalang")) return "assets/images/penggalang.png";
+  if(g.includes("penegak")) return "assets/images/penegak.png";
+  if(g.includes("pandega")) return "assets/images/pandega.png";
+  return "";
+}
+
+function logoSaka(nama){
+  const n = nama.toLowerCase();
+  if(n.includes("bhayangkara")) return "https://4.bp.blogspot.com/-8-3LtL8Q57Y/ULTPatd9kFI/AAAAAAAAHVk/a4FOIVXf2I8/s1600/LOGO+SAKA+BHAYANGKARA.png";
+  if(n.includes("bhakti husada") || n.includes("sbh")) return "https://pramukajateng.or.id/wp-content/uploads/2021/02/Logo-Saka-Bakti-Husada.png";
+  if(n.includes("wana bhakti") || n.includes("swb")) return "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGpxb3XuOlVGvKqqO-bKm0cUQDwP7Polr5OH8kd0M3JDT0QBFilScRg47SEj36p4XxsfbozuveeUXA_0dKTIRzQwqb6wDmYqm_qmk-Ic1Qe086NeWFr0MM6Kc39YGa0up0UddyyVMTsy8/s1600/saka-wanabakti.png";
+  if(n.includes("kalpataru")) return "https://pramuka-kwarcabju.org/assets/files/saka/logo/Saka_Kalpataru.jpg";
+  if(n.includes("taruna bumi") || n.includes("tarunabumi")) return "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVMZFbvh-ueRwLsN3X02D2F1iBQCLujfUOGwe1y9Q7t-ndKxrf0FRl634KbnnRTSQUfCdu7B8479wId4Ogb-dzwaC0H5W1tZ4jnqJMmSWQF2WyXxFcdi7GKSUsa1oR76ljVRor4kFcskw/s1600/Lambang-Saka-Taruna-Bumi.jpg";
+  if(n.includes("wira kartika")) return "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFr9a-QXeVap7O1GP6vXvELjDNlJlFooX2ZKy9C_4MfgYf8DL_fFsuQf10vSRDPcSpppaA4dCt7WyY1uUVWBXg-ziIF23FOTYb2nuLIGvNLTscKfydZvyw4jn0kPU5Rx6uMBzZ9f3v4TY/s1600/saka-wira-kartika.png";
+  if(n.includes("kencana") || n.includes("kencana")) return "https://pramuka-kwarcabju.org/assets/files/saka/logo/Saka_Kencana.png";
+  if(n.includes("sako siap")) return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrc2hZ-AAT7D2Hgpt4LI72Ia7YUQTDkfdwoQ&s";
+  if(n.includes("sako ma'arif nu") || n.includes("kencana")) return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToJ-M58wHO5YVDd8G9xxEDxJHQZdkry5k_ZQ&s";
+  if(n.includes("sako sit")) return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoRMManue2zRfp8IEtB-SEd4JHHPE43PCtGw&s";
+  return "assets/images/logodkr.png";
+}
+
+
+/* ================= DETAIL ================= */
+function showGudep(data){
+  detailGudepBody.innerHTML="";
+
+  data.forEach(g=>{
+    let golHTML="";
+
+    g.golonganPramuka.forEach(x=>{
+      golHTML+=`
+        <div class="gudep-section">
+         <div class="golongan-header">
+  <img src="${logoGolongan(x.golongan)}" class="golongan-icon">
+  <div class="golongan-title">${x.golongan}</div>
+</div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Putra</span>
+            <span class="gudep-value">${x.jumlahPutra}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Putri</span>
+            <span class="gudep-value">${x.jumlahPutri}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Regu Putra</span>
+            <span class="gudep-value">${x.namaReguPutra.join(", ") || "-"}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Regu Putri</span>
+            <span class="gudep-value">${x.namaReguPutri.join(", ") || "-"}</span>
+          </div>
+        </div>
+      `;
+    });
+
+    detailGudepBody.innerHTML+=`
+      <div class="gudep-card">
+        <div class="gudep-header">
+          <div class="gudep-title">${g.NamaGudep}</div>
+          <div class="gudep-sub">
+            NPSN: ${g.NPSN} • ${g.Alamat}
+          </div>
+        </div>
+
+        <div class="gudep-section">
+          <div class="gudep-row">
+            <span class="gudep-label">Kamabigus</span>
+            <span class="gudep-value">${g.Kamabigus}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Pramuka Garuda</span>
+            <span class="gudep-value">${g.Garuda}</span>
+          </div>
+        </div>
+
+        ${golHTML}
+
+        <div class="gudep-section">
+          <h4>Pembina</h4>
+          <span class="gudep-badge">Putra: ${g.PembinaPutra}</span>
+          <span class="gudep-badge">Putri: ${g.PembinaPutri}</span>
+
+          <div class="gudep-row" style="margin-top:10px">
+            <span class="gudep-label">Koordinator</span>
+            <span class="gudep-value">${g.KoordinatorPembina}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Kontak</span>
+            <span class="gudep-value">${g.KontakPembina}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  detailGudep.style.display="block";
+}
+
+function showSaka(data){
+  detailSakaBody.innerHTML = "";
+
+  data.forEach(s => {
+    detailSakaBody.innerHTML += `
+      <div class="gudep-card">
+
+        <!-- HEADER (PERSIS GUDEP) -->
+        <div class="gudep-header">
+          <div style="display:flex;align-items:center;gap:12px">
+            <img src="${logoSaka(s.NamaSAKA)}" class="golongan-icon">
+            <div>
+              <div class="gudep-title">${s.NamaSAKA}</div>
+              <div class="gudep-sub">
+                Sekretariat: ${s.Sekretariat || "-"}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFO UMUM -->
+        <div class="gudep-section">
+          <div class="gudep-row">
+            <span class="gudep-label">Mabisaka</span>
+            <span class="gudep-value">${s.NamaMabisaka || "-"}</span>
+          </div>
+        </div>
+
+        <!-- ANGGOTA -->
+        <div class="gudep-section">
+          <h4>Keanggotaan</h4>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Anggota Putra</span>
+            <span class="gudep-value">${s.AnggotaPutra}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Anggota Putri</span>
+            <span class="gudep-value">${s.AnggotaPutri}</span>
+          </div>
+        </div>
+
+        <!-- PAMONG -->
+        <div class="gudep-section">
+          <h4>Pamong</h4>
+
+          <span class="gudep-badge">Putra: ${s.PamongPutra}</span>
+          <span class="gudep-badge">Putri: ${s.PamongPutri}</span>
+
+          <div class="gudep-row" style="margin-top:10px">
+            <span class="gudep-label">Koordinator Pamong</span>
+            <span class="gudep-value">${s.KoordinatorPamong || "-"}</span>
+          </div>
+
+          <div class="gudep-row">
+            <span class="gudep-label">Kontak</span>
+            <span class="gudep-value">${s.KontakPamong || "-"}</span>
+          </div>
+        </div>
+
+      </div>
+    `;
+  });
+
+  detailSaka.style.display = "block";
+}
+
+loadData();
+
+function renderRekap(gudep, saka){
+  // ===== PESERTA DIDIK =====
+  pesertaBody.innerHTML = "";
+  const peserta = {};
+
+  gudep.forEach(g => {
+    g.golonganPramuka.forEach(x => {
+      if(!peserta[x.golongan]) peserta[x.golongan] = {p:0, w:0};
+      peserta[x.golongan].p += x.jumlahPutra;
+      peserta[x.golongan].w += x.jumlahPutri;
+    });
+  });
+
+  Object.keys(peserta).forEach(k=>{
+    const v = peserta[k];
+    pesertaBody.innerHTML += `
+      <div class="rekap-card">
+        <div class="rekap-title">${k}</div>
+        <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${v.p}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${v.w}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${v.p+v.w}</span></div>
+      </div>
+    `;
+  });
+
+  // ===== PEMBINA =====
+  pembinaBody.innerHTML = "";
+  let pbP = 0, pbW = 0;
+  gudep.forEach(g => { pbP += g.PembinaPutra; pbW += g.PembinaPutri; });
+
+  pembinaBody.innerHTML += `
+    <div class="rekap-card">
+      <div class="rekap-title">Pembina Gudep</div>
+      <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${pbP}</span></div>
+      <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${pbW}</span></div>
+      <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${pbP+pbW}</span></div>
+    </div>
+  `;
+
+  // ===== GARUDA =====
+  garudaBody.innerHTML = "";
+  const garuda = {};
+  gudep.forEach(g => {
+    g.golonganPramuka.forEach(x=>{
+      if(!garuda[x.golongan]) garuda[x.golongan] = {p:0, w:0};
+      const totalGaruda = g.Garuda || 0;
+      const totalPD = x.jumlahPutra + x.jumlahPutri || 1;
+      garuda[x.golongan].p += Math.round((x.jumlahPutra/totalPD)*totalGaruda);
+      garuda[x.golongan].w += Math.round((x.jumlahPutri/totalPD)*totalGaruda);
+    });
+  });
+
+  Object.keys(garuda).forEach(k=>{
+    const v = garuda[k];
+    garudaBody.innerHTML += `
+      <div class="rekap-card">
+        <div class="rekap-title">${k}</div>
+        <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${v.p}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${v.w}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${v.p+v.w}</span></div>
+      </div>
+    `;
+  });
+
+  // ===== SAKA =====
+  sakaBody.innerHTML = "";
+  saka.forEach(s => {
+    const total = s.AnggotaPutra + s.AnggotaPutri;
+    sakaBody.innerHTML += `
+      <div class="rekap-card">
+        <div class="rekap-title">${s.NamaSAKA}</div>
+        <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${s.AnggotaPutra}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${s.AnggotaPutri}</span></div>
+        <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${total}</span></div>
+      </div>
+    `;
+  });
+}
+
+</script>
+
+<script>
+let barChart = null;
+let pieChart = null;
+
+const warnaGolongan = {
+  "Siaga":"#16a34a",       // Hijau
+  "Penggalang":"#dc2626",  // Merah
+  "Penegak":"#facc15",     // Kuning
+  "Pandega":"#7c2d12"      // Coklat Tua
+};
+
+function renderCharts(gudep){
+  const peserta = {};
+
+  gudep.forEach(g=>{
+    g.golonganPramuka.forEach(x=>{
+      if(!peserta[x.golongan]) peserta[x.golongan] = 0;
+      peserta[x.golongan] += x.jumlahPutra + x.jumlahPutri;
+    });
+  });
+
+  const labels = Object.keys(peserta);
+  const values = Object.values(peserta);
+  const colors = labels.map(l => warnaGolongan[l] || "#9ca3af");
+
+  /* ===== BAR CHART ===== */
+  if(barChart) barChart.destroy();
+  barChart = new Chart(document.getElementById("chartPesertaBar"),{
+    type:"bar",
+    data:{
+      labels:labels,
+      datasets:[{
+        label:"Jumlah Peserta Didik",
+        data:values,
+        backgroundColor:colors
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{display:false}
+      },
+      scales:{
+        y:{beginAtZero:true}
+      }
+    }
+  });
+
+  /* ===== PIE CHART ===== */
+  if(pieChart) pieChart.destroy();
+  pieChart = new Chart(document.getElementById("chartPesertaPie"),{
+    type:"pie",
+    data:{
+      labels:labels,
+      datasets:[{
+        data:values,
+        backgroundColor:colors
+      }]
+    },
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{position:"bottom"}
+      }
+    }
+  });
+}
+</script>
+
+<script>
+function downloadPDF(){
+  if(!RAW){
+    alert("Data belum siap");
+    return;
+  }
+
+  const q = searchInput.value.toLowerCase().trim();
+  let gudep = RAW.gudep;
+  let saka  = RAW.saka;
+
+  if(q){
+    gudep = RAW.gudep.filter(x =>
+      x.NamaGudep.toLowerCase().includes(q) ||
+      x.NPSN.includes(q)
+    );
+    saka = RAW.saka.filter(x =>
+      x.NamaSAKA.toLowerCase().includes(q)
+    );
+  }
+
+  renderRekap(gudep, saka);
+  if(gudep.length) showGudep(gudep);
+  if(saka.length) showSaka(saka);
+
+  setTimeout(()=>{
+    window.print();
+  },500);
+}
+</script>
+
+</body>
+</html>

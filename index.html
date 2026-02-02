@@ -1,0 +1,1916 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pramuka Punggelan - Satyaku Kudarmakan, Darmaku Kubaktikan</title>
+  <link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+  <!-- Font Quantico -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --wosm-purple: #5b2c83;
+      --wosm-purple-light: #6f3aa6;
+      --bg: #faf9ff;
+      --muted: #6b7280;
+      --radius: 12px;
+      --max-w: 1200px;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:#111;line-height:1.5}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:50px;width:50px;object-fit:contain}
+    .brand h1{margin:0;font-size:20px;color:var(--wosm-purple)}
+    nav{display:flex;align-items:center;gap:20px}
+    nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a:hover{color:var(--wosm-purple)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+    .dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+    .dropdown:hover .dropdown-menu{display:block}
+
+    /* Burger Menu */
+    .menu-toggle{display:none;font-size:26px;color:var(--wosm-purple);cursor:pointer}
+    @media(max-width:850px){
+  nav{
+    position:absolute;
+    top:70px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:flex-start;   /* ⬅️ PAKSA RATA KIRI */
+    gap:0;
+    background:#fff;
+    display:none;
+    padding:12px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+  }
+
+  nav.active{
+    display:flex;
+  }
+
+  nav a{
+    padding:12px 0;
+    width:100%;
+    text-align:left;          /* ⬅️ TEKS RATA KIRI */
+  }
+
+  .dropdown{
+    width:100%;
+  }
+
+  .dropdown > a{
+    display:flex;
+    justify-content:space-between; /* teks kiri, icon panah kanan */
+    align-items:center;
+    width:100%;
+  }
+
+  .dropdown-menu{
+    position:static;
+    width:100%;
+    box-shadow:none;
+    padding-left:12px;        /* ⬅️ INDENT SUBMENU */
+    margin-top:6px;
+  }
+
+  .dropdown-menu a{
+    text-align:left;
+    padding:10px 0;
+  }
+
+  .dropdown:hover .dropdown-menu{
+    display:none;
+  }
+
+  .dropdown.open .dropdown-menu{
+    display:block;
+  }
+
+  .btn-purple{
+    text-align:left;          /* LOGIN juga kiri */
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+}
+
+
+    /* Hero Slider */
+    .hero{position:relative;height:420px;overflow:hidden}
+    .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}
+    .slide.active{opacity:1}
+    .slide img{width:100%;height:100%;object-fit:cover}
+    .overlay{position:absolute;inset:0;background:rgba(91,44,131,.4)}
+    .caption {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #fff;
+  max-width: 100%;
+  background: #5b2c83; /* background hitam transparan */
+  padding: 12px 16px; /* beri ruang di sekitar teks */
+  border-radius: 8px; /* agar sudutnya membulat */
+}
+    .caption h2{margin:0 0 6px;font-size:26px}
+    .caption p{margin:0;font-size:15px;color:rgba(255,255,255,.9)}
+    .dots{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}
+    .dot.active{background:#fff}
+
+    /* Content */
+    main{max-width:var(--max-w);margin:auto;padding:20px}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-top:20px}
+    .card{background:#fff;padding:16px;border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.04);transition:.3s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    h3{margin-top:0;color:var(--wosm-purple)}
+
+    /* Agenda */
+    .agenda-list{display:flex;flex-direction:column;gap:12px}
+    .agenda-item{display:flex;gap:12px;background:#fff;border-radius:8px;padding:8px;text-decoration:none;color:inherit;transition:.3s;cursor:pointer}
+    .agenda-item:hover{background:rgba(91,44,131,.08);transform:translateY(-2px)}
+    .agenda-item .when{min-width:80px;text-align:center;background:linear-gradient(180deg,var(--wosm-purple),var(--wosm-purple-light));color:#fff;border-radius:8px;padding:6px 8px}
+    .agenda-item h4{margin:0 0 4px;font-size:16px}
+    .agenda-item p{margin:0;font-size:14px;color:var(--muted)}
+
+.blog-preview{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+}
+
+.post{
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+  transition:.3s;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+}
+
+.post:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+.post img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  position:relative;
+}
+
+.label-kategori{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:var(--primary);
+  color:#fff;
+  font-size:12px;
+  padding:2px 6px;
+  border-radius:4px;
+  z-index:10;
+}
+
+.p-body{
+  padding:10px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.p-body h4{
+  margin:0 0 6px;
+  font-size:16px;
+  color:#111;
+  flex-shrink:0;
+}
+
+.p-body p{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+  flex-grow:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+    /* Modal */
+    .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);overflow:auto}
+    .modal-content{background:#fff;margin:60px auto;padding:20px;border-radius:12px;max-width:500px;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+    .modal-content img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;margin-bottom:12px}
+    .close{position:absolute;top:10px;right:15px;font-size:24px;cursor:pointer;color:#333}
+
+    /* Footer */
+    footer{background:var(--wosm-purple);color:#fff;margin-top:40px;padding:40px 20px 20px;font-size:14px}
+    footer h4{margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase}
+    footer p{margin:0 0 10px;line-height:1.6}
+    footer a{color:#fff;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    .footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+    .socials{display:flex;gap:10px;margin-top:10px}
+    .socials a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;background:rgba(255,255,255,.15);font-size:18px;transition:.3s}
+    .socials a:hover{background:#fff;color:var(--wosm-purple)}
+    footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
+    .credits{text-align:center;font-size:13px;color:rgba(255,255,255,.8)}
+    .credits-bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.credits-bar a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.credits-bar a:hover {
+  text-decoration: underline;
+}
+
+.credits-right span {
+  margin: 0 6px;
+  opacity: .6;
+}
+
+/* Responsif HP */
+@media (max-width: 600px) {
+  .credits-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+    /* Responsive */
+    @media(max-width:800px){
+      .grid{grid-template-columns:1fr}
+      .caption{max-width:90%;font-size:14px}
+    }
+    .btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+/* Popup Donasi */
+.donasi-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:4000;
+}
+
+.donasi-box{
+  background:#fff;
+  width:90%;
+  max-width:420px;
+  padding:22px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+  animation:fadeUp .4s ease;
+}
+
+.donasi-box h2{
+  margin-top:0;
+  color:var(--wosm-purple);
+  font-size:22px;
+}
+
+.donasi-box p{
+  font-size:14px;
+  color:#555;
+}
+
+.donasi-box img{
+  width:220px;
+  margin:16px auto;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+
+.donasi-box small{
+  display:block;
+  color:#6b7280;
+  margin-bottom:14px;
+}
+
+.donasi-btn{
+  display:inline-block;
+  background:var(--wosm-purple);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.donasi-btn:hover{
+  background:var(--wosm-purple-light);
+}
+
+.donasi-note{
+  margin-top:14px;
+  font-size:13px;
+  color:#6b7280;
+}
+
+.donasi-close{
+  position:absolute;
+  right:16px;
+  top:12px;
+  font-size:26px;
+  cursor:pointer;
+  color:#666;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+/* ===== TIM PENGEMBANG WEBSITE ===== */
+/* ===== TIM PENGEMBANG WEBSITE ===== */
+.dev-section{
+  max-width:1200px;
+  margin:40px auto;
+  padding:24px 20px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.06);
+  text-align:center;
+}
+
+.dev-section h3{
+  color:var(--wosm-purple);
+  margin-bottom:8px;
+}
+
+.dev-desc{
+  font-size:13px;
+  color:#6b7280;
+  max-width:720px;
+  margin:0 auto 24px;
+}
+
+.dev-slider-wrapper{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.dev-slider{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  padding:6px 4px 14px;
+  scroll-snap-type:x mandatory;
+}
+
+.dev-slider::-webkit-scrollbar{
+  display:none;
+}
+
+.dev-card{
+  scroll-snap-align:start;
+  transition:transform .35s ease, box-shadow .35s ease;
+  min-width:260px;
+  background:#faf9ff;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+  border:1.5px solid rgba(91,44,131,.25);
+  cursor:pointer;
+}
+
+.dev-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 26px rgba(91,44,131,.18);
+}
+
+.dev-card img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px;
+  border:3px solid var(--wosm-purple);
+}
+
+.dev-card h4{
+  margin:6px 0 2px;
+  font-size:15px;
+}
+
+.dev-card span{
+  font-size:12px;
+  color:var(--wosm-purple);
+  font-weight:600;
+}
+
+.dev-nav{
+  background: var(--wosm-purple);
+  border: none;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.dev-nav i{
+  font-size: 22px;
+  line-height: 1;
+}
+
+.dev-nav:hover{
+  background:var(--wosm-purple-light);
+}
+
+.dev-nav.prev{margin-right:10px}
+.dev-nav.next{margin-left:10px}
+
+@media(max-width:600px){
+  .dev-slider-wrapper{
+    padding:0 4px;
+  }
+
+  .dev-card{
+    min-width:85%; 
+    flex-shrink:0;
+  }
+
+  .dev-nav{
+    display:none; 
+  }
+}  </style>
+
+  <!-- Accessibility Button -->
+<div id="accessibility-btn">
+  <i class='bx bx-universal-access'></i>
+</div>
+<!-- Floating Garuda -->
+<a href="prada" id="floating-garuda" title="Data Pramuka Garuda">
+  <img src="assets/images/garuda.png" alt="Pramuka Garuda">
+</a>
+
+<!-- Accessibility Panel -->
+<div id="accessibility-panel">
+  <h4>Accessibility Tools</h4>
+  <button onclick="changeFontSize(1)"><i class='bx bx-zoom-in'></i> Increase Text</button>
+  <button onclick="changeFontSize(-1)"><i class='bx bx-zoom-out'></i> Decrease Text</button>
+  <button onclick="toggleClass('grayscale')"><i class='bx bx-droplet'></i> Grayscale</button>
+  <button onclick="toggleClass('high-contrast')"><i class='bx bx-adjust'></i> High Contrast</button>
+  <button onclick="toggleClass('negative-contrast')"><i class='bx bx-moon'></i> Negative Contrast</button>
+  <button onclick="toggleClass('light-bg')"><i class='bx bx-sun'></i> Light Background</button>
+  <button onclick="toggleClass('underline-links')"><i class='bx bx-link'></i> Links Underline</button>
+  <button onclick="toggleClass('readable-font')"><i class='bx bx-font'></i> Readable Font</button>
+  <button onclick="resetAccessibility()"><i class='bx bx-reset'></i> Reset</button>
+</div>
+
+<style>
+  #accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--wosm-purple);
+    color: #fff;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transition: .3s;
+  }
+  #accessibility-btn:hover {
+    background: var(--wosm-purple-light);
+  }
+  #accessibility-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    padding: 16px;
+    width: 260px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3000;
+  }
+  #accessibility-panel h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--wosm-purple);
+  }
+  #accessibility-panel button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f4f4f4;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s;
+  }
+  #accessibility-panel button:hover {
+    background: var(--wosm-purple);
+    color: #fff;
+  }
+
+  /* ===== FLOATING GARUDA ===== */
+#floating-garuda{
+  position: fixed;
+  bottom: 86px;          /* DI ATAS tombol aksesibilitas */
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  z-index: 3001;         /* di atas accessibility */
+  transition: .3s;
+}
+
+#floating-garuda img{
+  width: 34px;
+  height: auto;
+  object-fit: contain;
+}
+
+#floating-garuda:hover{
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+#floating-garuda:hover img{
+  filter: drop-shadow(0 2px 6px rgba(91,44,131,.5));
+}
+
+  /* Effects */
+  body.grayscale { filter: grayscale(100%) !important; }
+  body.high-contrast { background: #000 !important; color: #fff !important; }
+  body.negative-contrast { background: #000 !important; color: yellow !important; }
+  body.light-bg { background: #fff !important; color: #000 !important; }
+  body.underline-links a { text-decoration: underline !important; }
+  body.readable-font { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+
+  /* ===== COOKIE CONSENT ===== */
+.cookie-wrap{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:5000;
+  width:100%;
+  max-width:100%;
+  padding:0 16px;
+  display:none;
+}
+
+.cookie-box{
+  background:linear-gradient(135deg,#ffffff,#f6f1ff);
+  max-width:460px;
+  width:100%;
+  margin:auto;
+  border-radius:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+  padding:18px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  animation:cookieUp .6s ease;
+}
+
+.cookie-icon{
+  font-size:32px;
+  background:linear-gradient(
+    135deg,
+    var(--wosm-purple),
+    var(--wosm-purple-light)
+  );
+  color:#fff;
+  width:52px;
+  height:52px;
+  min-width:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  box-shadow:0 4px 14px rgba(91,44,131,.4);
+}
+
+.cookie-content{
+  flex:1;
+}
+
+.cookie-content h4{
+  margin:0 0 6px;
+  font-size:15px;
+  color:var(--wosm-purple);
+}
+
+.cookie-content p{
+  margin:0 0 14px;
+  font-size:13px;
+  color:#555;
+  line-height:1.6;
+}
+
+.cookie-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.cookie-actions button{
+  flex:1;
+  min-width:120px;
+  border:none;
+  border-radius:10px;
+  padding:9px 0;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+  font-size:13px;
+}
+
+.btn-accept{
+  background:var(--wosm-purple);
+  color:#fff;
+}
+
+.btn-accept:hover{
+  background:var(--wosm-purple-light);
+}
+
+.btn-reject{
+  background:#ececec;
+  color:#333;
+}
+
+.btn-reject:hover{
+  background:#ddd;
+}
+
+/* ===== ANIMASI ===== */
+@keyframes cookieUp{
+  from{
+    opacity:0;
+    transform:translateY(30px) scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* ===== RESPONSIVE HP KECIL ===== */
+@media(max-width:480px){
+  .cookie-box{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:16px;
+  }
+
+  .cookie-icon{
+    margin-bottom:8px;
+  }
+
+  .cookie-actions{
+    width:100%;
+  }
+
+  .cookie-actions button{
+    width:100%;
+  }
+}
+
+/* EXTRA SMALL (≤360px) */
+@media(max-width:360px){
+  .cookie-content p{
+    font-size:12px;
+  }
+}
+.anggota-note{
+  max-width:720px;
+  margin:0 auto 22px;
+  font-size:13px;
+  color:#6b7280;
+  line-height:1.6;
+}
+.ig-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+}
+
+.ig-post{
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  background:#000;
+}
+
+.ig-post img{
+  width:100%;
+  height:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  transition:.4s;
+}
+
+.ig-post:hover img{
+  transform:scale(1.08);
+  opacity:.85;
+}
+
+.ig-post::after{
+  content:"";
+  font-family:boxicons;
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  color:#fff;
+  opacity:0;
+  transition:.3s;
+}
+
+.ig-post:hover::after{
+  opacity:1;
+}
+
+.badge-unavailable{
+  display:inline-block;
+  background:#fee2e2;
+  color:#991b1b;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  margin-left:8px;
+  font-weight:600;
+}
+
+.actions .disabled{
+  background:#e5e7eb !important;
+  color:#9ca3af !important;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+.menu-logo{
+  display:flex;
+  align-items:center;
+  padding:8px;
+}
+
+.menu-logo img{
+  height:32px;
+  width:auto;
+  object-fit:contain;
+}
+
+</style>
+
+<!-- Font untuk Readable -->
+<link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet">
+
+<script>
+  // Toggle Panel
+  document.getElementById("accessibility-btn").addEventListener("click", () => {
+    const panel = document.getElementById("accessibility-panel");
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Font Size
+  let fontSize = 100;
+  function changeFontSize(change) {
+    fontSize += change * 10;
+    document.body.style.fontSize = fontSize + "%";
+  }
+
+  // Toggle Class
+  function toggleClass(cls) {
+    document.body.classList.toggle(cls);
+  }
+
+  // Reset
+  function resetAccessibility() {
+    fontSize = 100;
+    document.body.style.fontSize = "100%";
+    document.body.className = "";
+  }
+</script>
+
+</head>
+<body>
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="#beranda">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="kwarran">Pengurus Kwarran</a>
+            <a href="dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="mediaunduh">Media Unduh</a>
+            <a href="agenda">Agenda Kegiatan</a>
+            <a href="rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="twibbon">Twibbon</a>
+        <a href="warta">Berita</a>
+        <a href="login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Running Text Berita -->
+<div class="running-news">
+  <marquee behavior="scroll" direction="left" scrollamount="6" id="runningText">
+    Memuat berita terbaru...
+  </marquee>
+</div>
+
+<style>
+.running-news{
+  background: var(--wosm-purple);
+  color: #fff;
+  height: 40px;                 /* tinggi tetap */
+  display: flex;
+  align-items: center;          /* CENTER ATAS–BAWAH */
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.running-news marquee{
+  line-height: 40px;            /* SAMAKAN DENGAN HEIGHT */
+  padding: 0;
+}
+
+.running-news a{
+  color: #fff;
+  margin-right: 40px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.running-news a:hover{
+  text-decoration: underline;
+}
+.post img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+/* ===== JUMLAH ANGGOTA ===== */
+/* ===== DATA ANGGOTA ===== */
+.anggota-section{
+  max-width:1200px;
+  margin:30px auto;
+  padding:20px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.06);
+  text-align:center;
+}
+
+.anggota-section h3{
+  color:var(--wosm-purple);
+  margin-bottom:20px;
+  line-height:1.4;
+}
+
+.anggota-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:18px;
+}
+
+.anggota-card{
+  background:#faf9ff;
+  border-radius:14px;
+  padding:18px 12px;
+  transition:.3s;
+}
+
+.anggota-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 26px rgba(91,44,131,.18);
+}
+
+.anggota-card img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  margin-bottom:10px;
+}
+
+.counter{
+  display:block;
+  font-size:30px;
+  font-weight:700;
+  color:var(--wosm-purple);
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.anggota-card p{
+  margin:6px 0 0;
+  font-size:14px;
+  color:#555;
+}
+.ig-iframe-wrapper{
+  width:100%;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);
+}
+
+.ig-iframe-wrapper iframe{
+  width:100%;
+  height:480px;
+  border:0;
+}
+@media(max-width:600px){
+  .ig-iframe-wrapper iframe{
+    height:420px;
+  }
+}
+/* ===== SECTION GUGUS DEPAN ===== */
+.gudep-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+
+.gudep-item{
+  background:#fff;
+  border-left:6px solid var(--wosm-purple);
+  border-radius:10px;
+  padding:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  transition:.3s;
+}
+
+.gudep-item:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 22px rgba(0,0,0,.12);
+}
+
+.gudep-item h4{
+  margin:0 0 6px;
+  font-size:16px;
+  color:#222;
+}
+
+.gudep-item p{
+  font-size:13px;
+  color:#666;
+  margin:0 0 8px;
+}
+
+.gudep-item a{
+  font-size:13px;
+  font-weight:600;
+  color:var(--wosm-purple);
+  text-decoration:none;
+}
+/* ===== GUGUS DEPAN DENGAN THUMBNAIL ===== */
+.gudep-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:18px;
+}
+
+.gudep-item{
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:.3s;
+  display:flex;
+  flex-direction:column;
+}
+
+.gudep-item:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 28px rgba(0,0,0,.15);
+}
+
+.gudep-thumb{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  background:#eee;
+}
+
+.gudep-body{
+  padding:14px;
+}
+
+.gudep-body h4{
+  margin:0 0 6px;
+  font-size:16px;
+  color:#222;
+  line-height:1.4;
+}
+
+.gudep-body p{
+  font-size:13px;
+  color:#666;
+  margin:0 0 10px;
+}
+
+.gudep-body a{
+  font-size:13px;
+  font-weight:600;
+  color:var(--wosm-purple);
+  text-decoration:none;
+}
+
+/* ===== STATISTIK PENGUNJUNG ===== */
+.visitor-section{
+  max-width:1200px;
+  margin:30px auto;
+  padding:24px 20px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 22px rgba(0,0,0,.06);
+  text-align:center;
+}
+
+.visitor-section h3{
+  margin:0 0 20px;
+  color:var(--wosm-purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.visitor-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+}
+
+.visitor-card{
+  background:#faf9ff;
+  border-radius:14px;
+  padding:18px 12px;
+  border:1.5px solid rgba(91,44,131,.25);
+  transition:.3s;
+}
+
+.visitor-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 26px rgba(91,44,131,.18);
+}
+
+.visitor-card i{
+  font-size:28px;
+  color:var(--wosm-purple);
+  margin-bottom:6px;
+}
+
+.visitor-card span{
+  display:block;
+  font-size:26px;
+  font-weight:700;
+  color:var(--wosm-purple);
+  max-width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+
+.visitor-card p{
+  margin:4px 0 0;
+  font-size:13px;
+  color:#555;
+}
+
+.visitor-card.live{
+  background:linear-gradient(135deg,var(--wosm-purple),var(--wosm-purple-light));
+}
+
+.visitor-card.live i,
+.visitor-card.live span,
+.visitor-card.live p{
+  color:#fff;
+}
+
+.visitor-card.total{
+  border:2px solid var(--wosm-purple);
+}
+
+@media(max-width:480px){
+  .visitor-card span{
+    font-size:20px;
+  }
+}
+
+</style>
+
+  <!-- Hero -->
+  <section id="beranda" class="hero">
+    <div class="slide active">
+      <img src="assets/images/DSC00099.JPG" alt="Slide 1"><div class="overlay"></div>
+      <div class="caption"><h2>Selamat Datang</h2><p>Di Laman Resmi Pramuka Punggelan</p></div>
+    </div>
+    <div class="slide">
+      <img src="assets/images/DSC00054.JPG" alt="Slide 2"><div class="overlay"></div>
+      <div class="caption"><h2>Agenda & Kegiatan</h2><p>Temukan agenda, dan publikasi kegiatan pramuka terbaru.</p></div>
+    </div>
+    <div class="slide">
+      <img src="assets/images/DSC00145.JPG" alt="Slide 3"><div class="overlay"></div>
+      <div class="caption"><h2>Berita Pramuka</h2><p>Dapatkan informasi seputar kegiatan pramuka di Kwarran Punggelan.</p></div>
+    </div>
+    <div class="dots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+    </div>
+  </section>
+
+  <!-- Poster Sambutan Ketua Kwarnas -->
+<section style="max-width:1200px;margin:10px auto 5px;padding:8px;">
+  <img src="assets/images/poster.png" 
+       alt="Poster Sambutan Ketua Kwarran" 
+       style="width:100%; height:auto; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);" />
+</section>
+
+ <main>
+<!-- ===== DATA ANGGOTA PRAMUKA ===== -->
+<section class="anggota-section">
+  <h3>
+  Jumlah Anggota Pramuka<br>
+  Kwarran Punggelan
+</h3>
+
+<p class="anggota-note">
+  Data berikut merupakan <strong>anggota pramuka tercatat resmi</strong>
+  di Kwartir Ranting Punggelan dan dapat terus bertambah sesuai
+  pembaruan data dari gugus depan.
+</p>
+
+  <div class="anggota-grid">
+    <div class="anggota-card">
+      <img src="assets/images/siaga.png" alt="Pramuka Siaga">
+      <span class="counter" data-target="8256">0</span>
+      <p>Pramuka Siaga</p>
+    </div>
+
+    <div class="anggota-card">
+      <img src="assets/images/penggalang.png" alt="Pramuka Penggalang">
+      <span class="counter" data-target="3005">0</span>
+      <p>Pramuka Penggalang</p>
+    </div>
+
+    <div class="anggota-card">
+      <img src="assets/images/penegak.png" alt="Pramuka Penegak">
+      <span class="counter" data-target="1479">0</span>
+      <p>Pramuka Penegak</p>
+    </div>
+
+    <div class="anggota-card">
+      <img src="assets/images/pandega.png" alt="Pramuka Pandega">
+      <span class="counter" data-target="Null">0</span>
+      <p>Pramuka Pandega</p>
+    </div>
+
+    <div class="anggota-card">
+  <img src="assets/images/garuda.png" alt="Pramuka Garuda">
+  <span class="counter" data-target="1676">0</span>
+  <p>Pramuka Garuda</p>
+  <p class="anggota-note" style="font-size:12px; margin-top:6px;">
+  </p>
+</div>
+  </div>
+</section>
+
+<section id="berita" style="margin-top:20px">
+<div class="card">
+    <h3>Berita & Blog Terbaru</h3>
+    <div id="posts" class="blog-preview">
+      <p style="color:#6b7280">Memuat berita terbaru...</p>
+    </div>
+        <div style="margin-top:12px; text-align:right;">
+      <a href="warta">
+         <strong>Baca semua berita →</strong> 
+      </a>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ===== BERITA GUGUS DEPAN ===== -->
+<!--<section id="gudep-section" style="margin-top:30px">
+  <div class="card" style="background:#f7f8fc">
+    <h3>Info Gugus Depan</h3>
+    <p style="font-size:13px;color:#666;margin-top:-6px">
+      Update kegiatan dan informasi terbaru dari Gugus Depan di wilayah Kwartir Ranting Punggelan
+    </p>
+
+    <div id="gudep-posts" class="gudep-grid">
+      <p style="color:#777">Memuat data Gugus Depan...</p>
+    </div>
+
+    <div style="margin-top:14px;text-align:right">
+      <a href="news.html?category=gugus depan">
+        Lihat semua info Gugus Depan →
+      </a>
+    </div>
+  </div>
+</section> -->
+
+<section id="instagram-feed" style="margin-top:20px">
+    <div class="card">
+    <h3 style="display:flex;align-items:center;gap:8px">
+      <i class='bx bxl-instagram' style="color:#e1306c"></i>
+      Instagram Terbaru @kwarran.punggelan
+    </h3>
+
+    <div class="ig-iframe-wrapper">
+      <iframe
+        src="https://www.instagram.com/kwarran.punggelan/embed"
+        allowtransparency="true"
+        scrolling="no"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="https://instagram.com/kwarran.punggelan" target="_blank"
+         style="color:var(--wosm-purple);font-weight:600;text-decoration:none">
+        Kunjungi Instagram →
+      </a>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="display:flex;align-items:center;gap:8px">
+      <i class='bx bxl-instagram' style="color:#e1306c"></i>
+      Instagram Terbaru @dkr__punggelan
+    </h3>
+
+    <div class="ig-iframe-wrapper">
+      <iframe
+        src="https://www.instagram.com/dkr__punggelan/embed"
+        allowtransparency="true"
+        scrolling="no"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="https://instagram.com/dkr__punggelan" target="_blank"
+         style="color:var(--wosm-purple);font-weight:600;text-decoration:none">
+        Kunjungi Instagram →
+      </a>
+    </div>
+  </div>
+</section>
+
+    <section class="video-section" style="
+  max-width:1200px;
+  margin:20px auto;
+  padding:20px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(0,0,0,.04)
+">
+  <h3 style="color:var(--wosm-purple);margin-bottom:8px">
+    Dokumentasi & Video Kegiatan Pramuka
+  </h3>
+
+  <p style="font-size:13px;color:#6b7280;margin:0 0 12px">
+    Sumber video dari kanal YouTube resmi
+    <strong>SD Negeri 1 Jembangan</strong>
+  </p>
+
+  <div style="
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+    border-radius:12px
+  ">
+    <iframe
+      src="https://www.youtube.com/embed/CZ01ecVSj04"
+      title="Dokumentasi Kegiatan Pramuka SD Negeri 1 Jembangan"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        border:0;
+      ">
+    </iframe>
+  </div>
+
+  <!-- CREDIT -->
+  <div style="
+    margin-top:10px;
+    font-size:12px;
+    color:#6b7280;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  ">
+    <i class='bx bxl-youtube' style="color:#ff0000;font-size:16px"></i>
+    Kredit video:
+    <a href="https://www.youtube.com/@SDN1Jembangan"
+       target="_blank"
+       style="color:var(--wosm-purple);text-decoration:none;font-weight:600">
+       SD Negeri 1 Jembangan
+    </a>
+  </div>
+</section>
+
+    <!-- Peta Kecamatan Punggelan -->
+    <section id="peta" style="margin-top:20px">
+      <div class="card">
+        <h3>Peta Kecamatan Punggelan / Wilayah Kwarran Punggelan</h3>
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63348.263905353726!2d109.5545861!3d-7.4035797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655cdd0b0c7f69%3A0x3027a76e352b9b0!2sPunggelan%2C%20Banjarnegara%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1695806600000!5m2!1sid!2sid" 
+            width="600" 
+            height="450" 
+            style="border:0;position:absolute;top:0;left:0;width:100%;height:100%;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+  <!-- Modal Detail Event -->
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEvent()">&times;</span>
+      <img id="eventImg" src="" alt="Poster Agenda">
+      <h3 id="eventTitle"></h3>
+      <p><strong>Waktu:</strong> <span id="eventTime"></span></p>
+      <p><strong>Tempat:</strong> <span id="eventLocation"></span></p>
+      <p id="eventDescription"></p>
+      <a id="eventLink" target="_blank"
+         style="display:inline-block;margin-top:12px;padding:10px 14px;background:var(--wosm-purple);color:#fff;border-radius:6px;text-decoration:none">
+         Tambah ke Kalender
+      </a>
+    </div>
+  </div>
+
+<!-- Link Download Aplikasi -->
+<section style="max-width:1200px;margin:20px auto;padding:20px;background:#fff;
+                border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.04);text-align:center">
+  <h3 style="color:var(--wosm-purple);margin-bottom:12px">Download Aplikasi Ayo Pramuka</h3>
+  
+  <img src="assets/images/ayopramuka.png" alt="Logo Ayo Pramuka" 
+       style="width:90px;height:90px;object-fit:contain;margin-bottom:14px">
+  
+  <p style="margin-bottom:16px;color:#6b7280">
+    Dapatkan aplikasi resmi Ayo Pramuka untuk mengikuti informasi dan kegiatan kepramukaan langsung dari ponselmu.
+  </p>
+  
+  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:14px">
+    <!-- Google Play -->
+    <a href="https://play.google.com/store/apps/details?id=id.pramuka.ayosatu.app" target="_blank">
+      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/id_badge_web_generic.png" 
+           alt="Download di Google Play" 
+           style="height:55px;max-width:129px;object-fit:contain">
+    </a>
+    <!-- App Store -->
+    <a href="https://apps.apple.com/us/app/ayopramuka-kwarnas/id1639075094?uo=2" target="_blank">
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+           alt="Download di App Store" 
+           style="height:55px;max-width:124px;object-fit:contain">
+    </a>
+  </div>
+
+  <a href="https://www.ayopramuka-kwarnas.id/jelajah" 
+     style="display:inline-block;margin-top:8px;color:var(--wosm-purple);font-weight:600;text-decoration:none">
+     Informasi selengkapnya →
+  </a>
+</section>
+
+<!-- ===== TIM PENGEMBANG WEBSITE ===== -->
+<section class="dev-section">
+  <h3>Tim Pengembang Website</h3>
+  <p class="dev-desc">
+    Website ini dikembangkan dan dikelola oleh tim kolaboratif
+    untuk mendukung transparansi informasi seputar Pramuka Punggelan.
+  </p>
+
+  <div class="dev-slider-wrapper">
+    <button class="dev-nav prev" onclick="slideDev(-1)">
+      <i class='bx bx-chevron-left'></i>
+    </button>
+
+    <div class="dev-slider" id="devSlider">
+      <!-- Tim Pengembang -->
+      <div class="dev-card">
+        <img src="assets/images/aryo.jpg" alt="Aryo Yulio Prasetya">
+        <h4>Aryo Yulio Prasetya</h4>
+        <span>Wakil Ketua DKR</span>
+      </div>
+
+        <div class="dev-card">
+        <img src="assets/images/kak dikin.jpg" alt="Humas Kwarran">
+        <h4>Kak Sodikin</h4>
+        <span>Sekretaris Kwarran</span>
+      </div>
+
+      <div class="dev-card">
+        <img src="assets/images/P_49_20230105095623.jpg" alt="Humas Kwarran">
+        <h4>Humas Kwarran</h4>
+        <span>Koordinator Informasi</span>
+      </div>
+
+      <div class="dev-card">
+        <img src="assets/images/multa.jpg" alt="Multa Rahma Deswita">
+        <h4>Multa Rahma Deswita</h4>
+        <span>Unit Jurnalistik</span>
+      </div>
+
+      <div class="dev-card">
+        <img src="assets/images/jurnalistik.png" alt="Unit Jurnalistik">
+        <h4>Unit Jurnalistik</h4>
+        <span>Penulis & Editor</span>
+      </div>
+
+      <div class="dev-card">
+        <img src="assets/images/P_49_20230105095623.jpg" alt="Pihak Ketiga">
+        <h4>Pihak Ketiga</h4>
+        <span>Kontributor Teknis</span>
+      </div>
+    </div>
+
+    <button class="dev-nav next" onclick="slideDev(1)">
+      <i class='bx bx-chevron-right'></i>
+    </button>
+  </div>
+</section>
+
+<!-- ===== STATISTIK PENGUNJUNG ===== -->
+<section class="visitor-section">
+  <h3>
+    <i class='bx bx-bar-chart-alt-2'></i>
+    Statistik Pengunjung Website
+  </h3>
+
+  <div class="visitor-grid">
+    <div class="visitor-card live">
+      <i class='bx bx-user-pin'></i>
+      <span id="visitor-online">0</span>
+      <p>Pengunjung Saat Ini</p>
+    </div>
+
+    <div class="visitor-card">
+      <i class='bx bx-calendar'></i>
+      <span id="visitor-today">0</span>
+      <p>Hari Ini</p>
+    </div>
+
+    <div class="visitor-card">
+      <i class='bx bx-calendar-event'></i>
+      <span id="visitor-month">0</span>
+      <p>Bulan Ini</p>
+    </div>
+
+    <div class="visitor-card">
+      <i class='bx bx-calendar-star'></i>
+      <span id="visitor-year">0</span>
+      <p>Tahun Ini</p>
+    </div>
+
+    <div class="visitor-card total">
+      <i class='bx bx-globe'></i>
+      <span id="visitor-total">0</span>
+      <p>Total Pengunjung</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+  <footer>
+    <div class="footer-grid" style="gap:40px">
+      <div>
+        <h4>KWARRAN PUNGGELAN</h4>
+        <p>Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.</p>
+        <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+      </div>
+      <div>
+        <h4>SEKRETARIAT</h4>
+        <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+        <p>Email: 
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">kwarrankecamatanpunggelan@gmail.com
+          <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>ORGANISASI</h4>
+        <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+          <li>
+            <a href="https://pramukabanjarnegara.or.id" target="_blank">
+              Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://pramukajateng.or.id" target="_blank">
+              Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://pramuka.or.id" target="_blank">
+              Kwartir Nasional <i class='bx bx-link-external'></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kwarran.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="credits-bar">
+      <div class="credits-right">
+    <a href="home" target="_blank">Kwarran Punggelan</a>
+    <span>|</span>
+    <a href="warta">Warta</a>
+  </div>
+  <div class="credits-left">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</div>
+
+  </footer>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/rss-parser/dist/rss-parser.min.js"></script>
+  <script>
+    // Slider
+    const slides=document.querySelectorAll('.slide');
+    const dots=document.querySelectorAll('.dot');
+    let current=0;let interval;
+    function show(i){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[i].classList.add('active');dots[i].classList.add('active');current=i;}
+    function next(){show((current+1)%slides.length);}
+    dots.forEach(d=>d.addEventListener('click',()=>{show(+d.dataset.index);reset();}));
+    function start(){interval=setInterval(next,5000);}
+    function reset(){clearInterval(interval);start();}
+    start();
+
+    // Event Modal
+    function openEvent(title,start,end,location,desc,img){
+      document.getElementById("eventTitle").textContent=title;
+      document.getElementById("eventTime").textContent=new Date(start).toLocaleString()+" - "+new Date(end).toLocaleString();
+      document.getElementById("eventLocation").textContent=location;
+      document.getElementById("eventDescription").textContent=desc;
+      document.getElementById("eventImg").src=img;
+      const link=`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start.replace(/-|:|\.\d\d\d/g,"")}Z/${end.replace(/-|:|\.\d\d\d/g,"")}Z&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(location)}`;
+      document.getElementById("eventLink").href=link;
+      document.getElementById("eventModal").style.display="block";
+    }
+    function closeEvent(){document.getElementById("eventModal").style.display="none";}
+    window.onclick=e=>{if(e.target==document.getElementById("eventModal"))closeEvent();}
+
+    function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+    function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+
+<!-- Popup Donasi Pengembangan Website -->
+<!--<div id="donasiPopup" class="donasi-popup">
+  <div class="donasi-box">
+    <span class="donasi-close" onclick="closeDonasi()">&times;</span>
+
+    <h2>Dukung Pengembangan Website DKR Punggelan</h2>
+    <p>
+      Website ini dikelola secara mandiri oleh Tim IT DKR Punggelan.  
+      Kakak dapat berkontribusi membantu biaya hosting & pengembangan fitur
+      melalui donasi berikut.
+    </p>
+
+    <img src="assets/images/qris-donasi.png" alt="QRIS Donasi">
+
+    <small>Scan QRIS untuk donasi</small>
+
+    <a href="https://saweria.co/" target="_blank" class="donasi-btn">
+      Donasi via Saweria
+    </a>
+
+    <p class="donasi-note">
+      Terima kasih atas dukungan kakak 🙏
+    </p>
+  </div>
+</div>
+<script>
+  // Tampilkan popup saat halaman dibuka (sekali saja)
+  window.addEventListener("load", () => {
+    if (!localStorage.getItem("donasiShown")) {
+      document.getElementById("donasiPopup").style.display = "flex";
+      localStorage.setItem("donasiShown", "yes");
+    }
+  });
+
+  function closeDonasi(){
+    document.getElementById("donasiPopup").style.display = "none";
+  }
+</script>-->
+
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbzyaoJSAAHTbMOJBTq8qr9w8Srkpb5AAnF4muXOcHajCFCETpyBTFwvP0Pb6f3kAng6/exec";
+const postsContainer = document.getElementById("posts");
+const runningText = document.getElementById("runningText");
+
+function loadBeritaDanRunningText(){
+  const cb = "cb_" + Date.now();
+  window[cb] = function(res){
+    postsContainer.innerHTML = "";
+    runningText.innerHTML = "";
+
+    if(res.status !== "ok" || !res.data || res.data.length===0){
+      postsContainer.innerHTML = "<p style='color:#6b7280'>Tidak ada berita terbaru.</p>";
+      runningText.textContent = "Tidak ada berita terbaru...";
+      return;
+    }
+
+    // ===== GRID BERITA =====
+    res.data.slice(0,6).forEach(a => {
+      const link = "artikel.html?id=" + a.id;
+      const img = a.thumbnail || "https://via.placeholder.com/400x250?text=DKR+Punggelan";
+      const kategori = a.kategori || "Umum";
+      const excerpt = a.isi ? a.isi.replace(/(<([^>]+)>)/gi,"").slice(0,100)+"..." : "";
+
+      const card = document.createElement("div");
+      card.className = "post";
+      card.onclick = () => window.location.href = link;
+
+      card.innerHTML = `
+        <div style="position:relative">
+          <img src="${img}" alt="${a.judul}">
+          <span class="label-kategori">${kategori}</span>
+        </div>
+        <div class="p-body">
+          <h4>${a.judul}</h4>
+          <p>${excerpt}</p>
+        </div>
+      `;
+      postsContainer.appendChild(card);
+
+      // ===== RUNNING TEXT =====
+      runningText.innerHTML += `📰 <a href="${link}" style="color:var(--primary);text-decoration:none">${a.judul}</a> &nbsp;&nbsp; `;
+    });
+
+    delete window[cb];
+  };
+
+  const s = document.createElement("script");
+  s.src = API + "?action=list&callback=" + cb;
+  document.body.appendChild(s);
+}
+
+loadBeritaDanRunningText();
+</script>
+
+<!-- Cookie Consent Estetik -->
+<div id="cookieConsent" class="cookie-wrap">
+  <div class="cookie-box">
+    <div class="cookie-icon">🍪</div>
+
+    <div class="cookie-content">
+      <h4>Privasi & Cookie</h4>
+      <p>
+        Website <strong>Pramuka Punggelan</strong> menggunakan cookie untuk
+        menyimpan preferensi pengguna dan meningkatkan pengalaman menjelajah.
+      </p>
+
+      <div class="cookie-actions">
+        <button class="btn-accept" onclick="acceptCookie()">
+          Setuju
+        </button>
+        <button class="btn-reject" onclick="rejectCookie()">
+          Tolak
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== COOKIE UTILS ===== */
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + (days*24*60*60*1000));
+  document.cookie = name + "=" + value + "; expires=" + date.toUTCString() + "; path=/";
+}
+
+function getCookie(name) {
+  const cookies = document.cookie.split('; ');
+  for (let c of cookies) {
+    const [key, val] = c.split('=');
+    if (key === name) return val;
+  }
+  return null;
+}
+
+/* ===== COOKIE CONSENT ===== */
+window.addEventListener("load", () => {
+  const consent = getCookie("dkr_cookie_consent");
+  if (!consent) {
+    document.getElementById("cookieConsent").style.display = "block";
+  }
+});
+
+function acceptCookie() {
+  setCookie("dkr_cookie_consent", "accepted", 180); // 6 bulan
+  document.getElementById("cookieConsent").style.display = "none";
+}
+
+function rejectCookie() {
+  setCookie("dkr_cookie_consent", "rejected", 7); // tetap disimpan agar tidak spam
+  document.getElementById("cookieConsent").style.display = "none";
+}
+</script>
+<script>
+const counters = document.querySelectorAll('.counter');
+let started = false;
+
+function runCounter(){
+  counters.forEach(counter => {
+    const raw = counter.getAttribute("data-target");
+
+    // NULL / KOSONG
+    if(!raw || raw.toLowerCase() === "null"){
+      counter.textContent = "-";
+      return;
+    }
+
+    const target = parseInt(raw);
+    let current = 0;
+    const increment = Math.max(1, Math.ceil(target / 120));
+
+    const update = () => {
+      current += increment;
+      if(current < target){
+        counter.textContent = current.toLocaleString("id-ID");
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target.toLocaleString("id-ID");
+      }
+    };
+
+    update();
+  });
+}
+
+window.addEventListener("scroll", ()=>{
+  const section = document.querySelector(".anggota-section");
+  if(!section || started) return;
+
+  const pos = section.getBoundingClientRect().top;
+  if(pos < window.innerHeight - 120){
+    started = true;
+    runCounter();
+  }
+});
+</script>
+
+<script>
+fetch("https://script.google.com/macros/s/AKfycby6AVaV9k8Dz2SNCkEsGYoZzqgs4bQHf-PheLWIUomxDgIxD-_DHsXPCXRrH6Y2bxER/exec")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('visitor-online').textContent = data.online;
+    document.getElementById('visitor-today').textContent  = data.hari;
+    document.getElementById('visitor-month').textContent  = data.bulan;
+    document.getElementById('visitor-year').textContent   = data.tahun;
+    document.getElementById('visitor-total').textContent  = data.total;
+  })
+  .catch(err => {
+    console.error("Statistik error", err);
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const devSlider = document.getElementById("devSlider");
+  if (!devSlider) return;
+
+  // Duplicate items for infinite scroll
+  devSlider.innerHTML += devSlider.innerHTML;
+
+  let scrollPos = 0;
+  const speed = 1; // kecepatan scroll
+
+  function step(){
+    scrollPos += speed;
+
+    // loop infinite
+    if(scrollPos >= devSlider.scrollWidth / 2){
+      scrollPos = 0;
+    }
+    devSlider.scrollLeft = scrollPos;
+    requestAnimationFrame(step);
+  }
+
+  // Start animation
+  step();
+
+  // Pause on hover / touch
+  devSlider.addEventListener("mouseenter", ()=> speed = 0);
+  devSlider.addEventListener("mouseleave", ()=> speed = 0.5);
+  devSlider.addEventListener("touchstart", ()=> speed = 0);
+  devSlider.addEventListener("touchend", ()=> speed = 0.5);
+
+  // Tombol panah manual
+  window.slideDev = function(direction){
+    devSlider.scrollBy({
+      left: direction * 280,
+      behavior: "smooth"
+    });
+  };
+});
+</script>
+</body>
+</html>
