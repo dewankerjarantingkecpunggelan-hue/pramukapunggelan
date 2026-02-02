@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pramuka Punggelan - Twibbon</title>
+<link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+<!-- Font Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<!-- Boxicons -->
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --bg: #faf9ff;
+  --muted: #6b7280;
+  --radius: 12px;
+  --max-w: 1200px;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:#111;line-height:1.5}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{margin:0;font-size:20px;color:var(--wosm-purple)}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--wosm-purple)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--wosm-purple);cursor:pointer}
+
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    position: absolute;
+    top: 70px;
+    left: 12px;
+    right: 12px;
+    background: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    z-index: 2000;
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  nav.show {opacity: 1; transform: translateY(0); pointer-events: auto;}
+  nav > a, nav .dropdown > a {width: 100%; padding: 10px 8px; text-align: left; justify-content: space-between;}
+  .menu-toggle {display: block;}
+  .dropdown {width: 100%;}
+  .dropdown-menu {position: static; display: none; width: 100%; margin-top: 6px; padding-left: 12px; background: transparent; box-shadow: none;}
+  .dropdown.open .dropdown-menu {display: block;}
+}
+
+/* TWIBBON */
+.twibbon-section{
+  max-width:400px;
+  width:100%;
+  margin:40px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  text-align:center;
+}
+.twibbon-section h2{color:var(--wosm-purple);margin-bottom:20px;}
+canvas{
+  border-radius:12px;
+  background:#ddd;
+  margin:20px auto;
+  display:block;
+  cursor:grab;
+  touch-action:none;
+  width:100%;
+  height:auto;
+  max-width:400px;
+}
+input[type=file]{margin:10px 0;}
+.caption-section{margin-top:20px;}
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  resize:none;
+  text-align:center;
+  max-width:100%;
+}
+button{
+  padding:10px 16px;
+  background:var(--wosm-purple);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+button:hover{background:var(--wosm-purple-light);}
+
+/* FOOTER */
+footer{background:var(--wosm-purple);color:#fff;margin-top:5px;padding:40px 20px 20px;font-size:14px}
+footer h4{margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase}
+footer p{margin:0 0 10px;line-height:1.6}
+footer a{color:#fff;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.socials{display:flex;gap:10px;margin-top:10px}
+.socials a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;background:rgba(255,255,255,.15);font-size:18px;transition:.3s}
+.socials a:hover{background:#fff;color:var(--wosm-purple)}
+footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
+.credits{text-align:center;font-size:13px;color:rgba(255,255,255,.8)}
+.credits-bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.credits-bar a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.credits-bar a:hover {
+  text-decoration: underline;
+}
+
+.credits-right span {
+  margin: 0 6px;
+  opacity: .6;
+}
+
+/* Responsif HP */
+@media (max-width: 600px) {
+  .credits-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+/* TWIBBON UNAVAILABLE - PROFESSIONAL */
+.twibbon-unavailable{
+  max-width: 900px;
+  margin: 70px auto;
+  padding: 0 20px;
+}
+
+.twibbon-card{
+  background: #fff;
+  border-radius: 20px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+}
+
+.twibbon-icon{
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  background: rgba(91,44,131,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: var(--wosm-purple);
+}
+
+.twibbon-card h2{
+  margin: 0 0 14px;
+  font-size: 28px;
+  color: var(--wosm-purple);
+  font-weight: 700;
+}
+
+.twibbon-card p{
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.btn-back{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--wosm-purple);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: .3s ease;
+}
+
+.btn-back:hover{
+  background: var(--wosm-purple-light);
+  transform: translateY(-2px);
+}
+
+/* CARA MENGGUNAKAN TWIBBON */
+.twibbon-instructions{
+  max-width: 900px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+.twibbon-instructions h2{
+  text-align: center;
+  color: var(--wosm-purple);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.instruction-list{
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.instruction-item{
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.step{
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--wosm-purple);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.instruction-item .text strong{
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #111;
+}
+
+.instruction-item .text p{
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Responsif */
+@media (max-width: 600px){
+  .twibbon-instructions{
+    padding: 30px 22px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>  
+<!--<section class="twibbon-section">
+  <h2>Buat Twibbon DKR Punggelan</h2>
+  <p>Upload foto kamu dan sesuaikan posisinya dengan template</p>
+  <input type="file" id="userImage" accept="image/*">
+  <canvas id="twibbonCanvas" width="400" height="400"></canvas>
+  <div class="caption-section">
+    <p>Copy caption ini untuk media sosial:</p>
+    <textarea id="caption" rows="3" readonly>Sudah dukung kegiatan DKR Punggelan! #DKRPunggelan #Pramuka</textarea>
+  </div>
+  <button id="downloadBtn">Download Twibbon</button>
+</section>-->
+
+<!-- SECTION TWIBBON TIDAK TERSEDIA -->
+<section class="twibbon-unavailable">
+  <div class="twibbon-card">
+    
+    <div class="twibbon-icon">
+      <i class='bx bx-image-alt'></i>
+    </div>
+
+    <h2>Twibbon Belum Tersedia</h2>
+
+    <p>
+      Fitur Twibbon <strong>DKR Punggelan</strong> saat ini sedang dalam tahap
+      persiapan dan pengembangan.  
+      Silakan kunjungi kembali halaman ini pada waktu mendatang.
+    </p>
+
+    <a href="index.html" class="btn-back">
+      <i class='bx bx-home'></i> Kembali ke Beranda
+    </a>
+
+  </div>
+</section>
+
+<!-- CARA MENGGUNAKAN TWIBBON -->
+<section class="twibbon-instructions">
+  <h2>Cara Menggunakan Twibbon</h2>
+
+  <div class="instruction-list">
+
+    <div class="instruction-item">
+      <div class="step">1</div>
+      <div class="text">
+        <strong>Upload Foto</strong>
+        <p>Pilih foto terbaik kamu melalui tombol unggah dari perangkat HP atau komputer.</p>
+      </div>
+    </div>
+
+    <div class="instruction-item">
+      <div class="step">2</div>
+      <div class="text">
+        <strong>Sesuaikan Posisi</strong>
+        <p>Atur posisi dan ukuran foto agar pas di dalam bingkai twibbon.</p>
+      </div>
+    </div>
+
+    <div class="instruction-item">
+      <div class="step">3</div>
+      <div class="text">
+        <strong>Salin Caption</strong>
+        <p>Gunakan caption yang tersedia untuk mendukung publikasi di media sosial.</p>
+      </div>
+    </div>
+
+    <div class="instruction-item">
+      <div class="step">4</div>
+      <div class="text">
+        <strong>Unduh Twibbon</strong>
+        <p>Download hasil twibbon dalam kualitas terbaik.</p>
+      </div>
+    </div>
+
+    <div class="instruction-item">
+      <div class="step">5</div>
+      <div class="text">
+        <strong>Bagikan</strong>
+        <p>Unggah ke media sosial dan jangan lupa tag media sosial Pramuka Punggelan.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+const canvas = document.getElementById('twibbonCanvas');
+const ctx = canvas.getContext('2d');
+
+// Canvas export 2K
+const exportCanvas = document.createElement('canvas');
+exportCanvas.width = 2048;
+exportCanvas.height = 2048;
+const exportCtx = exportCanvas.getContext('2d');
+
+let template = new Image();
+template.src = 'assets/images/twibbon.png';
+
+let userImg = new Image(), userLoaded=false;
+let imgX=0,imgY=0,imgScale=1,drag=false,startX,startY;
+
+// Upload user image
+document.getElementById('userImage').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    userImg = new Image();
+    userImg.src = ev.target.result;
+    userImg.onload = function(){
+      userLoaded=true;
+      const scaleX = canvas.width/userImg.width;
+      const scaleY = canvas.height/userImg.height;
+      imgScale = Math.max(scaleX, scaleY);
+      imgX = (canvas.width - userImg.width*imgScale)/2;
+      imgY = (canvas.height - userImg.height*imgScale)/2;
+      draw();
+    }
+  }
+  reader.readAsDataURL(file);
+});
+
+// Drag foto
+canvas.addEventListener('pointerdown', e => { if(!userLoaded) return; drag=true; startX=e.offsetX-imgX; startY=e.offsetY-imgY; });
+canvas.addEventListener('pointermove', e => { if(drag){ imgX=e.offsetX-startX; imgY=e.offsetY-startY; draw(); } });
+canvas.addEventListener('pointerup', e => drag=false);
+canvas.addEventListener('pointerleave', e => drag=false);
+
+// Zoom foto
+canvas.addEventListener('wheel', e => {
+  if(!userLoaded) return;
+  e.preventDefault();
+  const scaleAmount = e.deltaY* -0.001;
+  imgScale += scaleAmount;
+  if(imgScale<0.1) imgScale=0.1;
+  draw();
+});
+
+// Draw canvas layar
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(userLoaded) ctx.drawImage(userImg,imgX,imgY,userImg.width*imgScale,userImg.height*imgScale);
+  ctx.drawImage(template,0,0,canvas.width,canvas.height);
+}
+
+// Download 2K
+document.getElementById('downloadBtn').addEventListener('click', function(){
+  if(!userLoaded) return;
+  // Skala untuk export 2K
+  const scale = 2048/canvas.width;
+  exportCtx.clearRect(0,0,2048,2048);
+  exportCtx.drawImage(userImg,imgX*scale,imgY*scale,userImg.width*imgScale*scale,userImg.height*imgScale*scale);
+  exportCtx.drawImage(template,0,0,2048,2048);
+  const link = document.createElement('a');
+  link.href = exportCanvas.toDataURL('image/png');
+  link.download='twibbon-2k.png';
+  link.click();
+});
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.</p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+      <p><p>Email: 
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">kwarrankecamatanpunggelan@gmail.com
+          <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li><a href="https://pramukabanjarnegara.or.id" target="_blank">Kwarcab Banjarnegara <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramukajateng.or.id" target="_blank">Kwarda Jawa Tengah <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramuka.or.id" target="_blank">Kwartir Nasional <i class='bx bx-link-external'></i></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kwarran.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+  </div>
+  <hr>
+    <div class="credits-bar">
+      <div class="credits-right">
+    <a href="index.html" target="_blank">Kwarran Punggelan</a>
+    <span>|</span>
+    <a href="news.html">Warta</a>
+  </div>
+  <div class="credits-left">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</div>
+
+</footer>
+
+<script>
+// Menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.getElementById('nav');
+menuToggle.addEventListener('click', () => { nav.classList.toggle('show'); });
+document.querySelectorAll('.dropdown > a').forEach(link => {
+  link.addEventListener('click', function(e){
+    if(window.innerWidth <=768){ e.preventDefault(); this.parentElement.classList.toggle('open'); }
+  });
+});
+</script>
+
+</body>
+</html>

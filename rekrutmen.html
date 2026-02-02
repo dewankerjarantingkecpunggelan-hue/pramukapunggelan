@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rekrutmen Anggota — DKR Punggelan</title>
+  <link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      background:var(--bg);
+      color:#111;
+      line-height:1.6;
+    }
+
+   header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{font-size:22px;color:var(--primary);font-weight:600}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative;transition:.3s}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--primary)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--primary);cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600;text-decoration:none;transition:.3s}
+.btn-primary:hover{background:var(--primary-light)}
+@media(max-width:900px){
+  nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  nav.active{display:flex}
+  nav a{padding:12px 0;width:100%;text-align:left}
+  .dropdown{width:100%}
+  .dropdown > a{display:flex;justify-content:space-between;align-items:center;width:100%}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;padding-left:12px;margin-top:6px}
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+    /* ===== HERO ===== */
+    .hero{
+      height:380px;
+      background:url('assets/images/DSC00145.JPG') center/cover no-repeat;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(91,44,131,.55);
+    }
+    .hero-content{
+      position:relative;
+      color:#fff;
+      text-align:center;
+      max-width:720px;
+      padding:20px;
+    }
+    .hero::after{
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+    .hero-content h1{margin:0 0 12px;font-size:34px}
+    .hero-content p{margin:0 0 20px}
+
+    /* ===== MAIN ===== */
+    main{
+      max-width:var(--max);
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    h2{color:var(--primary);margin-top:0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:#fff;
+      padding:20px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 16px rgba(0,0,0,.05);
+    }
+
+    .form-box{
+      background:#fff;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+      text-align:center;
+    }
+
+    
+/* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
+}
+
+/* Sticky Button Mobile */
+.sticky-jurnalistik{
+  display:none;
+}
+
+@media(max-width:720px){
+  .sticky-jurnalistik{
+    display:flex;
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#5b2c83;
+    color:#fff;
+    padding:14px 20px;
+    border-radius:30px;
+    font-weight:800;
+    gap:8px;
+    z-index:9999;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    cursor:pointer;
+  }
+
+  body{
+    padding-bottom:0px;
+  }
+}
+    .btn-purple {
+  background: #5b2c83;
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: #6f3aa6;
+}
+  </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Rekrutmen Anggota DKR Punggelan</h1>
+    <p>Mari bertumbuh, mengabdi, dan berkarya bersama Dewan Kerja Ranting Punggelan.</p>
+    <span class="btn-purple" style="opacity:100;cursor:not-allowed">
+      Pendaftaran Belum Dibuka
+    </span>
+  </div>
+</section>
+
+<main>
+  <section>
+    <h2>Kenapa Bergabung dengan DKR?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Pengembangan Kepemimpinan</h3>
+        <p>Membentuk karakter pemimpin muda yang bertanggung jawab dan visioner.</p>
+      </div>
+      <div class="card">
+        <h3>Keterampilan Organisasi</h3>
+        <p>Belajar manajemen kegiatan, komunikasi, dan kerja tim.</p>
+      </div>
+      <div class="card">
+        <h3>Pengabdian Masyarakat</h3>
+        <p>Terlibat aktif dalam kegiatan sosial dan bakti masyarakat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px">
+    <h2>Status Rekrutmen</h2>
+    <div class="form-box">
+      <i class='bx bx-info-circle' style="font-size:44px;color:var(--primary)"></i>
+      <p><strong>Pendaftaran anggota DKR Punggelan saat ini BELUM DIBUKA.</strong></p>
+      <p>
+        Informasi pembukaan rekrutmen akan diumumkan melalui
+        <strong>website resmi</strong> dan <strong>media sosial DKR Punggelan</strong>.
+      </p>
+      <p style="font-size:14px;color:var(--muted)">
+        Pantau terus kanal resmi kami untuk informasi terbaru.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>
+        Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.
+      </p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>
+        Dindikpora Kec. Punggelan<br>
+        Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462
+      </p>
+      <p>
+        Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+          kwarrankecamatanpunggelan@gmail.com
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+          dewankerjarantingkecpunggelan@gmail.com
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li>
+          <a href="https://pramukabanjarnegara.or.id" target="_blank">
+            Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramukajateng.or.id" target="_blank">
+            Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramuka.or.id" target="_blank">
+            Kwartir Nasional <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+      <div class="socials">
+        <a href="https://facebook.com/DkrPunggelan" target="_blank">
+          <i class='bx bxl-facebook'></i>
+        </a>
+        <a href="https://x.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-twitter'></i>
+        </a>
+        <a href="https://youtube.com" target="_blank">
+          <i class='bx bxl-youtube'></i>
+        </a>
+        <a href="https://instagram.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="credits">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+
+</body>
+</html>

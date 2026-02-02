@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Tag Berita</title>
+<link rel="icon" href="assets/images/logologo.png" type="image/png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<script type="application/ld+json" id="schemaTag"></script>
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{font-size:22px;color:var(--primary);font-weight:600}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative;transition:.3s}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--primary)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--primary);cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600;text-decoration:none;transition:.3s}
+.btn-primary:hover{background:var(--primary-light)}
+@media(max-width:900px){
+  nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  nav.active{display:flex}
+  nav a{padding:12px 0;width:100%;text-align:left}
+  .dropdown{width:100%}
+  .dropdown > a{display:flex;justify-content:space-between;align-items:center;width:100%}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;padding-left:12px;margin-top:6px}
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:K2D, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:1180px;
+  margin:auto;
+  padding:18px 14px 36px;
+}
+
+/* breadcrumb */
+.breadcrumb{
+  font-size:12px;
+  margin-bottom:8px;
+}
+.breadcrumb a{
+  color:var(--primary);
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* header tag */
+.tag-header{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:18px 20px;
+  margin-bottom:16px;
+}
+.tag-header h1{
+  margin:0;
+  font-size:24px;
+  font-weight:800;
+}
+.tag-header p{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* layout */
+.layout{
+  display:grid;
+  grid-template-columns:1fr 330px;
+  gap:22px;
+}
+
+/* search */
+.search input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  font-size:14px;
+  margin-bottom:16px;
+}
+
+/* featured */
+.featured{
+  display:block;
+  background:var(--card);
+  border:1px solid var(--border);
+  margin-bottom:18px;
+  text-decoration:none;
+  color:inherit;
+}
+.featured img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+}
+.featured-body{
+  padding:14px 16px;
+}
+.featured-title{
+  font-size:21px;
+  font-weight:800;
+  line-height:1.35;
+}
+.featured-meta{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* grid berita */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.news-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  text-decoration:none;
+  color:inherit;
+}
+.news-card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+.news-body{
+  padding:12px 14px;
+}
+.news-title{
+  font-size:15px;
+  font-weight:700;
+  line-height:1.4;
+}
+.news-meta{
+  margin-top:5px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* sidebar */
+.sidebar{
+  position:sticky;
+  top:90px;
+}
+.side-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:14px;
+  margin-bottom:16px;
+}
+.side-box h3{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:800;
+  border-bottom:2px solid var(--primary);
+  padding-bottom:6px;
+}
+
+/* berita populer mini */
+.popular-item{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  text-decoration:none;
+  color:#111;
+}
+.popular-thumb{
+  width:70px;
+  height:55px;
+  object-fit:cover;
+  flex-shrink:0;
+  background:#eee;
+}
+.popular-body{
+  font-size:13px;
+  line-height:1.35;
+}
+.popular-title{
+  font-weight:700;
+}
+.popular-meta{
+  font-size:11px;
+  color:#666;
+  margin-top:3px;
+}
+
+/* popular & tags */
+#popular a,
+#topTags a{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+#popular a:last-child,
+#topTags a:last-child{
+  border-bottom:none;
+}
+
+/* pagination */
+.pagination{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin:28px 0;
+}
+.pagination button{
+  padding:6px 12px;
+  font-size:13px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+}
+.pagination button:disabled{
+  opacity:.5;
+}
+
+/* mobile */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .news-grid{grid-template-columns:1fr}
+  .featured img{height:220px}
+}
+
+ /* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
+}
+
+</style>
+</head>
+
+<body>
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="news.html">Warta</a> › <span id="crumbTag"></span>
+  </div>
+
+  <div class="tag-header">
+    <h1 id="tagTitle"></h1>
+    <p id="tagInfo"></p>
+  </div>
+
+  <div class="layout">
+
+    <!-- MAIN -->
+    <main>
+      <div class="search">
+        <input type="text" id="search" placeholder="Cari berita dalam tag ini...">
+      </div>
+
+      <div id="featuredWrap"></div>
+      <div class="news-grid" id="result"></div>
+
+      <div class="pagination">
+        <button id="prev">Sebelumnya</button>
+        <span id="info"></span>
+        <button id="next">Berikutnya</button>
+      </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="side-box">
+  <h3>Berita Populer</h3>
+  <div id="popular"></div>
+</div>
+      <div class="side-box">
+        <h3>Info Tag</h3>
+        <p id="sideInfo" style="font-size:13px;color:#555"></p>
+      </div>
+      <div class="side-box">
+  <h3>Top Tag</h3>
+  <div id="topTags"></div>
+</div>
+
+    </aside>
+
+  </div>
+
+</div>
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>
+        Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.
+      </p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>
+        Dindikpora Kec. Punggelan<br>
+        Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462
+      </p>
+      <p>
+        Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+          kwarrankecamatanpunggelan@gmail.com
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+          dewankerjarantingkecpunggelan@gmail.com
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li>
+          <a href="https://pramukabanjarnegara.or.id" target="_blank">
+            Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramukajateng.or.id" target="_blank">
+            Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramuka.or.id" target="_blank">
+            Kwartir Nasional <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+      <div class="socials">
+        <a href="https://facebook.com/DkrPunggelan" target="_blank">
+          <i class='bx bxl-facebook'></i>
+        </a>
+        <a href="https://x.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-twitter'></i>
+        </a>
+        <a href="https://youtube.com" target="_blank">
+          <i class='bx bxl-youtube'></i>
+        </a>
+        <a href="https://instagram.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="credits">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</footer>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycbzyaoJSAAHTbMOJBTq8qr9w8Srkpb5AAnF4muXOcHajCFCETpyBTFwvP0Pb6f3kAng6/exec";
+const params=new URLSearchParams(location.search);
+const TAG=params.get("tag")||"";
+const limit=7;
+let page=1,data=[];
+
+crumbTag.textContent=TAG;
+tagTitle.textContent="Tag: "+TAG;
+
+function render(){
+  const q=search.value.toLowerCase();
+  const filtered=data.filter(b=>{
+    const tags=(b.tag||"").toLowerCase();
+    return (b.kategori===TAG||tags.includes(TAG.toLowerCase()))
+      && b.judul.toLowerCase().includes(q);
+  });
+
+  tagInfo.textContent=`Menampilkan ${filtered.length} artikel`;
+  sideInfo.textContent=`Total ${filtered.length} artikel dengan tag "${TAG}"`;
+
+  const total=Math.ceil(filtered.length/limit)||1;
+  if(page>total) page=total;
+
+  const start=(page-1)*limit;
+  const items=filtered.slice(start,start+limit);
+
+  const featured=items.shift();
+  featuredWrap.innerHTML=featured?`
+    <a href="artikel.html?id=${featured.id}" class="featured">
+      <img src="${featured.thumbnail||'assets/images/pramuka.png'}">
+      <div class="featured-body">
+        <div class="featured-title">${featured.judul}</div>
+        <div class="featured-meta">${featured.penulis||'Redaksi'}</div>
+      </div>
+    </a>`:"";
+
+  result.innerHTML=items.map(b=>`
+    <a href="artikel.html?id=${b.id}" class="news-card">
+      <img src="${b.thumbnail||'assets/images/pramuka.png'}">
+      <div class="news-body">
+        <div class="news-title">${b.judul}</div>
+        <div class="news-meta">${b.penulis||'Redaksi'}</div>
+      </div>
+    </a>
+  `).join("");
+
+  info.textContent=`${page} / ${total}`;
+  prev.disabled=page<=1;
+  next.disabled=page>=total;
+
+  document.getElementById("schemaTag").textContent = JSON.stringify({
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"Tag "+TAG,
+  "description":"Kumpulan berita dengan tag "+TAG,
+  "mainEntity": filtered.slice(0,10).map(b=>({
+    "@type":"NewsArticle",
+    "headline":b.judul,
+    "author":{"@type":"Person","name":b.penulis||"Redaksi"},
+    "url":location.origin+"/artikel.html?id="+b.id
+  }))
+});
+
+}
+
+prev.onclick=()=>{page--;render();}
+next.onclick=()=>{page++;render();}
+search.oninput=()=>{page=1;render();}
+
+const cb="cb_"+Date.now();
+window[cb]=res=>{
+  data = res.data || [];
+
+  // ====== HITUNG TAG ======
+  const tagCount = {};
+  data.forEach(b=>{
+    if(b.kategori){
+      tagCount[b.kategori]=(tagCount[b.kategori]||0)+1;
+    }
+    if(b.tag){
+      b.tag.split(",").forEach(t=>{
+        t=t.trim();
+        if(t) tagCount[t]=(tagCount[t]||0)+1;
+      });
+    }
+  });
+
+  // ====== RENDER TOP TAG ======
+  topTags.innerHTML = Object.entries(tagCount)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,5)
+    .map(([t,n])=>`
+      <a href="tag.html?tag=${encodeURIComponent(t)}"
+         style="display:flex;justify-content:space-between;
+         text-decoration:none;color:#111;
+         padding:6px 0;font-weight:600">
+        <span>${t}</span>
+        <span style="color:#666">${n}</span>
+      </a>
+    `).join("");
+
+  // ====== RENDER BERITA POPULER ======
+popular.innerHTML = [...data]
+  .sort((a,b)=>(b.views||0)-(a.views||0))
+  .slice(0,5)
+  .map(b=>`
+    <a href="artikel.html?id=${b.id}" class="popular-item">
+      <img class="popular-thumb"
+           src="${b.thumbnail || 'assets/images/pramuka.png'}"
+           alt="${b.judul}">
+      <div class="popular-body">
+        <div class="popular-title">${b.judul}</div>
+        <div class="popular-meta">${b.views||0} dibaca</div>
+      </div>
+    </a>
+  `).join("");
+
+  // ====== RENDER HALAMAN TAG ======
+  render();
+
+  delete window[cb];
+}
+
+const s=document.createElement("script");
+s.src = API + "?action=list&callback=" + cb;
+document.body.appendChild(s);
+
+function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1776 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Berita resmi kegiatan Pramuka Kwarran Punggelan, Dewan Kerja, pers, dan buletin. Informasi akurat, aktual, dan terpercaya.">
+  <title>Artikel • Pramuka Punggelan</title>
+
+  <link rel="icon" href="assets/images/logologo.png">
+  <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="canonical" href="https://pramukapunggelan.or.id/warta">
+
+  <style>
+    
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+  body{
+    margin:0;
+    font-family:'K2D',sans-serif;
+    background:var(--bg);
+    color:#111;
+  }
+
+/* Header */
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.06)
+}
+.nav-container{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+.brand img{
+  height:50px;
+  width:50px;
+  object-fit:contain
+}
+.brand h1{
+  margin:0;
+  font-size:20px;
+  font-weight:600;
+  color:var(--wosm-purple)
+}
+nav{
+  display:flex;
+  align-items:center;
+  gap:20px
+}
+nav a{
+  color:#333;
+  text-decoration:none;
+  padding:8px 0;
+  font-weight:600;
+  position:relative
+}
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:var(--wosm-purple);
+  transition:.3s
+}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--wosm-purple)}
+
+.dropdown{position:relative}
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#fff;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  border-radius:8px;
+  min-width:220px;
+  padding:10px
+}
+.dropdown-menu a{
+  display:block;
+  padding:8px;
+  border-radius:6px;
+  color:#333
+}
+.dropdown:hover .dropdown-menu{display:block}
+
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  color:var(--wosm-purple);
+  cursor:pointer
+}
+
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+/* Mobile */
+@media(max-width:850px){
+  nav{
+    position:absolute;
+    top:70px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    background:#fff;
+    display:none;
+    padding:12px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.06)
+  }
+  nav.active{display:flex}
+  nav a{
+    padding:12px 0;
+    width:100%;
+    text-align:left
+  }
+  .dropdown{width:100%}
+  .dropdown > a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%
+  }
+  .dropdown-menu{
+    position:static;
+    width:100%;
+    box-shadow:none;
+    padding-left:12px;
+    margin-top:6px
+  }
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+  a{text-decoration:none;color:inherit}
+
+  /* LAYOUT */
+.article-layout{
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 16px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:32px;
+}
+
+@media(max-width:900px){
+  .article-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ===== DESKTOP PROFESIONAL ===== */
+@media (min-width: 901px){
+
+  main.article-layout{
+    min-height: calc(100vh - 90px);
+    align-items: flex-start;
+  }
+
+  /* ARTIKEL */
+  .article-box{
+    display:flex;
+    flex-direction:column;
+    max-height:calc(100vh - 110px);
+  }
+
+  .article-scroll{
+    overflow-y:auto;
+    padding-right:12px;
+  }
+
+  /* SIDEBAR TETAP */
+  aside.sidebar{
+    position:sticky;
+    top:100px;
+    height:fit-content;
+  }
+}
+
+
+  /* ARTIKEL */
+.article-box{
+  background:#fff;
+  border-radius:18px;
+  padding:28px;
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+  .article-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--primary);
+    color:#fff;
+    font-size:12px;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:14px;
+  }
+
+.article-title{
+  font-size:34px;
+  line-height:1.3;
+  margin:12px 0 12px;
+  font-weight:800;
+}
+
+@media(max-width:600px){
+  .article-title{
+    font-size:24px;
+  }
+}
+
+  .article-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  font-size:12.5px;
+  color:#6b7280;
+  margin-bottom:22px;
+}
+
+  .article-meta span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+.article-thumb{
+  width:100%;
+  border-radius:0;
+  margin:24px 0 28px;
+  object-fit:cover;
+}
+
+
+  .article-content{
+  font-size:16px;
+  line-height:1.85;
+  color:#111;
+}
+
+  .article-content p{
+    margin:0 0 16px;
+  }
+
+@media(max-width:600px){
+  .article-thumb{
+    height:240px;
+  }
+}
+
+/* ===== SHARE ===== */
+.share-box {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.share-box h4 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.share {
+  display: flex;
+  gap: 10px;
+}
+
+/* Tombol semua media sosial */
+.share a,
+.share button {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  text-decoration: none;
+}
+
+/* Warna untuk media sosial */
+.share a#share-wa { background: #25D366; color: #fff; }
+.share a#share-fb { background: #1877F2; color: #fff; }
+.share a#share-x  { background: #1DA1F2; color: #fff; }
+.share a#share-telegram { background: #0088CC; color: #fff; }
+.share a#share-linkedin { background: #0077B5; color: #fff; }
+.share a#share-email    { background: #6B7280; color: #fff; }
+
+/* Tombol Salin Link */
+.share button#copy-link {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Hover effect */
+.share a:hover,
+.share button:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+  /* KOMENTAR */
+  .comment-box{
+    margin-top:40px;
+  }
+
+  .comment-box h3{
+    margin-bottom:14px;
+    color:var(--primary);
+    font-size:16px;
+  }
+
+  .comment{
+    background:#f9fafb;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+  }
+
+  .comment strong{
+    font-size:13px;
+  }
+
+  .comment p{
+    margin:4px 0 0;
+    font-size:14px;
+  }
+
+  .comment-form{
+    margin-top:14px;
+    display:grid;
+    gap:10px;
+  }
+
+  .comment-form input,
+  .comment-form textarea{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    font-family:'K2D';
+  }
+
+  .comment-form button{
+    align-self:flex-start;
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    display:grid;
+    gap:20px;
+  }
+
+.side-box{
+  background:#fff;
+  border-radius:0;
+  padding:16px 0;
+  box-shadow:none;
+  border-bottom:1px solid #e5e7eb;
+}
+
+
+  .sidebar{
+  align-self:start;
+}
+
+.side-box.popular{
+  position:sticky;
+  top:90px;
+}
+
+  .side-box h3{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:15px;
+    margin:0 0 12px;
+    color:var(--primary);
+  }
+
+  .popular-item{
+  display:flex;
+  gap:12px;
+  padding:10px;
+  border-radius:12px;
+  transition:.2s;
+}
+
+.popular-item:hover{
+  background:#f3f4f6;
+}
+
+.popular-item img{
+  width:72px;
+  height:64px;
+  border-radius:10px;
+  object-fit:cover;
+  flex-shrink:0;
+}
+
+.popular-item span{
+  font-size:14px;
+  font-weight:600;
+  line-height:1.4;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+    /* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
+}
+
+.hero{
+  max-width:1200px;
+  margin:30px auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:30px;
+  align-items:center;
+}
+.hero-tag{
+  display:inline-block;
+  background:var(--wosm-purple);
+  color:#fff;
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:999px;
+  margin-bottom:12px;
+}
+.hero h1{
+  font-size:36px;
+  margin:10px 0;
+  line-height:1.2;
+}
+.hero p{
+  font-size:15px;
+  color:#444;
+  line-height:1.7;
+}
+.hero-btn{
+  display:inline-block;
+  margin-top:16px;
+  background:var(--wosm-purple);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:600;
+}
+.hero-image img{
+  width:100%;
+  border-radius:16px;
+  object-fit:cover;
+}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+}
+
+.popular-link{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  align-items:flex-start;
+}
+.popular-link:hover span{
+  color:#5b2c83;
+}
+.popular-meta{
+  font-size:11px;
+  color:#6b7280;
+  margin-top:4px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.popular-meta i{
+  font-size:13px;
+  opacity:.7;
+}
+
+.article-nav{
+  margin-top:48px;
+  padding-top:24px;
+  border-top:1px solid #e5e7eb;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.article-nav a{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:0;
+  padding:16px;
+}
+
+.article-nav a:hover{
+  background:#f3f4f6;
+}
+
+.article-nav small{
+  display:block;
+  font-size:12px;
+  color:#6b7280;
+  margin-bottom:6px;
+}
+
+.article-nav span{
+  font-weight:600;
+  font-size:14px;
+  line-height:1.4;
+}
+
+@media(max-width:600px){
+  .article-nav{
+    grid-template-columns:1fr;
+  }
+}
+
+/* FLOATING TOOLS */
+.floating-tools{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:9999;
+}
+
+.floating-tools button{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:none;
+  background:#5b2c83;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+
+/* ACCESS PANEL */
+.access-panel{
+  position:fixed;
+  right:20px;
+  bottom:4px;
+  width:260px;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  padding:16px;
+  display:none;
+  z-index:10000;
+}
+
+.access-panel h4{
+  margin:0 0 12px;
+  font-size:16px;
+  color:#5b2c83;
+}
+
+.access-panel button{
+  width:100%;
+  margin-bottom:8px;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  background:#f9fafb;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.access-panel hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:10px 0;
+}
+
+.access-panel .danger{
+  background:#fee2e2;
+  color:#991b1b;
+  border-color:#fecaca;
+}
+
+/* ACCESSIBILITY MODES */
+.high-contrast{
+  background:#000 !important;
+  color:#fff !important;
+}
+
+.high-contrast .article-box,
+.high-contrast .article-box *{
+  background:#000 !important;
+  color:#fff !important;
+  border-color:#fff !important;
+}
+
+.gray-scale{
+  filter:grayscale(100%);
+}
+
+.underline-links .article-box a{
+  text-decoration:underline !important;
+}
+
+.reading-guide::after{
+  content:"";
+  position:fixed;
+  top:50%;
+  left:0;
+  width:100%;
+  height:3px;
+  background:#ff0000;
+  z-index:9998;
+}
+
+.no-animation *{
+  animation:none !important;
+  transition:none !important;
+}
+
+@font-face{
+  font-family:"OpenDyslexic";
+  src:url("https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/web/OpenDyslexic-Regular.woff2");
+}
+
+.dyslexia{
+  font-family:"OpenDyslexic",Arial,sans-serif !important;
+  letter-spacing:.04em;
+  line-height:2;
+}
+
+.access-panel button{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.access-panel i{
+  font-size:18px;
+}
+
+#accessToggle{
+  position:relative;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#5b2c83;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  z-index:10001;
+}
+
+.access-panel,
+.access-panel button,
+.access-panel h4{
+  font-family:'K2D',sans-serif;
+}
+
+.tts-highlight{
+  background:#fef3c7;
+  border-left:4px solid #f59e0b;
+  padding-left:12px;
+  border-radius:6px;
+  transition:.3s;
+}
+
+/* =========================
+   HEADER & NAV
+   ========================= */
+header{
+  background:#fff;
+  border-bottom:2px solid var(--primary);
+  box-shadow:none;
+}
+
+nav a{
+  font-weight:700;
+  letter-spacing:.3px;
+}
+
+nav a:hover{
+  color:var(--primary);
+}
+
+/* =========================
+   KONTEN UTAMA / ARTIKEL
+   ========================= */
+main{
+  max-width:1400px;
+  margin:auto;
+  padding:0 20px;
+}
+
+.article-layout,
+.news-layout{
+  display:grid;
+  grid-template-columns:3fr 1.2fr;
+  gap:28px;
+  align-items:flex-start;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .article-layout,
+  .news-layout{
+    grid-template-columns:1fr;
+  }
+
+  .article-box{
+    max-height:none;
+    overflow:visible;
+  }
+}
+
+/* =========================
+   CARD / BOX
+   ========================= */
+.news-card,
+.side-box,
+.article-box{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  box-shadow:none;
+}
+
+.news-card:hover{
+  border-color:var(--primary);
+}
+
+/* =========================
+   JUDUL & META
+   ========================= */
+.news-title,
+.article-title{
+  font-size:18px;
+  font-weight:800;
+  line-height:1.4;
+}
+
+.news-title:hover{
+  color:var(--primary);
+}
+
+.news-meta,
+.article-meta{
+  font-size:12px;
+  font-weight:600;
+  color:#555;
+}
+
+/* =========================
+   THUMB & KATEGORI
+   ========================= */
+.thumb-wrap{
+  position:relative;
+}
+
+.thumb-cat{
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:11px;
+  font-weight:800;
+  padding:4px 8px;
+  text-transform:uppercase;
+  color:#fff;
+  background:var(--primary);
+  border:1px solid rgba(255,255,255,.6);
+}
+
+/* =========================
+   SIDEBAR
+   ========================= */
+.side-box{
+  padding:16px;
+}
+
+.side-box h3{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:12px;
+  padding-bottom:6px;
+  border-bottom:2px solid var(--primary);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* =========================
+   BERITA POPULER
+   ========================= */
+.popular-link{
+  display:flex;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid #e5e7eb;
+  align-items:flex-start;
+}
+
+.popular-link:last-child{
+  border-bottom:none;
+}
+
+.popular-link img{
+  width:72px;
+  height:60px;
+  object-fit:cover;
+}
+
+.popular-link span{
+  font-size:14px;
+  font-weight:700;
+  line-height:1.4;
+}
+
+.popular-rank{
+  background:var(--primary);
+  color:#fff;
+  font-weight:800;
+  font-size:12px;
+  width:24px;
+  height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* =========================
+   TAG
+   ========================= */
+.tag{
+  border:1px solid var(--primary);
+  background:#fff;
+  font-weight:700;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+.tag:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+/* =========================
+   BUTTON
+   ========================= */
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+  font-weight:800;
+  border:none;
+}
+
+.btn-primary:hover{
+  background:var(--primary-light);
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+footer{
+  background:var(--primary);
+  border-top:4px solid var(--primary);
+  color:#fff;
+}
+
+footer a:hover{
+  text-decoration:underline;
+}
+
+/* =========================
+   FIX FINAL: MATIKAN SCROLL ARTICLE-BOX
+   ========================= */
+@media (min-width: 901px){
+  .article-box{
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  .article-scroll{
+    max-height: calc(100vh - 320px);
+    overflow-y: auto;
+  }
+}
+
+/* ===== BACK TO TOP (SYMMETRIC VERSION) ===== */
+.back-to-top{
+  position:relative;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:none;
+  background:var(--wosm-purple);
+  color:#fff;
+  cursor:pointer;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:0 10px 28px rgba(0,0,0,.28);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.back-to-top.show{
+  display:flex;
+}
+
+.back-to-top:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 36px rgba(0,0,0,.35);
+}
+
+/* Icon benar-benar center */
+.back-to-top i{
+  font-size:22px;
+  line-height:1;
+  position:relative;
+  z-index:2;
+}
+
+/* SVG progress */
+.progress-ring{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  transform:rotate(-90deg);
+}
+
+.progress-ring circle{
+  fill:none;
+  stroke-width:4;
+}
+
+.progress-ring__bg{
+  stroke:rgba(255,255,255,.25);
+}
+
+.progress-ring__circle{
+  stroke:#fff;
+  stroke-linecap:round;
+  stroke-dasharray:125.6;
+  stroke-dashoffset:125.6;
+  transition:stroke-dashoffset .15s linear;
+}
+
+#accessToggle{
+  z-index:10001;
+  pointer-events:auto;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+<main class="article-layout">
+
+<article class="article-box">
+  <span class="article-tag" id="kategori"></span>
+  <h1 class="article-title" id="judul"></h1>
+
+  <div class="article-meta">
+    <span><i class='bx bx-calendar'></i> <span id="tanggal"></span></span>
+    <span>
+  <i class='bx bx-user'></i>
+  <a id="penulisLink" href="#" style="font-weight:600;color:var(--primary)"></a>
+</span>
+    <span><i class='bx bx-show'></i> <span id="views"></span></span>
+  </div>
+
+  <img id="thumbnail" class="article-thumb">
+
+  <!-- ===== AREA SCROLL SAJA ===== -->
+   <div class="article-scroll"></div>
+    <div class="article-content" id="isi"></div>
+  </div>
+
+  <!-- ===== TIDAK SCROLL ===== -->
+  <div class="article-nav" id="randomArticle"></div>
+
+<!-- ===== SHARE BOX ===== -->
+<div class="share-box">
+  <h4>Bagikan Artikel</h4>
+  <div class="share">
+    <a id="share-wa" target="_blank" title="Bagikan ke WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+    <a id="share-fb" target="_blank" title="Bagikan ke Facebook"><i class='bx bxl-facebook'></i></a>
+    <a id="share-x" target="_blank" title="Bagikan ke X/Twitter"><i class='bx bxl-twitter'></i></a>
+    <a id="share-telegram" target="_blank" title="Bagikan ke Telegram"><i class='bx bxl-telegram'></i></a>
+    <a id="share-linkedin" target="_blank" title="Bagikan ke LinkedIn"><i class='bx bxl-linkedin'></i></a>
+    <button id="copy-link" title="Salin Link"><i class='bx bx-link'></i></button>
+  </div>
+</div>
+
+  <div class="comment-box">
+    <h3>Komentar</h3>
+    <div id="commentList"></div>
+
+    <form class="comment-form" onsubmit="kirimKomentar(event)">
+      <input type="text" id="nama" placeholder="Nama" required>
+      <textarea id="komentar" rows="3" placeholder="Tulis komentar..." required></textarea>
+      <button type="submit">Kirim Komentar</button>
+    </form>
+  </div>
+</article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="side-box">
+      <h3><i class='bx bx-trending-up'></i> Berita Populer</h3>
+      <div id="popularNews"></div>
+    </div>
+    <div class="side-box">
+  <h3><i class='bx bx-link-alt'></i> Terhubung Dengan Kami</h3>
+
+  <div style="display:grid;gap:10px">
+    <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"
+       style="display:flex;align-items:center;gap:10px;
+              padding:10px;border-radius:10px;
+              background:#f9fafb;font-weight:600">
+      <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
+      Instagram Jurnalistik
+    </a>
+
+    <a href="https://instagram.com/dkr__punggelan" target="_blank"
+       style="display:flex;align-items:center;gap:10px;
+              padding:10px;border-radius:10px;
+              background:#f9fafb;font-weight:600">
+      <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
+      Instagram DKR
+    </a>
+
+    <a href="mailto:dewankerjarantingkecpunggelan@gmail.com"
+       style="display:flex;align-items:center;gap:10px;
+              padding:10px;border-radius:10px;
+              background:#f9fafb;font-weight:600">
+      <i class='bx bx-envelope' style="font-size:20px;color:#5b2c83"></i>
+      Email Redaksi
+    </a>
+  </div>
+</div>
+
+  </aside>
+
+</main>
+
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>
+        Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.
+      </p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>
+        Dindikpora Kec. Punggelan<br>
+        Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462
+      </p>
+      <p>
+        Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+          kwarrankecamatanpunggelan@gmail.com
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+          dewankerjarantingkecpunggelan@gmail.com
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li>
+          <a href="https://pramukabanjarnegara.or.id" target="_blank">
+            Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramukajateng.or.id" target="_blank">
+            Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramuka.or.id" target="_blank">
+            Kwartir Nasional <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+      <div class="socials">
+        <a href="https://facebook.com/DkrPunggelan" target="_blank">
+          <i class='bx bxl-facebook'></i>
+        </a>
+        <a href="https://x.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-twitter'></i>
+        </a>
+        <a href="https://youtube.com" target="_blank">
+          <i class='bx bxl-youtube'></i>
+        </a>
+        <a href="https://instagram.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="credits">
+    © 2025 Dewan Kerja Ranting Punggelan. Semua Hak Dilindungi.
+  </div>
+</footer>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbynokygVu2lbNadbDWYf1SjW3yo9UBZ6F8_njQFiOvCpwOuxyIU6uFDWo9T4GMWrTbJ/exec";
+
+const params = new URLSearchParams(location.search);
+const ARTICLE_ID = params.get("id");
+
+if(!ARTICLE_ID){
+  document.body.innerHTML = "<h2>Artikel tidak ditemukan</h2>";
+  throw "NO ID";
+}
+
+// ===== LOAD DETAIL ARTIKEL =====
+const cb = "cb_" + Date.now();
+
+window[cb] = res => {
+  if(res.status !== "ok"){
+    alert("Artikel tidak ditemukan");
+    return;
+  }
+
+  const a = res.data;
+
+  // isi halaman
+  document.title = a.judul + " • DKR Punggelan";
+  document.getElementById("judul").textContent = a.judul;
+  document.getElementById("isi").innerHTML = a.isi;
+  document.getElementById("kategori").textContent = a.kategori || "Tanpa Kategori";
+  const penulisNama = a.penulis || "-";
+const penulisLink = document.getElementById("penulisLink");
+
+penulisLink.textContent = penulisNama;
+penulisLink.href = "author.html?name=" + encodeURIComponent(penulisNama);
+  document.getElementById("tanggal").textContent = formatTanggal(a.tanggal) || "-";
+
+  const thumb = document.getElementById("thumbnail");
+  if(a.thumbnail){
+    thumb.src = a.thumbnail;
+    thumb.style.display = "block";
+  } else {
+    thumb.style.display = "none";
+  }
+
+  // tampilkan views
+  const viewsEl = document.getElementById("views");
+  if(viewsEl){
+    viewsEl.textContent = (a.views || 0);
+  }
+
+  // update tombol share
+  setShare();
+
+  // load komentar
+  loadKomentar();
+};
+
+// ambil data artikel
+const s = document.createElement("script");
+s.src = API + "?action=detail&id=" + encodeURIComponent(ARTICLE_ID) + "&callback=" + cb;
+document.body.appendChild(s);
+
+// format tanggal
+function formatTanggal(tgl){
+  const d = new Date(tgl);
+  if(isNaN(d)) return "";
+  return d.toLocaleDateString("id-ID", {
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  });
+}
+
+// ===== KOMENTAR =====
+function loadKomentar(){
+  const cb = "cb_komen_" + Date.now();
+
+  window[cb] = res => {
+    const wrap = document.getElementById("commentList");
+    wrap.innerHTML = "";
+
+    if(res.status !== "ok" || !res.data.length){
+      wrap.innerHTML = "<p style='font-size:13px;color:#6b7280'>Belum ada komentar.</p>";
+      return;
+    }
+
+    res.data.forEach(k => {
+      const t = new Date(k.tanggal).toLocaleDateString("id-ID",{
+        day:"numeric",month:"long",year:"numeric"
+      });
+
+      wrap.innerHTML += `
+        <div class="comment">
+          <strong>${k.nama}</strong>
+          <small style="display:block;font-size:11px;color:#6b7280">${t}</small>
+          <p>${k.isi}</p>
+        </div>
+      `;
+    });
+
+    delete window[cb];
+  };
+
+  const s = document.createElement("script");
+  s.src = API + "?action=getKomentar&id=" + ARTICLE_ID + "&callback=" + cb;
+  document.body.appendChild(s);
+}
+
+function kirimKomentar(e){
+  e.preventDefault();
+  const nama = document.getElementById("nama").value.trim();
+  const isi  = document.getElementById("komentar").value.trim();
+  if(!nama || !isi) return;
+
+  const cb = "cb_send_" + Date.now();
+  window[cb] = res => {
+    if(res.status === "ok"){
+      document.getElementById("komentar").value = "";
+      loadKomentar();
+    }else{
+      alert("Gagal kirim komentar");
+    }
+    delete window[cb];
+  };
+
+  const s = document.createElement("script");
+  s.src = API + "?action=komentar&id=" + ARTICLE_ID +
+          "&nama=" + encodeURIComponent(nama) +
+          "&isi=" + encodeURIComponent(isi) +
+          "&callback=" + cb;
+  document.body.appendChild(s);
+}
+
+function setShare(){
+  const url = encodeURIComponent(location.href);
+  const text = encodeURIComponent(document.getElementById("judul").textContent);
+
+  // WhatsApp
+  document.getElementById("share-wa").href =
+    "https://wa.me/?text=" + text + "%0A" + url;
+
+  // Facebook
+  document.getElementById("share-fb").href =
+    "https://www.facebook.com/sharer/sharer.php?u=" + url;
+
+  // X / Twitter
+  document.getElementById("share-x").href =
+    "https://twitter.com/intent/tweet?text=" + text + "&url=" + url;
+
+  // Telegram
+  document.getElementById("share-telegram").href =
+    "https://t.me/share/url?url=" + url + "&text=" + text;
+
+  // LinkedIn
+  document.getElementById("share-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+
+  // Salin Link
+  document.getElementById("copy-link").onclick = () => {
+    navigator.clipboard.writeText(location.href)
+      .then(() => alert("Link artikel berhasil disalin!"))
+      .catch(() => alert("Gagal menyalin link."));
+  };
+}
+
+// Panggil fungsi share
+setShare();
+
+// ===== ARTIKEL POPULER =====
+const cbPop = "cb_pop_" + Date.now();
+window[cbPop] = res => {
+  renderPopular(res.data);
+  delete window[cbPop];
+};
+const sp = document.createElement("script");
+sp.src = API + "?action=popular&callback=" + cbPop;
+document.body.appendChild(sp);
+
+function renderPopular(data){
+  const wrap = document.getElementById("popularNews");
+  if(!wrap) return;
+
+  wrap.innerHTML = "";
+  data.forEach(n => {
+    wrap.innerHTML += `
+      <a href="artikel.html?id=${n.id}" class="popular-item">
+        <img src="${n.thumbnail}" alt="${n.judul}">
+        <div>
+          <span>${n.judul}</span>
+          <div class="popular-meta">
+            <span><i class='bx bx-show'></i> ${n.views || 0}</span>
+            <span><i class='bx bx-time-five'></i> ${waktuLaluAtauTanggal(n.tanggal)}</span>
+          </div>
+        </div>
+      </a>
+    `;
+  });
+}
+
+function waktuLaluAtauTanggal(tgl){
+  const d = new Date(tgl);
+  if(isNaN(d)) return "";
+  const now = new Date();
+  const diffMs = now - d;
+  const diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if(diffHari <= 5){
+    if(diffHari >= 1) return diffHari + " hari lalu";
+    const diffJam = Math.floor(diffMs / (1000*60*60));
+    if(diffJam >= 1) return diffJam + " jam lalu";
+    const diffMenit = Math.floor(diffMs / (1000*60));
+    if(diffMenit >= 1) return diffMenit + " menit lalu";
+    return "baru saja";
+  }
+
+  return d.toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"});
+}
+
+// ===== ARTIKEL SELANJUTNYA =====
+const cbRandom = "cb_random_" + Date.now();
+window[cbRandom] = res => {
+  if(res.status !== "ok") return;
+
+  const nowId = Number(ARTICLE_ID);
+  const list = res.data.filter(a => a.id != nowId).sort(() => Math.random()-0.5);
+
+  const wrap = document.getElementById("randomArticle");
+  if(!wrap || !list.length) return;
+
+  wrap.innerHTML = list.slice(0,2).map(a=>`
+    <a href="artikel.html?id=${a.id}">
+      <small>Mungkin kakak juga suka</small>
+      <span>${a.judul}</span>
+    </a>
+  `).join("");
+
+  delete window[cbRandom];
+};
+const sr = document.createElement("script");
+sr.src = API + "?action=list&callback=" + cbRandom;
+document.body.appendChild(sr);
+</script>
+
+<!-- FLOATING ACTION -->
+<div class="floating-tools">
+
+<button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">
+  <svg class="progress-ring" viewBox="0 0 48 48">
+    <circle class="progress-ring__bg" cx="24" cy="24" r="20"></circle>
+    <circle class="progress-ring__circle" cx="24" cy="24" r="20"></circle>
+  </svg>
+  <i class='bx bx-up-arrow-alt'></i>
+</button>
+
+<button
+  id="accessToggle"
+  aria-label="Buka menu aksesibilitas"
+  aria-expanded="false"
+  aria-controls="accessPanel"
+>
+  <i class='bx bx-universal-access'></i>
+</button>
+
+</div>
+
+<div
+  class="access-panel"
+  id="accessPanel"
+  aria-hidden="true"
+  role="dialog"
+>
+
+  <h4><i class='bx bx-universal-access'></i> Aksesibilitas</h4>
+
+  <button id="ttsToggle" onclick="toggleTTS()">
+  <i class='bx bx-volume-full'></i> Baca Artikel
+</button>
+
+  <button onclick="setFontSize(1)">
+    <i class='bx bx-zoom-in'></i> Perbesar Teks
+  </button>
+
+  <button onclick="setFontSize(-1)">
+    <i class='bx bx-zoom-out'></i> Perkecil Teks
+  </button>
+
+  <button onclick="resetFont()">
+    <i class='bx bx-reset'></i> Reset Teks
+  </button>
+
+  <hr>
+
+  <button onclick="toggleDyslexia()">
+    <i class='bx bx-book-reader'></i> Mode Disleksia
+  </button>
+
+  <button onclick="toggleContrast()">
+    <i class='bx bx-adjust'></i> Kontras Tinggi
+  </button>
+
+  <button onclick="toggleGray()">
+    <i class='bx bx-palette'></i> Hitam Putih
+  </button>
+
+  <button onclick="toggleLinkUnderline()">
+    <i class='bx bx-link'></i> Garis Bawah Tautan
+  </button>
+
+  <hr>
+
+  <button onclick="toggleReadingGuide()">
+    <i class='bx bx-horizontal-center'></i> Panduan Membaca
+  </button>
+
+  <button onclick="toggleStopAnimation()">
+    <i class='bx bx-pause-circle'></i> Hentikan Animasi
+  </button>
+
+  <hr>
+
+  <button onclick="resetAccessibility()" class="danger">
+    <i class='bx bx-trash'></i> Reset Semua
+  </button>
+</div>
+
+
+<script>
+// ===== BACK TO TOP =====
+// ===== BACK TO TOP WITH CIRCULAR PROGRESS =====
+const backToTop = document.getElementById("backToTop");
+const progressCircle = document.querySelector(".progress-ring__circle");
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+progressCircle.style.strokeDashoffset = circumference;
+
+function updateProgress(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollTop / docHeight;
+  const offset = circumference - progress * circumference;
+  progressCircle.style.strokeDashoffset = offset;
+
+  if(scrollTop > 300){
+    backToTop.classList.add("show");
+  }else{
+    backToTop.classList.remove("show");
+  }
+}
+
+window.addEventListener("scroll", updateProgress);
+
+backToTop.addEventListener("click", ()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+// ===== MODES =====
+function toggleContrast(){
+  document.body.classList.toggle("high-contrast");
+}
+function toggleGray(){
+  document.body.classList.toggle("gray-scale");
+}
+function toggleLinkUnderline(){
+  document.body.classList.toggle("underline-links");
+}
+function toggleReadingGuide(){
+  document.body.classList.toggle("reading-guide");
+}
+function toggleStopAnimation(){
+  document.body.classList.toggle("no-animation");
+}
+
+function resetAccessibility(){
+  const box = document.querySelector(".article-box");
+  document.body.className = "";
+  box.classList.remove("dyslexia");
+  resetFont();
+}
+</script>
+<script>
+let articleScale = 1;
+
+function setFontSize(step){
+  articleScale += step * 0.1;
+  document.querySelector(".article-box").style.fontSize =
+    articleScale + "em";
+}
+
+function resetFont(){
+  articleScale = 1;
+  document.querySelector(".article-box").style.fontSize = "";
+}
+</script>
+<script>
+function toggleDyslexia(){
+  document.querySelector(".article-box")
+    .classList.toggle("dyslexia");
+}
+</script>
+
+<script>
+let ttsUtterance = null;
+let ttsPlaying = false;
+
+function toggleTTS(){
+  const btn = document.getElementById("ttsToggle");
+
+  // jika sedang baca → hentikan
+  if(ttsPlaying){
+    window.speechSynthesis.cancel();
+    ttsPlaying = false;
+    btn.innerHTML = "<i class='bx bx-volume-full'></i> Baca Artikel";
+    return;
+  }
+
+  // ambil teks artikel (BERSIH, TANPA TAG HTML)
+  const article = document.querySelector(".article-box");
+  if(!article) return;
+
+  const text = article.innerText
+    .replace(/\s+/g," ")
+    .trim();
+
+  if(!text){
+    alert("Teks artikel tidak tersedia");
+    return;
+  }
+
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  ttsUtterance.lang = "id-ID";
+  ttsUtterance.rate = 1;
+  ttsUtterance.pitch = 1;
+
+  // pilih voice bahasa Indonesia jika ada
+  const voices = speechSynthesis.getVoices();
+  const indo = voices.find(v => v.lang === "id-ID");
+  if(indo) ttsUtterance.voice = indo;
+
+  ttsUtterance.onend = ()=>{
+    ttsPlaying = false;
+    btn.innerHTML = "<i class='bx bx-volume-full'></i> Baca Artikel";
+  };
+
+  ttsPlaying = true;
+  btn.innerHTML = "<i class='bx bx-stop-circle'></i> Hentikan Bacaan";
+  window.speechSynthesis.speak(ttsUtterance);
+}
+
+// hentikan suara saat ganti halaman / reload
+window.addEventListener("beforeunload",()=>{
+  window.speechSynthesis.cancel();
+});
+</script>
+
+<script>
+// ===== BURGER MENU =====
+function toggleMenu() {
+  const nav = document.getElementById("nav");
+  nav.classList.toggle("active");
+}
+
+// ===== DROPDOWN MOBILE =====
+function toggleDropdown(el) {
+  const parent = el.parentElement;
+  parent.classList.toggle("open");
+}
+</script>
+
+<script>
+const accessToggle = document.getElementById("accessToggle");
+const accessPanel  = document.getElementById("accessPanel");
+
+accessToggle.addEventListener("click", e=>{
+  e.stopPropagation();
+  const open = accessPanel.style.display === "block";
+  accessPanel.style.display = open ? "none" : "block";
+  accessPanel.setAttribute("aria-hidden", open);
+  accessToggle.setAttribute("aria-expanded", !open);
+});
+
+document.addEventListener("click", e=>{
+  if(!accessPanel.contains(e.target) && !accessToggle.contains(e.target)){
+    accessPanel.style.display = "none";
+    accessPanel.setAttribute("aria-hidden", "true");
+    accessToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+// WCAG keyboard
+accessToggle.addEventListener("keydown", e=>{
+  if(e.key === "Enter" || e.key === " "){
+    e.preventDefault();
+    accessToggle.click();
+  }
+});
+</script>
+
+</body>
+</html>

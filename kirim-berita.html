@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirim Berita • Kwarran Punggelan</title>
+<link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+
+.breadcrumb{
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:14px;
+}
+
+.breadcrumb a{
+  color:#5b2c83;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.breadcrumb span{
+  margin:0 6px;
+  color:#9ca3af;
+}
+
+header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{font-size:22px;color:var(--primary);font-weight:600}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative;transition:.3s}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--primary)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--primary);cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600;text-decoration:none;transition:.3s}
+.btn-primary:hover{background:var(--primary-light)}
+@media(max-width:900px){
+  nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  nav.active{display:flex}
+  nav a{padding:12px 0;width:100%;text-align:left}
+  .dropdown{width:100%}
+  .dropdown > a{display:flex;justify-content:space-between;align-items:center;width:100%}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;padding-left:12px;margin-top:6px}
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+*{box-sizing:border-box}
+
+body{
+  font-family:'K2D',sans-serif;
+  background:var(--bg);
+  margin:0;
+  color:#111;
+}
+
+.wrapper{
+  max-width:900px;
+  margin:40px auto;
+  padding:0 14px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:28px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.header h1{
+  font-size:24px;
+  font-weight:800;
+  margin:0;
+}
+
+.header p{
+  font-size:14px;
+  color:#555;
+  margin-top:6px;
+}
+
+.note{
+  background:#f9fafb;
+  border-left:4px solid #dc2626;
+  padding:12px 14px;
+  font-size:13px;
+  margin-bottom:24px;
+}
+
+form{
+  display:grid;
+  gap:18px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:12px;
+  font-size:14px;
+  border:1px solid #ccc;
+  outline:none;
+}
+
+.field textarea{
+  min-height:150px;
+  resize:vertical;
+}
+
+.full{grid-column:1/-1}
+
+.checkbox{
+  display:flex;
+  gap:10px;
+  font-size:13px;
+  align-items:flex-start;
+}
+
+.captcha{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.captcha span{
+  background:#111;
+  color:#fff;
+  padding:8px 14px;
+  letter-spacing:3px;
+  font-weight:800;
+}
+
+.actions{
+  text-align:center;
+}
+
+button{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:14px 26px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.status{
+  margin-top:14px;
+  font-weight:700;
+  text-align:center;
+}
+
+@media(max-width:720px){
+  .grid{grid-template-columns:1fr}
+}
+
+/* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
+}
+
+/* Sticky Button Mobile */
+.sticky-jurnalistik{
+  display:none;
+}
+
+@media(max-width:720px){
+  .sticky-jurnalistik{
+    display:flex;
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#5b2c83;
+    color:#fff;
+    padding:14px 20px;
+    border-radius:30px;
+    font-weight:800;
+    gap:8px;
+    z-index:9999;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    cursor:pointer;
+  }
+
+  body{
+    padding-bottom:0px;
+  }
+}
+
+/* Popup */
+.popup-jurnalistik{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+}
+
+.popup-jurnalistik.active{
+  display:flex;
+}
+
+.popup-box{
+  background:#fff;
+  width:90%;
+  max-width:320px;
+  padding:22px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.popup-box h4{
+  margin:0 0 14px;
+  font-size:16px;
+  font-weight:800;
+}
+
+.popup-box a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+  color:#fff;
+}
+
+.popup-box a.wa{background:#25D366}
+.popup-box a.ig{background:#E1306C}
+.popup-box a.mail{background:#374151}
+
+.popup-box button{
+  margin-top:6px;
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#a10202;
+  font-weight:700;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+    .btn-purple {
+  background: #5b2c83;
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: #6f3aa6;
+}
+</style>
+</head>
+
+<body>
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+<div class="wrapper">
+  <div class="card">
+
+      <div class="breadcrumb">
+    <a href="news.html">Warta</a> › Kirim Berita <span id="crumbTag"></span>
+  </div>
+
+    <div class="header">
+      <h1><i class='bx bx-send'></i> Kirim Berita</h1>
+      <p>Laporan kegiatan Pramuka akan diverifikasi redaksi sebelum dipublikasikan</p>
+    </div>
+
+    <form id="formBerita">
+
+      <div class="grid">
+        <div class="field">
+          <label>Nama Pengirim</label>
+          <input name="nama_pengirim" required>
+        </div>
+
+        <div class="field">
+          <label>Nama Penulis</label>
+          <input name="nama_penulis" required>
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+
+        <div class="field">
+          <label>No. WhatsApp</label>
+          <input name="telepon" placeholder="08xxxxxxxxxx" required>
+        </div>
+
+        <div class="field full">
+          <label>Asal Gudep / Kwarran</label>
+          <input name="asal" required>
+        </div>
+
+        <div class="field">
+          <label>Kategori Berita</label>
+          <select name="kategori" required>
+            <option value="">-- Pilih --</option>
+            <option>Kegiatan Gudep</option>
+            <option>Kegiatan Kwarran</option>
+            <option>Kegiatan Cabang/ Daerah/ Nasional</option>
+            <option>Wawasan</option>
+            <option>Lomba/ Prestasi</option>
+            <option>Umum</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Judul Berita</label>
+          <input name="judul" required>
+        </div>
+
+        <div class="field full">
+          <label>Isi Berita</label>
+          <textarea name="isi" required></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Link Google Drive (Thumbnail)</label>
+          <input type="url" name="drive_link" placeholder="https://drive.google.com/..." required>
+        </div>
+      </div>
+
+          <div class="note">
+      <strong>Media Dokumentasi</strong><br>
+      Upload foto/video ke <strong>Google Drive</strong>.  
+      Jika lebih dari satu file, harap digabung dalam <strong>satu folder Drive</strong>.
+    </div>
+
+      <div class="checkbox">
+        <input type="checkbox" required>
+        <span>Saya memastikan media sudah di Google Drive dan dapat diakses oleh redaksi</span>
+      </div>
+
+      <div class="captcha">
+        <span id="kodeCaptcha"></span>
+        <input id="inputCaptcha" placeholder="Ketik kode di samping" required>
+      </div>
+
+      <div class="actions">
+        <button type="submit">
+          <i class='bx bx-mail-send'></i> Kirim Berita ke Redaksi
+        </button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+    </form>
+
+    <div style="
+  margin-top:30px;
+  padding:18px;
+  border:1px dashed #d1d5db;
+  background:#f9fafb;
+  font-size:14px;
+">
+  <strong><i class='bx bx-info-circle'></i> Kontak Jurnalistik</strong>
+  <p style="margin:10px 0 0;line-height:1.7">
+    Jika mengalami kendala pengiriman berita atau membutuhkan konfirmasi redaksi, silakan hubungi:
+  </p>
+
+  <ul style="margin:10px 0 0;padding-left:18px;line-height:1.8">
+    <li>
+      <strong>WhatsApp:</strong>
+      <a href="https://wa.me/6282136065407" target="_blank">
+        0821-3606-5407 (Aryo)
+      </a>
+    </li>
+    <li>
+      <strong>Instagram:</strong>
+      <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+        @jurnalistik.punggelan
+      </a>
+    </li>
+    <li>
+      <strong>Email Dewan Kerja:</strong>
+      <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">Kirim Email
+      </a>
+    </li>
+  </ul>
+</div>
+
+  </div>
+</div>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("MMZjllxNncydFYOOW");
+
+// CAPTCHA
+const kode = Math.random().toString(36).substring(2,7).toUpperCase();
+document.getElementById("kodeCaptcha").textContent = kode;
+
+document.getElementById("formBerita").addEventListener("submit",function(e){
+  e.preventDefault();
+  const status=document.getElementById("status");
+
+  if(!/^08[0-9]{8,11}$/.test(this.telepon.value)){
+    status.textContent="❌ Nomor WhatsApp tidak valid";
+    return;
+  }
+
+  if(document.getElementById("inputCaptcha").value!==kode){
+    status.textContent="❌ Kode captcha salah";
+    return;
+  }
+
+  status.textContent="Mengirim berita...";
+
+  emailjs.sendForm(
+    "service_6nxz6jo",
+    "template_8hjqvrm",
+    this
+  ).then(()=>{
+    status.textContent="✅ Berita berhasil dikirim ke redaksi.";
+    this.reset();
+  }).catch(()=>{
+    status.textContent="❌ Gagal mengirim. Silakan coba lagi.";
+  });
+});
+</script>
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>
+        Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.
+      </p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>
+        Dindikpora Kec. Punggelan<br>
+        Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462
+      </p>
+      <p>
+        Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+          kwarrankecamatanpunggelan@gmail.com
+        <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+          dewankerjarantingkecpunggelan@gmail.com
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li>
+          <a href="https://pramukabanjarnegara.or.id" target="_blank">
+            Kwarcab Banjarnegara <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramukajateng.or.id" target="_blank">
+            Kwarda Jawa Tengah <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://pramuka.or.id" target="_blank">
+            Kwartir Nasional <i class='bx bx-link-external'></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+      <div class="socials">
+        <a href="https://facebook.com/DkrPunggelan" target="_blank">
+          <i class='bx bxl-facebook'></i>
+        </a>
+        <a href="https://x.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-twitter'></i>
+        </a>
+        <a href="https://youtube.com" target="_blank">
+          <i class='bx bxl-youtube'></i>
+        </a>
+        <a href="https://instagram.com/dkr__punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/jurnalistik.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+        <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank">
+          <i class='bx bxl-instagram'></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="credits">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</footer>
+
+<script>
+function toggleJurnalistik(){
+  document.getElementById('popupJurnalistik')
+    .classList.toggle('active');
+}
+
+function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+
+<!-- Sticky Jurnalistik Mobile -->
+<div class="sticky-jurnalistik" onclick="toggleJurnalistik()">
+  <i class='bx bx-chat'></i>
+</div>
+
+<!-- Popup Kontak -->
+<div class="popup-jurnalistik" id="popupJurnalistik">
+  <div class="popup-box">
+    <h4>Hubungi Jurnalistik</h4>
+
+    <a href="https://wa.me/6282136065407" target="_blank" class="wa">
+      <i class='bx bxl-whatsapp'></i> WhatsApp Kak Aryo
+    </a>
+
+    <a href="https://instagram.com/jurnalistik.punggelan" target="_blank" class="ig">
+      <i class='bx bxl-instagram'></i> Instagram
+    </a>
+
+    <a href="mailto:dewankerjarantingkecpunggelan@gmail.com" class="mail">
+      <i class='bx bx-envelope'></i> Email Dewan Kerja
+    </a>
+
+    <button onclick="toggleJurnalistik()">Tutup</button>
+  </div>
+</div>
+
+
+</body>
+</html>

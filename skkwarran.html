@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Susunan Pengurus/ Andalan Kwarran Punggelan</title>
+  <link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+  <!-- Font Quantico -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --wosm-purple: #5b2c83;
+      --wosm-purple-light: #6f3aa6;
+      --bg: #faf9ff;
+      --muted: #6b7280;
+      --radius: 12px;
+      --max-w: 1200px;
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:#111;line-height:1.5}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:50px;width:50px;object-fit:contain}
+    .brand h1{margin:0;font-size:20px;color:var(--wosm-purple)}
+    nav{display:flex;align-items:center;gap:20px}
+    nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a:hover{color:var(--wosm-purple)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+    .dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+    .dropdown:hover .dropdown-menu{display:block}
+    .menu-toggle{display:none;font-size:26px;color:var(--wosm-purple);cursor:pointer}
+    .menu-toggle{display:none;font-size:28px;cursor:pointer;color:var(--wosm-purple)}
+    @media (max-width: 768px) {
+
+  nav {
+    display: flex; /* JANGAN none */
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+
+    position: absolute;
+    top: 70px;
+    left: 12px;
+    right: 12px;
+
+    background: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    z-index: 2000;
+
+    /* 🔴 AWAL TERSEMBUNYI */
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  nav.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  nav > a,
+  nav .dropdown > a {
+    width: 100%;
+    padding: 10px 8px;
+    text-align: left;
+    justify-content: space-between;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    display: none;
+    width: 100%;
+    margin-top: 6px;
+    padding-left: 12px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+}
+
+    /* Profil Anggota */
+    main{max-width:var(--max-w);margin:auto;padding:30px 20px}
+    h2.section-title{text-align:center;color:var(--wosm-purple);margin-bottom:30px;font-size:28px}
+    .anggota-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .anggota-card{background:#fff;border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,.06);overflow:hidden;text-align:center;padding:16px;transition:.3s}
+    .anggota-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+    .anggota-card img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:12px;border:4px solid var(--wosm-purple-light)}
+    .anggota-card h4{margin:0;font-size:18px;color:#111}
+    .anggota-card p{margin:4px 0;font-size:14px;color:var(--muted)}
+    .jabatan{color:var(--wosm-purple);font-weight:600;margin-top:6px}
+    .sosmed{display:flex;justify-content:center;gap:10px;margin-top:10px}
+    .sosmed a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:6px;background:rgba(91,44,131,.1);color:var(--wosm-purple);font-size:18px;transition:.3s}
+    .sosmed a:hover{background:var(--wosm-purple);color:#fff}
+
+    /* Footer */
+    footer{background:var(--wosm-purple);color:#fff;margin-top:5px;padding:40px 20px 20px;font-size:14px}
+    footer h4{margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase}
+    footer p{margin:0 0 10px;line-height:1.6}
+    footer a{color:#fff;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    .footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+    .socials{display:flex;gap:10px;margin-top:10px}
+    .socials a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;background:rgba(255,255,255,.15);font-size:18px;transition:.3s}
+    .socials a:hover{background:#fff;color:var(--wosm-purple)}
+    footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
+    .credits{text-align:center;font-size:13px;color:rgba(255,255,255,.8)}
+    .credits-bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.credits-bar a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.credits-bar a:hover {
+  text-decoration: underline;
+}
+
+.credits-right span {
+  margin: 0 6px;
+  opacity: .6;
+}
+
+/* Responsif HP */
+@media (max-width: 600px) {
+  .credits-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+    .section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #4B0082; /* ungu WOSM */
+}
+.section-title .periode {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #555;
+  margin-top: 8px;
+}
+
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+.site-footer{
+  background:var(--wosm-purple);
+  color:#fff;
+  padding:50px 20px 25px;
+  font-size:14px;
+}
+.footer-links{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.footer-links li{
+  margin-bottom:6px;
+}
+.footer-links a{
+  color:#fff;
+  text-decoration:none;
+}
+.footer-links a:hover{
+  text-decoration:underline;
+}
+
+  </style>
+
+  <!-- Accessibility Button -->
+<div id="accessibility-btn">
+  <i class='bx bx-universal-access'></i>
+</div>
+
+<!-- Accessibility Panel -->
+<div id="accessibility-panel">
+  <h4>Accessibility Tools</h4>
+  <button onclick="changeFontSize(1)"><i class='bx bx-zoom-in'></i> Increase Text</button>
+  <button onclick="changeFontSize(-1)"><i class='bx bx-zoom-out'></i> Decrease Text</button>
+  <button onclick="toggleClass('grayscale')"><i class='bx bx-droplet'></i> Grayscale</button>
+  <button onclick="toggleClass('high-contrast')"><i class='bx bx-adjust'></i> High Contrast</button>
+  <button onclick="toggleClass('negative-contrast')"><i class='bx bx-moon'></i> Negative Contrast</button>
+  <button onclick="toggleClass('light-bg')"><i class='bx bx-sun'></i> Light Background</button>
+  <button onclick="toggleClass('underline-links')"><i class='bx bx-link'></i> Links Underline</button>
+  <button onclick="toggleClass('readable-font')"><i class='bx bx-font'></i> Readable Font</button>
+  <button onclick="resetAccessibility()"><i class='bx bx-reset'></i> Reset</button>
+</div>
+
+<style>
+  #accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--wosm-purple);
+    color: #fff;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transition: .3s;
+  }
+  #accessibility-btn:hover {
+    background: var(--wosm-purple-light);
+  }
+  #accessibility-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    padding: 16px;
+    width: 260px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3000;
+  }
+  #accessibility-panel h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--wosm-purple);
+  }
+  #accessibility-panel button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f4f4f4;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s;
+  }
+  #accessibility-panel button:hover {
+    background: var(--wosm-purple);
+    color: #fff;
+  }
+
+  /* Effects */
+  body.grayscale { filter: grayscale(100%) !important; }
+  body.high-contrast { background: #000 !important; color: #fff !important; }
+  body.negative-contrast { background: #000 !important; color: yellow !important; }
+  body.light-bg { background: #fff !important; color: #000 !important; }
+  body.underline-links a { text-decoration: underline !important; }
+  body.readable-font { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+  .page-title{
+  background: linear-gradient(135deg, #5b2c83, #6f3aa6);
+  color:#fff;
+  text-align:center;
+  padding:50px 20px 40px;
+}
+.page-title-inner{
+  max-width:1200px;
+  margin:auto;
+}
+.page-title h2{
+  margin:0;
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+.page-title h2 span{
+  display:block;
+  font-size:18px;
+  font-weight:500;
+  margin-top:6px;
+}
+.page-title p{
+  margin:10px 0 0;
+  font-size:16px;
+  opacity:.9;
+}
+
+@media(max-width:600px){
+  .page-title h2{font-size:22px}
+  .page-title h2 span{font-size:15px}
+  .page-title p{font-size:14px}
+}
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 16px 60px;
+}
+.section{
+  margin-bottom:40px;
+}
+.section h3{
+  margin-bottom:10px;
+  color:var(--ungu);
+  font-size:18px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+th, td{
+  border:1px solid var(--border);
+  padding:8px 10px;
+  vertical-align:top;
+}
+th{
+  background:#f1ecff;
+  text-align:left;
+}
+td.no{
+  width:50px;
+  text-align:center;
+  font-weight:600;
+}
+td ul{
+  margin:0;
+  padding-left:18px;
+}
+td ul li{
+  margin-bottom:4px;
+}
+@media(max-width:600px){
+  table{font-size:13px}
+}
+/* ===== TABEL DATA ORGANISASI ===== */
+table{
+  width:100%;
+  border-collapse:collapse;   /* kunci garis lurus */
+  table-layout:fixed;         /* kunci kolom sejajar */
+  margin:15px 0 35px;
+  background:#fff;
+}
+
+/* garis tabel */
+table th,
+table td{
+  border:1.5px solid #2f1b6a;   /* ungu gelap */
+  padding:8px 10px;
+  vertical-align:top;
+  word-wrap:break-word;
+}
+
+/* header tabel */
+table th{
+  background:var(--wosm-purple); /* UNGU WEBSITE */
+  color:#fff;
+  text-align:center;
+  font-weight:600;
+}
+
+/* kolom nomor */
+th.no,
+td.no{
+  width:45px;
+  text-align:center;
+}
+
+/* kolom urusan */
+table td:nth-child(2),
+table th:nth-child(2){
+  width:35%;
+}
+
+/* kolom nama */
+table td:nth-child(3),
+table th:nth-child(3){
+  width:55%;
+}
+
+/* daftar nama di dalam sel */
+table td ul{
+  margin:0;
+  padding-left:18px;
+}
+/* Tombol Unduh SK */
+.download-sk {
+  display: inline-block;
+  background: var(--wosm-purple);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(91,44,131,.3);
+  transition: 0.3s;
+  text-align: center;
+  margin: 30px auto;
+  display: block;
+  width: fit-content;
+}
+
+.download-sk:hover {
+  background: var(--wosm-purple-light);
+  box-shadow: 0 6px 18px rgba(91,44,131,.4);
+  transform: translateY(-2px);
+}
+
+</style>
+
+<!-- Font untuk Readable -->
+<link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet">
+
+<script>
+  // Toggle Panel
+  document.getElementById("accessibility-btn").addEventListener("click", () => {
+    const panel = document.getElementById("accessibility-panel");
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Font Size
+  let fontSize = 100;
+  function changeFontSize(change) {
+    fontSize += change * 10;
+    document.body.style.fontSize = fontSize + "%";
+  }
+
+  // Toggle Class
+  function toggleClass(cls) {
+    document.body.classList.toggle(cls);
+  }
+
+  // Reset
+  function resetAccessibility() {
+    fontSize = 100;
+    document.body.style.fontSize = "100%";
+    document.body.className = "";
+  }
+</script>
+</head>
+<body>
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+  <section class="page-title">
+  <div class="page-title-inner">
+    <h2>
+      SUSUNAN PENGURUS / ANDALAN
+      <span>KWARTIR RANTING GERAKAN PRAMUKA PUNGGELAN</span>
+    </h2>
+    <p>MASA BAKTI 2023 – 2026</p>
+  </div>
+</section>
+
+<main>
+<!-- A -->
+<div class="section">
+<h3>A. Pimpinan</h3>
+<table>
+<tr><th class="no">No</th><th>Jabatan</th><th>Nama</th></tr>
+<tr><td class="no">1</td><td>Ketua</td><td>Imam Purwanto, S.Pd.SD</td></tr>
+<tr><td class="no">2</td><td>Wakil Ketua Pembinaan Anggota Muda</td><td>Purwono, S.Pd.</td></tr>
+<tr><td class="no">3</td><td>Wakil Ketua Pembinaan Anggota Dewasa</td><td>Suparno, S.Pd.</td></tr>
+<tr><td class="no">4</td><td>Wakil Ketua Organisasi, Usaha & Sarpras</td><td>Teguh Raharjo, S.Pd.SD</td></tr>
+<tr><td class="no">5</td><td>Wakil Ketua Pengabdian & Humas</td><td>Mukhlis Guyit S., S.Pd.I</td></tr>
+<tr><td class="no">6</td><td>Sekretaris I</td><td>Misno, S.Pd.SD., M.Pd</td></tr>
+<tr><td class="no">7</td><td>Sekretaris II</td><td>Sodikin, S.Pd.I., M.Pd</td></tr>
+<tr><td class="no">8</td><td>Bendahara I</td><td>Khotimah, S.Pd.SD</td></tr>
+<tr><td class="no">9</td><td>Bendahara II</td><td>Noto, S.Pd.</td></tr>
+</table>
+</div>
+
+<!-- B -->
+<div class="section">
+<h3>B. Bidang Pembinaan Anggota Muda</h3>
+<table>
+<tr><th class="no">No</th><th>Urusan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Siaga Putra</td>
+<td><ul>
+<li>Dony Kurniawan, M.Pd.</li>
+<li>Angling Risnoto, S.Pd.SD</li>
+<li>Mustofa, S.Pd.SD</li>
+<li>Mujahidin, S.Pd.I</li>
+<li>Aprianto, S.Pd.I</li>
+<li>Afif Abdul Ghofar, S.Pd.</li>
+<li>Galih Darmawan, S.Pd.SD</li>
+</ul></td></tr>
+
+<tr><td class="no">2</td><td>Siaga Putri</td>
+<td><ul>
+<li>Cipto Filaeli, S.Pd.SD</li>
+<li>Kartiyah, S.Pd.</li>
+<li>Roisatun Nadziroh, S.Pd.SD</li>
+<li>Eli Sugianti, S.Pd.SD</li>
+<li>Pangesti Elitasari, S.Pd.</li>
+<li>Amanah Sita Ramadhani, S.Pd.</li>
+<li>Fathonah, S.Pd.I</li>
+</ul></td></tr>
+
+<tr><td class="no">3</td><td>Penggalang Putra</td>
+<td><ul>
+<li>Saryono, S.Pd.SD</li>
+<li>Slamet Riyadi, S.Pd.</li>
+<li>Suripto</li>
+<li>Eko Nuranto, S.Pd.SD</li>
+<li>Edi Sunarwan, S.Pd.I</li>
+<li>Febriyanto, S.Pd.SD</li>
+<li>Tuji, S.Pd.I</li>
+</ul></td></tr>
+
+<tr><td class="no">4</td><td>Penggalang Putri</td>
+<td><ul>
+<li>Indah Gempur, S.Pd.SD</li>
+<li>Yuliana Devianti, S.Pd.SD</li>
+<li>Titin Sulastri, S.Pd.SD</li>
+<li>Diyah Purnomo Wati, S.Pd.SD</li>
+<li>Iin Sri Wahyuni, S.Pd.</li>
+<li>Bariroh, S.Ag</li>
+<li>Pujiati, S.Pd.I</li>
+</ul></td></tr>
+
+<tr><td class="no">5</td><td>Penegak & Pandega Putra</td><td>Rokhman, S.Pd.</td></tr>
+<tr><td class="no">6</td><td>Penegak & Pandega Putri</td><td>Dian Fidya H., S.Pd.</td></tr>
+
+<tr><td class="no">7</td><td>Satuan Karya Pramuka</td>
+<td><ul>
+<li>Saka Bayangkara – Bripka Teguh Suroso</li>
+<li>Saka Wirakartika – Serda Jarwoto</li>
+<li>Saka Bhakti Husada – Purwito, A.Mk.</li>
+<li>Saka Bhakti Husada – Dwi Puspita, A.Mk</li>
+<li>Saka Kencana – Rudi Santosa, A.Md.</li>
+<li>Saka Wana Bhakti – Endang Nur Pratiwi, SP.</li>
+<li>Saka Taruna Bumi – Imam Supangat, SP.</li>
+<li>Saka Kalpataru – Yan Indra Pratama, S.Pd.</li>
+<li>Saka Kalpataru – Kiki Rahayu, S.Pd.</li>
+<li>Sako Pramuka SIAP – Nurkhayat, S.Pd.SD</li>
+</ul></td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>C. Bidang Pembinaan Anggota Dewasa</h3>
+<table>
+<tr><th class="no">No</th><th>Urusan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Putra</td><td>Warsino, S.Pd</td></tr>
+<tr><td class="no">2</td><td>Putri</td><td>Nurul Ardiastuti, S.Pd.</td></tr>
+<tr><td class="no">3</td><td>Rohani Putra</td><td>Sumardi, S.Pd.SD</td></tr>
+<tr><td class="no">4</td><td>Rohani Putra</td><td>Prianto, S.Pd.SD</td></tr>
+<tr><td class="no">5</td><td>Rohani Putri</td><td>Ahid Mualimah, S.Ag</td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>D. Bidang Organisasi, Usaha & Sarana Prasarana</h3>
+<table>
+<tr><th class="no">No</th><th>Urusan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Organisasi, Hukum & Kerjasama</td><td>Drs. Budi Utomo</td></tr>
+<tr><td class="no">2</td><td>Organisasi, Hukum & Kerjasama</td><td>Admin, S.Pd.SD</td></tr>
+<tr><td class="no">3</td><td>Usaha</td><td>Sutoro, S.Pd.SD</td></tr>
+<tr><td class="no">4</td><td>Sarana Prasarana</td><td>Moh. Basuki, S.Pd.I</td></tr>
+<tr><td class="no">5</td><td>Koordinator Gugus Depan (SD)</td><td>Arif Subekti, S.Pd.SD</td></tr>
+<tr><td class="no">6</td><td>Koordinator Gugus Depan (MI)</td><td>Arif Nurhasyim, S.Pd.I., M.Pd.</td></tr>
+<tr><td class="no">7</td><td>Koordinator Gugus Depan (SMP/MTs)</td><td>Sigit Sarengat, M.Pd</td></tr>
+<tr><td class="no">8</td><td>Koordinator Gugus Depan (SMK)</td><td>Ngaliman, S.Pd.MM</td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>E. Bidang Pengabdian Masyarakat & Hubungan Masyarakat</h3>
+<table>
+<tr><th class="no">No</th><th>Urusan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Pengabdian Masyarakat</td><td>Slamet Supriyanto, M.Pd.</td></tr>
+<tr><td class="no">2</td><td>Pengabdian Masyarakat</td><td>Soleman, S.Pd.SD</td></tr>
+<tr><td class="no">3</td><td>Hubungan Masyarakat</td><td>Suparlan, S.Pd.SD</td></tr>
+<tr><td class="no">4</td><td>Hubungan Masyarakat</td><td>Endang Supratini, S.Pd.SD</td></tr>
+<tr><td class="no">5</td><td>Perencanaan & Litbang</td><td>Arif Setyo Pramono, S.Pd., M.Pd.</td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>F. Dewan Kehormatan</h3>
+<table>
+<tr><th class="no">No</th><th>Jabatan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Ketua</td><td>Rokhyati, S.Pd.I</td></tr>
+<tr><td class="no">2</td><td>Wakil Ketua</td><td>Nasrun, S.Pd.SD</td></tr>
+<tr><td class="no">3</td><td>Anggota</td><td>Agus Sutoro, S.Pd</td></tr>
+<tr><td class="no">4</td><td>Anggota</td><td>H. Marjan, S.Ag</td></tr>
+<tr><td class="no">5</td><td>Anggota</td><td>H. Tumin, S.Ag</td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>G. Dewan Kerja Ranting</h3>
+<table>
+<tr><th class="no">No</th><th>Jabatan</th><th>Nama</th></tr>
+
+<tr><td class="no">1</td><td>Ketua</td><td>Salsa Aprilia Putri Utami</td></tr>
+<tr><td class="no">2</td><td>Wakil Ketua</td><td>Aryo Yulio Prasetya</td></tr>
+
+</table>
+</div>
+
+<div class="section">
+<h3>Susunan Lembaga Pemeriksa Keuangan</h3>
+<table>
+<tr><th class="no">No</th><th>Jabatan</th><th>Nama / Unsur</th></tr>
+
+<tr><td class="no">1</td><td>Ketua</td><td>Amaludin, S.Pd. – SD N 2 Sidarata</td></tr>
+<tr><td class="no">2</td><td>Anggota</td><td>Fajar Riyanto, M.Pd. – MIC 03 Tribuana</td></tr>
+<tr><td class="no">3</td><td>Anggota</td><td>Erni Ambarwati, S.E – SMP N 1 Punggelan</td></tr>
+<tr><td class="no">4</td><td>Anggota</td><td>Kasuh Suroso, S.Pd. – SDN 4 Jembangan</td></tr>
+<tr><td class="no">5</td><td>Anggota</td><td>Suwarsi, S.Pd.SD – SDN 2 Sawangan</td></tr>
+
+</table>
+</div>
+<!-- Tombol Unduh SK -->
+<div style="text-align:center;">
+  <a href="assets/files/SK_Kwarran_Punggelan.pdf" class="download-sk" download>
+    <i class='bx bx-download'></i> Unduh SK Kwarran Punggelan
+  </a>
+</div>
+
+</main>
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.</p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+      <p>Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">kwarrankecamatanpunggelan@gmail.com
+          <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li><a href="https://pramukabanjarnegara.or.id" target="_blank">Kwarcab Banjarnegara <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramukajateng.or.id" target="_blank">Kwarda Jawa Tengah <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramuka.or.id" target="_blank">Kwartir Nasional <i class='bx bx-link-external'></i></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kwarran.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+  </div>
+  <hr>
+    <div class="credits-bar">
+      <div class="credits-right">
+    <a href="index.html" target="_blank">Kwarran Punggelan</a>
+    <span>|</span>
+    <a href="news.html">Warta</a>
+  </div>
+  <div class="credits-left">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</div>
+
+</footer>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.getElementById('nav');
+
+  // Toggle menu utama
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('show');
+  });
+
+  // Dropdown khusus mobile (klik, bukan hover)
+  document.querySelectorAll('.dropdown > a').forEach(link => {
+    link.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        this.parentElement.classList.toggle('open');
+      }
+    });
+  });
+</script>
+</body>
+</html>
