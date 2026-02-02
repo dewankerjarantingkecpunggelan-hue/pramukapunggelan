@@ -568,6 +568,92 @@ body{
 </style>
 </head>
 <body>
+  <!-- Accessibility Button -->
+<div id="accessibility-btn">
+  <i class='bx bx-universal-access'></i>
+</div>
+
+<!-- Accessibility Panel -->
+<div id="accessibility-panel">
+  <h4>Accessibility Tools</h4>
+  <button onclick="changeFontSize(1)"><i class='bx bx-zoom-in'></i> Increase Text</button>
+  <button onclick="changeFontSize(-1)"><i class='bx bx-zoom-out'></i> Decrease Text</button>
+  <button onclick="toggleClass('grayscale')"><i class='bx bx-droplet'></i> Grayscale</button>
+  <button onclick="toggleClass('high-contrast')"><i class='bx bx-adjust'></i> High Contrast</button>
+  <button onclick="toggleClass('negative-contrast')"><i class='bx bx-moon'></i> Negative Contrast</button>
+  <button onclick="toggleClass('light-bg')"><i class='bx bx-sun'></i> Light Background</button>
+  <button onclick="toggleClass('underline-links')"><i class='bx bx-link'></i> Links Underline</button>
+  <button onclick="toggleClass('readable-font')"><i class='bx bx-font'></i> Readable Font</button>
+  <button onclick="resetAccessibility()"><i class='bx bx-reset'></i> Reset</button>
+</div>
+
+<style>
+  #accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--wosm-purple);
+    color: #fff;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transition: .3s;
+  }
+  #accessibility-btn:hover {
+    background: var(--wosm-purple-light);
+  }
+  #accessibility-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    padding: 16px;
+    width: 260px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3000;
+  }
+  #accessibility-panel h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--wosm-purple);
+  }
+  #accessibility-panel button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f4f4f4;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s;
+  }
+  #accessibility-panel button:hover {
+    background: var(--wosm-purple);
+    color: #fff;
+  }
+
+  /* Effects */
+  body.grayscale { filter: grayscale(100%) !important; }
+  body.high-contrast { background: #000 !important; color: #fff !important; }
+  body.negative-contrast { background: #000 !important; color: yellow !important; }
+  body.light-bg { background: #fff !important; color: #000 !important; }
+  body.underline-links a { text-decoration: underline !important; }
+  body.readable-font { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+</style>
+  
   <div class="kop-laporan" style="display:none;text-align:center;margin-bottom:24px">
   <img src="assets/images/kopdkr.png" style="height:80px"><br>
   <hr style="border:2px solid #000;margin-top:12px">
@@ -811,6 +897,34 @@ body{
     © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
   </div>
 </footer>
+
+  <script>
+  // Toggle Panel
+  document.getElementById("accessibility-btn").addEventListener("click", () => {
+    const panel = document.getElementById("accessibility-panel");
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Font Size
+  let fontSize = 100;
+  function changeFontSize(change) {
+    fontSize += change * 10;
+    document.body.style.fontSize = fontSize + "%";
+  }
+
+  // Toggle Class
+  function toggleClass(cls) {
+    document.body.classList.toggle(cls);
+  }
+
+  // Reset
+  function resetAccessibility() {
+    fontSize = 100;
+    document.body.style.fontSize = "100%";
+    document.body.className = "";
+  }
+</script>
+
 
 <script>
 function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
@@ -1267,6 +1381,7 @@ function downloadPDF(){
 
 </body>
 </html>
+
 
 
 
