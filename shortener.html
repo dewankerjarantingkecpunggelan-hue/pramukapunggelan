@@ -5,113 +5,328 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Short URL • Pramuka Punggelan</title>
 <link rel="icon" href="assets/images/logologo.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <style>
 :root{
-  --primary:#5b2c83;       /* Ungu Pramuka */
+  --primary:#5b2c83;
   --primary-light:#6f3aa6;
-  --accent:#f1c40f;        /* Emas/Kuning */
-  --bg:#f4f4f9;
-  --card:#fff;
-  --text-dark:#333;
-  --radius:12px;
+  --wosm-purple: #5b2c83;
+  --gold: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#f4f6f8;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
-
-body{background:var(--bg);color:var(--text-dark);line-height:1.5;}
-
-header{
-  background:#fff;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-  padding:12px 20px;
-  position:sticky;
-  top:0;
-  z-index:1000;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  background:var(--bg);
+  color:#111;
 }
 
-header .brand{
+header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:50px;width:50px;object-fit:contain}
+.brand h1{font-size:22px;color:var(--primary);font-weight:600}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative;transition:.3s}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:.3s}
+nav a:hover::after{width:100%}
+nav a:hover{color:var(--primary)}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+.dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+.dropdown:hover .dropdown-menu{display:block}
+.menu-toggle{display:none;font-size:26px;color:var(--primary);cursor:pointer}
+.btn-primary{background:var(--primary);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600;text-decoration:none;transition:.3s}
+.btn-primary:hover{background:var(--primary-light)}
+@media(max-width:900px){
+  nav{position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;display:none;padding:12px 20px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+  nav.active{display:flex}
+  nav a{padding:12px 0;width:100%;text-align:left}
+  .dropdown{width:100%}
+  .dropdown > a{display:flex;justify-content:space-between;align-items:center;width:100%}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;padding-left:12px;margin-top:6px}
+  .dropdown:hover .dropdown-menu{display:none}
+  .dropdown.open .dropdown-menu{display:block}
+  .menu-toggle{display:block}
+}
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+    /* ===== MAIN ===== */
+    main{
+      max-width:var(--max);
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    h2{color:var(--primary);margin-top:0}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:#fff;
+      padding:20px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 16px rgba(0,0,0,.05);
+    }
+
+    .form-box{
+      background:#fff;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+      text-align:center;
+    }
+
+    
+/* Footer */
+footer{
+  background:#5b2c83;
+  color:#fff;
+  margin-top:40px;
+  padding:40px 20px 20px;
+  font-size:14px
+}
+footer h4{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:700;
+  text-transform:uppercase
+}
+footer p{
+  margin:0 0 10px;
+  line-height:1.6
+}
+footer a{
+  color:#fff;
+  text-decoration:none
+}
+footer a:hover{
+  text-decoration:underline
+}
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px
+}
+.socials{
+  display:flex;
+  gap:10px;
+  margin-top:10px
+}
+.socials a{
   display:flex;
   align-items:center;
-  gap:12px;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:4px;
+  background:rgba(255,255,255,.15);
+  font-size:18px;
+  transition:.3s
+}
+.socials a:hover{
+  background:#fff;
+  color:var(--wosm-purple)
+}
+footer hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.2);
+  margin:20px 0
+}
+.credits{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.8)
 }
 
-header .brand img{height:50px;width:50px;object-fit:contain;}
-header .brand h1{color:var(--primary);font-size:22px;font-weight:700;}
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
+body{background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh;}
 
-.container{
-  max-width:800px;
-  margin:40px auto;
-  padding:0 20px;
-}
+/* Canvas Confetti */
+#confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;}
 
+/* Container */
+.container{max-width:720px;margin:50px auto;padding:0 20px;}
 .headeri{text-align:center;margin-bottom:30px;}
-.headeri h1{color:var(--primary);font-size:32px;margin-bottom:6px;}
-.headeri p{color:#555;font-size:16px;}
+.headeri h1{color:var(--primary);font-size:28px;margin-bottom:6px;opacity:0;animation:fadeIn .5s forwards;}
+.headeri p{color:#555;font-size:16px;opacity:0;animation:fadeIn .5s forwards .2s;}
+@keyframes fadeIn{to{opacity:1;}}
 
+/* Card */
 .card{
   background:var(--card);
-  padding:24px;
   border-radius:var(--radius);
-  box-shadow:0 8px 20px rgba(0,0,0,.06);
-  margin-bottom:24px;
-  transition: transform .2s;
+  padding:24px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  margin-bottom:28px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:cardFade 0.5s forwards;
 }
-
-.card:hover{transform: translateY(-4px);}
+@keyframes cardFade{to{opacity:1;transform:translateY(0);}}
 
 .form-box input{
   width:100%;
   padding:12px 14px;
-  margin-bottom:12px;
+  margin-bottom:14px;
   border:1px solid #ccc;
   border-radius:var(--radius);
   font-size:15px;
+  transition:var(--transition);
 }
+.form-box input:focus{border-color:var(--primary);box-shadow:0 0 6px rgba(91,44,131,.2);outline:none;}
 
 .btn-purple{
-  display:inline-block;
+  display:inline-flex;align-items:center;gap:6px;
   background:var(--primary);
   color:#fff;
-  padding:10px 20px;
+  padding:12px 22px;
   border-radius:var(--radius);
-  font-weight:600;
-  font-size:16px;
+  font-weight:600;font-size:16px;
   border:none;
   cursor:pointer;
-  transition:.3s;
+  transition:var(--transition);
 }
-
 .btn-purple:hover{background:var(--primary-light);}
 
-#result a{color:var(--accent);font-weight:600;}
+/* Result */
+#result{
+  margin-top:12px;font-weight:600;word-break:break-word;opacity:0;transition:var(--transition);
+  display:inline-flex;align-items:center;gap:6px;
+}
+#result.show{opacity:1;cursor:pointer;}
+#result.show i{transition:transform .3s;}
+#result.show.copied i{transform:rotate(360deg);color:var(--accent);}
 
 /* Table */
-table{width:100%;border-collapse:collapse;margin-top:12px;}
-th,td{padding:10px;text-align:left;border-bottom:1px solid #eee;}
-th{background:var(--primary);color:#fff;border-radius:var(--radius);}
-tr:hover{background:#f9f9f9;}
-
-/* Footer */
-footer{
-  text-align:center;
-  padding:30px 20px;
+.table-container{
+  overflow-x:auto;
+}
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:14px;
+  min-width:500px;
+}
+th,td{
+  padding:14px 16px;
+  text-align:left;
+  border-bottom:1px solid #eee;
+}
+th{
   background:var(--primary);
   color:#fff;
-  font-size:14px;
-  margin-top:40px;
+  font-weight:600;
+  border-top-left-radius:var(--radius);
+  border-top-right-radius:var(--radius);
 }
+tbody tr:hover{background:#f9f9f9;transition:background .3s;}
+td a{color:var(--primary);text-decoration:none;}
+td a:hover{text-decoration:underline;}
 </style>
+<style>
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  z-index:2000;
+  font-weight:600;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast.error {background:#e74c3c;}
+.toast.success {background:#27ae60;}
+</style>
+
+<div id="toast" class="toast"></div>
+
+<script>
+function showToast(message, type='success', duration=3000){
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast show ${type}`;
+  setTimeout(()=>{toast.className = 'toast';}, duration);
+}
+
+/* Contoh penggunaan: */
+// showToast("URL berhasil dibuat!", "success");
+// showToast("Masukkan URL dan shortcode!", "error");
+</script>
+
 </head>
 <body>
 
+<canvas id="confettiCanvas"></canvas>
+
 <header>
-  <div class="brand">
-    <img src="assets/images/logodkr.png" alt="Logo Pramuka">
-    <h1>Short URL • Pramuka</h1>
-  </div>
-</header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
 
 <div class="container">
   <div class="headeri">
@@ -122,76 +337,138 @@ footer{
   <div class="card form-box">
     <input type="text" id="originalURL" placeholder="Masukkan URL panjang di sini">
     <input type="text" id="shortCode" placeholder="Masukkan shortcode unik">
-    <button class="btn-purple" onclick="createShortURL()">Buat Short URL</button>
-    <p id="result" style="margin-top:12px;"></p>
+    <button class="btn-purple" id="createBtn"><i class='bx bx-link'></i> Buat Short URL</button>
+    <p id="result"></p>
   </div>
 
   <div class="card">
-    <h3>Daftar Short URL</h3>
-    <table id="urlList">
-      <thead>
-        <tr>
-          <th>Short Code</th>
-          <th>Original URL</th>
-          <th>Created At</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <h3>Short URL Terbaru</h3>
+    <div class="table-container">
+      <table id="urlList">
+        <thead>
+          <tr>
+            <th>Short</th>
+            <th>Link Asli</th>
+            <th>Dibuat</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <footer>
-  © 2026 Pramuka Punggelan Short URL
+  <div class="footer-grid" style="gap:40px">
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.</p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+      <p>Email:
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">kwarrankecamatanpunggelan@gmail.com
+          <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li><a href="https://pramukabanjarnegara.or.id" target="_blank">Kwarcab Banjarnegara <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramukajateng.or.id" target="_blank">Kwarda Jawa Tengah <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramuka.or.id" target="_blank">Kwartir Nasional <i class='bx bx-link-external'></i></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kwarran.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+  </div>
+  <hr>
+<div class="credits">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+
 </footer>
-
 <script>
-const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
+function toggleMenu(){document.getElementById("nav").classList.toggle("active");}
+function toggleDropdown(el){el.parentElement.classList.toggle("open");}
+</script>
+<script>
+const WEBAPP_URL="https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
+const createBtn=document.getElementById("createBtn");
+const confettiCanvas=document.getElementById("confettiCanvas");
+const ctx=confettiCanvas.getContext("2d");
+let w=confettiCanvas.width=window.innerWidth;
+let h=confettiCanvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{w=confettiCanvas.width=window.innerWidth; h=confettiCanvas.height=window.innerHeight;});
 
-// Buat short URL
-async function createShortURL(){
-  const longURL = document.getElementById("originalURL").value.trim();
-  const shortCode = document.getElementById("shortCode").value.trim();
-
-  if(!longURL || !shortCode){
-    alert("Masukkan URL dan shortcode!");
-    return;
-  }
-
+createBtn.addEventListener("click",async()=>{
+  const longURL=document.getElementById("originalURL").value.trim();
+  const shortCode=document.getElementById("shortCode").value.trim();
+  const result=document.getElementById("result");
+  if(!longURL||!shortCode){showToast("Masukkan URL dan shortcode!", "error");return;}
+  createBtn.innerHTML=`<i class='bx bx-loader-alt bx-spin'></i> Processing...`;
   try{
-    const res = await fetch(WEBAPP_URL, {
-      method:"POST",
-      body: JSON.stringify({ url: longURL, short: shortCode })
+    const res=await fetch(WEBAPP_URL,{method:"POST",body:JSON.stringify({url:longURL,short:shortCode})});
+    const text=await res.text();
+    if(text==="OK"){
+      const tbody=document.querySelector("#urlList tbody");
+      const row=document.createElement("tr");
+      row.innerHTML=`<td>${shortCode}</td><td><a href="${longURL}" target="_blank">${longURL}</a></td><td>${new Date().toLocaleString()}</td>`;
+      tbody.prepend(row);
+      result.innerHTML=`<i class='bx bx-copy'></i> https://pramukapunggelan.vercel.app/${shortCode}`;
+      result.classList.add("show");
+      result.onclick=()=>{navigator.clipboard.writeText(`https://pramukapunggelan.vercel.app/${shortCode}`);result.classList.add("copied");setTimeout(()=>result.classList.remove("copied"),800);}
+      launchConfetti();
+    }else{alert(text);}
+  }catch(e){alert("Terjadi error: "+e.message);}
+  finally{createBtn.innerHTML=`<i class='bx bx-link'></i> Buat Short URL`;}
+});
+
+/* Simple Confetti */
+function launchConfetti(){
+  const confettis=[];
+  for(let i=0;i<100;i++){
+    confettis.push({
+      x:Math.random()*w,
+      y:Math.random()*-h,
+      r:Math.random()*6+2,
+      dx:(Math.random()-0.5)*4,
+      dy:Math.random()*5+2,
+      color:`hsl(${Math.random()*360},70%,60%)`
     });
-    const text = await res.text();
-
-    if(text === "OK"){
-      document.getElementById("result").innerHTML = `
-        Short URL: <a href="/${shortCode}" target="_blank">https://pramukapunggelan.vercel.app/${shortCode}</a>
-      `;
-      loadURLList();
-    } else {
-      alert(text);
-    }
-  } catch(e){
-    alert("Terjadi error: "+e.message);
   }
+  function render(){
+    ctx.clearRect(0,0,w,h);
+    confettis.forEach(c=>{
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+      ctx.fillStyle=c.color;
+      ctx.fill();
+      c.x+=c.dx;
+      c.y+=c.dy;
+      if(c.y>h){c.y=-10;c.x=Math.random()*w;}
+    });
+  }
+  let frames=0;
+  function anim(){
+    render();
+    frames++;
+    if(frames<120) requestAnimationFrame(anim);
+    else ctx.clearRect(0,0,w,h);
+  }
+  anim();
 }
-
-// Load daftar short URL
-async function loadURLList(){
-  const res = await fetch(WEBAPP_URL);
-  const data = await res.json();
-  const tbody = document.querySelector("#urlList tbody");
-  tbody.innerHTML = "";
-  data.forEach(row=>{
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${row.short}</td><td><a href="${row.url}" target="_blank">${row.url}</a></td><td>${new Date(row.created).toLocaleString()}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-loadURLList();
 </script>
 
 </body>
