@@ -16,6 +16,7 @@
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/login", "destination": "/login.html" },
+    { "source": "/potonglink", "destination": "/shortener.html" },
     { "source": "/:code", "destination": "/api/:code" }
   ]
 }
