@@ -1,24 +1,31 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    { "src": "/", "dest": "/home" },
 
-    { "src": "/home", "dest": "/index.html" },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/home",
+      "permanent": true
+    }
+  ],
 
-    { "src": "/kwarran", "dest": "/skkwarran.html" },
-    { "src": "/dapot", "dest": "/potensi.html" },
-    { "src": "/dkrpunggelan", "dest": "/about.html" },
-    { "src": "/profildkr", "dest": "/profil.html" },
-    { "src": "/mediaunduh", "dest": "/unduh.html" },
-    { "src": "/agenda", "dest": "/jadwal.html" },
-    { "src": "/rekrutmendkr", "dest": "/rekrutmen.html" },
-    { "src": "/twibbon", "dest": "/twibbon.html" },
-    { "src": "/warta", "dest": "/news.html" },
-    { "src": "/prada", "dest": "/prada.html" },
-    { "src": "/kirim-berita", "dest": "/kirim-berita.html" },
-    { "src": "/admin", "dest": "/admin.html" },
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/login", "dest": "/login.html" }
+  "rewrites": [
+    { "source": "/home", "destination": "/index.html" },
+
+    { "source": "/kwarran", "destination": "/skkwarran.html" },
+    { "source": "/dapot", "destination": "/potensi.html" },
+    { "source": "/dkrpunggelan", "destination": "/about.html" },
+    { "source": "/profildkr", "destination": "/profil.html" },
+    { "source": "/mediaunduh", "destination": "/unduh.html" },
+    { "source": "/agenda", "destination": "/jadwal.html" },
+    { "source": "/rekrutmendkr", "destination": "/rekrutmen.html" },
+    { "source": "/twibbon", "destination": "/twibbon.html" },
+    { "source": "/warta", "destination": "/news.html" },
+    { "source": "/prada", "destination": "/prada.html" },
+    { "source": "/kirim-berita", "destination": "/kirim-berita.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/login", "destination": "/login.html" }
   ]
 }
