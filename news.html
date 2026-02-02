@@ -1368,8 +1368,13 @@ function renderKategoriSpecial(){
 function renderPopularAndTags(){
   const popularEl = document.getElementById("popularNews");
 
-  // ===== BERITA POPULER =====
-  const popular = beritaData.slice(0,5);
+  // =========================
+  // BERITA POPULER (REAL)
+  // =========================
+  const popular = [...beritaData]
+    .filter(b => Number(b.views) > 0)      // HARUS ADA VIEW
+    .sort((a,b) => b.views - a.views)      // VIEW TERBANYAK
+    .slice(0,5);
 
   popularEl.innerHTML = popular.length
     ? popular.map((b,i)=>`
@@ -1381,47 +1386,42 @@ function renderPopularAndTags(){
     `).join('')
     : "<p>Belum ada berita populer.</p>";
 
-  // ===== TAG BERITA (PAKAI KATEGORI) =====
-const tagEl = document.getElementById("tagList");
+  // =========================
+  // TAG BERITA (AMAN)
+  // =========================
+  const tagEl = document.getElementById("tagList");
+  const tagCount = {};
 
-const tagCount = {};
+  beritaData.forEach(b=>{
+    if(b.kategori){
+      tagCount[b.kategori] = (tagCount[b.kategori] || 0) + 1;
+    }
+    if(b.tag){
+      b.tag.split(",").forEach(t=>{
+        t = t.trim();
+        if(t){
+          tagCount[t] = (tagCount[t] || 0) + 1;
+        }
+      });
+    }
+  });
 
-// hitung kategori
-beritaData.forEach(b=>{
-  if(b.kategori){
-    tagCount[b.kategori] = (tagCount[b.kategori] || 0) + 1;
-  }
-
-  if(b.tag){
-    b.tag.split(",").forEach(t=>{
-      const tag = t.trim();
-      if(tag){
-        tagCount[tag] = (tagCount[tag] || 0) + 1;
-      }
-    });
-  }
-});
-
-tagEl.innerHTML = Object.entries(tagCount)
-  .sort((a,b)=>b[1]-a[1]) // tag terbanyak di atas
-  .map(([tag,jumlah])=>`
-    <a href="tag.html?tag=${encodeURIComponent(tag)}" class="tag">
-      ${tag}
-      <span style="
-        background:#5b2c83;
-        color:#fff;
-        font-size:11px;
-        padding:2px 6px;
-        border-radius:10px;
-        margin-left:6px;
-      ">
-        ${jumlah}
-      </span>
-    </a>
-  `).join("");
-
+  tagEl.innerHTML = Object.entries(tagCount)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([tag,jumlah])=>`
+      <a href="tag.html?tag=${encodeURIComponent(tag)}" class="tag">
+        ${tag}
+        <span style="
+          background:#5b2c83;
+          color:#fff;
+          font-size:11px;
+          padding:2px 6px;
+          margin-left:6px;
+        ">${jumlah}</span>
+      </a>
+    `).join("");
 }
-
+  
 function filterByTag(tag){document.getElementById("filterKategori").value=tag;renderPagination();}
 
 // ===== PERS & BULETIN =====
@@ -1610,3 +1610,4 @@ const youtubeVideos = [
 
 </body>
 </html>
+
