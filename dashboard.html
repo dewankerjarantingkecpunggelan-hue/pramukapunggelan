@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard • Artikel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'K2D',sans-serif;
+  background:#f3f4f6;
+  color:#111827
+}
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:24px
+}
+
+/* HEADER */
+.header{
+  background:#5b2c83;
+  color:#fff;
+  padding:20px 26px;
+  border-radius:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px
+}
+.header h1{
+  margin:0;
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+.header span{
+  font-size:13px;
+  opacity:.9
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px
+}
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 10px 28px rgba(0,0,0,.08)
+}
+.card h2{
+  margin:0 0 18px;
+  font-size:18px;
+  color:#5b2c83;
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+
+/* FORM */
+label{
+  font-weight:600;
+  font-size:13px;
+  margin-bottom:6px;
+  display:block
+}
+input,select{
+  width:100%;
+  padding:11px 13px;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  font-family:'K2D';
+  font-size:14px;
+  margin-bottom:14px
+}
+
+/* EDITOR */
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:8px
+}
+.toolbar button{
+  border:1px solid #ddd;
+  background:#f3f4f6;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px
+}
+.editor{
+  min-height:260px;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  padding:14px;
+  font-size:15px;
+  line-height:1.8;
+  overflow-y:auto;
+  margin-bottom:14px
+}
+
+/* BUTTON */
+.btn{
+  background:#5b2c83;
+  color:#fff;
+  border:none;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px
+}
+.btn:hover{background:#6f3aa6}
+
+/* TABLE */
+.table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px
+}
+.table th{
+  background:#f3f4f6;
+  text-align:left;
+  font-size:12px;
+  padding:10px
+}
+.table td{
+  padding:10px;
+  border-bottom:1px solid #e5e7eb
+}
+.table button{
+  background:#dc2626;
+  color:#fff;
+  border:none;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer
+}
+
+.editor blockquote{
+  border-left:4px solid #5b2c83;
+  padding-left:14px;
+  margin:12px 0;
+  color:#374151;
+  background:#f9f5ff;
+  border-radius:6px;
+  font-style:italic
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <h1><i class='bx bx-layout'></i> Dashboard Artikel</h1>
+  <span id="adminName"></span>
+</div>
+
+<div class="grid">
+
+<!-- UPLOAD -->
+<div class="card">
+  <h2><i class='bx bx-edit'></i> Tulis Artikel</h2>
+
+  <label>Judul</label>
+  <input id="judul" placeholder="Judul artikel">
+
+  <label>Kategori</label>
+  <select id="kategori">
+    <option>Berita</option>
+    <option>Kegiatan</option>
+    <option>Pengumuman</option>
+    <option>Pers</option>
+    <option>Dewan Kerja</option>
+    <option>Kwarran</option>
+    <option>Nasional</option>
+    <option>Pramuka</option>
+    <option>Internasional</option>
+    <option>Umum</option>
+  </select>
+
+  <label>Thumbnail (URL)</label>
+  <input id="thumbnail" placeholder="https://...">
+
+  <label>Isi Artikel</label>
+<div class="toolbar">
+  <button onclick="cmd('bold')"><b>B</b></button>
+  <button onclick="cmd('italic')"><i>I</i></button>
+  <button onclick="cmd('underline')"><u>U</u></button>
+
+  <button onclick="cmd('insertUnorderedList')">• List</button>
+  <button onclick="cmd('insertOrderedList')">1. List</button>
+
+  <button onclick="cmd('formatBlock','blockquote')">
+    <i>❛❛</i>
+  </button>
+
+  <button onclick="insertLink()">🔗</button>
+  <button onclick="insertImage()">🖼</button>
+</div>
+
+  <div id="editor" class="editor" contenteditable></div>
+
+  <button class="btn" onclick="uploadArtikel()">
+    <i class='bx bx-upload'></i> Publikasikan
+  </button>
+</div>
+
+<!-- LIST -->
+<div class="card">
+  <h2><i class='bx bx-list-ul'></i> Artikel Terbit</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Judul</th>
+        <th>Tanggal</th>
+        <th>Views</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="list"></tbody>
+  </table>
+</div>
+
+</div>
+</div>
+
+<script>
+/* AUTH */
+const USER = JSON.parse(localStorage.getItem("user")||"null");
+if(!USER){location.href="admin.html";}
+adminName.textContent="Login sebagai: "+USER.nama;
+</script>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycbynokygVu2lbNadbDWYf1SjW3yo9UBZ6F8_njQFiOvCpwOuxyIU6uFDWo9T4GMWrTbJ/exec";
+const editor=document.getElementById("editor");
+
+function cmd(a,b=null){
+  editor.focus();
+  document.execCommand(a,false,b);
+}
+function insertLink(){
+  const u=prompt("URL:");
+  if(u) cmd("createLink",u);
+}
+function insertImage(){
+  const u=prompt("URL gambar:");
+  if(u) document.execCommand("insertHTML",false,
+    `<img src="${u}" style="max-width:100%;border-radius:12px;margin:10px 0">`);
+}
+</script>
+<script>
+function uploadArtikel(){
+  if(!judul.value.trim()){
+    alert("Judul wajib diisi");
+    return;
+  }
+  if(!editor.innerHTML.trim()){
+    alert("Isi artikel wajib diisi");
+    return;
+  }
+
+  const cb = "cb_"+Date.now();
+
+  window[cb] = res=>{
+    if(res.status !== "ok"){
+      alert(res.message || "Gagal upload");
+      return;
+    }
+
+    alert("Artikel berhasil dipublish");
+    judul.value="";
+    editor.innerHTML="";
+    thumbnail.value="";
+    loadArticles();
+    delete window[cb];
+  };
+
+  const p = new URLSearchParams({
+    action:"addArtikel",
+    judul:judul.value,
+    isi:editor.innerHTML,
+    kategori:kategori.value,
+    penulis:USER.nama,
+    thumbnail:thumbnail.value,
+    callback:cb
+  });
+
+  const s=document.createElement("script");
+  s.src = API + "?" + p.toString();
+  document.body.appendChild(s);
+}
+</script>
+<script>
+function loadArticles(){
+  const cb="cb_"+Date.now();
+
+  window[cb]=res=>{
+    const el=document.getElementById("list");
+    el.innerHTML="";
+
+    if(!res.data || !res.data.length){
+      el.innerHTML="<tr><td colspan='4'>Belum ada artikel</td></tr>";
+      return;
+    }
+
+    res.data.forEach(a=>{
+      el.innerHTML+=`
+      <tr>
+        <td>${a.judul}</td>
+        <td>${a.tanggal}</td>
+        <td>${a.views}</td>
+        <td>
+          <button onclick="deleteArtikel('${a.id}')">🗑</button>
+        </td>
+      </tr>`;
+    });
+
+    delete window[cb];
+  };
+
+  const s=document.createElement("script");
+  s.src=API+"?action=adminList&callback="+cb;
+  document.body.appendChild(s);
+}
+
+function deleteArtikel(id){
+  if(!confirm("Hapus artikel ini?")) return;
+
+  const cb="cb_"+Date.now();
+  window[cb]=()=>{ loadArticles(); delete window[cb]; };
+
+  const s=document.createElement("script");
+  s.src=API+"?action=delete&id="+id+"&callback="+cb;
+  document.body.appendChild(s);
+}
+
+loadArticles();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login Dashboard • DKR Punggelan</title>
+<link rel="icon" href="assets/images/logodkr.png">
+
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'K2D',sans-serif;
+  background:linear-gradient(135deg,#5b2c83,#3b1d5a);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.login-box{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  border-radius:18px;
+  padding:32px;
+  box-shadow:0 20px 40px rgba(0,0,0,.25)
+}
+.login-header{
+  text-align:center;
+  margin-bottom:24px
+}
+.login-header img{
+  width:80px;
+  margin-bottom:10px
+}
+.login-header h1{
+  margin:0;
+  font-size:22px;
+  color:#5b2c83
+}
+.login-header p{
+  margin:6px 0 0;
+  font-size:13px;
+  color:#555
+}
+.form-group{
+  margin-bottom:16px
+}
+.form-group label{
+  font-size:13px;
+  font-weight:600;
+  display:block;
+  margin-bottom:6px
+}
+.form-control{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-family:'K2D';
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+.form-control input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-family:'K2D';
+  font-size:14px
+}
+.form-control i{
+  font-size:18px;
+  color:#5b2c83
+}
+.btn-login{
+  width:100%;
+  background:#5b2c83;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px
+}
+.btn-login:hover{
+  background:#6f3aa6
+}
+.login-msg{
+  margin-top:14px;
+  font-size:13px;
+  text-align:center
+}
+.login-msg.error{color:#dc2626}
+.login-msg.success{color:#16a34a}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <div class="login-header">
+    <img src="assets/images/logodkr.png" alt="DKR">
+    <h1>Dashboard Berita</h1>
+    <p>DKR Punggelan</p>
+  </div>
+
+  <div class="form-group">
+    <label>Username</label>
+    <div class="form-control">
+      <i class='bx bx-user'></i>
+      <input type="text" id="username" placeholder="Masukkan username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <div class="form-control">
+      <i class='bx bx-lock'></i>
+      <input type="password" id="password" placeholder="Masukkan password">
+    </div>
+  </div>
+
+  <button class="btn-login" onclick="login()">
+    <i class='bx bx-log-in'></i>
+    Login
+  </button>
+
+  <div id="msg" class="login-msg"></div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzyaoJSAAHTbMOJBTq8qr9w8Srkpb5AAnF4muXOcHajCFCETpyBTFwvP0Pb6f3kAng6/exec";
+const SHEET_USERS = "users";
+
+function login(){
+  const u = username.value;
+  const p = password.value;
+  const cb = "cb_"+Date.now();
+
+  window[cb] = res=>{
+    if(res.status==="ok"){
+      localStorage.setItem("user",JSON.stringify(res.user));
+      location.href="dashboard.html";
+    }else{
+      msg.textContent=res.message;
+      msg.className="login-msg error";
+    }
+    delete window[cb];
+  };
+
+  const s=document.createElement("script");
+  s.src=API_URL+"?action=login&u="+encodeURIComponent(u)+"&p="+encodeURIComponent(p)+"&callback="+cb;
+  document.body.appendChild(s);
+}
+
+</script>
+
+</body>
+</html>
