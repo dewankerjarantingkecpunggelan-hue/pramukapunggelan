@@ -195,20 +195,49 @@ body{
 /* HEADER */
 .author-box{
   background:var(--card);
-  border:1px solid var(--border);
-  padding:22px 24px;
-  margin-bottom:20px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  padding:32px 24px;
+  margin-bottom:40px;
+  text-align:center;
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+  position:relative;
+  top:0;
+  transition:0.3s;
 }
+
+.author-box:hover{
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+.author-box img{
+  height:140px;
+  width:140px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-bottom:20px;
+  border:4px solid var(--primary-light);
+  transition: transform 0.3s;
+}
+
+.author-box img:hover{
+  transform:scale(1.05);
+}
+
 .author-box h1{
-  margin:0;
-  font-size:24px;
+  margin:0 0 8px;
+  font-size:28px;
   font-weight:700;
   color:var(--primary);
 }
+
 .author-box p{
-  margin-top:6px;
-  font-size:14px;
+  font-size:15px;
   color:var(--muted);
+  line-height:1.6;
+  margin:0;
 }
 
 /* FILTER */
@@ -432,6 +461,7 @@ body{
 <div class="container">
 
 <div class="author-box">
+  <img id="authorImg" src="assets/images/P_49_20230105095623.jpg" alt="Foto Penulis" style="height:100px;width:100px;object-fit:cover;border-radius:50%;margin-bottom:12px">
   <h1 id="authorName"></h1>
   <p id="authorInfo"></p>
 </div>
@@ -537,13 +567,26 @@ body{
 </script>
 
 <script>
+// PROFIL STATIS PENULIS
+const authorProfiles = {
+  "Aryo Jurnalistik": { img:"assets/images/aryo.jpg", info:"Publikasi resmi oleh Aryo Jurnalistik" },
+  "Sodikin": { img:"assets/images/dikin.jpg", info:"Publikasi resmi oleh Sodikin" },
+  "Kwarran Punggelan": { img:"assets/images/logologo.png", info:"Publikasi resmi oleh Kwarran Punggelan" },
+  "DKR Punggelan": { img:"assets/images/logo.png", info:"Publikasi resmi oleh DKR Punggelan" }
+};
+
+const AUTHOR = new URLSearchParams(location.search).get("name");
+const authorData = authorProfiles[AUTHOR] || { img:"assets/images/noimage.png", info:"Publikasi resmi oleh penulis" };
+
+// SET FOTO & INFO PENULIS
+document.getElementById("authorName").textContent = AUTHOR || "Penulis Tidak Dikenal";
+document.getElementById("authorInfo").textContent = authorData.info;
+document.getElementById("authorImg").src = authorData.img;
+
+// --- SCRIPT SPREADSHEET tetap seperti semula ---
 const API="https://script.google.com/macros/s/AKfycbynokygVu2lbNadbDWYf1SjW3yo9UBZ6F8_njQFiOvCpwOuxyIU6uFDWo9T4GMWrTbJ/exec";
-const AUTHOR=new URLSearchParams(location.search).get("name");
 const PER_PAGE=5;
 let all=[],filtered=[],page=1;
-
-document.getElementById("authorName").textContent=AUTHOR;
-document.getElementById("authorInfo").textContent="Publikasi resmi oleh penulis";
 
 const cb="cb"+Date.now();
 window[cb]=res=>{
@@ -576,26 +619,26 @@ function render(){
   const start=(page-1)*PER_PAGE;
   const data=filtered.slice(start,start+PER_PAGE);
   const maxView=Math.max(...filtered.map(a=>a.views||0));
-list.innerHTML = data.map(a => {
-  const publishDate = new Date(a.tanggal);
-  const isNew = (Date.now() - publishDate) <= 7 * 24 * 60 * 60 * 1000;
+  list.innerHTML = data.map(a => {
+    const publishDate = new Date(a.tanggal);
+    const isNew = (Date.now() - publishDate) <= 7 * 24 * 60 * 60 * 1000;
 
-  return `
-  <a class="article-card" href="artikel.html?id=${a.id}">
-    <div class="thumb-wrap">
-      ${a.views >= maxView * 0.9 ? `<div class="badge popular">Terpopuler</div>` : ``}
-      ${isNew ? `<div class="badge new">Terbaru</div>` : ``}
-      <img src="${a.thumbnail || 'assets/images/noimage.png'}">
-    </div>
-    <div>
-      <h3>${a.judul}</h3>
-      <small>
-        ${publishDate.toLocaleDateString("id-ID")}
-        • <i class='bx bx-show'></i> ${a.views || 0}
-      </small>
-    </div>
-  </a>`;
-}).join("");
+    return `
+    <a class="article-card" href="artikel.html?id=${a.id}">
+      <div class="thumb-wrap">
+        ${a.views >= maxView * 0.9 ? `<div class="badge popular">Terpopuler</div>` : ``}
+        ${isNew ? `<div class="badge new">Terbaru</div>` : ``}
+        <img src="${a.thumbnail || 'assets/images/noimage.png'}">
+      </div>
+      <div>
+        <h3>${a.judul}</h3>
+        <small>
+          ${publishDate.toLocaleDateString("id-ID")}
+          • <i class='bx bx-show'></i> ${a.views || 0}
+        </small>
+      </div>
+    </a>`;
+  }).join("");
   document.getElementById("totalArtikel").textContent=filtered.length;
   document.getElementById("totalViews").textContent=filtered.reduce((t,a)=>t+(a.views||0),0);
   renderPagination();
@@ -620,9 +663,7 @@ function renderGraph(){
   const counts=Array(12).fill(0);
   filtered.forEach(a=>counts[new Date(a.tanggal).getMonth()]++);
   const max=Math.max(...counts,1);
-  g.innerHTML=counts.map(c=>`
-    <div class="bar" style="height:${(c/max)*80}px"></div>
-  `).join("");
+  g.innerHTML=counts.map(c=>`<div class="bar" style="height:${(c/max)*80}px"></div>`).join("");
 }
 
 const s=document.createElement("script");
@@ -631,4 +672,5 @@ document.body.appendChild(s);
 </script>
 </body>
 </html>
+
 
