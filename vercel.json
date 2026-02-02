@@ -15,6 +15,7 @@
     { "source": "/kirim-berita", "destination": "/kirim-berita.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/login", "destination": "/login.html" }
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/:code", "destination": "/api/:code" }
   ]
 }
