@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <style>
-/* (CSS tetap sama seperti versi kamu, aku skip di sini untuk ringkas) */
+/* CSS tetap sama seperti versi kamu */
 </style>
 </head>
 <body>
@@ -54,6 +54,9 @@
 </footer>
 
 <script>
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
+
+// Buat short URL
 async function createShortURL(){
   const longURL = document.getElementById("originalURL").value.trim();
   const shortCode = document.getElementById("shortCode").value.trim();
@@ -64,13 +67,14 @@ async function createShortURL(){
   }
 
   try{
-    const res = await fetch(`/api/create`, {
+    const res = await fetch(WEBAPP_URL, {
       method:"POST",
-      headers:{ "Content-Type": "application/json" },
       body: JSON.stringify({ url: longURL, short: shortCode })
     });
     const text = await res.text();
+
     if(text === "OK"){
+      // URL di domain sendiri
       document.getElementById("result").innerHTML = `
         Short URL: <a href="/${shortCode}" target="_blank">https://pramukapunggelan.vercel.app/${shortCode}</a>
       `;
@@ -83,8 +87,9 @@ async function createShortURL(){
   }
 }
 
+// Load daftar short URL
 async function loadURLList(){
-  const res = await fetch(`/api/list`);
+  const res = await fetch(WEBAPP_URL);
   const data = await res.json();
   const tbody = document.querySelector("#urlList tbody");
   tbody.innerHTML = "";
@@ -95,7 +100,7 @@ async function loadURLList(){
   });
 }
 
-// Load daftar saat halaman dibuka
+// Load saat halaman dibuka
 loadURLList();
 </script>
 </body>
