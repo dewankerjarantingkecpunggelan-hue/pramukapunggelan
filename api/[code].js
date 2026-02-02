@@ -1,19 +1,21 @@
-// api/[code].js
-import fetch from "node-fetch"; // kalau pakai Node <18
+import { GoogleSpreadsheet } from "google-spreadsheet";
 
-export default async function handler(req, res) {
+const SHEET_ID = "1IC6SyvFS6VIo04LVYL5_88ztese824idJk6K0RTNC7k";
+const SHEET_NAME = "URL Shortener";
+const CREDENTIALS = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+
+export default async function handler(req,res){
   const { code } = req.query;
+  const doc = new GoogleSpreadsheet(SHEET_ID);
+  await doc.useServiceAccountAuth(CREDENTIALS);
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle[SHEET_NAME];
+  const rows = await sheet.getRows();
+  const row = rows.find(r=>r.ShortCode === code);
 
-  // URL Apps Script lama
-  const webAppUrl = `https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec?s=${code}`;
-  
-  const response = await fetch(webAppUrl);
-  const text = await response.text();
-
-  // Kalau Apps Script pakai redirect via <script>
-  const match = text.match(/window.location="(.+)"/);
-  if(match) return res.redirect(match[1]);
-
-  // Kalau tidak ada, kirim teks JSON
-  res.status(200).send(text);
+  if(row){
+    return res.redirect(row.OriginalURL);
+  } else {
+    return res.status(404).send("Short URL not found");
+  }
 }
