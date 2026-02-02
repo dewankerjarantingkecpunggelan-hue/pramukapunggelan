@@ -1704,7 +1704,7 @@ const API = "https://script.google.com/macros/s/AKfycbzyaoJSAAHTbMOJBTq8qr9w8Srk
 const postsContainer = document.getElementById("posts");
 const runningText = document.getElementById("runningText");
 
-function loadBeritaDanRunningText(){
+function loadBeritaDanRunningText(limit = 8){
   const cb = "cb_" + Date.now();
   window[cb] = function(res){
     postsContainer.innerHTML = "";
@@ -1716,16 +1716,18 @@ function loadBeritaDanRunningText(){
       return;
     }
 
-    // ===== GRID BERITA =====
-    res.data.slice(0,6).forEach(a => {
+    // Urutkan berdasarkan tanggal terbaru jika tersedia
+    res.data.sort((a,b) => new Date(b.tanggal || 0) - new Date(a.tanggal || 0));
+
+    res.data.slice(0, limit).forEach(a => {
       const link = "artikel.html?id=" + a.id;
       const img = a.thumbnail || "https://via.placeholder.com/400x250?text=DKR+Punggelan";
       const kategori = a.kategori || "Umum";
-      const excerpt = a.isi ? a.isi.replace(/(<([^>]+)>)/gi,"").slice(0,100)+"..." : "";
+      // Ambil 150 karakter pertama sebagai preview
+      const excerpt = a.isi ? a.isi.replace(/(<([^>]+)>)/gi,"").slice(0,150) : "";
 
       const card = document.createElement("div");
       card.className = "post";
-      card.onclick = () => window.location.href = link;
 
       card.innerHTML = `
         <div style="position:relative">
@@ -1734,7 +1736,8 @@ function loadBeritaDanRunningText(){
         </div>
         <div class="p-body">
           <h4>${a.judul}</h4>
-          <p>${excerpt}</p>
+          <p>${excerpt}${excerpt.length > 0 ? "..." : ""}</p>
+          <a href="${link}" class="read-more" style="color:var(--primary);text-decoration:none;font-weight:500;">Baca Selengkapnya</a>
         </div>
       `;
       postsContainer.appendChild(card);
@@ -1751,6 +1754,7 @@ function loadBeritaDanRunningText(){
   document.body.appendChild(s);
 }
 
+// Load otomatis
 loadBeritaDanRunningText();
 </script>
 
@@ -1914,6 +1918,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
 
 
 
