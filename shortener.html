@@ -207,30 +207,49 @@ footer hr{
 </footer>
 
 <script>
-// api/[code].js
-import { google } from "googleapis";
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
 
-export default async function handler(req, res) {
-  const code = req.query.code;
-  const auth = new google.auth.GoogleAuth({
-    keyFile: "credentials.json",
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-  });
-  const sheets = google.sheets({ version: "v4", auth });
+async function createShortURL(){
+  const longURL = document.getElementById("originalURL").value.trim();
+  const shortCode = document.getElementById("shortCode").value.trim();
 
-  const SPREADSHEET_ID = "https://script.google.com/macros/s/AKfycbwUtQJ4wcMkp_OJl1e3eH8jbZ3BwO4ASqIUcvmpIB0nz62Zh812YwkTdpJ61pUux_c/exec";
-  const sheet = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: "Links!A:B",
-  });
+  if(!longURL || !shortCode){
+    alert("Masukkan URL dan shortcode!");
+    return;
+  }
 
-  const rows = sheet.data.values;
-  const found = rows.find(r => r[0] === code);
-
-  if (found) return res.redirect(found[1]);
-  res.status(404).send("URL not found");
+  try{
+    const res = await fetch(WEBAPP_URL, {
+      method:"POST",
+      body: JSON.stringify({ url: longURL, short: shortCode })
+    });
+    const text = await res.text();
+    if(text === "OK"){
+      document.getElementById("result").innerHTML = `Short URL: <a href="${WEBAPP_URL}?s=${shortCode}" target="_blank">${WEBAPP_URL}?s=${shortCode}</a>`;
+      loadURLList();
+    } else {
+      alert(text);
+    }
+  } catch(e){
+    alert("Terjadi error: "+e.message);
+  }
 }
 
+// Load daftar short URL
+async function loadURLList(){
+  const res = await fetch(WEBAPP_URL);
+  const data = await res.json();
+  const tbody = document.querySelector("#urlList tbody");
+  tbody.innerHTML = "";
+  data.forEach(row=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${row.short}</td><td><a href="${row.url}" target="_blank">${row.url}</a></td><td>${new Date(row.created).toLocaleString()}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Load daftar saat halaman dibuka
+loadURLList();
 </script>
 </body>
 </html>
