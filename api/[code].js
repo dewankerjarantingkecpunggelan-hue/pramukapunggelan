@@ -11,6 +11,6 @@ export default async function handler(req,res){
     res.writeHead(302, { Location: found.url });
     res.end();
   } else {
-    res.status(404).send("Short URL not found");
+    res.status(404).send("PATANGATUS PAPAT a.ka 404 Link Hilang/ Rusak");
   }
 }
