@@ -15,13 +15,13 @@ export default async function handler(req, res) {
       res.end();
     } else {
       // Redirect ke halaman 404 custom
-      res.writeHead(302, { Location: "/404.html" });
+      res.writeHead(302, { Location: "/404" });
       res.end();
     }
 
   } catch (err) {
     // Kalau API error → tetap ke 404
-    res.writeHead(302, { Location: "/404.html" });
+    res.writeHead(302, { Location: "/404" });
     res.end();
   }
 }
