@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pramuka Punggelan - Twibbon</title>
+<link rel="icon" href="assets/images/logologo.png" type="image/png">
+
+<!-- Font Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<!-- Boxicons -->
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --secondary:#5b2c83;
+  --dark:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --font:'Montserrat',sans-serif;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.85;
+}
+
+/* Header */
+    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:50px;width:50px;object-fit:contain}
+    .brand h1{margin:0;font-size:20px;color:var(--wosm-purple)}
+    nav{display:flex;align-items:center;gap:20px}
+    nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a:hover{color:var(--wosm-purple)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+    .dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+    .dropdown:hover .dropdown-menu{display:block}
+
+    /* Burger Menu */
+    .menu-toggle{display:none;font-size:26px;color:var(--wosm-purple);cursor:pointer}
+    @media(max-width:850px){
+  nav{
+    position:absolute;
+    top:70px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:flex-start;   /* ⬅️ PAKSA RATA KIRI */
+    gap:0;
+    background:#fff;
+    display:none;
+    padding:12px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+  }
+
+  nav.active{
+    display:flex;
+  }
+
+  nav a{
+    padding:12px 0;
+    width:100%;
+    text-align:left;          /* ⬅️ TEKS RATA KIRI */
+  }
+
+  .dropdown{
+    width:100%;
+  }
+
+  .dropdown > a{
+    display:flex;
+    justify-content:space-between; /* teks kiri, icon panah kanan */
+    align-items:center;
+    width:100%;
+  }
+
+  .dropdown-menu{
+    position:static;
+    width:100%;
+    box-shadow:none;
+    padding-left:12px;        /* ⬅️ INDENT SUBMENU */
+    margin-top:6px;
+  }
+
+  .dropdown-menu a{
+    text-align:left;
+    padding:10px 0;
+  }
+
+  .dropdown:hover .dropdown-menu{
+    display:none;
+  }
+
+  .dropdown.open .dropdown-menu{
+    display:block;
+  }
+
+  .btn-purple{
+    text-align:left;          /* LOGIN juga kiri */
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    position: absolute;
+    top: 70px;
+    left: 12px;
+    right: 12px;
+    background: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    z-index: 2000;
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  nav.show {opacity: 1; transform: translateY(0); pointer-events: auto;}
+  nav > a, nav .dropdown > a {width: 100%; padding: 10px 8px; text-align: left; justify-content: space-between;}
+  .menu-toggle {display: block;}
+  .dropdown {width: 100%;}
+  .dropdown-menu {position: static; display: none; width: 100%; margin-top: 6px; padding-left: 12px; background: transparent; box-shadow: none;}
+  .dropdown.open .dropdown-menu {display: block;}
+}
+
+/* TWIBBON */
+.twibbon-section{
+  max-width:400px;
+  width:100%;
+  margin:40px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  text-align:center;
+}
+.twibbon-section h2{color:var(--wosm-purple);margin-bottom:20px;}
+canvas{
+  border-radius:12px;
+  background:#ddd;
+  margin:20px auto;
+  display:block;
+  cursor:grab;
+  touch-action:none;
+  width:100%;
+  height:auto;
+  max-width:400px;
+}
+input[type=file]{margin:10px 0;}
+.caption-section{margin-top:20px;}
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  resize:none;
+  text-align:center;
+  max-width:100%;
+}
+button{
+  padding:10px 16px;
+  background:var(--wosm-purple);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+button:hover{background:var(--wosm-purple-light);}
+
+/* FOOTER */
+footer{background:var(--wosm-purple);color:#fff;margin-top:5px;padding:40px 20px 20px;font-size:14px}
+footer h4{margin:0 0 10px;font-size:14px;font-weight:700;text-transform:uppercase}
+footer p{margin:0 0 10px;line-height:1.6}
+footer a{color:#fff;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.socials{display:flex;gap:10px;margin-top:10px}
+.socials a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;background:rgba(255,255,255,.15);font-size:18px;transition:.3s}
+.socials a:hover{background:#fff;color:var(--wosm-purple)}
+footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
+.credits{text-align:center;font-size:13px;color:rgba(255,255,255,.8)}
+.credits-bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.credits-bar a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.credits-bar a:hover {
+  text-decoration: underline;
+}
+
+.credits-right span {
+  margin: 0 6px;
+  opacity: .6;
+}
+
+/* Responsif HP */
+@media (max-width: 600px) {
+  .credits-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+.btn-purple {
+  background: var(--wosm-purple);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-purple:hover {
+  background: var(--wosm-purple-light);
+}
+
+/* LAYOUT */
+.wrapper{
+  max-width:960px;
+  margin:40px auto;
+  padding:0 16px;
+}
+
+/* SECTION */
+section{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:30px 32px;
+  margin-bottom:28px;
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+h2{
+  margin:0 0 14px;
+  color:var(--primary);
+  font-size:1.35rem;
+  border-bottom:2px solid #f0f0f0;
+  padding-bottom:8px;
+}
+
+h3{
+  margin:22px 0 8px;
+  font-size:1.05rem;
+  color:#374151;
+}
+
+p{
+  margin:8px 0;
+}
+
+ul{
+  padding-left:20px;
+  margin:8px 0;
+}
+
+li{
+  margin-bottom:6px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  section{
+    padding:22px 20px;
+    border-radius:12px;
+  }
+  h2{
+    font-size:1.2rem;
+  }
+}
+
+/* JUDUL DOKUMEN */
+.doc-title{
+  max-width:960px;
+  margin:36px auto 20px;
+  padding:24px 28px;
+  background:linear-gradient(135deg,#f7f2ff,#ffffff);
+  border-left:6px solid var(--wosm-purple);
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+
+.doc-title h2{
+  margin:0 0 10px;
+  font-size:1.6rem;
+  color:var(--wosm-purple);
+}
+
+.doc-title p{
+  margin:0;
+  color:#374151;
+  font-size:.95rem;
+  line-height:1.7;
+}
+
+@media(max-width:768px){
+  .doc-title{
+    margin:24px 16px 16px;
+    padding:20px;
+  }
+  .doc-title h2{
+    font-size:1.35rem;
+  }
+}
+
+/* ===== LAYOUT DOKUMEN DENGAN TOC (DESKTOP) ===== */
+.doc-layout{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:28px;
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 16px;
+}
+
+/* TOC */
+.toc{
+  position:sticky;
+  top:120px;
+  align-self:flex-start;
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.toc h4{
+  margin:0 0 12px;
+  font-size:14px;
+  color:var(--wosm-purple);
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.toc a{
+  display:block;
+  padding:6px 0;
+  font-size:14px;
+  color:#374151;
+  text-decoration:none;
+}
+.toc a:hover{
+  color:var(--wosm-purple);
+  font-weight:600;
+}
+
+/* MOBILE: TOC HILANG */
+@media(max-width:1024px){
+  .doc-layout{
+    grid-template-columns:1fr;
+  }
+  .toc{
+    display:none;
+  }
+}
+
+</style>
+</head>
+
+  <!-- Accessibility Button -->
+<div id="accessibility-btn">
+  <i class='bx bx-universal-access'></i>
+</div>
+
+<!-- Accessibility Panel -->
+<div id="accessibility-panel">
+  <h4>Accessibility Tools</h4>
+  <button onclick="changeFontSize(1)"><i class='bx bx-zoom-in'></i> Increase Text</button>
+  <button onclick="changeFontSize(-1)"><i class='bx bx-zoom-out'></i> Decrease Text</button>
+  <button onclick="toggleClass('grayscale')"><i class='bx bx-droplet'></i> Grayscale</button>
+  <button onclick="toggleClass('high-contrast')"><i class='bx bx-adjust'></i> High Contrast</button>
+  <button onclick="toggleClass('negative-contrast')"><i class='bx bx-moon'></i> Negative Contrast</button>
+  <button onclick="toggleClass('light-bg')"><i class='bx bx-sun'></i> Light Background</button>
+  <button onclick="toggleClass('underline-links')"><i class='bx bx-link'></i> Links Underline</button>
+  <button onclick="toggleClass('readable-font')"><i class='bx bx-font'></i> Readable Font</button>
+  <button onclick="resetAccessibility()"><i class='bx bx-reset'></i> Reset</button>
+</div>
+
+<style>
+  #accessibility-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--wosm-purple);
+    color: #fff;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transition: .3s;
+  }
+  #accessibility-btn:hover {
+    background: var(--wosm-purple-light);
+  }
+  #accessibility-panel {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+    padding: 16px;
+    width: 260px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 3000;
+  }
+  #accessibility-panel h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--wosm-purple);
+  }
+  #accessibility-panel button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--wosm-purple);
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .3s;
+  }
+  #accessibility-panel button:hover {
+    background: var(--wosm-purple);
+    color: #fff;
+  }
+
+  /* Effects */
+  body.grayscale { filter: grayscale(100%) !important; }
+  body.high-contrast { background: #000 !important; color: #fff !important; }
+  body.negative-contrast { background: #000 !important; color: yellow !important; }
+  body.light-bg { background: #fff !important; color: #000 !important; }
+  body.underline-links a { text-decoration: underline !important; }
+  body.readable-font { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+
+/* ===============================
+   HIGHLIGHT BAB IV (KHUSUS)
+   =============================== */
+.highlight-iv{
+  background:linear-gradient(135deg,#f8f5ff,#ffffff);
+  border-left:6px solid var(--wosm-purple);
+  box-shadow:0 12px 32px rgba(91,44,131,.12);
+  position:relative;
+}
+
+.highlight-iv::before{
+  position:absolute;
+  top:-14px;
+  left:18px;
+  background:var(--wosm-purple);
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.6px;
+  padding:4px 10px;
+  border-radius:999px;
+}
+
+/* Judul BAB IV lebih tegas */
+.highlight-iv h2{
+  color:var(--wosm-purple);
+  font-weight:700;
+}
+
+/* Pasal lebih rapi */
+.highlight-iv h3{
+  color:#2f1b47;
+}
+
+</style>
+<body>
+
+<header>
+    <div class="nav-container">
+      <div class="brand">
+        <img src="assets/images/logodkr.png" alt="Logo DKR">
+        <h1>Pramuka Punggelan</h1>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()"><i class='bx bx-menu'></i></div>
+      <nav id="nav">
+        <a href="/">Beranda</a>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Profil <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/kwarran">Pengurus Kwarran</a>
+            <a href="/dapot">Data Potensi Pramuka Kwarran</a>
+            <a href="/dkrpunggelan">Tentang DKR Punggelan</a>
+            <a href="/profildkr">Profil Anggota DKR</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Organisasi <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/mediaunduh">Media Unduh</a>
+            <a href="/agenda">Agenda Kegiatan</a>
+            <a href="/rekrutmendkr">Rekrutmen DKR</a>
+          </div>
+        </div>
+          <div class="dropdown">
+          <a href="javascript:void(0)" onclick="toggleDropdown(this)">Tools <i class='bx bx-chevron-down'></i></a>
+          <div class="dropdown-menu">
+            <a href="/potonglink">Pemangkas URL</a>
+          </div>
+        </div>
+        <a href="/twibbon">Twibbon</a>
+        <a href="/warta">Berita</a>
+        <a href="/login" class="btn-purple">LOGIN</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="doc-title">
+  <h2>Kebijakan Privasi & Syarat dan Ketentuan</h2>
+  <p>
+    Dokumen resmi ini mengatur pengelolaan data pribadi serta ketentuan
+    penggunaan layanan Website Pramuka Punggelan sesuai Anggaran Dasar
+    dan Anggaran Rumah Tangga Gerakan Pramuka.
+  </p>
+</section>
+
+<div class="wrapper">
+
+<section>
+<h2>BAB I<br>Ketentuan Umum</h2>
+
+<h3>Pasal 1</h3>
+<p>
+Dalam dokumen ini yang dimaksud dengan:
+</p>
+<ul>
+<li><strong>Pengelola</strong> adalah pengurus resmi Pramuka Punggelan.</li>
+<li><strong>Website</strong> adalah media informasi resmi Pramuka Punggelan.</li>
+<li><strong>Pengguna</strong> adalah setiap pihak yang mengakses website ini.</li>
+</ul>
+
+<h3>Pasal 2</h3>
+<p>
+Kebijakan Privasi dan Syarat Ketentuan ini disusun sebagai pedoman
+pengelolaan informasi serta penggunaan layanan website sesuai dengan
+nilai <strong>Tri Satya</strong> dan <strong>Dasa Dharma Pramuka</strong>.
+</p>
+</section>
+
+<section>
+<h2>BAB II<br>Kebijakan Privasi</h2>
+
+<h3>Pasal 3</h3>
+<p>
+Pengelola menghormati dan melindungi hak privasi setiap pengguna website
+sebagai bentuk tanggung jawab moral dan etika organisasi.
+</p>
+
+<h3>Pasal 4</h3>
+<p>
+Informasi yang dapat dikumpulkan meliputi:
+</p>
+<ul>
+<li>Identitas yang diberikan secara sukarela oleh pengguna</li>
+<li>Informasi kontak untuk keperluan komunikasi kegiatan</li>
+<li>Data teknis non-pribadi untuk keamanan sistem</li>
+</ul>
+</section>
+
+<section>
+<h2>BAB III<br>Penggunaan dan Pengelolaan Data</h2>
+
+<h3>Pasal 5</h3>
+<p>
+Data yang diperoleh digunakan untuk:
+</p>
+<ul>
+<li>Administrasi dan pendataan kegiatan kepramukaan</li>
+<li>Penyampaian informasi, pengumuman, dan edukasi</li>
+<li>Peningkatan keamanan dan kualitas layanan website</li>
+</ul>
+
+<h3>Pasal 6</h3>
+<p>
+Pengelola menjamin data pengguna tidak diperjualbelikan atau disebarluaskan
+kepada pihak ketiga tanpa persetujuan, kecuali diwajibkan oleh peraturan
+perundang-undangan.
+</p>
+</section>
+
+<section class="highlight-iv" id="bab-iv">
+<h2>BAB IV<br>Cookie dan Teknologi Pendukung</h2>
+
+<h3>Pasal 7</h3>
+<p>
+Website dapat menggunakan cookie untuk mendukung fungsi dasar, analisis
+kunjungan terbatas, serta peningkatan pengalaman pengguna.
+</p>
+
+<h3>Pasal 8</h3>
+<p>
+Pengguna dapat mengatur atau menonaktifkan cookie melalui pengaturan
+peramban masing-masing.
+</p>
+</section>
+
+<section>
+<h2>BAB V<br>Hak dan Kewajiban Pengguna</h2>
+
+<h3>Pasal 9</h3>
+<p>
+Pengguna berhak untuk:
+</p>
+<ul>
+<li>Mengetahui penggunaan data pribadi</li>
+<li>Mengajukan permohonan koreksi atau penghapusan data</li>
+</ul>
+
+<h3>Pasal 10</h3>
+<p>
+Pengguna berkewajiban menggunakan website secara bertanggung jawab,
+tidak bertentangan dengan hukum, norma, dan nilai kepramukaan.
+</p>
+</section>
+
+<section>
+<h2>BAB VI<br>Syarat dan Ketentuan Layanan</h2>
+
+<h3>Pasal 11</h3>
+<p>
+Seluruh konten website bersifat informasi dan edukatif serta dikelola oleh
+Pengelola sesuai dengan ketentuan organisasi.
+</p>
+
+<h3>Pasal 12</h3>
+<p>
+Pengelola berhak melakukan perubahan, pembaruan, atau penghentian layanan
+website sewaktu-waktu demi kepentingan organisasi.
+</p>
+</section>
+
+<section>
+<h2>BAB VII<br>Penutup</h2>
+
+<h3>Pasal 13</h3>
+<p>
+Dengan mengakses dan menggunakan website ini, pengguna dianggap telah
+membaca, memahami, dan menyetujui seluruh ketentuan dalam dokumen ini.
+</p>
+
+<p>
+Dokumen ini berlaku sejak tanggal ditetapkan.
+</p>
+
+<p><em>Satyaku Kudarmakan, Darmaku Kubaktikan.</em></p>
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid" style="gap:40px">
+    <div>
+      <h4>KWARRAN PUNGGELAN</h4>
+      <p>Membentuk generasi muda Punggelan yang berkarakter, mandiri, dan berjiwa sosial melalui pendidikan kepanduan yang aktif dan berprestasi.</p>
+      <p><em>"Satyaku Kudarmakan, Darmaku Kubaktikan"</em></p>
+    </div>
+    <div>
+      <h4>SEKRETARIAT</h4>
+      <p>Dindikpora Kec. Punggelan<br>Jl. Raya Pasar Manis, Banjarnegara, Jateng 53462</p>
+      <p><p>Email: 
+          <a href="mailto:kwarrankecamatanpunggelan@gmail.com">kwarrankecamatanpunggelan@gmail.com
+          <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">dewankerjarantingkecpunggelan@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>ORGANISASI</h4>
+      <ul style="list-style:none;padding:0;margin:0;line-height:1.8">
+        <li><a href="https://pramukabanjarnegara.or.id" target="_blank">Kwarcab Banjarnegara <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramukajateng.or.id" target="_blank">Kwarda Jawa Tengah <i class='bx bx-link-external'></i></a></li>
+        <li><a href="https://pramuka.or.id" target="_blank">Kwartir Nasional <i class='bx bx-link-external'></i></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>MEDIA SOSIAL</h4>
+        <div class="socials">
+          <a href="https://facebook.com/DkrPunggelan" target="_blank"><i class='bx bxl-facebook'></i></a>
+          <a href="https://x.com/dkr__punggelan" target="_blank"><i class='bx bxl-twitter'></i></a>
+          <a href="https://youtube.com" target="_blank"><i class='bx bxl-youtube'></i></a>
+          <a href="https://instagram.com/dkr__punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kwarran.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+          <a href="https://instagram.com/kegop.dkr.punggelan" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+  </div>
+  <hr>
+    <div class="credits-bar">
+      <div class="credits-right">
+    <a href="index.html" target="_blank">Kwarran Punggelan</a>
+    <span>|</span>
+    <a href="news.html">Warta</a>
+  </div>
+  <div class="credits-left">
+    © 2026 Pramuka Punggelan. Semua Hak Dilindungi.
+  </div>
+</div>
+
+</footer>
+
+<script>
+// Menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.getElementById('nav');
+menuToggle.addEventListener('click', () => { nav.classList.toggle('show'); });
+document.querySelectorAll('.dropdown > a').forEach(link => {
+  link.addEventListener('click', function(e){
+    if(window.innerWidth <=768){ e.preventDefault(); this.parentElement.classList.toggle('open'); }
+  });
+});
+</script>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+  // Toggle Panel
+  document.getElementById("accessibility-btn").addEventListener("click", () => {
+    const panel = document.getElementById("accessibility-panel");
+    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Font Size
+  let fontSize = 100;
+  function changeFontSize(change) {
+    fontSize += change * 10;
+    document.body.style.fontSize = fontSize + "%";
+  }
+
+  // Toggle Class
+  function toggleClass(cls) {
+    document.body.classList.toggle(cls);
+  }
+
+  // Reset
+  function resetAccessibility() {
+    fontSize = 100;
+    document.body.style.fontSize = "100%";
+    document.body.className = "";
+  }
+</script>
+
+</body>
+</html>
