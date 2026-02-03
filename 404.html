@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>404 — Tersesat di Punggelan</title>
+<link rel="icon" href="assets/images/logodkr.png" type="image/png">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --wosm-purple:#5b2c83;
+  --wosm-purple-light:#6f3aa6;
+  --bg:#faf9ff;
+  --muted:#6b7280;
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:linear-gradient(180deg,#faf9ff,#f1ecff);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+
+/* ===== CARD SCENE ===== */
+.scene{
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:0 18px 40px rgba(91,44,131,.15);
+  padding:42px 32px 140px;
+  max-width:560px;
+  width:100%;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ===== COMPASS ===== */
+.compass{
+  width:110px;
+  height:110px;
+  border:4px solid var(--wosm-purple);
+  border-radius:50%;
+  margin:0 auto 28px;
+  position:relative;
+}
+.needle{
+  position:absolute;
+  width:2px;
+  height:46px;
+  background:var(--wosm-purple);
+  top:10px;
+  left:50%;
+  transform-origin:bottom;
+  animation:spin 6s linear infinite;
+}
+@keyframes spin{
+  to{transform:translateX(-50%) rotate(360deg)}
+}
+
+/* ===== TEXT ===== */
+.code{
+  font-size:72px;
+  font-weight:800;
+  color:var(--wosm-purple);
+  line-height:1;
+}
+.title{
+  font-size:22px;
+  font-weight:700;
+  margin-top:6px;
+}
+.desc{
+  font-size:14px;
+  color:var(--muted);
+  max-width:420px;
+  margin:14px auto 28px;
+  line-height:1.6;
+}
+
+/* ===== ACTION ===== */
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.btn{
+  padding:11px 18px;
+  border-radius:10px;
+  background:var(--wosm-purple);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:.25s;
+}
+.btn:hover{filter:brightness(1.1)}
+.btn.outline{
+  background:#fff;
+  color:var(--wosm-purple);
+  border:2px solid var(--wosm-purple);
+}
+
+/* ===== LAND ===== */
+.land{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:130px;
+  background:linear-gradient(180deg,#e8e1ff,#d9d0ff);
+}
+
+/* Trees */
+.tree{
+  position:absolute;
+  bottom:32px;
+  width:0;height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-bottom:44px solid var(--wosm-purple);
+  animation:sway 4s ease-in-out infinite;
+}
+.tree::after{
+  content:"";
+  position:absolute;
+  top:20px;left:-14px;
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-bottom:34px solid var(--wosm-purple-light);
+}
+.tree.t1{left:36px}
+.tree.t2{right:48px;animation-delay:1s}
+
+/* Tent */
+.tent{
+  position:absolute;
+  bottom:34px;
+  left:50%;
+  transform:translateX(-50%);
+  width:74px;
+  height:44px;
+  background:var(--wosm-purple);
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+/* Campfire */
+.campfire{
+  position:absolute;
+  bottom:26px;
+  left:50%;
+  transform:translateX(-50%);
+  width:40px;height:40px;
+}
+.logs{
+  position:absolute;
+  bottom:0;left:50%;
+  width:36px;height:6px;
+  background:#6b3f1d;
+  border-radius:4px;
+  transform:translateX(-50%) rotate(8deg);
+}
+.logs::after{
+  content:"";
+  position:absolute;
+  width:36px;height:6px;
+  background:#5a3216;
+  border-radius:4px;
+  transform:rotate(-16deg);
+}
+.flame{
+  position:absolute;
+  bottom:6px;left:50%;
+  width:14px;height:26px;
+  background:radial-gradient(circle at 50% 70%, #ffd27d 0%, #ff9f1c 45%, #ff6a00 70%);
+  border-radius:50%;
+  transform:translateX(-50%);
+  animation:flame 1.2s infinite ease-in-out;
+}
+.flame.small{
+  width:10px;height:18px;
+  left:42%;
+  opacity:.8;
+  animation-delay:.4s;
+}
+
+@keyframes flame{
+  0%{transform:translateX(-50%) scaleY(1)}
+  50%{transform:translateX(-50%) scaleY(1.25)}
+  100%{transform:translateX(-50%) scaleY(1)}
+}
+@keyframes sway{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(2deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+  <div class="compass"><div class="needle"></div></div>
+
+  <div class="code">404</div>
+  <div class="title">Anda Tersesat</div>
+  <p class="desc">
+    2x Tepuk Pramuka!
+  </p>
+
+  <div class="actions">
+    <a href="/" class="btn">
+      <i class='bx bx-home'></i> Beranda
+    </a>
+  </div>
+
+  <div class="land">
+    <div class="tree t1"></div>
+    <div class="tree t2"></div>
+    <div class="tent"></div>
+    <div class="campfire">
+      <div class="logs"></div>
+      <div class="flame"></div>
+      <div class="flame small"></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
