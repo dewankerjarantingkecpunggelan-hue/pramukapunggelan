@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lapor Kak! • SISDIG</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,sans-serif}
+body{
+  background:#f1f5f9;
+  color:#0f172a;
+  padding-bottom:40px;
+}
+
+/* ===== HEADER ===== */
+.header{
+  background:linear-gradient(135deg,#4f46e5,#2563eb);
+  padding:18px 20px 28px;
+  border-radius:0 0 26px 26px;
+  box-shadow:0 8px 26px rgba(0,0,0,.18);
+  color:#fff;
+}
+.header h1{
+  font-size:20px;
+  font-weight:600;
+  text-align: center;
+}
+.header p{
+  font-size:13px;
+  opacity:.9;
+  margin-top:4px;
+  text-align: center;
+}
+
+/* ===== CARD ===== */
+.wrapper{
+  padding:18px;
+}
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 14px 30px rgba(0,0,0,.12);
+}
+
+/* ===== FORM ===== */
+.form-group{
+  margin-bottom:16px;
+}
+label{
+  font-size:12px;
+  font-weight:600;
+  color:#334155;
+  display:block;
+  margin-bottom:6px;
+}
+select,input,textarea{
+  width:100%;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1.5px solid #e2e8f0;
+  background:#f8fafc;
+  font-size:14px;
+  transition:.2s;
+}
+select:focus,input:focus,textarea:focus{
+  outline:none;
+  border-color:#2563eb;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+textarea{resize:none}
+
+/* ===== ANONIM ===== */
+.anonim-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  border:1.5px dashed #c7d2fe;
+  border-radius:14px;
+  padding:14px;
+  font-size:13px;
+}
+.anonim-box input{transform:scale(1.2)}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  padding:15px;
+  border-radius:18px;
+  border:none;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  box-shadow:0 10px 22px rgba(37,99,235,.35);
+  transition:.2s;
+}
+button:hover{transform:translateY(-1px)}
+button:active{transform:scale(.98)}
+
+/* ===== INFO ===== */
+.info{
+  margin-top:14px;
+  font-size:11px;
+  color:#64748b;
+  text-align:center;
+}
+
+/* ===== LAPORAN LIST ===== */
+.list{
+  margin-top:22px;
+}
+.report{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+.report-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
+.report-user{
+  font-size:13px;
+  font-weight:600;
+}
+.report-user.anonymous{
+  color:#64748b;
+  font-style:italic;
+}
+.badge{
+  font-size:10px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:#e0e7ff;
+  color:#1e40af;
+  font-weight:600;
+}
+.report-title{
+  font-weight:600;
+  font-size:14px;
+  margin-top:6px;
+}
+.report-body{
+  font-size:13px;
+  color:#334155;
+  margin-top:6px;
+}
+
+/* ===== BALASAN ===== */
+.reply{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:#f1f5f9;
+  font-size:13px;
+}
+.reply.admin{
+  border-left:4px solid #2563eb;
+}
+.reply-dev{
+  font-size:10px;
+  font-weight:700;
+  color:#2563eb;
+}
+
+/* ===== FORM BALAS ===== */
+.reply-form{
+  margin-top:10px;
+}
+.reply-form textarea{
+  font-size:13px;
+}
+.reply-form button{
+  margin-top:6px;
+  padding:10px;
+  font-size:13px;
+}
+
+/* ===== BOTTOM HOME BAR ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:420px;
+  background:#ffffff;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+  display:flex;
+  justify-content:center;
+  z-index:999;
+}
+
+.bottom-nav button{
+  flex:1;
+  background:none;
+  border:none;
+  padding:14px 0;
+  font-family:Poppins,sans-serif;
+  font-size:13px;
+  font-weight:600;
+  color:#2563eb;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+}
+
+.bottom-nav i{
+  font-size:22px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Lapor Kak!</h1>
+  <p>Pengaduan, saran, atau laporan bug SISDIG</p>
+</div>
+
+<!-- CONTENT -->
+<div class="wrapper">
+  <div class="card">
+
+    <div class="form-group">
+      <label>Kategori Laporan</label>
+      <select id="kategori">
+        <option value="">— Pilih kategori —</option>
+        <option>Administrasi Pramuka</option>
+        <option>Kegiatan & Agenda</option>
+        <option>Keuangan</option>
+        <option>Anggota & Kepengurusan</option>
+        <option>Fasilitas & Inventaris</option>
+        <option>Sikap / Etika Anggota</option>
+        <option>Bug Website</option>
+        <option>Bug Aplikasi</option>
+        <option>Saran & Masukan</option>
+        <option>Lainnya</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Judul Laporan</label>
+      <input id="judul" placeholder="Contoh: Data anggota belum sinkron">
+    </div>
+
+    <div class="form-group">
+      <label>Isi Laporan</label>
+      <textarea id="isi" rows="4" placeholder="Jelaskan masalah atau saran secara jelas dan singkat..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <div class="anonim-box">
+        <input type="checkbox" id="anonim">
+        <span>Samarkan identitas saya (anonim)</span>
+      </div>
+    </div>
+
+    <button onclick="kirim()">
+      <i class='bx bx-send'></i> Kirim Laporan
+    </button>
+
+    <div class="info">
+      Laporan kamu akan ditinjau oleh admin DKR
+    </div>
+
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycbyYhAlNlJXN97CF_N5-P_XXA9FSvw-W8US18j_EQOb2iZMWr4GznGyAx7njOdsivEofjA/exec";
+
+const username = sessionStorage.getItem("SISDIG_USERNAME");
+const role = sessionStorage.getItem("SISDIG_ROLE"); // admin / admin_dev / user
+
+/* ===== KIRIM LAPORAN ===== */
+function kirim(){
+  if(!kategori.value||!judul.value||!isi.value){
+    alert("Lengkapi semua data");
+    return;
+  }
+
+  fetch(API,{
+    method:"POST",
+    body:JSON.stringify({
+      type:"lapor",
+      username,
+      kategori:kategori.value,
+      judul:judul.value,
+      isi:isi.value,
+      anonim:anonim.checked
+    })
+  })
+  .then(()=>{judul.value="";isi.value="";load();});
+}
+
+/* ===== LOAD DATA ===== */
+function load(){
+  const s=document.createElement("script");
+  s.src=API+"?callback=render";
+  document.body.appendChild(s);
+}
+
+/* ===== RENDER ===== */
+function render(data){
+  const box=document.getElementById("list");
+  box.innerHTML="";
+
+  data.forEach(r=>{
+    const div=document.createElement("div");
+    div.className="report";
+
+    div.innerHTML=`
+      <div class="report-header">
+        <div class="report-user ${r.anonim?'anonymous':''}">
+          ${r.anonim?'Anonim':r.username}
+        </div>
+        <span class="badge">${r.kategori}</span>
+      </div>
+
+      <div class="report-title">${r.judul}</div>
+      <div class="report-body">${r.isi}</div>
+
+      ${(r.replies||[]).map(b=>`
+        <div class="reply admin">
+          <div class="reply-dev">${b.role.toUpperCase()}</div>
+          ${b.isi}
+        </div>
+      `).join("")}
+
+      ${(role==="admin"||role==="admin_dev")?`
+        <div class="reply-form">
+          <textarea id="r${r.id}" rows="2" placeholder="Tanggapan admin..."></textarea>
+          <button onclick="balas('${r.id}')">Balas</button>
+        </div>
+      `:""}
+    `;
+    box.appendChild(div);
+  });
+}
+
+/* ===== BALAS ===== */
+function balas(id){
+  const t=document.getElementById("r"+id);
+  if(!t.value) return;
+
+  fetch(API,{
+    method:"POST",
+    body:JSON.stringify({
+      type:"balas",
+      laporan_id:id,
+      admin:username,
+      role,
+      isi:t.value
+    })
+  }).then(load);
+}
+
+load();
+</script>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="location.href='../index.html'">
+    <i class='bx bx-home'></i>
+    Beranda
+  </button>
+</div>
+
+</body>
+</html>

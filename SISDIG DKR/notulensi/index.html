@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOTULENSI DKR Punggelan</title>
+<link rel="icon" href="../assets/images/logo.png" type="image/png">
+
+<!-- Font & Icon -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#2563eb;
+  --secondary:#00193b;
+  --bg:#f4f6f8;
+  --card:#fff;
+  --text:#1f2937;
+  --muted:#6b7280;
+}
+[data-theme="dark"]{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+}
+*{box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);transition:.3s}
+
+/* HEADER */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;background:var(--card);
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+  border-bottom:2px solid var(--primary);
+  flex-wrap:wrap;
+}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{width:50px;height:50px;object-fit:contain}
+.brand h1{margin:0;font-size:18px;font-weight:700}
+.brand p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.header-info{display:flex;gap:15px;font-size:13px;color:var(--muted);align-items:center}
+.header-info div{display:flex;align-items:center;gap:4px}
+
+/* CONTAINER */
+.container{
+  max-width:1200px;margin:20px auto;padding:0 16px;
+  display:grid;grid-template-columns:1fr;gap:20px
+}
+.card{
+  background:var(--card);border-radius:12px;padding:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.07)
+}
+
+/* FORM INPUT */
+.form-group{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.form-group label{flex:1 0 120px;font-weight:600;align-self:center}
+.form-group input, .form-group textarea{flex:2 0 300px;padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
+textarea{min-height:80px;resize:vertical}
+
+/* NOTULENSI EDITOR */
+#editorToolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+#editorToolbar button{
+  background:var(--primary);color:#fff;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px
+}
+#editor{width:100%;min-height:200px;border:1px solid #e5e7eb;border-radius:8px;padding:12px;overflow:auto;font-size:14px;background:#fff}
+
+/* TABEL NOTULENSI */
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #d1d5db;padding:8px;text-align:left;font-size:13px}
+th{background:var(--primary);color:#fff}
+
+/* FOOTER */
+footer{text-align:center;margin:20px 0;font-size:12px;color:var(--muted);border-top:1px solid #e5e7eb;padding-top:8px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header{flex-direction:column;align-items:flex-start;padding:12px 16px}
+  .header-info{width:100%;flex-wrap:wrap;margin-top:6px;gap:10px;font-size:12px}
+  .form-group{flex-direction:column}
+  .form-group label, .form-group input, .form-group textarea{flex:1 0 auto}
+}
+
+/* ===== BOTTOM HOME BAR ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:420px;
+  background:#ffffff;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+  display:flex;
+  justify-content:center;
+  z-index:999;
+}
+
+.bottom-nav button{
+  flex:1;
+  background:none;
+  border:none;
+  padding:14px 0;
+  font-family:Poppins,sans-serif;
+  font-size:13px;
+  font-weight:600;
+  color:#2563eb;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+}
+
+.bottom-nav i{
+  font-size:22px;
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<header>
+  <div class="brand">
+    <img src="../assets/images/logo.png" alt="DKR Punggelan">
+    <div>
+      <h1>NOTULENSI DKR PUNGGELAN</h1>
+      <p>Catatan Rapat & Kegiatan</p>
+    </div>
+  </div>
+  <div class="header-info">
+    <div><i class='bx bx-time'></i> <span id="currentTime">--:--:--</span></div>
+    <div><i class='bx bx-chip'></i> Versi 1.0</div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="card">
+    <h3><i class='bx bx-edit'></i> Input Notulensi</h3>
+    
+    <div class="form-group">
+      <label for="tgl">Tanggal</label>
+      <input type="date" id="tgl">
+    </div>
+    <div class="form-group">
+      <label for="kegiatan">Nama Kegiatan</label>
+      <input type="text" id="kegiatan" placeholder="Nama Kegiatan">
+    </div>
+    <div class="form-group">
+      <label for="notulen">Notulen</label>
+      <input type="text" id="notulen" placeholder="Nama Notulen">
+    </div>
+    <div class="form-group">
+  <label for="lokasi">Lokasi Rapat</label>
+  <input type="text" id="lokasi" placeholder="Lokasi Rapat">
+</div>
+    <div class="form-group">
+      <label for="jumlah">Jumlah Hadir</label>
+      <input type="number" id="jumlah" placeholder="0">
+    </div>
+    
+    <h4>Catatan</h4>
+    <div id="editorToolbar">
+      <button title="Tebal" onclick="formatText('bold')"><i class='bx bxs-bold'></i></button>
+      <button title="Miring" onclick="formatText('italic')"><i class='bx bxs-italic'></i></button>
+      <button title="Garis Bawah" onclick="formatText('underline')"><i class='bx bxs-underline'></i></button>
+      <button title="Daftar Bullet" onclick="formatText('insertUnorderedList')"><i class='bx bx-list-ul'></i></button>
+      <button title="Daftar Nomor" onclick="formatText('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
+      <button title="Rata Kiri" onclick="formatText('justifyLeft')"><i class='bx bx-align-left'></i></button>
+      <button title="Rata Tengah" onclick="formatText('justifyCenter')"><i class='bx bx-align-middle'></i></button>
+      <button title="Rata Kanan" onclick="formatText('justifyRight')"><i class='bx bx-align-right'></i></button>
+    </div>
+    <div id="editor" contenteditable="true" placeholder="Tulis catatan rapat di sini..."></div>
+    <button onclick="saveNotes()" style="margin-top:10px;background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:14px"><i class='bx bx-save'></i> Simpan Notulensi</button>
+    <button onclick="exportPDF()" style="margin-top:10px;background:#00193b;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:14px"><i class='bx bx-file'></i> Export PDF</button>
+  </section>
+
+  <section class="card">
+    <h3><i class='bx bx-file'></i> Daftar Notulensi</h3>
+    <div id="notesList"></div>
+  </section>
+</div>
+
+<footer>
+  <span>© 2026 DKR Punggelan</span> | <span id="footerTime">--:--:--</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* ===== JAM REAL-TIME ===== */
+function updateTime(){
+  const now=new Date();
+  const timeStr=now.toLocaleTimeString('id-ID',{hour12:false});
+  document.getElementById('currentTime').textContent=timeStr;
+  document.getElementById('footerTime').textContent=timeStr;
+}
+setInterval(updateTime,1000);
+updateTime();
+
+/* ===== FORMAT TEXT ===== */
+function formatText(cmd){document.execCommand(cmd,false,null)}
+
+/* ===== SIMPAN NOTULENSI ===== */
+function saveNotes(){
+  const tgl=document.getElementById('tgl').value;
+  const kegiatan=document.getElementById('kegiatan').value.trim();
+  const notulen=document.getElementById('notulen').value.trim();
+  const jumlah=document.getElementById('jumlah').value.trim();
+  const lokasi=document.getElementById('lokasi').value.trim();
+  const editor=document.getElementById('editor');
+
+  if(!tgl || !kegiatan || !notulen || !jumlah || !lokasi || !editor.innerHTML.trim()){
+    alert('Lengkapi semua kolom sebelum menyimpan!');
+    return;
+  }
+
+  let notes=JSON.parse(localStorage.getItem('dk_notes')||'[]');
+  notes.unshift({
+    tgl, kegiatan, notulen, jumlah, lokasi, content:editor.innerHTML, waktu:new Date().toLocaleString('id-ID')
+  });
+  localStorage.setItem('dk_notes',JSON.stringify(notes));
+
+  // reset form
+  document.getElementById('tgl').value='';
+  document.getElementById('kegiatan').value='';
+  document.getElementById('notulen').value='';
+  document.getElementById('jumlah').value='';
+  document.getElementById('lokasi').value='';
+  editor.innerHTML='';
+  renderNotes();
+}
+
+/* ===== HAPUS NOTULENSI ===== */
+function deleteNote(idx){
+  let notes = JSON.parse(localStorage.getItem('dk_notes')||'[]');
+  notes.splice(idx,1);
+  localStorage.setItem('dk_notes',JSON.stringify(notes));
+  renderNotes();
+}
+
+/* ===== RENDER NOTULENSI ===== */
+function renderNotes(){
+  const notesList=document.getElementById('notesList');
+  let notes=JSON.parse(localStorage.getItem('dk_notes')||'[]');
+  if(!notes.length){notesList.innerHTML='<p style="color:#6b7280;text-align:center;">Belum ada catatan</p>';return;}
+
+  notesList.innerHTML=notes.map((n,i)=>`
+    <div style="border:1px solid #e5e7eb;padding:12px;margin-bottom:12px;border-radius:8px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.05)">
+      <p><strong>Kegiatan :</strong> ${n.kegiatan}</p>
+      <p><strong>Tanggal :</strong> ${n.tgl}</p>
+      <p><strong>Lokasi :</strong> ${n.lokasi}</p>
+      <p><strong>Notulen :</strong> ${n.notulen}</p>
+      <p><strong>Jumlah Hadir :</strong> ${n.jumlah}</p>
+      <p><strong>Catatan :</strong><br>${n.content}</p>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button onclick="deleteNote(${i})" style="background:#dc2626;color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px"><i class='bx bx-trash'></i> Hapus</button>
+        <button onclick="exportNotePDF(${i})" style="background:#00193b;color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px"><i class='bx bx-file'></i> Download PDF</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===== EXPORT PDF PER CATATAN ===== */
+function exportNotePDF(idx){
+  const { jsPDF } = window.jspdf;
+  let notes = JSON.parse(localStorage.getItem('dk_notes')||'[]');
+  if(!notes[idx]) return;
+
+  const n = notes[idx];
+  const doc = new jsPDF({unit:'pt',format:'a4'});
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 40;
+  let y = margin;
+
+  // Kop Surat
+  const img = new Image();
+  img.src = '../assets/images/kopdkr.png';
+  img.onload = () => {
+    const ratio = img.height / img.width;
+    const imgWidth = pageWidth - 2*margin;
+    const imgHeight = imgWidth * ratio;
+    doc.addImage(img,'PNG', margin, y, imgWidth, imgHeight);
+    y += imgHeight + 30;
+
+    // Judul
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(16);
+    doc.text('NOTULENSI DKR PUNGGELAN', pageWidth/2, y, {align:'center'});
+    y += 25;
+
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(12);
+
+    // Isi catatan
+    const labelWidth = 100;
+    doc.setFont('helvetica','bold');
+    doc.text('Kegiatan', margin, y); doc.setFont('helvetica','normal'); doc.text(`: ${n.kegiatan}`, margin+labelWidth, y); y+=18;
+    doc.setFont('helvetica','bold');
+    doc.text('Tanggal', margin, y); doc.setFont('helvetica','normal'); doc.text(`: ${n.tgl}`, margin+labelWidth, y); y+=18;
+    doc.setFont('helvetica','bold');
+    doc.text('Lokasi', margin, y); doc.setFont('helvetica','normal'); doc.text(`: ${n.lokasi}`, margin+labelWidth, y); y+=18;
+    doc.setFont('helvetica','bold');
+    doc.text('Notulen', margin, y); doc.setFont('helvetica','normal'); doc.text(`: ${n.notulen}`, margin+labelWidth, y); y+=18;
+    doc.setFont('helvetica','bold');
+    doc.text('Jumlah Hadir', margin, y); doc.setFont('helvetica','normal'); doc.text(`: ${n.jumlah}`, margin+labelWidth, y); y+=20;
+
+    doc.setFont('helvetica','normal');
+    const lines = doc.splitTextToSize(n.content, pageWidth-2*margin);
+    doc.text(lines, margin, y);
+
+    // Footer
+    doc.setFontSize(10);
+    doc.text(`Dicetak: ${new Date().toLocaleString('id-ID')}`, margin, doc.internal.pageSize.getHeight() - 20);
+
+    doc.save(`Notulensi_DKR_${n.tgl}.pdf`);
+  }
+}
+
+// Tampilkan langsung saat halaman dibuka
+renderNotes();
+</script>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="location.href='../index.html'">
+    <i class='bx bx-home'></i>
+    Beranda
+  </button>
+</div>
+
+</body>
+</html>

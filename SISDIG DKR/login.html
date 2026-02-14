@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Login SISDIG DKR</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:Poppins,sans-serif;margin:0;padding:0}
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top,#1e293b,#020617 70%);
+}
+
+.login-wrap{
+  width:100%;
+  max-width:400px;
+  padding:30px;
+  position:relative;
+}
+
+.card{
+  background:linear-gradient(145deg,#ffffff,#e5e7eb);
+  border-radius:22px;
+  padding:30px 30px 30px 30px;
+  box-shadow:0 25px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.8);
+  text-align:center;
+}
+
+.logo{
+  width:100px;
+  height:auto;
+  margin:0 auto 20px;
+  animation: float 3s ease-in-out infinite;
+  cursor:pointer;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+h2{
+  font-size:22px;
+  color:#020617;
+  font-weight:700;
+  margin-bottom:6px;
+}
+h3{
+  font-size:14px;
+  color:#64748b;
+  margin-bottom:25px;
+}
+
+/* Input profesional */
+.input-group{
+  position:relative;
+  margin-top:15px;
+}
+.input-group input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  background:#f8fafc;
+  font-size:15px;
+  transition:0.3s;
+  outline:none;
+}
+.input-group input:focus{
+  border-color:#4f46e5;
+  box-shadow:0 0 6px rgba(79,70,229,.3);
+}
+
+/* Optional: icon di kiri input */
+.input-group .icon{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:16px;
+  color:#94a3b8;
+}
+
+/* Button login */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:22px;
+  border-radius:16px;
+  border:none;
+  font-weight:600;
+  font-size:15px;
+  color:white;
+  background:linear-gradient(145deg,#4f46e5,#4338ca);
+  box-shadow:0 12px 22px rgba(79,70,229,.5),inset 0 1px 0 rgba(255,255,255,.4);
+  cursor:pointer;
+}
+button:active{
+  transform:translateY(2px);
+  box-shadow:0 6px 12px rgba(0,0,0,.35);
+}
+
+.error{
+  margin-top:14px;
+  font-size:12px;
+  color:#dc2626;
+  display:none;
+}
+
+/* Lupa Password Modal */
+.modal{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+.modal-content{
+  background:#fff;
+  border-radius:16px;
+  padding:24px;
+  max-width:360px;
+  width:90%;
+  text-align:center;
+}
+.modal-content h3{
+  margin-bottom:14px;
+  color:#1e293b;
+}
+.modal-content input{
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  outline:none;
+}
+.modal-content input:focus{
+  border-color:#4f46e5;
+  box-shadow:0 0 6px rgba(79,70,229,.3);
+}
+.close-btn{
+  position:relative;
+  display:inline-block;
+  float:right;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:18px;
+  margin-top:-10px;
+  margin-right:-5px;
+}
+.success-msg{
+  color:green;
+  font-size:13px;
+  margin-top:10px;
+}
+.link-text{
+  font-size:13px;
+  color:#4f46e5;
+  cursor:pointer;
+  display:block;
+  margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+<div class="login-wrap">
+  <div class="card">
+    <img src="assets/images/sisdig.png" class="logo" title="SISDIG Logo">
+    <h2>Welcome to e-DKRP</h2>
+    <h3>Sistem Digital DKR Punggelan</h3>
+
+    <div class="input-group">
+      <input id="user" placeholder="Username">
+    </div>
+    <div class="input-group">
+      <input id="pass" type="password" placeholder="Password">
+    </div>
+
+    <button onclick="login()">Masuk Sistem</button>
+
+    <div class="error" id="err"></div>
+
+    <span class="link-text" onclick="openForgotModal()">Lupa Password?</span>
+    <span class="link-text" onclick="showAdminInfo()">Belum punya akun? Daftar</span>
+  </div>
+</div>
+    
+    <!-- Div Pemberitahuan -->
+    <div id="notifPopup" style="
+      display:none;
+      position:fixed;
+      bottom:15px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#fef3c7;
+      color:#92400e;
+      padding:12px 20px;
+      border-radius:12px;
+      font-size:13px;
+      text-align:center;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      z-index:100;
+    ">Silakan hubungi admin untuk membuat akun.</div>
+  </div>
+</div>
+
+<script>
+// Fungsi munculin popup
+function showNotif(msg, durasi=3000){
+  const notif = document.getElementById("notifPopup");
+  notif.textContent = msg;
+  notif.style.display = "block";
+  setTimeout(()=>{ notif.style.display = "none"; }, durasi);
+}
+
+// Fungsi khusus untuk link admin
+function showAdminInfo(){
+  showNotif("Silakan hubungi admin untuk membuat akun.");
+}
+</script>
+
+<!-- Modal Lupa Password -->
+<div class="modal" id="forgotModal">
+<div class="modal-content">
+  <span class="close-btn" onclick="closeForgotModal()">&times;</span>
+  <h3>Lupa Password</h3>
+  <p>Masukkan nomor telepon Anda yang terdaftar:</p>
+  <input id="telpInput" placeholder="08123456789">
+  <button onclick="forgotPassword()">Kirim</button>
+  <div class="error" id="forgotErr"></div>
+  <div class="success-msg" id="forgotSuccess"></div>
+</div>
+</div>
+
+<!-- Modal Daftar Akun -->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeRegisterModal()">&times;</span>
+    <h3>Daftar Akun Baru</h3>
+    <div class="input-group">
+      <input id="regUser" placeholder="Username">
+    </div>
+    <div class="input-group">
+      <input id="regPass" type="password" placeholder="Password">
+    </div>
+    <div class="input-group">
+      <input id="regNama" placeholder="Nama Lengkap">
+    </div>
+    <div class="input-group">
+      <input id="regTelp" placeholder="Nomor Telepon">
+    </div>
+    <button onclick="register()">Daftar</button>
+    <div class="error" id="regErr"></div>
+    <div class="success-msg" id="regSuccess"></div>
+  </div>
+</div>
+
+<script>
+// MODAL DAFTAR
+const registerModal = document.getElementById("registerModal");
+function openRegisterModal(){registerModal.style.display="flex";}
+function closeRegisterModal(){
+  registerModal.style.display="none";
+  document.getElementById("regUser").value="";
+  document.getElementById("regPass").value="";
+  document.getElementById("regNama").value="";
+  document.getElementById("regTelp").value="";
+  document.getElementById("regErr").style.display="none";
+  document.getElementById("regSuccess").textContent="";
+}
+
+// REGISTRASI (contoh)
+async function register(){
+  const user = document.getElementById("regUser").value.trim();
+  const pass = document.getElementById("regPass").value.trim();
+  const nama = document.getElementById("regNama").value.trim();
+  const telp = document.getElementById("regTelp").value.trim();
+  const err = document.getElementById("regErr");
+  const success = document.getElementById("regSuccess");
+  err.style.display="none"; success.textContent="";
+
+  if(!user || !pass || !nama || !telp){
+    err.style.display="block"; 
+    err.textContent="Semua kolom wajib diisi"; 
+    return;
+  }
+
+  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // ganti dengan Web App kamu
+
+  try{
+    const body = JSON.stringify({username:user,password:pass,nama:nama,telp:telp,register:true});
+    const res = await fetch(url,{method:"POST",body});
+    const data = await res.json();
+
+    if(data.status==="ok"){
+      success.textContent="Akun berhasil dibuat! Silakan login.";
+    } else{
+      err.style.display="block";
+      err.textContent=data.message;
+    }
+  } catch(e){
+    err.style.display="block";
+    err.textContent="Server tidak merespons / JSON invalid";
+    console.error(e);
+  }
+}
+</script>
+
+<script>
+// LOGIN
+async function login(){
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("pass").value.trim();
+  const err = document.getElementById("err");
+  err.style.display="none";
+
+  if(!user || !pass){
+    err.style.display="block";
+    err.textContent="Semua kolom wajib diisi";
+    return;
+  }
+
+  const url = "https://script.google.com/macros/s/AKfycbzW0I7-3aKaf12W9k2RYj4eX-F9Rgb5CtzclaLEoKJRoGOFQe5lcsdSaVGRdPEElNii/exec";
+
+  try{
+    const body = JSON.stringify({ username:user, password:pass });
+    const res = await fetch(url,{ method:"POST", body });
+    const data = await res.json();
+
+    if(data.status === "ok"){
+  sessionStorage.setItem("SISDIG_AUTH","OK");
+  sessionStorage.setItem("SISDIG_USERNAME", data.username);
+  sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
+  sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
+  sessionStorage.setItem("SISDIG_ROLE", data.role); // ✅ FIX
+  sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+
+  location.href = "index.html";
+} else {
+      err.style.display="block";
+      err.textContent = data.message;
+    }
+
+  } catch(e){
+    err.style.display="block";
+    err.textContent="Server tidak merespons / JSON invalid";
+    console.error(e);
+  }
+}
+
+// FORGOT PASSWORD
+async function forgotPassword(){
+  const telp = document.getElementById("telpInput").value.trim();
+  const err = document.getElementById("forgotErr");
+  const success = document.getElementById("forgotSuccess");
+  err.style.display="none"; success.textContent="";
+
+  if(!telp){err.style.display="block"; err.textContent="Nomor telepon wajib diisi"; return;}
+
+  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // sama Web App
+
+  try{
+    const body = JSON.stringify({telp:telp});
+    const res = await fetch(url,{method:"POST",body});
+    const data = await res.json();
+
+    if(data.status==="ok"){
+      success.textContent = `Akun ditemukan!\nUsername: ${data.username}\nPassword: ${data.password}`;
+    } else{
+      err.style.display="block";
+      err.textContent=data.message;
+    }
+
+  } catch(e){
+    err.style.display="block";
+    err.textContent="Server tidak merespons / JSON invalid";
+    console.error(e);
+  }
+}
+
+// MODAL
+const forgotModal = document.getElementById("forgotModal");
+function openForgotModal(){forgotModal.style.display="flex";}
+function closeForgotModal(){forgotModal.style.display="none"; document.getElementById("telpInput").value=""; document.getElementById("forgotErr").style.display="none"; document.getElementById("forgotSuccess").textContent="";}
+</script>
+</body>
+</html>

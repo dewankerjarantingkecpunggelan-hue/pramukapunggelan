@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SISDIG DKR</title>
+<link rel="icon" href="assets/images/sisdig.png">
+
+<!-- Font & Icon -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+/* ===================== RESET ===================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:#f1f5f9;color:#0f172a;position:relative;padding-bottom:100px;}
+
+/* ===================== HEADER MODERN ===================== */
+.header-modern{
+  background: linear-gradient(135deg,#4f46e5,#2563eb);
+  border-radius:0 0 24px 24px;
+  padding:16px 20px 28px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.12);
+  color:white;
+  position:relative;
+  z-index:10;
+}
+.header-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+}
+.header-top .logo{width:50px;height:auto;object-fit:contain;}
+.header-icons{display:flex;align-items:center;gap:12px;}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:white;font-size:22px;position:relative;transition:.2s;}
+.icon-btn:hover{opacity:.8;}
+.icon-btn .badge{position:absolute;top:0;right:0;background:#f87171;color:white;font-size:10px;font-weight:700;padding:2px 5px;border-radius:50%;display:none;}
+.icon-btn .badge.pulse{animation:badgePulse 1s infinite;}
+@keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+
+/* GREETING MODERN */
+.greeting-modern{
+  background: rgba(255,255,255,0.95);
+  color: #1e40af;
+  padding:8px 20px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:500;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  text-align:center;
+  max-width:95%;
+  margin:0 auto;
+  line-height:1.4;
+  transition: all .3s;
+}
+.greeting-modern.fade{opacity:0;transform:translateY(-5px);}
+.greeting-modern.show{opacity:1;transform:translateY(0);}
+
+/* ===================== IMAGE BANNER SLIDER ===================== */
+.banner-wrap{
+  margin:14px 16px 6px;
+  position:relative;
+}
+
+.banner-slider{
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.banner-track{
+  display:flex;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.banner{
+  min-width:100%;
+  height:150px;
+  position:relative;
+  overflow:hidden;
+}
+
+.banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* overlay biar elegan */
+.banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
+
+/* clickable */
+.banner.clickable{
+  cursor:pointer;
+}
+
+/* indicator */
+.banner-indicator{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:10px;
+}
+.banner-indicator span{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#c7d2fe;
+  transition:.3s;
+}
+.banner-indicator span.active{
+  width:18px;
+  border-radius:999px;
+  background:#2563eb;
+}
+
+/* ===================== MENU GRID ===================== */
+.container{
+  padding:10px 20px 30px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.menu{
+  background:white;
+  border-radius:18px;
+  padding:18px 10px;
+  text-align:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.12);
+  transition:.2s;
+  cursor:pointer;
+  position:relative;
+}
+.menu:hover{transform:scale(1.03);}
+.menu .icon{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  margin:0 auto 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#3b82f6,#1d4ed8);
+}
+.menu .icon i{font-size:30px;color:white;}
+.menu .title{font-size:14px;font-weight:600;}
+.menu .desc{font-size:11px;color:#64748b;}
+.menu .emblem-lock{
+  position:absolute;top:8px;right:8px;width:20px;height:20px;background:#f87171;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ===================== BOTTOM NAVIGATION ===================== */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;width:100%;background:white;box-shadow:0 -3px 12px rgba(0,0,0,0.12);
+  display:flex;justify-content:space-around;padding:8px 0;border-top-left-radius:12px;border-top-right-radius:12px;z-index:100;align-items:flex-end;
+}
+.bottom-nav button{
+  background:none;border:none;display:flex;flex-direction:column;align-items:center;font-size:12px;color:#64748b;cursor:pointer;transition:.2s;position:relative;
+}
+.bottom-nav button i{font-size:22px;margin-bottom:4px;}
+.bottom-nav button.active{color:#1e40af;}
+.bottom-nav button.active i{font-size:24px;}
+.bottom-nav .scan-btn{
+  background:#1e40af;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-30px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);font-size:28px;transition:.2s;
+}
+.bottom-nav .scan-btn:hover{transform:scale(1.1);}
+
+/* ===================== SETTINGS PANEL ===================== */
+.settings-panel{
+  position:fixed;top:350px;left:50%;transform:translateX(-50%) translateY(-10px);width:260px;
+  background:white;border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,0.25);z-index:999;opacity:0;pointer-events:none;transition:all .3s ease;
+}
+.settings-panel.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.settings-panel .panel-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#1e40af;}
+.settings-panel .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1e40af;}
+.settings-panel .panel-content{display:flex;flex-direction:column;}
+.settings-panel .panel-content button{
+  display:flex;align-items:center;gap:10px;background:none;border:none;padding:12px 16px;text-align:left;font-size:14px;color:#1e40af;cursor:pointer;transition:.2s;
+}
+.settings-panel .panel-content button:hover{background:#f1f5f9;}
+
+/* ===================== NOTIF PANEL ===================== */
+.notif-panel{
+  position: fixed;top:70px;right:20px;width:280px;max-height:400px;background:white;border-radius:16px;
+  box-shadow:0 12px 28px rgba(0,0,0,0.25);z-index:999;overflow-y:auto;opacity:0;pointer-events:none;transition:all .3s ease;
+}
+.notif-panel.show{opacity:1;pointer-events:auto;}
+.notif-panel .panel-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#1e40af;}
+.notif-panel .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1e40af;}
+.notif-panel .panel-content{display:flex;flex-direction:column;}
+.notif-item{padding:10px 16px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#1e40af;cursor:pointer;transition:.2s;}
+.notif-item:hover{background:#f1f5f9;}
+
+/* ===================== POPUP NOTIF ===================== */
+#notifPopup{
+  display:none;position:fixed;bottom:140px;left:50%;transform:translateX(-50%);
+  background:#fef3c7;color:#92400e;padding:12px 20px;border-radius:12px;font-size:13px;text-align:center;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:1000;animation:fadein 0.3s;
+}
+@keyframes fadein{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ===== HELP DROPDOWN ===== */
+.help-wrapper{
+  position:relative;
+}
+
+.help-dropdown{
+  position:absolute;
+  bottom:60px;
+  right:-10px;
+  width:220px;
+  background:white;
+  border-radius:14px;
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:1000;
+}
+
+.help-dropdown button{
+  background:none;
+  border:none;
+  padding:12px 16px;
+  text-align:left;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  color:#1e40af;
+}
+
+.help-dropdown button:hover{
+  background:#f1f5f9;
+}
+
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:10px;
+  background:#f8fafc;
+}
+
+.contact-item i{
+  font-size:26px;
+  color:#2563eb;
+}
+
+.contact-item span{
+  font-size:13px;
+  color:#475569;
+}
+
+/* ===== HELPDESK MODAL ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+
+.modal-box{
+  background:white;
+  width:90%;
+  max-width:320px;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+}
+
+.modal-box h3{
+  margin-bottom:8px;
+  color:#1e40af;
+}
+
+.help-list{
+  text-align:left;
+  margin:12px 0;
+  padding-left:0;
+  list-style:none;
+}
+
+.help-list li{
+  padding:6px 0;
+  font-size:14px;
+}
+
+.close-help{
+  background:#1e40af;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* ===== HELPDESK MODAL FIX ===== */
+.helpdesk-box{
+  background:white;
+  width:90%;
+  max-width:340px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.helpdesk-header{
+  background:linear-gradient(135deg,#4f46e5,#2563eb);
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.helpdesk-icon{
+  width:60px;
+  height:60px;
+  background:white;
+  color:#2563eb;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 10px;
+  font-size:30px;
+}
+
+.helpdesk-content{
+  padding:14px;
+}
+
+.helpdesk-actions{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.wa-btn{
+  background:#22c55e;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:14px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+</style>
+</head>
+
+<body>
+<!-- HEADER MODERN -->
+<div class="header-modern">
+  <div class="header-top">
+    <img src="assets/images/swhite.png" alt="Logo SISDIG" class="logo">
+    <div class="header-icons">
+      <button class="icon-btn" id="notifBtn">
+        <i class='bx bx-bell'></i>
+        <span class="badge" id="notifBadge"></span>
+      </button>
+      <button class="icon-btn" onclick="location.href='messages/index.html'">
+        <img src="assets/images/etanolw.png" alt="Chat" style="width:45px;height:45px;object-fit:contain;">
+        <span class="badge" id="chatBadge"></span>
+      </button>
+    </div>
+  </div>
+  <div class="greeting-modern" id="greeting"></div>
+</div>
+<!-- IMAGE BANNER SLIDER -->
+<div class="banner-wrap">
+  <div class="banner-slider">
+    <div class="banner-track" id="bannerTrack">
+
+      <div class="banner">
+        <img src="assets/images/banner 1.png" alt="Banner 1">
+      </div>
+
+      <div class="banner">
+        <img src="assets/images/banner 2.png" alt="Banner 2">
+      </div>
+
+      <div class="banner clickable" onclick="openBannerLink()">
+        <img src="assets/images/banner 3.png" alt="Banner 3">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="banner-indicator" id="bannerDots">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<main class="container">
+  <div class="menu" onclick="openApp('simhad/index.html')"><div class="icon"><i class='bx bx-qr-scan'></i></div><div class="title">SIMHAD</div><div class="desc">Absensi Kehadiran</div></div>
+  <div class="menu" onclick="openApp('absen/index.html')"><div class="icon"><i class='bx bx-task'></i></div><div class="title">Absensi</div><div class="desc">Checkin & Checkout</div></div>
+  <div class="menu" onclick="openApp('keuangan/index.html')"><div class="icon"><i class='bx bx-wallet'></i></div><div class="title">Keuangan</div><div class="desc">Data Keuangan DKR</div></div>
+  <div class="menu" onclick="openApp('notulensi/index.html')"><div class="icon"><i class='bx bx-note'></i></div><div class="title">Notulensi</div><div class="desc">Catatan Rapat</div></div>
+  <div class="menu" onclick="openApp('arsip/index.html')"><div class="icon"><i class='bx bx-folder'></i></div><div class="title">Arsip</div><div class="desc">Dokumen & Laporan</div></div>
+  <div class="menu" onclick="openApp('jadwal/index.html')"><div class="icon"><i class='bx bx-calendar-event'></i></div><div class="title">Jadwal Kegiatan</div><div class="desc">Agenda & Acara</div></div>
+  <div class="menu" onclick="openApp('anggota/index.html')"><div class="icon"><i class='bx bx-user'></i></div><div class="title">Anggota</div><div class="desc">Data Anggota DKR Punggelan</div></div>
+  <div class="menu" onclick="openApp('surkas/index.html')"><div class="icon"><i class='bx bx-file'></i></div><div class="title">SurKas</div><div class="desc">Template Surat & Berkas</div></div>
+  <div class="menu" onclick="openApp('lapor/index.html')"><div class="icon"><i class='bx bx-message'></i></div><div class="title">Lapor Kak!</div><div class="desc">Pengaduan & Saran</div></div>
+</main>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="active" onclick="goHome()"><i class='bx bx-home'></i></button>
+  <button id="settingsBtn"><i class='bx bx-cog'></i></button>
+  <button class="scan-btn" onclick="comingSoon()"><i class='bx bx-scan'></i></button>
+  <div class="help-wrapper">
+  <button class="icon-btn" id="helpToggle">
+    <i class='bx bx-help-circle'></i>
+  </button>
+
+  <div class="help-dropdown" id="helpMenu">
+    <button onclick="openHelpdesk()">
+      <i class='bx bx-support'></i> Helpdesk Aplikasi
+    </button>
+    <button onclick="openWhatsapp()">
+      <i class='bx bxl-whatsapp'></i> WA Sing Gawe Aplikasi
+    </button>
+  </div>
+</div>
+  <button id="accountBtn"><i class='bx bx-user'></i></button>
+</div>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="panel-header">
+    <span>Pengaturan</span>
+    <button class="close-btn" onclick="closeSettings()"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="panel-content">
+    <button onclick="logout()"><i class='bx bx-log-out'></i> Logout</button>
+    <button onclick="changePassword()"><i class='bx bx-key'></i> Ganti Password</button>
+  </div>
+</div>
+
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="panel-header">
+    <span>Notifikasi</span>
+    <button class="close-btn" onclick="closeNotifPanel()"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="panel-content" id="notifContent"></div>
+</div>
+
+<!-- POPUP NOTIF -->
+<div id="notifPopup"></div>
+
+<script>
+// ==== AUTH CHECK ====
+if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){location.href="login.html";}
+
+// ==== GREETING ====
+const username = sessionStorage.getItem("SISDIG_USERNAME");
+const greetingEl = document.getElementById("greeting");
+function getGreetingMessage(){
+  const hour = new Date().getHours();
+  return hour<12?"Selamat pagi":hour<17?"Selamat siang":"Selamat sore";
+}
+function updateGreeting(){
+  greetingEl.classList.remove('show');
+  greetingEl.classList.add('fade');
+  setTimeout(()=>{
+    greetingEl.innerHTML = username ? `Halo <b>${username}</b> 👋, ${getGreetingMessage()}!` : `Halo 👋, ${getGreetingMessage()}!`;
+    greetingEl.classList.remove('fade');
+    greetingEl.classList.add('show');
+  },300);
+}
+updateGreeting();
+setInterval(updateGreeting,60*60*1000);
+
+// ==== MENU ACTIONS ====
+function openApp(url){location.href=url;}
+function comingSoon(){showNotif("🚧 Modul ini sedang disiapkan 😄");}
+function goHome(){showNotif("🏠 Beranda");}
+
+// ==== LOGOUT / CHANGE PASSWORD ====
+function logout(){sessionStorage.clear();location.href="login.html";}
+function changePassword(){showNotif("Hubungi admin untuk mengganti password");}
+
+// ==== SETTINGS PANEL ====
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsPanel = document.getElementById('settingsPanel');
+settingsBtn.addEventListener('click', e=>{e.stopPropagation();settingsPanel.classList.toggle('show');});
+window.addEventListener('click', ()=>{settingsPanel.classList.remove('show');});
+function closeSettings(){settingsPanel.classList.remove('show');}
+
+// ==== WHATSAPP HELP ====
+function openWhatsapp(){window.open("https://wa.me/6282136065407","_blank");}
+
+// ==== NOTIF PANEL ====
+window.lastNotifIds = new Set();
+window.lastNotifs = [];
+
+function fetchNotifikasi(){
+  const old = document.getElementById("jsonpNotif"); if(old) old.remove();
+  const s = document.createElement("script"); s.id="jsonpNotif";
+  s.src="https://script.google.com/macros/s/AKfycbyIov8Xlz9HSgAappm0k7XgbQ0GjwC5aHibt6g0lV_4uNfJm2sN2atDutrAhhUnLksUaQ/exec?callback=handleNotif";
+  document.body.appendChild(s);
+}
+
+function handleNotif(data){
+  if(!Array.isArray(data)) data=[];
+  window.lastNotifs = data;
+  const unread = data.filter(n=>n.read!==true);
+  const badge = document.getElementById("notifBadge");
+  const newUnread = unread.filter(n=>!window.lastNotifIds.has(n.id));
+  if(newUnread.length){
+    badge.textContent = unread.length; badge.style.display="inline-flex"; badge.classList.add("pulse");
+  } else { badge.style.display = unread.length?"inline-flex":"none"; badge.classList.remove("pulse"); }
+  unread.forEach(n=>window.lastNotifIds.add(n.id));
+  renderNotifPanel(data);
+}
+
+function renderNotifPanel(data){
+  const box = document.getElementById("notifContent"); box.innerHTML="";
+  if(!data.length){box.innerHTML="<div class='notif-item'>Tidak ada notifikasi</div>";return;}
+  data.forEach(n=>{
+    const div=document.createElement("div");
+    div.className="notif-item"; div.textContent=n.message;
+    box.appendChild(div);
+  });
+}
+
+document.getElementById("notifBtn").onclick = ()=>{
+  document.getElementById("notifPanel").classList.add("show");
+  document.getElementById("notifBadge").style.display="none";
+};
+
+document.addEventListener("click", function(e){
+  const panel=document.getElementById("notifPanel"); const btn=document.getElementById("notifBtn");
+  if(!panel||!btn)return;
+  if(!panel.contains(e.target)&&!btn.contains(e.target)){panel.classList.remove("show");}
+});
+function closeNotifPanel(){document.getElementById("notifPanel").classList.remove("show");}
+
+fetchNotifikasi();
+setInterval(fetchNotifikasi,15000);
+
+// ==== ACCOUNT BTN ====
+document.getElementById("accountBtn").addEventListener("click",()=>{
+  const username=sessionStorage.getItem("SISDIG_USERNAME");
+  if(!username){alert("Data akun tidak ditemukan. Silakan login ulang.");return;}
+  sessionStorage.setItem("ACCOUNT_USER",username);
+  window.location.href="akun/index.html";
+});
+
+// ==== POPUP NOTIF ====
+function showNotif(msg,durasi=3000){const notif=document.getElementById("notifPopup");if(!notif)return;notif.textContent=msg;notif.style.display="block";setTimeout(()=>notif.style.display="none",durasi);}
+</script>
+
+<script>
+function openHelpdesk(){
+  document.getElementById("helpdeskModal").style.display="flex";
+}
+
+function closeHelpdesk(){
+  document.getElementById("helpdeskModal").style.display="none";
+}
+
+function openWhatsapp(){
+  window.open(
+    "https://wa.me/6285143080554?text=Halo%20Admin,%20saya%20butuh%20bantuan%20terkait%20SISDIG",
+    "_blank"
+  );
+}
+</script>
+
+<script>
+/* ===== IMAGE BANNER SLIDER ===== */
+let bannerIndex = 0;
+const track = document.getElementById("bannerTrack");
+const dots = document.querySelectorAll("#bannerDots span");
+
+function showBanner(i){
+  bannerIndex = i;
+  track.style.transform = `translateX(-${i * 100}%)`;
+  dots.forEach((d,idx)=>d.classList.toggle("active",idx===i));
+}
+
+setInterval(()=>{
+  bannerIndex = (bannerIndex + 1) % 3;
+  showBanner(bannerIndex);
+},10000);
+
+// link banner ke-3
+function openBannerLink(){
+  window.location.href = "mailto:edkrp.info@gmail.com?subject=Bantuan%20SISDIG&body=Halo%20Admin,%0ASaya%20butuh%20bantuan%20terkait%20SISDIG."; // bebas ganti
+}
+</script>
+<script>
+const helpToggle = document.getElementById("helpToggle");
+const helpMenu = document.getElementById("helpMenu");
+
+helpToggle.addEventListener("click", e=>{
+  e.stopPropagation();
+  helpMenu.style.display =
+    helpMenu.style.display === "flex" ? "none" : "flex";
+});
+
+document.addEventListener("click", ()=>{
+  helpMenu.style.display = "none";
+});
+</script>
+
+<div class="modal" id="helpdeskModal">
+  <div class="helpdesk-box">
+
+    <div class="helpdesk-header">
+      <div class="helpdesk-icon">
+        <i class='bx bx-help-circle'></i>
+      </div>
+      <h3>Helpdesk SISDIG</h3>
+      <p>Layanan bantuan & informasi</p>
+    </div>
+
+    <div class="helpdesk-content">
+
+      <div class="contact-item">
+        <i class='bx bx-phone-call'></i>
+        <div>
+          <b>No. Layanan Helpdesk</b>
+          <span>+62 851-4308-0554</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i class='bx bxl-gmail'></i>
+        <div>
+          <b>Email</b>
+          <span>edkrp.info@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i class='bx bx-time-five'></i>
+        <div>
+          <b>Jam Layanan</b>
+          <span>09:00 – 17:00 WIB</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="helpdesk-actions">
+      <button class="wa-btn" onclick="openWhatsapp()">
+        <i class='bx bxl-whatsapp'></i>
+        WA Sing Gawe Aplikasi
+      </button>
+
+      <button class="close-help" onclick="closeHelpdesk()">
+        Tutup
+      </button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
