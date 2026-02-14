@@ -149,17 +149,34 @@ body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:#11
 .twibbon-section h2{color:var(--wosm-purple);margin-bottom:20px;}
 canvas{
   border-radius:12px;
-  background:#ddd;
+  background:#f3f4f6;
+  border:2px dashed #d1d5db;
   margin:20px auto;
   display:block;
   cursor:grab;
   touch-action:none;
   width:100%;
   height:auto;
-  max-width:400px;
+  max-width:360px; /* preview kecil tapi rasio tetap */
+  height:auto;
 }
+
+canvas:hover{
+  border-color: var(--wosm-purple);
+  background:#eef0ff;
+}
+
 input[type=file]{margin:10px 0;}
 .caption-section{margin-top:20px;}
+.caption-section p{
+  font-family:'Montserrat', sans-serif;
+  font-weight:600;
+}
+#caption{
+  letter-spacing:.3px;
+  line-height:1.5;
+}
+
 textarea{
   width:100%;
   padding:12px;
@@ -168,6 +185,8 @@ textarea{
   resize:none;
   text-align:center;
   max-width:100%;
+  font-family:'Montserrat', sans-serif; /* font caption */
+  font-weight:500;
 }
 button{
   padding:10px 16px;
@@ -306,20 +325,20 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
 
 /* CARA MENGGUNAKAN TWIBBON */
 .twibbon-instructions{
-  max-width: 900px;
-  margin: 50px auto;
+  max-width: 400px;   /* sama seperti twibbon */
+  width: 100%;
+  margin: 40px auto;
   background: #fff;
-  padding: 40px 35px;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  padding: 24px 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
 .twibbon-instructions h2{
-  text-align: center;
-  color: var(--wosm-purple);
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 40px;
+  text-align:center;
+  color:var(--wosm-purple);
+  font-size:22px;
+  margin-bottom:20px;
 }
 
 .instruction-list{
@@ -334,9 +353,33 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
   align-items: flex-start;
 }
 
+/* Step opsional agar tidak disangka wajib */
+.optional-step{
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.optional-step .step{
+  background: transparent;
+  color: var(--wosm-purple);
+  border: 2px solid var(--wosm-purple);
+  font-weight: 900;
+}
+
+.optional-step strong{
+  color: var(--wosm-purple);
+}
+
+.optional-step p{
+  color: #475569;
+}
+
 .step{
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
+  font-size:16px;
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--wosm-purple);
@@ -344,7 +387,6 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
   font-weight: 700;
 }
 
@@ -369,94 +411,120 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
   }
 }
 
+/* ===== DESKTOP PROFESSIONAL LAYOUT ===== */
+@media (min-width: 900px){
+
+  .twibbon-wrapper{
+    max-width: 1100px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+}
+
 </style>
 </head>
 <body>
-<!-- Accessibility Button -->
-<div id="accessibility-btn">
-  <i class='bx bx-universal-access'></i>
-</div>
-
-<!-- Accessibility Panel -->
-<div id="accessibility-panel">
-  <h4>Accessibility Tools</h4>
-  <button onclick="changeFontSize(1)"><i class='bx bx-zoom-in'></i> Increase Text</button>
-  <button onclick="changeFontSize(-1)"><i class='bx bx-zoom-out'></i> Decrease Text</button>
-  <button onclick="toggleClass('grayscale')"><i class='bx bx-droplet'></i> Grayscale</button>
-  <button onclick="toggleClass('high-contrast')"><i class='bx bx-adjust'></i> High Contrast</button>
-  <button onclick="toggleClass('negative-contrast')"><i class='bx bx-moon'></i> Negative Contrast</button>
-  <button onclick="toggleClass('light-bg')"><i class='bx bx-sun'></i> Light Background</button>
-  <button onclick="toggleClass('underline-links')"><i class='bx bx-link'></i> Links Underline</button>
-  <button onclick="toggleClass('readable-font')"><i class='bx bx-font'></i> Readable Font</button>
-  <button onclick="resetAccessibility()"><i class='bx bx-reset'></i> Reset</button>
-</div>
-
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <style>
-  #accessibility-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--wosm-purple);
-    color: #fff;
-    border-radius: 50%;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    cursor: pointer;
-    z-index: 3000;
-    box-shadow: 0 4px 12px rgba(0,0,0,.2);
-    transition: .3s;
-  }
-  #accessibility-btn:hover {
-    background: var(--wosm-purple-light);
-  }
-  #accessibility-panel {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.2);
-    padding: 16px;
-    width: 260px;
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 3000;
-  }
-  #accessibility-panel h4 {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: var(--wosm-purple);
-  }
-  #accessibility-panel button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #f4f4f4;
-    border: none;
-    padding: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: .3s;
-  }
-  #accessibility-panel button:hover {
-    background: var(--wosm-purple);
-    color: #fff;
+:root {
+  --wosm-purple: #5b2c83;
+  --wosm-purple-light: #6f3aa6;
+  --bg: #faf9ff;
+  --muted: #6b7280;
+  --radius: 14px;
+  --font-family: 'Montserrat', sans-serif;
+}
+
+/* Toggle Switch */
+.toggle-switch { position:relative; display:inline-block; width:50px; height:26px;}
+.toggle-switch input { opacity:0;width:0;height:0;}
+.slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; border-radius:50px; transition:0.4s;}
+.slider:before { position:absolute; content:""; height:20px; width:20px; left:3px; bottom:3px; background-color:white; border-radius:50%; transition:0.4s;}
+input:checked + .slider { background-color: var(--wosm-purple);}
+input:checked + .slider:before { transform:translateX(24px);}
+@media (min-width: 900px){
+  .twibbon-section{
+    max-width: 100%;
+    padding: 30px;
   }
 
-  /* Effects */
-  body.grayscale { filter: grayscale(100%) !important; }
-  body.high-contrast { background: #000 !important; color: #fff !important; }
-  body.negative-contrast { background: #000 !important; color: yellow !important; }
-  body.light-bg { background: #fff !important; color: #000 !important; }
-  body.underline-links a { text-decoration: underline !important; }
-  body.readable-font { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+  canvas{
+    max-width: 420px;
+  }
+}
+
+@media (min-width: 900px){
+  .twibbon-section,
+  .twibbon-instructions{
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+  }
+}
+
+@media (min-width: 900px){
+  .twibbon-section h2{
+    font-size: 26px;
+  }
+
+  .twibbon-instructions h2{
+    font-size: 24px;
+  }
+}
+
+.upload-box{
+  border:2px dashed #d1d5db;
+  border-radius:14px;
+  padding:28px 16px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+  background:#fafafa;
+  margin-top:10px;
+}
+
+.upload-box i{
+  font-size:42px;
+  color:var(--wosm-purple);
+}
+
+.upload-box p{
+  margin:8px 0 2px;
+  font-weight:600;
+}
+
+.upload-box span{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.upload-box:hover{
+  border-color:var(--wosm-purple);
+  background:#f3f0ff;
+}
+
+.upload-box.small{
+  padding:22px 14px;
+}
+
+.twibbon-option{
+  margin-top:1px;
+  font-weight:600;
+  color:#333;
+}
+
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+const canvas = document.getElementById("myCanvas");
+if (!canvas) return;
+const ctx = canvas.getContext("2d");
+});
+</script>
 <header>
     <div class="nav-container">
       <div class="brand">
@@ -494,21 +562,44 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
         <a href="/login" class="btn-purple">LOGIN</a>
       </nav>
     </div>
-  </header>  
-<!--<section class="twibbon-section">
-  <h2>Buat Twibbon DKR Punggelan</h2>
+  </header>
+  
+  <div class="twibbon-wrapper">
+<section class="twibbon-section">
+  <h2>Buat Twibbon Pramuka Punggelan</h2>
   <p>Upload foto kamu dan sesuaikan posisinya dengan template</p>
-  <input type="file" id="userImage" accept="image/*">
-  <canvas id="twibbonCanvas" width="400" height="400"></canvas>
+<div class="upload-box" id="uploadBox">
+  <i class='bx bx-cloud-upload'></i>
+  <p><strong>Drop foto di sini</strong></p>
+  <span>atau klik untuk memilih</span>
+  <input type="file" id="userImage" accept="image/*" hidden>
+</div>
+
+<br><br>
+
+<div class="twibbon-option">
+  <label>
+    <input type="checkbox" id="useCustomTwibbon">
+    Gunakan twibbon sendiri
+  </label>
+</div>
+
+<div id="customTwibbonUpload" class="upload-box small" style="display:none;">
+  <i class='bx bx-image-add'></i>
+  <p><strong>Upload template twibbon</strong></p>
+  <span>PNG transparan disarankan</span>
+  <input type="file" id="templateUpload" accept="image/png" hidden>
+</div>
+  <canvas id="twibbonCanvas" width="1080" height="1350"></canvas>
   <div class="caption-section">
     <p>Copy caption ini untuk media sosial:</p>
-    <textarea id="caption" rows="3" readonly>Sudah dukung kegiatan DKR Punggelan! #DKRPunggelan #Pramuka</textarea>
+    <textarea id="caption" rows="3" readonly>Saya Bangga Menjadi Pramuka! #PramukaIndonesia #PramukaPunggelan</textarea>
   </div>
   <button id="downloadBtn">Download Twibbon</button>
-</section>-->
+</section>
 
 <!-- SECTION TWIBBON TIDAK TERSEDIA -->
-<section class="twibbon-unavailable">
+<!--<section class="twibbon-unavailable">
   <div class="twibbon-card">
     
     <div class="twibbon-icon">
@@ -528,7 +619,7 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
     </a>
 
   </div>
-</section>
+</section>-->
 
 <!-- CARA MENGGUNAKAN TWIBBON -->
 <section class="twibbon-instructions">
@@ -576,36 +667,34 @@ footer hr{border:none;border-top:1px solid rgba(255,255,255,.2);margin:20px 0}
       </div>
     </div>
 
+<div class="instruction-item optional-step">
+  <div class="step">★</div>
+  <div class="text">
+    <strong>Gunakan Twibbon Sendiri</strong>
+    <p>
+      Opsional: Centang <b>"Gunakan twibbon sendiri"</b> lalu upload
+      template PNG transparan jika ingin memakai desain twibbon milikmu.
+    </p>
+  </div>
+</div>
+
+<div style="
+  max-width: 520px;
+  margin: 14px auto 0;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  border-left: 4px solid var(--wosm-purple);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+">
+  💡 Gunakan template PNG transparan dengan rasio <strong>4:5</strong> agar hasil twibbon lebih presisi dan wajah tidak tertutup.
+</div>
   </div>
 </section>
-
-<script>
-  // Toggle Panel
-  document.getElementById("accessibility-btn").addEventListener("click", () => {
-    const panel = document.getElementById("accessibility-panel");
-    panel.style.display = panel.style.display === "flex" ? "none" : "flex";
-  });
-
-  // Font Size
-  let fontSize = 100;
-  function changeFontSize(change) {
-    fontSize += change * 10;
-    document.body.style.fontSize = fontSize + "%";
-  }
-
-  // Toggle Class
-  function toggleClass(cls) {
-    document.body.classList.toggle(cls);
-  }
-
-  // Reset
-  function resetAccessibility() {
-    fontSize = 100;
-    document.body.style.fontSize = "100%";
-    document.body.className = "";
-  }
-</script>
-
+</div>
 
 <script>
 const canvas = document.getElementById('twibbonCanvas');
@@ -613,12 +702,18 @@ const ctx = canvas.getContext('2d');
 
 // Canvas export 2K
 const exportCanvas = document.createElement('canvas');
-exportCanvas.width = 2048;
-exportCanvas.height = 2048;
+exportCanvas.width = 1080;
+exportCanvas.height = 1350;
 const exportCtx = exportCanvas.getContext('2d');
 
 let template = new Image();
 template.src = 'assets/images/twibbon.png';
+template.onload = function(){
+  setCanvasSizeFromTemplate(template);
+  draw();
+}
+
+let customTemplateLoaded = false;
 
 let userImg = new Image(), userLoaded=false;
 let imgX=0,imgY=0,imgScale=1,drag=false,startX,startY;
@@ -660,25 +755,143 @@ canvas.addEventListener('wheel', e => {
   draw();
 });
 
-// Draw canvas layar
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  if(userLoaded) ctx.drawImage(userImg,imgX,imgY,userImg.width*imgScale,userImg.height*imgScale);
-  ctx.drawImage(template,0,0,canvas.width,canvas.height);
+
+  // gambar foto user
+  if(userLoaded){
+    ctx.drawImage(userImg,imgX,imgY,userImg.width*imgScale,userImg.height*imgScale);
+  }
+
+  // gambar template default atau custom
+if(template && template.complete){
+  ctx.drawImage(template, 0, 0, canvas.width, canvas.height);
 }
 
-// Download 2K
+  // teks petunjuk jika belum upload foto
+  if(!userLoaded){
+    ctx.fillStyle = "rgba(0,0,0,0.55)";
+    ctx.font = "bold 42px Montserrat";
+    ctx.textAlign = "center";
+    ctx.fillText("Upload Foto", canvas.width/2, canvas.height/2 - 10);
+
+    ctx.font = "28px Montserrat";
+    ctx.fillText("agar masuk ke twibbon", canvas.width/2, canvas.height/2 + 40);
+  }
+}
+
+document.getElementById('templateUpload').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(ev){
+    template = new Image();
+    template.src = ev.target.result;
+
+    template.onload = function(){
+      customTemplateLoaded = true;
+
+      // 🔥 sesuaikan ukuran canvas
+      setCanvasSizeFromTemplate(template);
+
+      draw();
+    }
+  }
+
+  reader.readAsDataURL(file);
+});
+
+function setCanvasSizeFromTemplate(img){
+  const ratio = img.width / img.height;
+
+  // tinggi tetap 1350, lebar menyesuaikan rasio
+  canvas.height = 1350;
+  canvas.width = 1350 * ratio;
+
+  exportCanvas.height = canvas.height;
+  exportCanvas.width = canvas.width;
+}
+
+// upload template twibbon custom
+document.getElementById('templateUpload').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(ev){
+    template = new Image();
+    template.src = ev.target.result;
+
+    template.onload = function(){
+      customTemplateLoaded = true;
+      draw();
+    }
+  }
+
+  reader.readAsDataURL(file);
+});
+
+const customUploadBox = document.getElementById("customTwibbonUpload");
+const templateInput = document.getElementById("templateUpload");
+
+customUploadBox.addEventListener("click", () => templateInput.click());
+
+customUploadBox.addEventListener("dragover", e => {
+  e.preventDefault();
+});
+
+customUploadBox.addEventListener("drop", e => {
+  e.preventDefault();
+  templateInput.files = e.dataTransfer.files;
+  templateInput.dispatchEvent(new Event('change'));
+});
+
 document.getElementById('downloadBtn').addEventListener('click', function(){
   if(!userLoaded) return;
-  // Skala untuk export 2K
-  const scale = 2048/canvas.width;
-  exportCtx.clearRect(0,0,2048,2048);
-  exportCtx.drawImage(userImg,imgX*scale,imgY*scale,userImg.width*imgScale*scale,userImg.height*imgScale*scale);
-  exportCtx.drawImage(template,0,0,2048,2048);
+
+  const scale = exportCanvas.width / canvas.width;
+
+  // bersihkan canvas export sesuai ukuran asli
+  exportCtx.clearRect(0,0,exportCanvas.width,exportCanvas.height);
+
+  // gambar foto user
+  exportCtx.drawImage(
+    userImg,
+    imgX * scale,
+    imgY * scale,
+    userImg.width * imgScale * scale,
+    userImg.height * imgScale * scale
+  );
+
+  // gambar template
+  exportCtx.drawImage(
+    template,
+    0,
+    0,
+    exportCanvas.width,
+    exportCanvas.height
+  );
+
   const link = document.createElement('a');
   link.href = exportCanvas.toDataURL('image/png');
-  link.download='twibbon-2k.png';
+  link.download='twibbon.png';
   link.click();
+})
+
+document.getElementById('templateUpload').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    template = new Image();
+    template.src = ev.target.result;
+    template.onload = draw;
+  }
+  reader.readAsDataURL(file);
 });
 </script>
 
@@ -742,10 +955,37 @@ document.querySelectorAll('.dropdown > a').forEach(link => {
     if(window.innerWidth <=768){ e.preventDefault(); this.parentElement.classList.toggle('open'); }
   });
 });
+
+const uploadBox = document.getElementById("uploadBox");
+const fileInput = document.getElementById("userImage");
+
+uploadBox.addEventListener("click", () => fileInput.click());
+
+uploadBox.addEventListener("dragover", e => {
+  e.preventDefault();
+  uploadBox.style.borderColor = "#5b2c83";
+});
+
+uploadBox.addEventListener("dragleave", () => {
+  uploadBox.style.borderColor = "#d1d5db";
+});
+
+uploadBox.addEventListener("drop", e => {
+  e.preventDefault();
+  fileInput.files = e.dataTransfer.files;
+  fileInput.dispatchEvent(new Event('change'));
+});
+
+
+// toggle twibbon custom
+const checkTwibbon = document.getElementById("useCustomTwibbon");
+const customUpload = document.getElementById("customTwibbonUpload");
+
+checkTwibbon.addEventListener("change", () => {
+  customUpload.style.display = checkTwibbon.checked ? "block" : "none";
+});
+
 </script>
 
 </body>
 </html>
-
-
-
