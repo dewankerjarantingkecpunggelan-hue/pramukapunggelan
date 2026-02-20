@@ -33,55 +33,20 @@
   }
 
 /* Header */
-header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
     .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:50px;width:50px;object-fit:contain}
     .brand h1{margin:0;font-size:22px;color:var(--wosm-purple)}
-nav{
-  display:flex;
-  align-items:center;
-  gap:20px
-}
-nav a{
-  color:#333;
-  text-decoration:none;
-  padding:8px 0;
-  font-weight:600;
-  position:relative
-}
-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:0;
-  height:2px;
-  background:var(--wosm-purple);
-  transition:.3s
-}
-nav a:hover::after{width:100%}
-nav a:hover{color:var(--wosm-purple)}
-
-.dropdown{position:relative}
-.dropdown-menu{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0;
-  background:#fff;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
-  border-radius:8px;
-  min-width:220px;
-  padding:10px
-}
-.dropdown-menu a{
-  display:block;
-  padding:8px;
-  border-radius:6px;
-  color:#333
-}
-.dropdown:hover .dropdown-menu{display:block}
+    nav{display:flex;align-items:center;gap:20px}
+    nav a{color:#333;text-decoration:none;padding:8px 0;font-weight:600;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--wosm-purple);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a:hover{color:var(--wosm-purple)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.08);border-radius:8px;min-width:220px;padding:10px}
+    .dropdown-menu a{display:block;padding:8px;border-radius:6px;color:#333}
+    .dropdown:hover .dropdown-menu{display:block}
 
 .menu-toggle{
   display:none;
@@ -1755,6 +1720,7 @@ accessToggle.addEventListener("keydown", e=>{
 
 </body>
 </html>
+
 
 
 
