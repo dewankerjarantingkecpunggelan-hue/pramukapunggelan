@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Judul Artikel">
-<meta property="og:description" content="Ringkasan artikel">
-<meta property="og:image" content="https://domain.com/gambar.jpg">
-<meta property="og:url" content="URL artikel">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2026-02-21">
 <meta property="article:author" content="Pramuka Punggelan">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
   
 <meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Berita resmi kegiatan Pramuka Kwarran Punggelan, Dewan Kerja, pers, dan buletin. Informasi akurat, aktual, dan terpercaya.">
@@ -18,7 +21,7 @@
 <link rel="icon" href="assets/images/logologo.png">
 <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-<link rel="canonical" href="https://pramukapunggelan.vercel.app/warta">
+<link rel="canonical" id="canonicalLink">
 <link rel="apple-touch-icon" href="/icon.png">
 
 <style>
@@ -1021,8 +1024,8 @@ footer a:hover{
 {
  "@context": "https://schema.org",
  "@type": "NewsArticle",
- "headline": "Judul Artikel",
- "image": ["https://domain.com/image.jpg"],
+"headline": "",
+"image": [""],
  "datePublished": "2026-02-21",
  "author": {
    "@type": "Organization",
@@ -1095,7 +1098,7 @@ footer a:hover{
     <span><i class='bx bx-show'></i> <span id="views"></span></span>
   </div>
 
-  <img id="thumbnail" class="article-thumb">
+  <img id="thumbnail" class="article-thumb" alt="">
 
   <!-- ===== AREA SCROLL SAJA ===== -->
    <div class="article-scroll"></div>
@@ -1255,7 +1258,7 @@ footer a:hover{
 </footer>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzN3-W6daXopR9K979Nlbgis3iedxkngSKyWv4rFsi1ItZMGfZO-Mrc8e7ag6YRCRYV/exec";
+const API = "https://script.google.com/macros/s/AKfycbyjcy3mjP6DS264yQDj-IhnF5Y7AFFnbJkJiFDe7xhV0yu9Q2gv8Vj2DGCpVsEYPdR0/exec";
 
 const params = new URLSearchParams(location.search);
 const ARTICLE_ID = params.get("id");
@@ -1764,7 +1767,7 @@ function renderArticleHTML(id){
       const tanggal = d[i][5];
       const thumbnail = d[i][6];
 
-      const url = "https://script.google.com/macros/s/AKfycbzN3-W6daXopR9K979Nlbgis3iedxkngSKyWv4rFsi1ItZMGfZO-Mrc8e7ag6YRCRYV/exec?article=" + id;
+      const url = "https://script.google.com/macros/s/AKfycbyjcy3mjP6DS264yQDj-IhnF5Y7AFFnbJkJiFDe7xhV0yu9Q2gv8Vj2DGCpVsEYPdR0/exec?article=" + id;
 
       const html = `
 <!doctype html>
@@ -1819,3 +1822,4 @@ h1{margin-bottom:5px}
 
 </body>
 </html>
+
