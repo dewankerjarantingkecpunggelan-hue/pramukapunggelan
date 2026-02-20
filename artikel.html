@@ -138,6 +138,42 @@
   }
 }
 
+/* ===== QUOTE STYLE UNGU PROFESIONAL ===== */
+
+.article-content blockquote{
+  position: relative;
+  margin: 32px 0;
+  padding: 28px 28px 28px 72px;
+  background: linear-gradient(135deg,#f6f1ff,#ffffff);
+  border-left: 6px solid #6a0dad;
+  border-radius: 16px;
+  font-size: 18px;
+  line-height: 1.75;
+  font-weight: 500;
+  color: #2d1b46;
+  box-shadow: 0 12px 28px rgba(106,13,173,0.12);
+}
+
+/* ikon tanda kutip */
+.article-content blockquote::before{
+  content: "❝";
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  font-size: 52px;
+  color: rgba(106,13,173,0.25);
+}
+
+/* nama narasumber */
+.article-content blockquote cite{
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  color: #6a0dad;
+}
+
 /* ===== DESKTOP PROFESIONAL ===== */
 @media (min-width: 901px){
 
@@ -1822,5 +1858,6 @@ h1{margin-bottom:5px}
 
 </body>
 </html>
+
 
 
