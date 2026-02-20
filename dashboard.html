@@ -219,7 +219,9 @@ input,select{
   <button onclick="insertLink()">🔗</button>
   <button onclick="insertImage()">🖼</button>
 </div>
-
+  <label>Baca Juga (opsional)</label>
+<input id="bacajugaJudul" placeholder="Judul artikel terkait">
+<input id="bacajugaLink" placeholder="Link artikel terkait">
   <div id="editor" class="editor" contenteditable></div>
 
   <button class="btn" onclick="uploadArtikel()">
@@ -274,13 +276,31 @@ function insertImage(){
 </script>
 <script>
 function uploadArtikel(){
+
   if(!judul.value.trim()){
     alert("Judul wajib diisi");
     return;
   }
+
   if(!editor.innerHTML.trim()){
     alert("Isi artikel wajib diisi");
     return;
+  }
+
+  /* =========================
+     BUAT HTML BACA JUGA DULU
+  ==========================*/
+  let bacaJugaHTML = "";
+
+  if(bacajugaJudul.value.trim() && bacajugaLink.value.trim()){
+    bacaJugaHTML = `
+      <div class="baca-juga">
+        <span>Baca Juga</span>
+        <a href="${bacajugaLink.value}">
+          ${bacajugaJudul.value}
+        </a>
+      </div>
+    `;
   }
 
   const cb = "cb_"+Date.now();
@@ -292,9 +312,13 @@ function uploadArtikel(){
     }
 
     alert("Artikel berhasil dipublish");
+
     judul.value="";
     editor.innerHTML="";
     thumbnail.value="";
+    bacajugaJudul.value="";
+    bacajugaLink.value="";
+
     loadArticles();
     delete window[cb];
   };
@@ -302,7 +326,7 @@ function uploadArtikel(){
   const p = new URLSearchParams({
     action:"addArtikel",
     judul:judul.value,
-    isi:editor.innerHTML,
+    isi: editor.innerHTML + bacaJugaHTML, // sekarang aman
     kategori:kategori.value,
     penulis:USER.nama,
     thumbnail:thumbnail.value,
@@ -363,4 +387,5 @@ loadArticles();
 
 </body>
 </html>
+
 
