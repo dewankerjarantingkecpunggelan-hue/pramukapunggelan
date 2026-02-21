@@ -1,43 +1,32 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8">
-
-<meta property="og:type" content="article">
-<meta property="og:title" id="ogTitle">
-<meta property="og:description" id="ogDesc">
-<meta property="og:image" id="ogImage">
-<meta property="og:url" id="ogUrl">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" id="twTitle">
-<meta name="twitter:description" id="twDesc">
-<meta name="twitter:image" id="twImage">
+<meta charset="UTF-8">
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwibFNiPqw16w8UyYI2_dpttTu-6l1O9ln5S-y5E0Ou6O4W1nmAIercwUa1MJXUW6Jr/exec";
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
 
-const id = new URLSearchParams(location.search).get("id");
+fetch("https://script.google.com/macros/s/AKfycbx-e8JzVEnob7b7QXvoOWnuo5oXi2s4m-Qk5xZQQp0OidxFkCbuRXCjDAWHdNom5LhD/exec?action=detail&id="+id)
+.then(r=>r.json())
+.then(data=>{
 
-fetch(API + "?id=" + id)
-.then(r => r.json())
-.then(res => {
+  const title = data.judul;
+  const desc = data.isi.replace(/<[^>]*>/g,'').substring(0,150);
+  const image = data.thumbnail.split("?")[0];
+  const url = "https://pramukapunggelan.vercel.app/artikel.html?id="+id;
 
-  const a = res.data;
+  document.head.innerHTML += `
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:image" content="${image}">
+<meta property="og:url" content="${url}">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<title>${title}</title>
+`;
 
-  document.getElementById("ogTitle").content = a.judul;
-  document.getElementById("ogDesc").content = a.deskripsi;
-  document.getElementById("ogImage").content = a.thumbnail;
-  document.getElementById("ogUrl").content = location.href;
-
-  document.getElementById("twTitle").content = a.judul;
-  document.getElementById("twDesc").content = a.deskripsi;
-  document.getElementById("twImage").content = a.thumbnail;
-
-  // redirect setelah OG terbaca
-  setTimeout(()=>{
-    location.replace("/warta?id=" + id);
-  }, 800);
+  location.href = url;
 
 });
 </script>
