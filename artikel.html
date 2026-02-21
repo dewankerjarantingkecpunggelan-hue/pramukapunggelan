@@ -1330,7 +1330,7 @@ footer a:hover{
 </footer>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwibFNiPqw16w8UyYI2_dpttTu-6l1O9ln5S-y5E0Ou6O4W1nmAIercwUa1MJXUW6Jr/exec";
+const API = "https://script.google.com/macros/s/AKfycbzVVpBA9klp_DjJoGmTaooegufzF9Ca2G2gNt_IBWWJEIa7ji2X6w3iE5eSWQn7gbfv/exec";
 
 const params = new URLSearchParams(location.search);
 const ARTICLE_ID = params.get("id");
@@ -1862,7 +1862,7 @@ function renderArticleHTML(id){
       const tanggal = d[i][5];
       const thumbnail = d[i][6];
 
-      const url = "https://script.google.com/macros/s/AKfycbwibFNiPqw16w8UyYI2_dpttTu-6l1O9ln5S-y5E0Ou6O4W1nmAIercwUa1MJXUW6Jr/exec?article=" + id;
+      const shareURL = "https://script.google.com/macros/s/AKfycbzVVpBA9klp_DjJoGmTaooegufzF9Ca2G2gNt_IBWWJEIa7ji2X6w3iE5eSWQn7gbfv/exec?id=" + ARTICLE_ID;
 
       const html = `
 <!doctype html>
@@ -1917,6 +1917,7 @@ h1{margin-bottom:5px}
 
 </body>
 </html>
+
 
 
 
