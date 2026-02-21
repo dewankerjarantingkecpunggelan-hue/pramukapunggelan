@@ -3,41 +3,44 @@
 <head>
 <meta charset="utf-8">
 
-<script>
-const params = new URLSearchParams(location.search);
-const id = params.get("id");
-
-if(!id){
-  document.write("<title>Artikel</title>");
-}else{
-  fetch("https://script.google.com/macros/s/AKfycbxLlwFoX5OfJKMeob_jDyb0lzMcb5rbUm0_QUhMbC38HAg8xD5fmC0yymf15-SQ1s8e/exec?action=detail&id="+id)
-  .then(r=>r.json())
-  .then(a=>{
-
-    document.write(`
-<title>${a.judul}</title>
-
-<meta property="og:title" content="${a.judul}">
-<meta property="og:description" content="${a.isi.substring(0,140)}">
-<meta property="og:image" content="${a.thumbnail}">
-<meta property="og:url" content="${location.href}">
 <meta property="og:type" content="article">
+<meta property="og:title" id="ogTitle">
+<meta property="og:description" id="ogDesc">
+<meta property="og:image" id="ogImage">
+<meta property="og:url" id="ogUrl">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${a.judul}">
-<meta name="twitter:description" content="${a.isi.substring(0,140)}">
-<meta name="twitter:image" content="${a.thumbnail}">
-`);
+<meta name="twitter:title" id="twTitle">
+<meta name="twitter:description" id="twDesc">
+<meta name="twitter:image" id="twImage">
 
-    // redirect ke halaman artikel asli
-    setTimeout(()=>{
-      location.href="/warta?id="+id;
-    }, 300);
+<script>
+const API = "https://script.google.com/macros/s/AKfycbwibFNiPqw16w8UyYI2_dpttTu-6l1O9ln5S-y5E0Ou6O4W1nmAIercwUa1MJXUW6Jr/exec";
 
-  });
-}
+const id = new URLSearchParams(location.search).get("id");
+
+fetch(API + "?id=" + id)
+.then(r => r.json())
+.then(res => {
+
+  const a = res.data;
+
+  document.getElementById("ogTitle").content = a.judul;
+  document.getElementById("ogDesc").content = a.deskripsi;
+  document.getElementById("ogImage").content = a.thumbnail;
+  document.getElementById("ogUrl").content = location.href;
+
+  document.getElementById("twTitle").content = a.judul;
+  document.getElementById("twDesc").content = a.deskripsi;
+  document.getElementById("twImage").content = a.thumbnail;
+
+  // redirect setelah OG terbaca
+  setTimeout(()=>{
+    location.replace("/warta?id=" + id);
+  }, 800);
+
+});
 </script>
-
 </head>
 <body></body>
 </html>
