@@ -164,6 +164,54 @@ input,select{
   font-style:italic
 }
 
+  /* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px;
+}
+
+/* Laptop & Tablet */
+@media(max-width:900px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* HP kecil */
+@media(max-width:600px){
+  .container{
+    padding:16px;
+  }
+  .header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+    padding:16px;
+  }
+  .header h1{
+    font-size:18px;
+  }
+  .card{
+    padding:16px;
+  }
+  input, select, .editor, .toolbar button, .btn{
+    font-size:13px;
+    padding:10px;
+  }
+  .toolbar{
+    gap:4px;
+  }
+  .table th, .table td{
+    font-size:12px;
+    padding:6px;
+  }
+  .btn{
+    padding:10px 14px;
+    gap:6px;
+  }
+}
+
 </style>
 </head>
 
@@ -387,5 +435,6 @@ loadArticles();
 
 </body>
 </html>
+
 
 
