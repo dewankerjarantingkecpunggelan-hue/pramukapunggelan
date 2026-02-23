@@ -167,6 +167,30 @@ button:active{
   display:block;
   margin-top:12px;
 }
+
+.modal{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+  padding:20px;
+  overflow-y:auto; /* 🔥 supaya bisa scroll */
+}
+
+.modal-content{
+  background:#fff;
+  border-radius:16px;
+  padding:24px;
+  max-width:420px;
+  width:100%;
+  max-height:90vh; /* 🔥 batas tinggi */
+  overflow-y:auto; /* 🔥 scroll di dalam modal */
+}
 </style>
 </head>
 
@@ -189,7 +213,7 @@ button:active{
     <div class="error" id="err"></div>
 
     <span class="link-text" onclick="showAdminInfo()">Lupa Password?</span>
-    <span class="link-text" onclick="showAdminInfo()">Belum punya akun? Daftar</span>
+    <span class="link-text" onclick="showRegisterModal()">Belum punya akun? Daftar</span>
   </div>
 </div>
     
@@ -245,19 +269,45 @@ function showAdminInfo(){
   <div class="modal-content">
     <span class="close-btn" onclick="closeRegisterModal()">&times;</span>
     <h3>Daftar Akun Baru</h3>
+
     <div class="input-group">
       <input id="regUser" placeholder="Username">
     </div>
+
     <div class="input-group">
       <input id="regPass" type="password" placeholder="Password">
     </div>
+
     <div class="input-group">
       <input id="regNama" placeholder="Nama Lengkap">
     </div>
+
+    <div class="input-group">
+      <input id="regJabatan" placeholder="Jabatan">
+    </div>
+
     <div class="input-group">
       <input id="regTelp" placeholder="Nomor Telepon">
     </div>
+
+    <div class="input-group">
+      <input id="regNta" placeholder="No NTA (Opsional)">
+    </div>
+
+    <div class="input-group">
+      <input id="regTgl" type="date">
+    </div>
+
+    <div class="input-group">
+      <input id="regEmail" type="email" placeholder="Email">
+    </div>
+
+    <div class="input-group">
+      <input id="regAlamat" placeholder="Alamat">
+    </div>
+
     <button onclick="register()">Daftar</button>
+
     <div class="error" id="regErr"></div>
     <div class="success-msg" id="regSuccess"></div>
   </div>
@@ -277,42 +327,65 @@ function closeRegisterModal(){
   document.getElementById("regSuccess").textContent="";
 }
 
-// REGISTRASI (contoh)
 async function register(){
+
   const user = document.getElementById("regUser").value.trim();
   const pass = document.getElementById("regPass").value.trim();
   const nama = document.getElementById("regNama").value.trim();
+  const jabatan = document.getElementById("regJabatan").value.trim();
   const telp = document.getElementById("regTelp").value.trim();
+  const nta = document.getElementById("regNta").value.trim();
+  const tgl = document.getElementById("regTgl").value;
+  const email = document.getElementById("regEmail").value.trim();
+  const alamat = document.getElementById("regAlamat").value.trim();
+
   const err = document.getElementById("regErr");
   const success = document.getElementById("regSuccess");
-  err.style.display="none"; success.textContent="";
+
+  err.style.display="none";
+  success.textContent="";
 
   if(!user || !pass || !nama || !telp){
-    err.style.display="block"; 
-    err.textContent="Semua kolom wajib diisi"; 
+    err.style.display="block";
+    err.textContent="Username, Password, Nama, dan Telp wajib diisi";
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // ganti dengan Web App kamu
+  const url = "https://script.google.com/macros/s/AKfycbyfgOpQpUVkc5-t4laUNQausP_mD3dCbiSiBZiFoqwgRwbGmI6UpQjX-4tUtaBGN88I/exec";
 
   try{
-    const body = JSON.stringify({username:user,password:pass,nama:nama,telp:telp,register:true});
-    const res = await fetch(url,{method:"POST",body});
+    const res = await fetch(url,{
+      method:"POST",
+      body: JSON.stringify({
+        action:"register",
+        username:user,
+        password:pass,
+        nama_lengkap:nama,
+        jabatan:jabatan,
+        telp:telp,
+        no_nta:nta,
+        tanggal_lahir:tgl,
+        email:email,
+        alamat:alamat
+      })
+    });
+
     const data = await res.json();
 
-    if(data.status==="ok"){
-      success.textContent="Akun berhasil dibuat! Silakan login.";
-    } else{
+    if(data.status === "ok"){
+      success.textContent="Akun berhasil dibuat!";
+      setTimeout(()=>{ closeRegisterModal(); },1500);
+    } else {
       err.style.display="block";
       err.textContent=data.message;
     }
+
   } catch(e){
     err.style.display="block";
-    err.textContent="Server tidak merespons / JSON invalid";
+    err.textContent="Server error";
     console.error(e);
   }
-}
-</script>
+}</script>
 
 <script>
 // LOGIN
@@ -393,4 +466,5 @@ function closeForgotModal(){forgotModal.style.display="none"; document.getElemen
 </script>
 </body>
 </html>
+
 
