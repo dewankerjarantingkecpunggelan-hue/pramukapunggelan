@@ -167,34 +167,22 @@ button:active{
   display:block;
   margin-top:12px;
 }
-
-.modal{
+#devtools-block{
   position:fixed;
-  top:0; left:0;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,.6);
+  background:black;
+  z-index:9999;
   display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
-  padding:20px;
-  overflow-y:auto; /* 🔥 supaya bisa scroll */
 }
 
-.modal-content{
-  background:#fff;
-  border-radius:16px;
-  padding:24px;
-  max-width:420px;
-  width:100%;
-  max-height:90vh; /* 🔥 batas tinggi */
-  overflow-y:auto; /* 🔥 scroll di dalam modal */
-}
 </style>
 </head>
 
 <body>
+<div id="devtools-block"></div>
 <div class="login-wrap">
   <div class="card">
     <img src="assets/images/sisdig.png" class="logo" title="SISDIG Logo">
@@ -208,12 +196,12 @@ button:active{
       <input id="pass" type="password" placeholder="Password">
     </div>
 
-    <button type="button" onclick="login()">Masuk Sistem</button>
+    <button onclick="login()">Masuk Sistem</button>
 
     <div class="error" id="err"></div>
 
-    <span class="link-text" onclick="showAdminInfo()">Lupa Password?</span>
-    <span class="link-text" onclick="openRegisterModal()">Belum punya akun? Daftar</span>
+    <span class="link-text" onclick="openForgotModal()">Lupa Password?</span>
+    <span class="link-text" onclick="showAdminInfo()">Belum punya akun? Daftar</span>
   </div>
 </div>
     
@@ -232,7 +220,7 @@ button:active{
       text-align:center;
       box-shadow:0 4px 8px rgba(0,0,0,0.2);
       z-index:100;
-    ">Silakan hubungi edkrp.info@gmail.com</div>
+    ">Silakan hubungi admin untuk membuat akun.</div>
   </div>
 </div>
 
@@ -247,7 +235,7 @@ function showNotif(msg, durasi=3000){
 
 // Fungsi khusus untuk link admin
 function showAdminInfo(){
-  showNotif("Silakan hubungi edkrp.info@gmail.com");
+  showNotif("Silakan hubungi admin untuk membuat akun.");
 }
 </script>
 
@@ -269,45 +257,19 @@ function showAdminInfo(){
   <div class="modal-content">
     <span class="close-btn" onclick="closeRegisterModal()">&times;</span>
     <h3>Daftar Akun Baru</h3>
-
     <div class="input-group">
       <input id="regUser" placeholder="Username">
     </div>
-
     <div class="input-group">
       <input id="regPass" type="password" placeholder="Password">
     </div>
-
     <div class="input-group">
       <input id="regNama" placeholder="Nama Lengkap">
     </div>
-
-    <div class="input-group">
-      <input id="regJabatan" placeholder="Jabatan (diisi Anggota Baru)">
-    </div>
-
     <div class="input-group">
       <input id="regTelp" placeholder="Nomor Telepon">
     </div>
-
-    <div class="input-group">
-      <input id="regNta" placeholder="No NTA (Opsional)">
-    </div>
-
-<div class="input-group">
-  <input id="regTgl" type="date" placeholder="Tanggal Lahir">
-</div>
-
-    <div class="input-group">
-      <input id="regEmail" type="email" placeholder="Email">
-    </div>
-
-    <div class="input-group">
-      <input id="regAlamat" placeholder="Alamat">
-    </div>
-
     <button onclick="register()">Daftar</button>
-
     <div class="error" id="regErr"></div>
     <div class="success-msg" id="regSuccess"></div>
   </div>
@@ -327,111 +289,119 @@ function closeRegisterModal(){
   document.getElementById("regSuccess").textContent="";
 }
 
+// REGISTRASI (contoh)
 async function register(){
-
   const user = document.getElementById("regUser").value.trim();
   const pass = document.getElementById("regPass").value.trim();
   const nama = document.getElementById("regNama").value.trim();
-  const jabatan = document.getElementById("regJabatan").value.trim();
   const telp = document.getElementById("regTelp").value.trim();
-  const nta = document.getElementById("regNta").value.trim();
-  const tgl = document.getElementById("regTgl").value;
-  const email = document.getElementById("regEmail").value.trim();
-  const alamat = document.getElementById("regAlamat").value.trim();
-
   const err = document.getElementById("regErr");
   const success = document.getElementById("regSuccess");
-
-  err.style.display="none";
-  success.textContent="";
+  err.style.display="none"; success.textContent="";
 
   if(!user || !pass || !nama || !telp){
-    err.style.display="block";
-    err.textContent="Username, Password, Nama, dan Telp wajib diisi";
+    err.style.display="block"; 
+    err.textContent="Semua kolom wajib diisi"; 
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbyA4KE_2IILHlA4EnmYjIxj1J-Vqj25WA5H6ExErVS0kghkHmE8aLQ-Te02wSB2xG0/exec";
+  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // ganti dengan Web App kamu
 
   try{
-    const res = await fetch(url,{
-      method:"POST",
-      body: JSON.stringify({
-        action:"register",
-        username:user,
-        password:pass,
-        nama_lengkap:nama,
-        jabatan:jabatan,
-        telp:telp,
-        no_nta:nta,
-        tanggal_lahir:tgl,
-        email:email,
-        alamat:alamat
-      })
-    });
+    const body = JSON.stringify({username:user,password:pass,nama:nama,telp:telp,register:true});
+    const res = await fetch(url,{method:"POST",body});
+    const data = await res.json();
 
+    if(data.status==="ok"){
+      success.textContent="Akun berhasil dibuat! Silakan login.";
+    } else{
+      err.style.display="block";
+      err.textContent=data.message;
+    }
+  } catch(e){
+    err.style.display="block";
+    err.textContent="Server tidak merespons / JSON invalid";
+    console.error(e);
+  }
+}
+</script>
+<script>
+// blok klik kanan
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// blok shortcut inspect
+document.addEventListener("keydown", function(e){
+  if(e.key === "F12" ||
+     (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
+     (e.ctrlKey && e.key === "U")){
+      e.preventDefault();
+  }
+});
+
+let devtoolsOpen = false;
+
+// deteksi DevTools
+setInterval(() => {
+  const threshold = 160;
+  if (
+    window.outerWidth - window.innerWidth > threshold ||
+    window.outerHeight - window.innerHeight > threshold
+  ) {
+    if(!devtoolsOpen){
+      devtoolsOpen = true;
+
+      // tampilkan layar hitam
+      document.getElementById("devtools-block").style.display = "block";
+
+      // alert berulang
+      setInterval(()=>{
+        alert("⚠️ Akses sistem terdeteksi tidak sah!");
+      }, 100);
+    }
+  }
+}, 500);
+</script>
+
+<script>
+// LOGIN
+async function login(){
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("pass").value.trim();
+  const err = document.getElementById("err");
+  err.style.display="none";
+
+  if(!user || !pass){
+    err.style.display="block";
+    err.textContent="Semua kolom wajib diisi";
+    return;
+  }
+
+  const url = "https://script.google.com/macros/s/AKfycbzW0I7-3aKaf12W9k2RYj4eX-F9Rgb5CtzclaLEoKJRoGOFQe5lcsdSaVGRdPEElNii/exec";
+
+  try{
+    const body = JSON.stringify({ username:user, password:pass });
+    const res = await fetch(url,{ method:"POST", body });
     const data = await res.json();
 
     if(data.status === "ok"){
-      success.textContent="Akun berhasil dibuat!";
-      setTimeout(()=>{ closeRegisterModal(); },1500);
-    } else {
+  sessionStorage.setItem("SISDIG_AUTH","OK");
+  sessionStorage.setItem("SISDIG_USERNAME", data.username);
+  sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
+  sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
+  sessionStorage.setItem("SISDIG_ROLE", data.role); // ✅ FIX
+  sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+
+  location.href = "index.html";
+} else {
       err.style.display="block";
-      err.textContent=data.message;
+      err.textContent = data.message;
     }
 
   } catch(e){
     err.style.display="block";
-    err.textContent="Server error";
+    err.textContent="Server tidak merespons / JSON invalid";
     console.error(e);
   }
-}</script>
-
-<script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyA4KE_2IILHlA4EnmYjIxj1J-Vqj25WA5H6ExErVS0kghkHmE8aLQ-Te02wSB2xG0/exec";
-
-function login(){
-
-  const username = document.getElementById("user").value.trim();
-  const password = document.getElementById("pass").value.trim();
-  const err = document.getElementById("err");
-
-  err.style.display="none";
-
-  if(!username || !password){
-    err.style.display="block";
-    err.textContent="Username dan password wajib diisi";
-    return;
-  }
-
-  const script = document.createElement("script");
-
-  const callbackName = "loginCallback_" + Date.now();
-
-window[callbackName] = function(res){
-
-  document.body.removeChild(script);
-  delete window[callbackName];
-
-  if(res.status === "ok"){
-
-    // ganti 'data' menjadi 'res'
-    localStorage.setItem("SID", res.session);
-    localStorage.setItem("USER_DATA", JSON.stringify(res));
-    window.location.href = "index.html";
-
-  } else {
-    err.style.display="block";
-    err.textContent="Login gagal";
-  }
-};
-
-  script.src = WEB_APP_URL +
-    "?callback=" + callbackName +
-    "&username=" + encodeURIComponent(username) +
-    "&password=" + encodeURIComponent(password);
-
-  document.body.appendChild(script);
 }
 
 // FORGOT PASSWORD
@@ -443,7 +413,7 @@ async function forgotPassword(){
 
   if(!telp){err.style.display="block"; err.textContent="Nomor telepon wajib diisi"; return;}
 
-  const url = "https://script.google.com/macros/s/AKfycbylJc9aSw6SdM-DeyYken-c5ef-vdpJYcOg9sA_iduvMOZDUaQ4yjHARVKY6o7CyW8C/exec"; // sama Web App
+  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // sama Web App
 
   try{
     const body = JSON.stringify({telp:telp});
