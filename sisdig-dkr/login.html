@@ -208,7 +208,7 @@ button:active{
       <input id="pass" type="password" placeholder="Password">
     </div>
 
-    <button onclick="login()">Masuk Sistem</button>
+    <button type="button" onclick="login()">Masuk Sistem</button>
 
     <div class="error" id="err"></div>
 
@@ -351,7 +351,7 @@ async function register(){
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbyfgOpQpUVkc5-t4laUNQausP_mD3dCbiSiBZiFoqwgRwbGmI6UpQjX-4tUtaBGN88I/exec";
+  const url = "https://script.google.com/macros/s/AKfycbyA4KE_2IILHlA4EnmYjIxj1J-Vqj25WA5H6ExErVS0kghkHmE8aLQ-Te02wSB2xG0/exec";
 
   try{
     const res = await fetch(url,{
@@ -388,45 +388,50 @@ async function register(){
 }</script>
 
 <script>
-// LOGIN
-async function login(){
-  const user = document.getElementById("user").value.trim();
-  const pass = document.getElementById("pass").value.trim();
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyA4KE_2IILHlA4EnmYjIxj1J-Vqj25WA5H6ExErVS0kghkHmE8aLQ-Te02wSB2xG0/exec";
+
+function login(){
+
+  const username = document.getElementById("user").value.trim();
+  const password = document.getElementById("pass").value.trim();
   const err = document.getElementById("err");
+
   err.style.display="none";
 
-  if(!user || !pass){
+  if(!username || !password){
     err.style.display="block";
-    err.textContent="Semua kolom wajib diisi";
+    err.textContent="Username dan password wajib diisi";
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbzW0I7-3aKaf12W9k2RYj4eX-F9Rgb5CtzclaLEoKJRoGOFQe5lcsdSaVGRdPEElNii/exec";
+  const script = document.createElement("script");
 
-  try{
-    const body = JSON.stringify({ username:user, password:pass });
-    const res = await fetch(url,{ method:"POST", body });
-    const data = await res.json();
+  const callbackName = "loginCallback_" + Date.now();
 
-    if(data.status === "ok"){
-  sessionStorage.setItem("SISDIG_AUTH","OK");
-  sessionStorage.setItem("SISDIG_USERNAME", data.username);
-  sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
-  sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
-  sessionStorage.setItem("SISDIG_ROLE", data.role); // ✅ FIX
-  sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+window[callbackName] = function(res){
 
-  location.href = "index.html";
-} else {
-      err.style.display="block";
-      err.textContent = data.message;
-    }
+  document.body.removeChild(script);
+  delete window[callbackName];
 
-  } catch(e){
+  if(res.status === "ok"){
+
+    // ganti 'data' menjadi 'res'
+    localStorage.setItem("SID", res.session);
+    localStorage.setItem("USER_DATA", JSON.stringify(res));
+    window.location.href = "index.html";
+
+  } else {
     err.style.display="block";
-    err.textContent="Server tidak merespons / JSON invalid";
-    console.error(e);
+    err.textContent="Login gagal";
   }
+};
+
+  script.src = WEB_APP_URL +
+    "?callback=" + callbackName +
+    "&username=" + encodeURIComponent(username) +
+    "&password=" + encodeURIComponent(password);
+
+  document.body.appendChild(script);
 }
 
 // FORGOT PASSWORD
@@ -438,7 +443,7 @@ async function forgotPassword(){
 
   if(!telp){err.style.display="block"; err.textContent="Nomor telepon wajib diisi"; return;}
 
-  const url = "https://script.google.com/macros/s/AKfycbwxm_p5y-NeWgqt6zN-gqDG4iuOVqQM50acMHgHWz5E72Zq2NSpxFSmSdMoXiwSf3mP/exec"; // sama Web App
+  const url = "https://script.google.com/macros/s/AKfycbylJc9aSw6SdM-DeyYken-c5ef-vdpJYcOg9sA_iduvMOZDUaQ4yjHARVKY6o7CyW8C/exec"; // sama Web App
 
   try{
     const body = JSON.stringify({telp:telp});
@@ -466,7 +471,3 @@ function closeForgotModal(){forgotModal.style.display="none"; document.getElemen
 </script>
 </body>
 </html>
-
-
-
-
