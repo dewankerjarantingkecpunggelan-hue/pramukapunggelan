@@ -493,16 +493,14 @@ async function validateSession(){
 }
 
 const SID = localStorage.getItem("SID");
-const USER_DATA = localStorage.getItem("USER_DATA");
+const USER_DATA = JSON.parse(localStorage.getItem("USER_DATA") || "{}");
 
-if(!SID || !USER_DATA){
+if(!SID || !USER_DATA.username){ // pastikan username ada
   location.href = "login.html";
 }
-// ==== AUTH CHECK ====
-if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){location.href="login.html";}
 
 // ==== GREETING ====
-const username = sessionStorage.getItem("SISDIG_USERNAME");
+const username = USER_DATA.username || "User";
 const greetingEl = document.getElementById("greeting");
 function getGreetingMessage(){
   const hour = new Date().getHours();
@@ -709,4 +707,5 @@ document.addEventListener("click", ()=>{
 
 </body>
 </html>
+
 
