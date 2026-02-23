@@ -474,6 +474,30 @@ body{background:#f1f5f9;color:#0f172a;position:relative;padding-bottom:100px;}
 <div id="notifPopup"></div>
 
 <script>
+
+async function validateSession(){
+  const res = await fetch("https://script.google.com/macros/s/AKfycbylJc9aSw6SdM-DeyYken-c5ef-vdpJYcOg9sA_iduvMOZDUaQ4yjHARVKY6o7CyW8C/exec",{
+    method:"POST",
+    body: JSON.stringify({
+      action:"validate_session",
+      session: localStorage.getItem("SID")
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.status !== "ok"){
+    localStorage.clear();
+    location.href="login.html";
+  }
+}
+
+const SID = localStorage.getItem("SID");
+const USER_DATA = localStorage.getItem("USER_DATA");
+
+if(!SID || !USER_DATA){
+  location.href = "login.html";
+}
 // ==== AUTH CHECK ====
 if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){location.href="login.html";}
 
@@ -685,5 +709,4 @@ document.addEventListener("click", ()=>{
 
 </body>
 </html>
-
 
