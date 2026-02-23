@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Template Surat & Presensi • SISDIG</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -170,6 +171,34 @@ body{
   font-size:22px;
 }
 
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px){
+
+  .header{
+    padding:22px 16px;
+  }
+
+  .header h2{
+    font-size:18px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .actions a,
+  .actions button{
+    flex:1;
+    justify-content:center;
+    font-size:12px;
+    padding:10px;
+  }
+
+  .preview{
+    height:320px;
+  }
+
+}
 </style>
 </head>
 
@@ -246,3 +275,4 @@ function togglePreview(id){
 
 </body>
 </html>
+
