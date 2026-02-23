@@ -1400,19 +1400,6 @@ function formatTanggal(tgl){
   });
 }
 
-const shareURL = location.origin + "/api/share?id=" + ARTICLE_ID;
-
-shareWa.href = "https://wa.me/?text=" + encodeURIComponent(shareURL);
-shareFb.href = "https://www.facebook.com/sharer/sharer.php?u=" + shareURL;
-shareX.href = "https://twitter.com/intent/tweet?url=" + shareURL;
-shareTelegram.href = "https://t.me/share/url?url=" + shareURL;
-shareLinkedin.href = "https://www.linkedin.com/sharing/share-offsite/?url=" + shareURL;
-
-copyBtn.onclick = () => {
-  navigator.clipboard.writeText(shareURL);
-  alert("Link disalin!");
-};
-
 // ===== KOMENTAR =====
 function loadKomentar(){
   const cb = "cb_komen_" + Date.now();
@@ -1474,37 +1461,40 @@ function kirimKomentar(e){
 }
 
 function setShare(){
-  const url = encodeURIComponent(location.href);
-  const text = encodeURIComponent(document.getElementById("judul").textContent);
+
+  const slug = ARTICLE_ID;
+  const shareURL = location.origin + "/api/share?id=" + slug;
+
+  const encodedURL  = encodeURIComponent(shareURL);
+  const encodedText = encodeURIComponent(document.getElementById("judul").textContent);
 
   // WhatsApp
   document.getElementById("share-wa").href =
-    "https://wa.me/?text=" + text + "%0A" + url;
+    "https://wa.me/?text=" + encodedText + "%0A" + encodedURL;
 
   // Facebook
   document.getElementById("share-fb").href =
-    "https://www.facebook.com/sharer/sharer.php?u=" + url;
+    "https://www.facebook.com/sharer/sharer.php?u=" + encodedURL;
 
   // X / Twitter
   document.getElementById("share-x").href =
-    "https://twitter.com/intent/tweet?text=" + text + "&url=" + url;
+    "https://twitter.com/intent/tweet?text=" + encodedText + "&url=" + encodedURL;
 
   // Telegram
   document.getElementById("share-telegram").href =
-    "https://t.me/share/url?url=" + url + "&text=" + text;
+    "https://t.me/share/url?url=" + encodedURL + "&text=" + encodedText;
 
   // LinkedIn
   document.getElementById("share-linkedin").href =
-    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + encodedURL;
 
   // Salin Link
   document.getElementById("copy-link").onclick = () => {
-    navigator.clipboard.writeText(location.href)
+    navigator.clipboard.writeText(shareURL)
       .then(() => alert("Link artikel berhasil disalin!"))
       .catch(() => alert("Gagal menyalin link."));
   };
 }
-
 // Panggil fungsi share
 setShare();
 
@@ -1907,6 +1897,7 @@ h1{margin-bottom:5px}
 
 </body>
 </html>
+
 
 
 
