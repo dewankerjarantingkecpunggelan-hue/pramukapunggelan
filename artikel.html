@@ -1400,27 +1400,17 @@ function formatTanggal(tgl){
   });
 }
 
-  // ===== SHARE LINKS =====
-const shareURL = location.origin + "/share?id=" + ARTICLE_ID;
+const shareURL = location.origin + "/api/share?id=" + ARTICLE_ID;
 
-document.getElementById("share-wa").href =
-  "https://wa.me/?text=" + encodeURIComponent(shareURL);
+shareWa.href = "https://wa.me/?text=" + encodeURIComponent(shareURL);
+shareFb.href = "https://www.facebook.com/sharer/sharer.php?u=" + shareURL;
+shareX.href = "https://twitter.com/intent/tweet?url=" + shareURL;
+shareTelegram.href = "https://t.me/share/url?url=" + shareURL;
+shareLinkedin.href = "https://www.linkedin.com/sharing/share-offsite/?url=" + shareURL;
 
-document.getElementById("share-fb").href =
-  "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareURL);
-
-document.getElementById("share-x").href =
-  "https://twitter.com/intent/tweet?url=" + encodeURIComponent(shareURL);
-
-document.getElementById("share-telegram").href =
-  "https://t.me/share/url?url=" + encodeURIComponent(shareURL);
-
-document.getElementById("share-linkedin").href =
-  "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(shareURL);
-
-document.getElementById("copy-link").onclick = () => {
+copyBtn.onclick = () => {
   navigator.clipboard.writeText(shareURL);
-  alert("Link berhasil disalin");
+  alert("Link disalin!");
 };
 
 // ===== KOMENTAR =====
@@ -1917,6 +1907,7 @@ h1{margin-bottom:5px}
 
 </body>
 </html>
+
 
 
 
