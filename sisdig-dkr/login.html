@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Login SISDIG DKR</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:Poppins,sans-serif;margin:0;padding:0}
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top,#1e293b,#020617 70%);
+}
+
+#forgotModal { z-index: 1500; }
+#registerModal { z-index: 2000; }
+
+.login-wrap{
+  width:100%;
+  max-width:400px;
+  padding:30px;
+  position:relative;
+}
+
+.card{
+  background:linear-gradient(145deg,#ffffff,#e5e7eb);
+  border-radius:22px;
+  padding:30px 30px 30px 30px;
+  box-shadow:0 25px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.8);
+  text-align:center;
+}
+
+.logo{
+  width:100px;
+  height:auto;
+  margin:0 auto 20px;
+  animation: float 3s ease-in-out infinite;
+  cursor:pointer;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+h2{
+  font-size:22px;
+  color:#020617;
+  font-weight:700;
+  margin-bottom:6px;
+}
+h3{
+  font-size:14px;
+  color:#64748b;
+  margin-bottom:25px;
+}
+
+.input-group{
+  position:relative;
+  margin-top:15px;
+}
+.input-group input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  background:#f8fafc;
+  font-size:15px;
+  transition:0.3s;
+  outline:none;
+}
+.input-group input:focus{
+  border-color:#4f46e5;
+  box-shadow:0 0 6px rgba(79,70,229,.3);
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:22px;
+  border-radius:16px;
+  border:none;
+  font-weight:600;
+  font-size:15px;
+  color:white;
+  background:linear-gradient(145deg,#4f46e5,#4338ca);
+  box-shadow:0 12px 22px rgba(79,70,229,.5),inset 0 1px 0 rgba(255,255,255,.4);
+  cursor:pointer;
+}
+button:active{
+  transform:translateY(2px);
+  box-shadow:0 6px 12px rgba(0,0,0,.35);
+}
+
+.error{
+  margin-top:14px;
+  font-size:12px;
+  color:#dc2626;
+  display:none;
+}
+
+.modal-content h3{
+  margin-bottom:14px;
+  color:#1e293b;
+}
+.modal-content input{
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  outline:none;
+}
+.modal-content input:focus{
+  border-color:#4f46e5;
+  box-shadow:0 0 6px rgba(79,70,229,.3);
+}
+.close-btn{
+  position:relative;
+  display:inline-block;
+  float:right;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:18px;
+  margin-top:-10px;
+  margin-right:-5px;
+}
+.success-msg{
+  color:green;
+  font-size:13px;
+  margin-top:10px;
+}
+.link-text{
+  font-size:13px;
+  color:#4f46e5;
+  cursor:pointer;
+  display:block;
+  margin-top:12px;
+}
+
+.modal{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal-content{
+  background:#fff;
+  border-radius:16px;
+  padding:24px;
+  max-width:420px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+}
+
+.label-text{
+  display:block;
+  font-size:12px;
+  color:#475569;
+  margin-bottom:4px;
+  text-align:left;
+}
+</style>
+</head>
+
+<body>
+<div class="login-wrap">
+  <div class="card">
+    <img src="assets/images/sisdig.png" class="logo" title="SISDIG Logo">
+    <h2>Welcome to e-DKRP</h2>
+    <h3>Sistem Digital DKR Punggelan</h3>
+
+<div class="input-group">
+  <input id="user" name="login_user" type="text" placeholder="Username" autocomplete="off">
+</div>
+<div class="input-group" style="position:relative;">
+  <input id="pass" name="login_pass" type="password" placeholder="Password" autocomplete="new-password">
+  <span id="toggleLoginPass" style="
+      position:absolute;
+      right:12px;
+      top:50%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      font-size:18px;
+      user-select:none;
+  ">🙉</span>
+</div>
+
+    <button id="btnLogin">Masuk Sistem</button>
+    <div class="error" id="err"></div>
+
+    <span class="link-text" id="linkForgot">Lupa Password?</span>
+    <span class="link-text" id="linkRegister">Belum punya akun? Daftar</span>
+  </div>
+</div>
+
+<!-- Modal Lupa Password -->
+<div class="modal" id="forgotModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeForgot">&times;</span>
+    <h3>Lupa Password</h3>
+
+    <div class="input-group">
+      <label class="label-text">Username</label>
+      <input id="fpUser">
+    </div>
+
+    <div class="input-group">
+      <label class="label-text">Nomor Telepon (Jika gagal, hilangkan 0 diawal)</label>
+      <input id="fpTelp" placeholder="08123456789">
+    </div>
+
+    <div class="input-group">
+      <label class="label-text">Email</label>
+      <input id="fpEmail" type="email">
+    </div>
+
+    <div class="input-group">
+      <label class="label-text">Tanggal Lahir</label>
+      <input id="fpTgl" type="date">
+    </div>
+
+    <button id="btnForgot">Kirim</button>
+
+    <div class="error" id="forgotErr"></div>
+    <div class="success-msg" id="forgotSuccess"></div>
+  </div>
+</div>
+
+<!-- Modal Daftar Akun -->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeRegister">&times;</span>
+    <h3>Daftar Akun Baru</h3>
+
+    <div class="input-group">
+      <label for="regUser" class="label-text">Username <span style="color:red">*</span></label>
+      <input id="regUser" placeholder="Username">
+    </div>
+
+<div class="input-group" style="position:relative;">
+  <label for="regPass" class="label-text">Password <span style="color:red">*</span></label>
+  <input id="regPass" type="password" placeholder="Password">
+  <span id="togglePass" style="
+      position:absolute;
+      right:12px;
+      top:70%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      font-size:18px;
+      user-select:none;
+  ">🙉</span>
+</div>
+
+<div class="input-group" style="position:relative;">
+  <label for="regPass2" class="label-text">Ulangi Password <span style="color:red">*</span></label>
+  <input id="regPass2" type="password" placeholder="Ulangi Password">
+  <span id="togglePass2" style="
+      position:absolute;
+      right:12px;
+      top:70%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      font-size:18px;
+      user-select:none;
+  ">🙉</span>
+</div>
+
+    <div class="input-group">
+      <label for="regNama" class="label-text">Nama Lengkap <span style="color:red">*</span></label>
+      <input id="regNama" placeholder="Nama Lengkap">
+    </div>
+
+    <div class="input-group">
+      <label for="regJabatan" class="label-text">Jabatan (Diisi Anggota Baru) <span style="color:red">*</span></label>
+      <input id="regJabatan" placeholder="Jabatan">
+    </div>
+
+    <div class="input-group">
+      <label for="regTelp" class="label-text">Nomor Telepon <span style="color:red">*</span></label>
+      <input id="regTelp" placeholder="08123456789">
+    </div>
+
+    <div class="input-group">
+      <label for="regNta" class="label-text">No. NTA (Opsional)</label>
+      <input id="regNta" placeholder="No. NTA">
+    </div>
+
+    <div class="input-group">
+      <label for="regTgl" class="label-text">Tanggal Lahir <span style="color:red">*</span></label>
+      <input id="regTgl" type="date">
+    </div>
+
+    <div class="input-group">
+      <label for="regEmail" class="label-text">Email <span style="color:red">*</span></label>
+      <input id="regEmail" type="email" placeholder="email@domain.com">
+    </div>
+
+    <div class="input-group">
+      <label for="regAlamat" class="label-text">Alamat <span style="color:red">*</span></label>
+      <input id="regAlamat" placeholder="Alamat">
+    </div>
+
+    <button id="btnRegister">Daftar</button>
+    <div class="error" id="regErr"></div>
+    <div class="success-msg" id="regSuccess"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const registerModal = document.getElementById("registerModal");
+  const forgotModal = document.getElementById("forgotModal");
+
+  // tombol dan link
+  const linkRegister = document.getElementById("linkRegister");
+  const linkForgot = document.getElementById("linkForgot");
+  const closeRegister = document.getElementById("closeRegister");
+  const closeForgot = document.getElementById("closeForgot");
+  const btnRegister = document.getElementById("btnRegister");
+  const btnForgot = document.getElementById("btnForgot");
+  const btnLogin = document.getElementById("btnLogin");
+  
+  linkRegister.addEventListener("click", openRegisterModal);
+  linkForgot.addEventListener("click", openForgotModal);
+  closeRegister.addEventListener("click", closeRegisterModal);
+  closeForgot.addEventListener("click", closeForgotModal);
+  btnRegister.addEventListener("click", register);
+  btnForgot.addEventListener("click", forgotPassword);
+  btnLogin.addEventListener("click", login);
+
+  function openRegisterModal(){
+    forgotModal.style.display = "none";
+    registerModal.style.display = "flex";
+  }
+  function closeRegisterModal(){
+    registerModal.style.display = "none";
+    document.getElementById("regUser").value="";
+    document.getElementById("regPass").value="";
+    document.getElementById("regNama").value="";
+    document.getElementById("regJabatan").value="";
+    document.getElementById("regTelp").value="";
+    document.getElementById("regNta").value="";
+    document.getElementById("regTgl").value="";
+    document.getElementById("regEmail").value="";
+    document.getElementById("regAlamat").value="";
+    document.getElementById("regErr").style.display="none";
+    document.getElementById("regSuccess").textContent="";
+  }
+
+  function openForgotModal(){
+    registerModal.style.display = "none";
+    forgotModal.style.display = "flex";
+  }
+  function closeForgotModal(){
+    forgotModal.style.display="none";
+    document.getElementById("fpUser").value="";
+    document.getElementById("fpTelp").value="";
+    document.getElementById("fpEmail").value="";
+    document.getElementById("fpTgl").value="";
+    document.getElementById("forgotErr").style.display="none";
+    document.getElementById("forgotSuccess").textContent="";
+  }
+
+  async function hashPassword(password){
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+// Toggle password login
+const loginPass = document.getElementById("pass");
+const toggleLoginPass = document.getElementById("toggleLoginPass");
+
+toggleLoginPass.addEventListener("click", () => {
+  if (loginPass.type === "password") {
+    loginPass.type = "text";
+    toggleLoginPass.textContent = "🙈";
+  } else {
+    loginPass.type = "password";
+    toggleLoginPass.textContent = "🙉";
+  }
+});
+
+// Toggle password show/hide
+const regPass = document.getElementById("regPass");
+const regPass2 = document.getElementById("regPass2");
+const togglePass = document.getElementById("togglePass");
+const togglePass2 = document.getElementById("togglePass2");
+
+togglePass.addEventListener("click", () => {
+  if (regPass.type === "password") {
+    regPass.type = "text";
+    togglePass.textContent = "🙈";
+  } else {
+    regPass.type = "password";
+    togglePass.textContent = "🙉";
+  }
+});
+
+togglePass2.addEventListener("click", () => {
+  if (regPass2.type === "password") {
+    regPass2.type = "text";
+    togglePass2.textContent = "🙈";
+  } else {
+    regPass2.type = "password";
+    togglePass2.textContent = "🙉";
+  }
+});
+
+// Modifikasi fungsi register
+async function register(){
+  const user = document.getElementById("regUser").value.trim();
+  const pass = document.getElementById("regPass").value.trim();
+  const pass2 = document.getElementById("regPass2").value.trim();
+  const nama = document.getElementById("regNama").value.trim();
+  const jabatan = document.getElementById("regJabatan").value.trim();
+  const telp = document.getElementById("regTelp").value.trim();
+  const nta = document.getElementById("regNta").value.trim();
+  const tgl = document.getElementById("regTgl").value;
+  const email = document.getElementById("regEmail").value.trim();
+  const alamat = document.getElementById("regAlamat").value.trim();
+
+  const err = document.getElementById("regErr");
+  const success = document.getElementById("regSuccess");
+
+  err.style.display="none";
+  success.textContent="";
+
+  if(!user || !pass || !pass2 || !nama || !telp || !jabatan || !tgl || !email || !alamat){
+    err.style.display="block";
+    err.textContent="Semua kolom wajib diisi";
+    return;
+  }
+
+  if(pass !== pass2){
+    err.style.display="block";
+    err.textContent="Password tidak sama, mohon cek kembali";
+    return;
+  }
+
+  const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
+  try{
+    const hashedPass = await hashPassword(pass);
+    const res = await fetch(url,{
+      method:"POST",
+      body: JSON.stringify({
+        action:"register",
+        username:user,
+        password:hashedPass,
+        nama_lengkap:nama,
+        jabatan:jabatan,
+        telp:telp,
+        no_nta:nta,
+        tanggal_lahir:tgl,
+        email:email,
+        alamat:alamat
+      })
+    });
+    const data = await res.json();
+    if(data.status==="ok"){
+      success.textContent="Akun berhasil dibuat!";
+      setTimeout(closeRegisterModal,1500);
+    }else{
+      err.style.display="block";
+      err.textContent=data.message;
+    }
+  }catch(e){
+    err.style.display="block";
+    err.textContent="Server error";
+    console.error(e);
+  }
+}
+
+  async function login(){
+    const user = document.getElementById("user").value.trim();
+    const pass = document.getElementById("pass").value.trim();
+    const err = document.getElementById("err");
+    err.style.display="none";
+
+    if(!user || !pass){
+      err.style.display="block";
+      err.textContent="Semua kolom wajib diisi";
+      return;
+    }
+
+    const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
+
+    try{
+      const hashedPass = await hashPassword(pass);
+      const body = JSON.stringify({ username:user, password:hashedPass });
+      const res = await fetch(url,{ method:"POST", body });
+      const data = await res.json();
+
+      if(data.status==="ok"){
+        sessionStorage.setItem("SISDIG_AUTH","OK");
+        sessionStorage.setItem("SISDIG_USERNAME", data.username);
+        sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
+        sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
+        sessionStorage.setItem("SISDIG_ROLE", data.role);
+        sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+        location.href = "index.html";
+      }else{
+        err.style.display="block";
+        err.textContent = data.message;
+      }
+
+    }catch(e){
+      err.style.display="block";
+      err.textContent="Server tidak merespons / JSON invalid";
+      console.error(e);
+    }
+  }
+
+async function forgotPassword(){
+    const username = document.getElementById("fpUser").value.trim();
+    const telpRaw = document.getElementById("fpTelp").value;
+    const telp = (telpRaw !== null && telpRaw !== undefined) ? String(telpRaw).trim() : "";
+    const email = document.getElementById("fpEmail").value.trim();
+    const tgl = document.getElementById("fpTgl").value;
+
+    const err = document.getElementById("forgotErr");
+    const success = document.getElementById("forgotSuccess");
+
+    err.style.display="none";
+    success.textContent="";
+
+    if(!username || !telp || !email || !tgl){
+      err.style.display="block";
+      err.textContent="Semua data wajib diisi";
+      return;
+    }
+
+    const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
+
+    try{
+      const res = await fetch(url,{
+        method:"POST",
+        body: JSON.stringify({
+          action:"forgot_password",
+          username:username,
+          telp:telp,
+          email:email,
+          tanggal_lahir:tgl
+        })
+      });
+
+      const text = await res.text();
+      const data = JSON.parse(text);
+
+      if(data.status==="ok"){
+        success.textContent = "Password baru sudah dikirim ke email kamu.";
+      }else{
+        err.style.display="block";
+        err.textContent=data.message;
+      }
+
+    }catch(e){
+      err.style.display="block";
+      err.textContent="Server error";
+      console.error(e);
+    }
+  }
+}); // DOMContentLoaded
+</script>
+</body>
+</html>

@@ -1,0 +1,1276 @@
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SISDIG DKR</title>
+<link rel="icon" href="assets/images/sisdig.png">
+
+<!-- Font & Icon -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+/* ===================== RESET ===================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:#f1f5f9;color:#0f172a;position:relative;padding-bottom:100px;}
+
+/* ===================== HEADER MODERN ===================== */
+.header-modern{
+  background: linear-gradient(135deg,#4f46e5,#2563eb);
+  border-radius:0 0 24px 24px;
+  padding:16px 20px 28px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.12);
+  color:white;
+  position:relative;
+  z-index:10;
+}
+.header-top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+}
+.header-top .logo{width:50px;height:auto;object-fit:contain;}
+.header-icons{display:flex;align-items:center;gap:12px;}
+.icon-btn{background:none;border:none;padding:6px;cursor:pointer;color:white;font-size:22px;position:relative;transition:.2s;}
+.icon-btn:hover{opacity:.8;}
+.icon-btn .badge{position:absolute;top:0;right:0;background:#f87171;color:white;font-size:10px;font-weight:700;padding:2px 5px;border-radius:50%;display:none;}
+.icon-btn .badge.pulse{animation:badgePulse 1s infinite;}
+@keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.3);}}
+
+/* GREETING MODERN */
+.greeting-modern{
+  background: rgba(255,255,255,0.95);
+  color: #1e40af;
+  padding:8px 20px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:500;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  text-align:center;
+  max-width:95%;
+  margin:0 auto;
+  line-height:1.4;
+  transition: all .3s;
+}
+.greeting-modern.fade{opacity:0;transform:translateY(-5px);}
+.greeting-modern.show{opacity:1;transform:translateY(0);}
+
+/* ===================== IMAGE BANNER SLIDER ===================== */
+.banner-wrap{
+  margin:14px 16px 6px;
+  position:relative;
+}
+
+.banner-slider{
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.banner-track{
+  display:flex;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.banner{
+  min-width:100%;
+  position:relative;
+}
+
+.banner img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* overlay biar elegan */
+.banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+}
+
+/* clickable */
+.banner.clickable{
+  cursor:pointer;
+}
+
+/* indicator */
+.banner-indicator{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:10px;
+}
+.banner-indicator span{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#c7d2fe;
+  transition:.3s;
+}
+.banner-indicator span.active{
+  width:18px;
+  border-radius:999px;
+  background:#2563eb;
+}
+
+/* ===================== MENU GRID ===================== */
+.container{
+  padding:10px 20px 30px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.menu{
+  background:white;
+  border-radius:18px;
+  padding:18px 10px;
+  text-align:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.12);
+  transition:.2s;
+  cursor:pointer;
+  position:relative;
+}
+.menu:hover{transform:scale(1.03);}
+.menu .icon{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  margin:0 auto 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#3b82f6,#1d4ed8);
+}
+.menu .icon i{font-size:30px;color:white;}
+.menu .title{font-size:14px;font-weight:600;}
+.menu .desc{font-size:11px;color:#64748b;}
+.menu .emblem-lock{
+  position:absolute;top:8px;right:8px;width:20px;height:20px;background:#f87171;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ===================== BOTTOM NAVIGATION MODERN ===================== */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:70px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-around; /* penting */
+  border-top:1px solid #e2e8f0;
+  box-shadow:0 -4px 18px rgba(0,0,0,.08);
+  z-index:100;
+}
+
+/* item */
+.nav-item{
+  flex:1;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:none;
+  border:none;
+  color:#64748b;
+  font-size:22px;
+}
+
+/* aktif */
+.nav-item.active{
+  color:#2563eb;
+}
+
+/* tombol tengah */
+.scan-btn{
+  position:relative;
+  top:-22px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:none;
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  color:#fff;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 12px 24px rgba(0,0,0,.25);
+}
+.scan-btn:hover{
+  transform:scale(1.08);
+}
+
+/* ===================== SETTINGS PANEL ===================== */
+.settings-panel{
+  position:fixed;top:350px;left:50%;transform:translateX(-50%) translateY(-10px);width:260px;
+  background:white;border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,0.25);z-index:999;opacity:0;pointer-events:none;transition:all .3s ease;
+}
+.settings-panel.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.settings-panel .panel-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#1e40af;}
+.settings-panel .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1e40af;}
+.settings-panel .panel-content{display:flex;flex-direction:column;}
+.settings-panel .panel-content button{
+  display:flex;align-items:center;gap:10px;background:none;border:none;padding:12px 16px;text-align:left;font-size:14px;color:#1e40af;cursor:pointer;transition:.2s;
+}
+.settings-panel .panel-content button:hover{background:#f1f5f9;}
+
+/* ===================== NOTIF PANEL ===================== */
+.notif-panel{
+  position: fixed;top:70px;right:20px;width:280px;max-height:400px;background:white;border-radius:16px;
+  box-shadow:0 12px 28px rgba(0,0,0,0.25);z-index:999;overflow-y:auto;opacity:0;pointer-events:none;transition:all .3s ease;
+}
+.notif-panel.show{opacity:1;pointer-events:auto;}
+.notif-panel .panel-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#1e40af;}
+.notif-panel .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1e40af;}
+.notif-panel .panel-content{display:flex;flex-direction:column;}
+.notif-item{padding:10px 16px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#1e40af;cursor:pointer;transition:.2s;}
+.notif-item:hover{background:#f1f5f9;}
+
+/* ===================== POPUP NOTIF ===================== */
+#notifPopup{
+  display:none;position:fixed;bottom:140px;left:50%;transform:translateX(-50%);
+  background:#fef3c7;color:#92400e;padding:12px 20px;border-radius:12px;font-size:13px;text-align:center;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:1000;animation:fadein 0.3s;
+}
+@keyframes fadein{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ===== HELP DROPDOWN ===== */
+.help-wrapper{
+  position:relative;
+}
+
+.help-dropdown{
+  position:fixed;      /* UBAH dari absolute jadi fixed */
+  bottom:90px;         /* naikkan sedikit dari navbar */
+  right:20px;
+  width:220px;
+  background:white;
+  border-radius:14px;
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:5000;        /* lebih tinggi dari navbar */
+}
+
+.help-dropdown button{
+  background:none;
+  border:none;
+  padding:12px 16px;
+  text-align:left;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  color:#1e40af;
+}
+
+.help-dropdown button:hover{
+  background:#f1f5f9;
+}
+
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:10px;
+  background:#f8fafc;
+}
+
+.contact-item i{
+  font-size:26px;
+  color:#2563eb;
+}
+
+.contact-item span{
+  font-size:13px;
+  color:#475569;
+}
+
+/* ===== HELPDESK MODAL ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+
+.modal-box{
+  background:white;
+  width:90%;
+  max-width:320px;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+}
+
+.modal-box h3{
+  margin-bottom:8px;
+  color:#1e40af;
+}
+
+.help-list{
+  text-align:left;
+  margin:12px 0;
+  padding-left:0;
+  list-style:none;
+}
+
+.help-list li{
+  padding:6px 0;
+  font-size:14px;
+}
+
+.close-help{
+  background:#1e40af;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* ===== HELPDESK MODAL FIX ===== */
+.helpdesk-box{
+  background:white;
+  width:90%;
+  max-width:340px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  animation:pop .25s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.helpdesk-header{
+  background:linear-gradient(135deg,#4f46e5,#2563eb);
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.helpdesk-icon{
+  width:60px;
+  height:60px;
+  background:white;
+  color:#2563eb;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 10px;
+  font-size:30px;
+}
+
+.helpdesk-content{
+  padding:14px;
+}
+
+.helpdesk-actions{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.wa-btn{
+  background:#22c55e;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:14px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+/* ===== MODAL PASSWORD ===== */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.modal-box{
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  width:90%;
+  max-width:400px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  animation:fadeIn .25s ease;
+}
+
+.modal-box h2{
+  margin-bottom:15px;
+  font-size:20px;
+}
+
+.input-group{
+  position:relative;
+  margin-bottom:15px;
+}
+
+.input-group label{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+  color:#555;
+}
+
+.input-group input{
+  width:100%;
+  padding:10px 38px 10px 10px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.toggle{
+  position:absolute;
+  right:10px;
+  top:33px;
+  cursor:pointer;
+  opacity:.6;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:10px;
+}
+
+.btn-cancel{
+  background:#eee;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.btn-save{
+  background:#2b7cff;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.btn-save:hover{
+  background:#1f63d1;
+}
+
+@keyframes fadeIn{
+  from{transform:translateY(10px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.modal-box{
+  animation: popIn .25s ease;
+}
+
+@keyframes popIn{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+<!-- HEADER MODERN -->
+<div class="header-modern">
+  <div class="header-top">
+    <img src="assets/images/swhite.png" alt="Logo SISDIG" class="logo">
+    <div class="header-icons">
+      <button class="icon-btn" id="notifBtn">
+        <i class='bx bx-bell'></i>
+        <span class="badge" id="notifBadge"></span>
+      </button>
+      <button class="icon-btn" onclick="location.href='messages/index.html'">
+        <img src="assets/images/etanolw.png" alt="Chat" style="width:45px;height:45px;object-fit:contain;">
+        <span class="badge" id="chatBadge"></span>
+      </button>
+    </div>
+  </div>
+  <div class="greeting-modern" id="greeting"></div>
+</div>
+<!-- IMAGE BANNER SLIDER -->
+<div class="banner-wrap">
+  <div class="banner-slider">
+    <div class="banner-track" id="bannerTrack">
+
+      <div class="banner">
+        <img src="assets/images/banner 1.png" alt="Banner 1">
+      </div>
+
+      <div class="banner">
+        <img src="assets/images/banner 2.png" alt="Banner 2">
+      </div>
+
+      <div class="banner clickable" onclick="openBannerLink()">
+        <img src="assets/images/banner 3.png" alt="Banner 3">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="banner-indicator" id="bannerDots">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<main class="container">
+  <div class="menu" onclick="openApp('simhad/index.html')"><div class="icon"><i class='bx bx-qr-scan'></i></div><div class="title">SIMHAD</div><div class="desc">Absensi Kehadiran</div></div>
+  <div class="menu" onclick="openApp('absen/index.html')"><div class="icon"><i class='bx bx-task'></i></div><div class="title">Absensi</div><div class="desc">Checkin & Checkout</div></div>
+  <div class="menu" onclick="openApp('keuangan/index.html')"><div class="icon"><i class='bx bx-wallet'></i></div><div class="title">Keuangan</div><div class="desc">Data Keuangan DKR</div></div>
+  <div class="menu" onclick="openApp('notulensi/index.html')"><div class="icon"><i class='bx bx-note'></i></div><div class="title">Notulensi</div><div class="desc">Catatan Rapat</div></div>
+  <div class="menu" onclick="openApp('arsip/index.html')"><div class="icon"><i class='bx bx-folder'></i></div><div class="title">Arsip</div><div class="desc">Dokumen & Laporan</div></div>
+  <div class="menu" onclick="openApp('jadwal/index.html')"><div class="icon"><i class='bx bx-calendar-event'></i></div><div class="title">Jadwal Kegiatan</div><div class="desc">Agenda & Acara</div></div>
+  <div class="menu" onclick="openApp('anggota/index.html')"><div class="icon"><i class='bx bx-user'></i></div><div class="title">Anggota</div><div class="desc">Data Anggota DKR Punggelan</div></div>
+  <div class="menu" onclick="openApp('surkas/index.html')"><div class="icon"><i class='bx bx-file'></i></div><div class="title">SurKas</div><div class="desc">Template Surat & Berkas</div></div>
+  <div class="menu" onclick="openApp('lapor/index.html')"><div class="icon"><i class='bx bx-message'></i></div><div class="title">Lapor Kak!</div><div class="desc">Pengaduan & Saran</div></div>
+  <div class="menu" onclick="openQrAbsensi()">
+  <div class="icon"><i class='bx bx-qr'></i></div>
+  <div class="title">QR Absensi</div>
+  <div class="desc">Tampilkan QR Absensi Anda</div>
+</div>
+</div>
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+  <button onclick="goHome()" class="nav-item active">
+    <i class='bx bx-home'></i>
+  </button>
+
+  <button id="settingsBtn" class="nav-item">
+    <i class='bx bx-cog'></i>
+  </button>
+
+  <button class="scan-btn" onclick="openScanner()">
+    <i class='bx bx-scan'></i>
+  </button>
+
+  <button id="helpToggle" class="nav-item">
+    <i class='bx bx-help-circle'></i>
+  </button>
+
+  <button id="accountBtn" class="nav-item">
+    <i class='bx bx-user'></i>
+  </button>
+
+</nav>
+
+<div class="help-dropdown" id="helpMenu">
+  <button onclick="openHelpdesk()">
+    <i class='bx bx-support'></i> Helpdesk Aplikasi
+  </button>
+  <button onclick="openWhatsapp()">
+    <i class='bx bxl-whatsapp'></i> WA Sing Gawe Aplikasi
+  </button>
+</div>
+
+<script>
+const navItems = document.querySelectorAll(".nav-item");
+
+navItems.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    navItems.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+</script>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="panel-header">
+    <span>Pengaturan</span>
+    <button class="close-btn" onclick="closeSettings()"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="panel-content">
+    <button onclick="logout()"><i class='bx bx-log-out'></i> Logout</button>
+    <button onclick="openPasswordModal()"><i class='bx bx-key'></i> Ganti Password</button>
+  </div>
+</div>
+
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="panel-header">
+    <span>Notifikasi</span>
+    <button class="close-btn" onclick="closeNotifPanel()"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="panel-content" id="notifContent"></div>
+</div>
+
+<!-- POPUP NOTIF -->
+<div id="notifPopup"></div>
+
+<script>
+// ==== AUTH CHECK ====
+if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){location.href="login.html";}
+
+// ==== GREETING ====
+const username = sessionStorage.getItem("SISDIG_USERNAME");
+const greetingEl = document.getElementById("greeting");
+function getGreetingMessage(){
+  const hour = new Date().getHours();
+  return hour<12?"Selamat pagi":hour<17?"Selamat siang":"Selamat sore";
+}
+function updateGreeting(){
+  greetingEl.classList.remove('show');
+  greetingEl.classList.add('fade');
+  setTimeout(()=>{
+    greetingEl.innerHTML = username ? `Halo <b>${username}</b> 👋, ${getGreetingMessage()}!` : `Halo 👋, ${getGreetingMessage()}!`;
+    greetingEl.classList.remove('fade');
+    greetingEl.classList.add('show');
+  },300);
+}
+updateGreeting();
+setInterval(updateGreeting,60*60*1000);
+
+// ==== MENU ACTIONS ====
+function openApp(url){location.href=url;}
+function comingSoon(){showNotif("🚧 Modul ini sedang disiapkan 😄");}
+function goHome(){showNotif("🏠 Beranda");}
+
+// ==== LOGOUT / CHANGE PASSWORD ====
+function logout(){sessionStorage.clear();location.href="login.html";}
+async function changePassword(){
+
+  const username = sessionStorage.getItem("SISDIG_USERNAME");
+  if(!username){
+    alert("Silakan login ulang.");
+    location.href="login.html";
+    return;
+  }
+
+  const oldPass = prompt("Masukkan password lama:");
+  if(!oldPass) return;
+
+  const newPass = prompt("Masukkan password baru:");
+  if(!newPass) return;
+
+  const confirmPass = prompt("Ulangi password baru:");
+  if(newPass !== confirmPass){
+    alert("Konfirmasi password tidak cocok!");
+    return;
+  }
+
+  // hash SHA-256
+  async function sha256(str){
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+
+  const oldHash = await sha256(oldPass);
+  const newHash = await sha256(newPass);
+
+  try{
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxKz7Ydle68ntXMf0UqNimk2Dbd1lvZJJmNz-a8RfpuQStfX3X3TKkTny1UQ6SRoF4S/exec",{
+      method:"POST",
+      body: JSON.stringify({
+        action:"change_password",
+        username: username,
+        old_password: oldHash,
+        new_password: newHash
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.status==="ok"){
+      alert("✅ Password berhasil diganti");
+    }else{
+      alert("❌ " + data.message);
+    }
+
+  }catch(e){
+    alert("Gagal terhubung ke server");
+  }
+}
+
+// ==== SETTINGS PANEL ====
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsPanel = document.getElementById('settingsPanel');
+settingsBtn.addEventListener('click', e=>{e.stopPropagation();settingsPanel.classList.toggle('show');});
+window.addEventListener('click', ()=>{settingsPanel.classList.remove('show');});
+function closeSettings(){settingsPanel.classList.remove('show');}
+
+// ==== WHATSAPP HELP ====
+function openWhatsapp(){window.open("https://wa.me/6282136065407","_blank");}
+
+// ==== NOTIF PANEL ====
+window.lastNotifIds = new Set();
+window.lastNotifs = [];
+
+function fetchNotifikasi(){
+  const old = document.getElementById("jsonpNotif"); if(old) old.remove();
+  const s = document.createElement("script"); s.id="jsonpNotif";
+  s.src="https://script.google.com/macros/s/AKfycbyIov8Xlz9HSgAappm0k7XgbQ0GjwC5aHibt6g0lV_4uNfJm2sN2atDutrAhhUnLksUaQ/exec?callback=handleNotif";
+  document.body.appendChild(s);
+}
+
+function handleNotif(data){
+  if(!Array.isArray(data)) data=[];
+  window.lastNotifs = data;
+  const unread = data.filter(n=>n.read!==true);
+  const badge = document.getElementById("notifBadge");
+  const newUnread = unread.filter(n=>!window.lastNotifIds.has(n.id));
+  if(newUnread.length){
+    badge.textContent = unread.length; badge.style.display="inline-flex"; badge.classList.add("pulse");
+  } else { badge.style.display = unread.length?"inline-flex":"none"; badge.classList.remove("pulse"); }
+  unread.forEach(n=>window.lastNotifIds.add(n.id));
+  renderNotifPanel(data);
+}
+
+function renderNotifPanel(data){
+  const box = document.getElementById("notifContent"); box.innerHTML="";
+  if(!data.length){box.innerHTML="<div class='notif-item'>Tidak ada notifikasi</div>";return;}
+  data.forEach(n=>{
+    const div=document.createElement("div");
+    div.className="notif-item"; div.textContent=n.message;
+    box.appendChild(div);
+  });
+}
+
+document.getElementById("notifBtn").onclick = ()=>{
+  document.getElementById("notifPanel").classList.add("show");
+  document.getElementById("notifBadge").style.display="none";
+};
+
+document.addEventListener("click", function(e){
+  const panel=document.getElementById("notifPanel"); const btn=document.getElementById("notifBtn");
+  if(!panel||!btn)return;
+  if(!panel.contains(e.target)&&!btn.contains(e.target)){panel.classList.remove("show");}
+});
+function closeNotifPanel(){document.getElementById("notifPanel").classList.remove("show");}
+
+fetchNotifikasi();
+setInterval(fetchNotifikasi,15000);
+
+// ==== ACCOUNT BTN ====
+document.getElementById("accountBtn").addEventListener("click",()=>{
+  const username=sessionStorage.getItem("SISDIG_USERNAME");
+  if(!username){alert("Data akun tidak ditemukan. Silakan login ulang.");return;}
+  sessionStorage.setItem("ACCOUNT_USER",username);
+  window.location.href="akun/index.html";
+});
+
+// ==== POPUP NOTIF ====
+function showNotif(msg,durasi=3000){const notif=document.getElementById("notifPopup");if(!notif)return;notif.textContent=msg;notif.style.display="block";setTimeout(()=>notif.style.display="none",durasi);}
+</script>
+
+<script>
+function openHelpdesk(){
+  document.getElementById("helpdeskModal").style.display="flex";
+}
+
+function closeHelpdesk(){
+  document.getElementById("helpdeskModal").style.display="none";
+}
+
+function openWhatsapp(){
+  window.open(
+    "https://wa.me/6285143080554?text=Halo%20Admin,%20saya%20butuh%20bantuan%20terkait%20SISDIG",
+    "_blank"
+  );
+}
+
+function openPasswordModal(){
+  document.getElementById("passwordModal").style.display="flex";
+}
+
+function closePasswordModal(){
+  document.getElementById("passwordModal").style.display="none";
+}
+
+function togglePass(id,el){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+  el.textContent = input.type === "password" ? "🙉" : "🙈";
+}
+
+async function submitPassword(){
+
+  const oldPass = document.getElementById("oldPass").value;
+  const newPass = document.getElementById("newPass").value;
+  const confirmPass = document.getElementById("confirmPass").value;
+
+  if(!oldPass || !newPass || !confirmPass){
+    alert("Semua field wajib diisi");
+    return;
+  }
+
+  if(newPass.length < 6){
+    alert("Password minimal 6 karakter");
+    return;
+  }
+
+  if(newPass !== confirmPass){
+    alert("Konfirmasi password tidak cocok");
+    return;
+  }
+
+  const username = sessionStorage.getItem("SISDIG_USERNAME");
+
+  async function sha256(str){
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+
+  const oldHash = await sha256(oldPass);
+  const newHash = await sha256(newPass);
+
+  try{
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxKz7Ydle68ntXMf0UqNimk2Dbd1lvZJJmNz-a8RfpuQStfX3X3TKkTny1UQ6SRoF4S/exec",{
+      method:"POST",
+      body: JSON.stringify({
+        action:"change_password",
+        username: username,
+        old_password: oldHash,
+        new_password: newHash
+      })
+    });
+
+    const data = await res.json();
+
+    if(data.status==="ok"){
+      alert("✅ Password berhasil diganti");
+      closePasswordModal();
+      document.getElementById("oldPass").value="";
+      document.getElementById("newPass").value="";
+      document.getElementById("confirmPass").value="";
+    }else{
+      alert(data.message);
+    }
+
+  }catch(e){
+    alert("Gagal terhubung ke server");
+  }
+}
+</script>
+
+<script>
+/* ===== IMAGE BANNER SLIDER ===== */
+let bannerIndex = 0;
+const track = document.getElementById("bannerTrack");
+const dots = document.querySelectorAll("#bannerDots span");
+
+function showBanner(i){
+  bannerIndex = i;
+  track.style.transform = `translateX(-${i * 100}%)`;
+  dots.forEach((d,idx)=>d.classList.toggle("active",idx===i));
+}
+
+setInterval(()=>{
+  bannerIndex = (bannerIndex + 1) % 3;
+  showBanner(bannerIndex);
+},10000);
+
+// link banner ke-3
+function openBannerLink(){
+  window.location.href = "mailto:edkrp.info@gmail.com?subject=Bantuan%20SISDIG&body=Halo%20Admin,%0ASaya%20butuh%20bantuan%20terkait%20SISDIG."; // bebas ganti
+}
+</script>
+<script>
+const helpToggle = document.getElementById("helpToggle");
+const helpMenu = document.getElementById("helpMenu");
+
+helpToggle.addEventListener("click", e=>{
+  e.stopPropagation();
+  helpMenu.style.display =
+    helpMenu.style.display === "flex" ? "none" : "flex";
+});
+
+document.addEventListener("click", (e)=>{
+  if (!helpMenu.contains(e.target) && !helpToggle.contains(e.target)) {
+    helpMenu.style.display = "none";
+  }
+});
+</script>
+
+<div class="modal" id="helpdeskModal">
+  <div class="helpdesk-box">
+
+    <div class="helpdesk-header">
+      <div class="helpdesk-icon">
+        <i class='bx bx-help-circle'></i>
+      </div>
+      <h3>Helpdesk SISDIG</h3>
+      <p>Layanan bantuan & informasi</p>
+    </div>
+
+    <div class="helpdesk-content">
+
+      <div class="contact-item">
+        <i class='bx bx-phone-call'></i>
+        <div>
+          <b>No. Layanan Helpdesk</b>
+          <span>+62 851-4308-0554</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i class='bx bxl-gmail'></i>
+        <div>
+          <b>Email</b>
+          <span>edkrp.info@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i class='bx bx-time-five'></i>
+        <div>
+          <b>Jam Layanan</b>
+          <span>09:00 – 17:00 WIB</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="helpdesk-actions">
+      <button class="wa-btn" onclick="openWhatsapp()">
+        <i class='bx bxl-whatsapp'></i>
+        WA Sing Gawe Aplikasi
+      </button>
+
+      <button class="close-help" onclick="closeHelpdesk()">
+        Tutup
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL GANTI PASSWORD -->
+<div id="passwordModal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>🔐 Ganti Password</h2>
+
+    <div class="input-group">
+      <label>Password Lama</label>
+      <input type="password" id="oldPass">
+      <span class="toggle" onclick="togglePass('oldPass',this)">🙉</span>
+    </div>
+
+    <div class="input-group">
+      <label>Password Baru</label>
+      <input type="password" id="newPass">
+      <span class="toggle" onclick="togglePass('newPass',this)">🙉</span>
+    </div>
+
+    <div class="input-group">
+      <label>Konfirmasi Password</label>
+      <input type="password" id="confirmPass">
+      <span class="toggle" onclick="togglePass('confirmPass',this)">🙉</span>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closePasswordModal()">Batal</button>
+      <button class="btn-save" onclick="submitPassword()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SCANNER -->
+<div class="modal" id="scannerModal">
+  <div class="modal-box" style="max-width:400px">
+    <h3>Scan QR Anggota</h3>
+    <div id="reader" style="width:100%;margin-top:10px;"></div>
+    <button class="close-help" onclick="closeScanner()" style="margin-top:12px">Tutup</button>
+  </div>
+</div>
+
+<!-- MODAL HASIL DATA -->
+<div class="modal" id="resultModal">
+  <div class="modal-box" style="max-width:350px;text-align:left">
+    <h3 style="text-align:center;color:#2563eb">Data Anggota</h3>
+    <div id="resultContent"></div>
+    <button class="close-help" onclick="closeResult()" style="margin-top:12px;width:100%">Tutup</button>
+  </div>
+</div>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script>
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwTs7m_bS8xsAytLAsOmCMvruzzYCSY5V6UOWlJZ2V4vBrB1p8EPbi3eNU_h9Zuqlm1/exec";
+
+let html5QrCode;
+let usersCache = [];
+
+// ============================
+// OPEN SCANNER
+// ============================
+function openScanner(){
+  document.getElementById("scannerModal").style.display="flex";
+
+  html5QrCode = new Html5Qrcode("reader");
+
+  html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    onScanSuccess
+  );
+}
+
+function closeScanner(){
+  if(html5QrCode){
+    html5QrCode.stop().then(()=>html5QrCode.clear());
+  }
+  document.getElementById("scannerModal").style.display="none";
+}
+
+// ============================
+// SCAN SUCCESS
+// ============================
+function onScanSuccess(decodedText){
+  closeScanner();
+
+  let data;
+  try{
+    data = JSON.parse(decodedText);
+  }catch{
+    data = { sid_id: decodedText };
+  }
+
+  fetchUsers(()=> searchUser(data));
+}
+
+// ============================
+// FETCH USERS (JSONP)
+// ============================
+function fetchUsers(callback){
+  if(usersCache.length){
+    callback();
+    return;
+  }
+
+  const old = document.getElementById("jsonpUsers");
+  if(old) old.remove();
+
+  const s = document.createElement("script");
+  s.id = "jsonpUsers";
+  s.src = WEBAPP_URL + "?callback=handleUsers";
+  document.body.appendChild(s);
+
+  window.handleUsers = function(data){
+    usersCache = data || [];
+    callback();
+  };
+}
+
+// ============================
+// SEARCH FLEXIBLE
+// ============================
+function searchUser(scanData){
+
+  const found = usersCache.find(u=>{
+
+    if(scanData.sid_id && u.sid_id === scanData.sid_id)
+      return true;
+
+    if(scanData.nama && scanData.jabatan){
+      return (
+        u.nama_lengkap.toLowerCase() === scanData.nama.toLowerCase() &&
+        u.jabatan.toLowerCase() === scanData.jabatan.toLowerCase()
+      );
+    }
+
+    return false;
+  });
+
+  if(found){
+    showResult(found);
+  }else{
+    showNotif("❌ Data tidak ditemukan");
+  }
+}
+
+// ============================
+// SHOW RESULT
+// ============================
+function showResult(user){
+
+  const box = document.getElementById("resultContent");
+
+  box.innerHTML = `
+  <div style="
+      background:linear-gradient(135deg,#4f46e5,#2563eb);
+      border-radius:18px;
+      padding:18px;
+      color:white;
+      text-align:center;
+      box-shadow:0 10px 25px rgba(0,0,0,.2);
+      margin-bottom:14px;
+  ">
+      <div style="font-size:18px;font-weight:600">
+        ${user.nama_lengkap}
+      </div>
+
+      <div style="font-size:13px;opacity:.9">
+        ${user.jabatan}
+      </div>
+  </div>
+
+  <div style="
+      background:#f8fafc;
+      border-radius:16px;
+      padding:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+      font-size:14px;
+  ">
+
+    <div style="display:flex;align-items:center;margin-bottom:10px">
+      <i class='bx bx-id-card' style="font-size:20px;color:#2563eb;margin-right:10px"></i>
+      <span><b>SID:</b> ${user.sid_id}</span>
+    </div>
+
+    <div style="display:flex;align-items:center;margin-bottom:10px">
+      <i class='bx bx-badge-check' style="font-size:20px;color:#16a34a;margin-right:10px"></i>
+      <span><b>No NTA:</b> ${user.no_nta || '-'}</span>
+    </div>
+
+    <div style="display:flex;align-items:center;margin-bottom:10px">
+      <i class='bx bx-envelope' style="font-size:20px;color:#f59e0b;margin-right:10px"></i>
+      <span><b>Email:</b> ${user.email || '-'}</span>
+    </div>
+
+    <div style="display:flex;align-items:center">
+      <i class='bx bx-check-shield' style="font-size:20px;color:#6366f1;margin-right:10px"></i>
+      <span><b>Status:</b> Aktif</span>
+    </div>
+
+  </div>
+  `;
+
+  document.getElementById("resultModal").style.display="flex";
+}
+function closeResult(){
+  document.getElementById("resultModal").style.display="none";
+}
+</script>
+
+<!-- MODAL QR ABSENSI - TOKEN TIKET STYLE -->
+<div class="modal" id="qrModal">
+  <div class="modal-box" style="max-width:360px;padding:0;overflow:hidden;border-radius:24px;box-shadow:0 8px 24px rgba(0,0,0,0.2);">
+    
+    <!-- HEADER: LOGO -->
+    <div style="background:linear-gradient(135deg,#4f46e5,#2563eb);text-align:center;padding:16px;">
+      <img src="assets/images/swhite.png" alt="e-DKRP" style="height:48px;object-fit:contain;">
+    </div>
+
+    <!-- BODY: QR + INFO USER -->
+    <div style="background:white;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div id="qrCanvasContainer"></div>
+
+      <div style="text-align:center;font-size:14px;font-weight:500;color:#1e40af;margin-top:8px;">
+        <div id="qrNama">Nama: -</div>
+        <div id="qrJabatan">Jabatan: -</div>
+      </div>
+
+      <button class="close-help" onclick="closeQrModal()" style="
+        margin-top:16px;
+        width:100%;
+        background:linear-gradient(135deg,#2563eb,#4f46e5);
+        color:white;
+        border:none;
+        border-radius:12px;
+        padding:10px 0;
+        font-weight:600;
+        cursor:pointer;
+        font-size:14px;
+      ">
+        Tutup
+      </button>
+    </div>
+
+    <!-- FOOTER: SID ID -->
+    <div style="background:#f3f4f6;padding:12px;text-align:center;border-top:1px dashed #9ca3af;font-size:13px;color:#1e3a8a;">
+      SID ID: <span id="qrSID">-</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function openQrAbsensi() {
+  const username = sessionStorage.getItem("SISDIG_USERNAME");
+  if (!username) {
+    alert("Data akun tidak ditemukan. Silakan login ulang.");
+    return;
+  }
+
+  fetchUsers(() => {
+    const user = usersCache.find(
+      u => u.username === username || u.nama_lengkap === username
+    );
+
+    if (!user) {
+      showNotif("❌ Data user tidak ditemukan di spreadsheet");
+      return;
+    }
+
+    const qrData = {
+      nama: user.nama_lengkap,
+      jabatan: user.jabatan,
+      sid_id: user.sid_id
+    };
+
+    // Update teks info
+    document.getElementById("qrNama").textContent = `Nama: ${user.nama_lengkap}`;
+    document.getElementById("qrJabatan").textContent = `Jabatan: ${user.jabatan}`;
+    document.getElementById("qrSID").textContent = user.sid_id;
+
+    // Clear container
+    const container = document.getElementById("qrCanvasContainer");
+    container.innerHTML = "";
+
+    // Generate QR
+    new QRCode(container, {
+      text: JSON.stringify(qrData),
+      width: 200,
+      height: 200,
+      colorDark: "#2563eb",
+      colorLight: "#f8fafc",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    document.getElementById("qrModal").style.display = "flex";
+  });
+}
+
+function closeQrModal() {
+  document.getElementById("qrModal").style.display = "none";
+}
+
+// Load QRCode.js library if belum ada
+if (!window.QRCode) {
+  const script = document.createElement("script");
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+  document.body.appendChild(script);
+}
+</script>
+</body>
+</html>

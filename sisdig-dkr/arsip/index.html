@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsip • SISDIG DKR</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;font-family:Poppins,sans-serif;margin:0;padding:0;}
+body{background:#f1f5f9;color:#0f172a;min-height:100vh;padding-bottom:100px;}
+.header-modern{
+  background: linear-gradient(135deg,#2563eb,#1e40af);
+  padding:16px 20px;
+  color:white;
+  border-radius:0 0 24px 24px;
+  display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.12);
+}
+.header-modern h1{font-size:20px;font-weight:600;margin-bottom:8px;text-align:center;}
+.header-modern a.home-btn{
+  background:white;color:#2563eb;padding:6px 12px;border-radius:12px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;font-size:14px;}
+.header-modern a.home-btn i{font-size:18px;}
+.tab-bar{display:flex;overflow-x:auto;gap:8px;padding:8px 0;margin-bottom:12px;}
+.tab-bar button{flex:1;white-space:nowrap;padding:10px 16px;border:none;border-radius:16px;background:white;font-weight:600;cursor:pointer;transition:.2s;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.tab-bar button.active{background:#2563eb;color:white;box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+.container{padding:12px 16px;}
+.search-bar{margin-bottom:12px;}
+.search-bar input{
+  width:100%;padding:10px 14px;border-radius:12px;border:1px solid #cbd5e1;font-size:14px;
+}
+.upload-section{
+  padding:12px;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:flex-start;
+  margin-bottom:16px;
+}
+.upload-area{
+  width:100%;padding:14px;border:2px dashed #cbd5e1;border-radius:12px;text-align:center;
+  cursor:pointer;color:#64748b;transition:.2s;
+}
+.upload-area.dragover{background:#e0f2fe;border-color:#2563eb;color:#1e40af;}
+.upload-section input[type=file]{display:none;}
+.upload-section button{
+  background:#2563eb;color:white;border:none;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:600;width:100%;
+}
+.progress-bar-container{width:100%;background:#e5e7eb;border-radius:12px;overflow:hidden;height:12px;display:none;}
+.progress-bar{height:12px;background:#2563eb;width:0%;transition:.3s;}
+.docs-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.doc-card{
+  background:white;padding:12px 14px;border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  display:flex;flex-direction:column;gap:4px;
+  border-left:5px solid #64748b;
+}
+.doc-card.surat-masuk{border-left-color:#16a34a;}
+.doc-card.surat-keluar{border-left-color:#dc2626;}
+.doc-card.kwarran-dkr{border-left-color:#92400e;}
+.doc-card.lainnya{border-left-color:#6b7280;}
+.doc-card a{color:#2563eb;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:6px;}
+.doc-card .doc-date{font-size:12px;color:#64748b;}
+.doc-card i{font-size:16px;}
+
+/* ===== BOTTOM HOME BAR ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:420px;
+  background:#ffffff;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+  display:flex;
+  justify-content:center;
+  z-index:999;
+}
+
+.bottom-nav button{
+  flex:1;
+  background:none;
+  border:none;
+  padding:14px 0;
+  font-family:Poppins,sans-serif;
+  font-size:13px;
+  font-weight:600;
+  color:#2563eb;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+}
+
+.bottom-nav i{
+  font-size:22px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header-modern">
+  <h1>Arsip Dokumen SISDIG</h1>
+</div>
+
+<div class="container">
+
+  <div class="tab-bar" id="tabBar">
+    <button class="tab active" data-folder="Surat Masuk">Surat Masuk</button>
+    <button class="tab" data-folder="Surat Keluar">Surat Keluar</button>
+    <button class="tab" data-folder="Kwarran & DKR">Kwarran & DKR</button>
+    <button class="tab" data-folder="Berkas Lainnya">Berkas Lainnya</button>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="searchDoc" placeholder="Cari dokumen...">
+  </div>
+
+<div class="upload-section">
+  <div class="upload-area" id="uploadArea">Jatuhkan file disini, seolah olah menjatuhkan tabung gas 3kg kepada bahlil!</div>
+  <input type="file" id="uploadFile">
+  <!-- Preview nama file sebelum upload -->
+  <div id="filePreview" style="font-size:14px;color:#334155;"></div>
+  <button id="uploadBtn">Upload</button>
+  <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+<!-- Daftar dokumen -->
+<div class="docs-list" id="fileList"></div>
+
+</div>
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCm6izmyiZjKYpvV5hEsCZbr7EXz9eEvH8nhVcda1Ytm3ET2PLMWOjt605beSEh7CU/exec"; // ganti sesuai deploy GAS
+
+let activeFolder = 'Surat Masuk';
+const tabs = document.querySelectorAll('.tab');
+const uploadArea = document.getElementById('uploadArea');
+const uploadFile = document.getElementById('uploadFile');
+const uploadBtn = document.getElementById('uploadBtn');
+const progressBar = document.getElementById('progressBar');
+
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    activeFolder = tab.dataset.folder;
+    fetchDocs();
+  });
+});
+
+uploadArea.addEventListener('click',()=>uploadFile.click());
+uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('dragover');});
+uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop',e=>{
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  uploadFile.files = e.dataTransfer.files;
+  uploadFile.dispatchEvent(new Event('change')); // <-- trigger preview
+});
+
+function renderFiles(files){
+  const list = document.getElementById('fileList');
+  list.innerHTML = '';
+  files.forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'doc-card '+(f.type==='green'?'surat-masuk':f.type==='red'?'surat-keluar':f.type==='brown'?'kwarran-dkr':'lainnya');
+    div.innerHTML = `
+      <div><a href="${f.url}" target="_blank"><i class='bx bx-file'></i> ${f.name}</a></div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// Ambil daftar file
+async function fetchDocs(){
+  try{
+    const res = await fetch(`${SCRIPT_URL}?folder=${encodeURIComponent(activeFolder)}`);
+    const data = await res.json();
+    renderFiles(data);
+  }catch(err){console.error(err);}
+}
+
+// Upload file base64 agar kompatibel GAS
+uploadBtn.addEventListener('click', async ()=>{
+  if(!uploadFile.files.length){alert("Pilih file dulu!"); return;}
+  const file = uploadFile.files[0];
+  const reader = new FileReader();
+
+  reader.onload = async (e)=>{
+    const base64 = e.target.result.split(',')[1];
+    const form = new URLSearchParams();
+    form.append('folder', activeFolder);
+    form.append('name', file.name);
+    form.append('mime', file.type);
+    form.append('file', base64);
+
+    progressBar.parentElement.style.display = 'block';
+    progressBar.style.width = '0%';
+
+    try{
+      const res = await fetch(SCRIPT_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body: form
+      });
+      const result = await res.json();
+      progressBar.style.width = '100%';
+      setTimeout(()=>{progressBar.style.width='0%';progressBar.parentElement.style.display='none';},500);
+
+      if(result.success){alert('Upload berhasil!'); fetchDocs();}
+      else alert('Upload gagal: '+result.error);
+    }catch(err){
+      progressBar.style.width='0%';
+      progressBar.parentElement.style.display='none';
+      alert('Upload gagal: '+err);
+    }
+  };
+
+  reader.readAsDataURL(file);
+});
+
+// Load awal
+fetchDocs();
+</script>
+<script>
+const filePreview = document.getElementById('filePreview');
+
+uploadFile.addEventListener('change', ()=>{
+  if(uploadFile.files.length){
+    filePreview.textContent = "Siap upload: " + uploadFile.files[0].name;
+  } else {
+    filePreview.textContent = "";
+  }
+});
+
+function renderFiles(files){
+  const list = document.getElementById('fileList');
+  list.innerHTML = '';
+  files.forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'doc-card '+(f.type==='green'?'surat-masuk':f.type==='red'?'surat-keluar':f.type==='brown'?'kwarran-dkr':'lainnya');
+
+    // tampilkan nama file + folder + tanggal upload
+    div.innerHTML = `
+      <div><a href="${f.url}" target="_blank"><i class='bx bx-file'></i> ${f.name}</a></div>
+      <div class="doc-date">${f.folder} • ${f.date || '-'}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+</script>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button onclick="location.href='../index.html'">
+    <i class='bx bx-home'></i>
+    Beranda
+  </button>
+</div>
+
+</body>
+</html>
