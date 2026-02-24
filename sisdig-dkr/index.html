@@ -1280,31 +1280,7 @@ function openApp(path) {
   }
 }
 </script>
-
-  <script>
-function openQrAbsensi() {
-  const user = {
-    nama: sessionStorage.getItem("SISDIG_USERNAME") || "-",
-    jabatan: sessionStorage.getItem("SISDIG_JABATAN") || "-",
-    sid_id: sessionStorage.getItem("SISDIG_SID") || "-"
-  };
-
-  const qrData = JSON.stringify(user);
-  // generate QR
-  const qrModal = document.getElementById("qrModal");
-  qrModal.style.display = "flex";
-
-  const qrContainer = document.getElementById("qrCodeContainer");
-  qrContainer.innerHTML = ""; // clear dulu
-  new QRCode(qrContainer, {
-    text: qrData,
-    width: 240,
-    height: 240
-  });
-}
-</script>
-
-    <script>
+<script>
 if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){
   location.href="../login.html";
 }
@@ -1315,4 +1291,5 @@ document.getElementById("usernameDisplay").textContent = username || "Guest";
 </body>
 
 </html>
+
 
