@@ -453,7 +453,7 @@ async function register(){
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
+  const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
   try{
     const hashedPass = await hashPassword(pass);
     const res = await fetch(url,{
@@ -486,46 +486,46 @@ async function register(){
   }
 }
 
-  async function login(){
-    const user = document.getElementById("user").value.trim();
-    const pass = document.getElementById("pass").value.trim();
-    const err = document.getElementById("err");
-    err.style.display="none";
+async function login(){
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("pass").value.trim();
+  const err = document.getElementById("err");
+  err.style.display="none";
 
-    if(!user || !pass){
-      err.style.display="block";
-      err.textContent="Semua kolom wajib diisi";
-      return;
-    }
-
-    const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
-
-    try{
-      const hashedPass = await hashPassword(pass);
-      const body = JSON.stringify({ username:user, password:hashedPass });
-      const res = await fetch(url,{ method:"POST", body });
-      const data = await res.json();
-
-      if(data.status==="ok"){
-        sessionStorage.setItem("SISDIG_AUTH","OK");
-        sessionStorage.setItem("SISDIG_USERNAME", data.username);
-        sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
-        sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
-        sessionStorage.setItem("SISDIG_ROLE", data.role);
-        sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
-        location.href = "index.html";
-      }else{
-        err.style.display="block";
-        err.textContent = data.message;
-      }
-
-    }catch(e){
-      err.style.display="block";
-      err.textContent="Server tidak merespons / JSON invalid";
-      console.error(e);
-    }
+  if(!user || !pass){
+    err.style.display="block";
+    err.textContent="Semua kolom wajib diisi";
+    return;
   }
 
+  const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
+
+  try{
+    const hashedPass = await hashPassword(pass);
+    const body = JSON.stringify({ username:user, password:hashedPass }); // tetap field username
+    const res = await fetch(url,{ method:"POST", body });
+    const data = await res.json();
+
+    if(data.status==="ok"){
+      sessionStorage.setItem("SISDIG_AUTH","OK");
+      sessionStorage.setItem("SISDIG_USERNAME", data.username);
+      sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
+      sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
+      sessionStorage.setItem("SISDIG_ROLE", data.role);
+      sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+      location.href = "index.html";
+    }else{
+      err.style.display="block";          // tampilkan error di bawah tombol
+      err.textContent = data.message;     // pesan dari backend
+    }
+
+  }catch(e){
+    err.style.display="block";
+    err.textContent="Server tidak merespons / JSON invalid";
+    console.error(e);
+  }
+}
+  
 async function forgotPassword(){
     const username = document.getElementById("fpUser").value.trim();
     const telpRaw = document.getElementById("fpTelp").value;
@@ -545,7 +545,7 @@ async function forgotPassword(){
       return;
     }
 
-    const url = "https://script.google.com/macros/s/AKfycby5tHdv_Pq6ImP7CdmvHNu4LDk9TtW3l1wea5caiWmfogXfa_U0KDlZRhnGlbKVYNE/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
 
     try{
       const res = await fetch(url,{
@@ -578,4 +578,5 @@ async function forgotPassword(){
 }); // DOMContentLoaded
 </script>
 </body>
+
 </html>
