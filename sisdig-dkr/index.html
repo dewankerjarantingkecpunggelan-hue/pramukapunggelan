@@ -628,7 +628,7 @@ navItems.forEach(btn=>{
 
 <!-- POPUP NOTIF -->
 <div id="notifPopup"></div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 // ==== AUTH CHECK ====
 if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){location.href="login.html";}
@@ -653,7 +653,6 @@ updateGreeting();
 setInterval(updateGreeting,60*60*1000);
 
 // ==== MENU ACTIONS ====
-function openApp(url){location.href=url;}
 function comingSoon(){showNotif("🚧 Modul ini sedang disiapkan 😄");}
 function goHome(){showNotif("🏠 Beranda");}
 
@@ -1272,5 +1271,38 @@ if (!window.QRCode) {
   document.body.appendChild(script);
 }
 </script>
+<script>
+function openApp(path) {
+  if (sessionStorage.getItem("SISDIG_AUTH") === "OK") {
+    window.location.href = path;
+  } else {
+    window.location.href = 'login.html';
+  }
+}
+</script>
+
+  <script>
+function openQrAbsensi() {
+  const user = {
+    nama: sessionStorage.getItem("SISDIG_USERNAME") || "-",
+    jabatan: sessionStorage.getItem("SISDIG_JABATAN") || "-",
+    sid_id: sessionStorage.getItem("SISDIG_SID") || "-"
+  };
+
+  const qrData = JSON.stringify(user);
+  // generate QR
+  const qrModal = document.getElementById("qrModal");
+  qrModal.style.display = "flex";
+
+  const qrContainer = document.getElementById("qrCodeContainer");
+  qrContainer.innerHTML = ""; // clear dulu
+  new QRCode(qrContainer, {
+    text: qrData,
+    width: 240,
+    height: 240
+  });
+}
+</script>
 </body>
+
 </html>
