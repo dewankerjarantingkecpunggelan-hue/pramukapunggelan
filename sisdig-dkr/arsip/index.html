@@ -265,7 +265,7 @@ function renderFiles(files){
 </div>
 <script>
 if(sessionStorage.getItem("SISDIG_AUTH")!=="OK"){
-  location.href="login.html";
+  location.href="../login.html";
 }
 
 const username = sessionStorage.getItem("SISDIG_USERNAME");
@@ -273,4 +273,5 @@ document.getElementById("usernameDisplay").textContent = username || "Guest";
 </script>
 </body>
 </html>
+
 
