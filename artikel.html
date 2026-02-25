@@ -46,7 +46,15 @@
   }
 
 /* Header */
-    header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  background:#ffffff;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
     .nav-container{max-width:var(--max-w);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{height:50px;width:50px;object-fit:contain}
@@ -804,15 +812,6 @@ footer hr{
   transition:.3s;
 }
 
-/* =========================
-   HEADER & NAV
-   ========================= */
-header{
-  background:#fff;
-  border-bottom:2px solid var(--primary);
-  box-shadow:none;
-}
-
 nav a{
   font-weight:700;
   letter-spacing:.3px;
@@ -1118,6 +1117,7 @@ footer a:hover{
 <body>
 
 <header>
+  <div id="readingProgress"></div>
     <div class="nav-container">
       <div class="brand">
         <img src="assets/images/logodkr.png" alt="Logo DKR">
@@ -1871,6 +1871,17 @@ body{font-family:Arial, sans-serif; max-width:800px; margin:auto; padding:20px; 
 img{max-width:100%; border-radius:10px}
 h1{margin-bottom:5px}
 .meta{color:#777; font-size:14px; margin-bottom:20px}
+
+/* HEADER READING PROGRESS */
+#readingProgress{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,#6f3aa6,#5b2c83);
+  transition:width .15s linear;
+}
 </style>
 
 </head>
@@ -1895,8 +1906,19 @@ h1{margin-bottom:5px}
 
 </script>
 
+  <script>
+const progressBar = document.getElementById("readingProgress");
+
+window.addEventListener("scroll", () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  progressBar.style.width = progress + "%";
+});
+</script>
 </body>
 </html>
+
 
 
 
