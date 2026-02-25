@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting...</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Montserrat',sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background:#f5f5f5;margin:0;}
+.box{text-align:center;background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);}
+h1{color:#5b2c83;margin-bottom:10px;}
+p{color:#333;font-size:16px;margin-bottom:20px;}
+.progress{width:100%;background:#eee;height:10px;border-radius:5px;overflow:hidden;}
+.progress-bar{height:10px;width:0%;background:#5b2c83;transition:width 0.3s;}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Link Shortener</h1>
+  <p>Anda akan dialihkan ke link asli dalam <span id="countdown">10</span> detik...</p>
+  <div class="progress"><div class="progress-bar" id="progress"></div></div>
+</div>
+
+<script>
+// Ambil parameter short code
+const params = new URLSearchParams(window.location.search);
+const short = params.get('short');
+
+if(!short){document.body.innerHTML="<p>Shortcode tidak ditemukan.</p>";throw new Error("Shortcode tidak ada");}
+
+// Daftar short => long (contoh, bisa ambil dari backend / Google Sheets)
+const shortMap = {
+  "abc123": "https://www.example.com",
+  "teslink": "https://pramukapunggelan.vercel.app"
+  // tambahkan mapping shortcode lain
+};
+
+const longURL = shortMap[short];
+if(!longURL){document.body.innerHTML="<p>Link tidak ditemukan.</p>";throw new Error("Link tidak ditemukan");}
+
+// Countdown 10 detik
+let time = 10;
+const countdownEl = document.getElementById("countdown");
+const progressEl = document.getElementById("progress");
+
+const interval = setInterval(()=>{
+  time--;
+  countdownEl.textContent = time;
+  progressEl.style.width = `${(10-time)/10*100}%`;
+  if(time <= 0){
+    clearInterval(interval);
+    window.location.href = longURL;
+  }
+}, 1000);
+</script>
+</body>
+</html>
