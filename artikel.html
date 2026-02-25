@@ -1523,7 +1523,7 @@ if(a.tags){
   arr.forEach(tag=>{
     const el = document.createElement("a");
     el.textContent = "#" + tag;
-    el.href = "tags?tag=" + encodeURIComponent(tag.replace("#",""));
+    el.href = "tags.html?tag=" + encodeURIComponent(tag.replace("#",""));
     tagsWrap.appendChild(el);
   });
 }
@@ -2090,6 +2090,7 @@ window.addEventListener("scroll", () => {
 </script>
 </body>
 </html>
+
 
 
 
