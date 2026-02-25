@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<title>Tag Berita</title>
+<title>Kategori Berita</title>
 <link rel="icon" href="assets/images/logologo.png" type="image/png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
@@ -393,7 +393,7 @@ footer hr{
     <!-- MAIN -->
     <main>
       <div class="search">
-        <input type="text" id="search" placeholder="Cari berita dalam tag ini...">
+        <input type="text" id="search" placeholder="Cari berita dalam kategori ini...">
       </div>
 
       <div id="featuredWrap"></div>
@@ -413,11 +413,11 @@ footer hr{
   <div id="popular"></div>
 </div>
       <div class="side-box">
-        <h3>Info Tag</h3>
+        <h3>Info Kategori</h3>
         <p id="sideInfo" style="font-size:13px;color:#555"></p>
       </div>
       <div class="side-box">
-  <h3>Top Tag</h3>
+  <h3>Top Kategori</h3>
   <div id="topTags"></div>
 </div>
 
@@ -518,7 +518,7 @@ const limit=7;
 let page=1,data=[];
 
 crumbTag.textContent=TAG;
-tagTitle.textContent="Tag: "+TAG;
+tagTitle.textContent="Kategori: "+TAG;
 
 function render(){
   const q=search.value.toLowerCase();
@@ -644,6 +644,7 @@ function toggleDropdown(el){el.parentElement.classList.toggle("open");}
 
 </body>
 </html>
+
 
 
 
