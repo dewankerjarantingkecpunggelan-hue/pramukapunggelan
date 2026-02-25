@@ -1089,6 +1089,16 @@ footer a:hover{
   pointer-events:auto;
 }
 
+/* HEADER READING PROGRESS */
+#readingProgress{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,#6f3aa6,#5b2c83);
+  transition:width .15s linear;
+}
 </style>
 
 <script type="application/ld+json">
@@ -1871,17 +1881,6 @@ body{font-family:Arial, sans-serif; max-width:800px; margin:auto; padding:20px; 
 img{max-width:100%; border-radius:10px}
 h1{margin-bottom:5px}
 .meta{color:#777; font-size:14px; margin-bottom:20px}
-
-/* HEADER READING PROGRESS */
-#readingProgress{
-  position:absolute;
-  left:0;
-  bottom:0;
-  height:3px;
-  width:0%;
-  background:linear-gradient(90deg,#6f3aa6,#5b2c83);
-  transition:width .15s linear;
-}
 </style>
 
 </head>
@@ -1906,7 +1905,7 @@ h1{margin-bottom:5px}
 
 </script>
 
-  <script>
+<script>
 const progressBar = document.getElementById("readingProgress");
 
 window.addEventListener("scroll", () => {
@@ -1918,6 +1917,7 @@ window.addEventListener("scroll", () => {
 </script>
 </body>
 </html>
+
 
 
 
