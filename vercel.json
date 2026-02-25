@@ -19,6 +19,8 @@
     { "source": "/potonglink", "destination": "/shortener.html" },
     { "source": "/privacy-police", "destination": "/privacy-police.html" },
     { "source": "/404", "destination": "/404.html" },
+    { "source": "/kategori", "destination": "/tag.html" },
+    { "source": "/tag", "destination": "/tags.html" },
     { "source": "/:code", "destination": "/api/:code" }
   ]
 }
