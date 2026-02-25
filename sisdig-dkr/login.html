@@ -24,6 +24,7 @@ html,body{
 .auth-container{
   min-height:100vh;
 }
+
 #forgotModal { z-index: 1500; }
 #registerModal { z-index: 2000; }
 
@@ -276,7 +277,7 @@ button:active{
 .auth-container{
   display:flex;
   width:100%;
-  min-height:100vh;
+  height:100vh;
 }
 
 /* LEFT SIDE */
@@ -494,10 +495,7 @@ button{
       user-select:none;
   ">🙉</span>
 </div>
-<div style="display:flex;align-items:center;right:12px;gap:8px;margin-top:14px;font-size:13px;color:#475569;text-align:left;">
-  <input type="checkbox" id="rememberMe" style="width:16px;height:16px;">
-  <label for="rememberMe" style="cursor:pointer;">Ingat saya</label>
-</div>
+
     <button id="btnLogin">Masuk Sistem</button>
     <div class="error" id="err"></div>
 
@@ -629,10 +627,6 @@ button{
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // AUTO LOGIN CHECK
-if(localStorage.getItem("SISDIG_AUTH")==="OK"){
-  location.href="index.html";
-}
 
   const registerModal = document.getElementById("registerModal");
   const forgotModal = document.getElementById("forgotModal");
@@ -981,21 +975,15 @@ function resendOTP(){
       const res = await fetch(url,{ method:"POST", body });
       const data = await res.json();
 
-if(data.status==="ok"){
-
-  const remember = document.getElementById("rememberMe").checked;
-
-  const storage = remember ? localStorage : sessionStorage;
-
-  storage.setItem("SISDIG_AUTH","OK");
-  storage.setItem("SISDIG_USERNAME", data.username);
-  storage.setItem("SISDIG_NAMA", data.nama_lengkap);
-  storage.setItem("SISDIG_JABATAN", data.jabatan);
-  storage.setItem("SISDIG_ROLE", data.role);
-  storage.setItem("SISDIG_FOTO", data.foto || "");
-
-  location.href = "index.html";
-}else{
+      if(data.status==="ok"){
+        sessionStorage.setItem("SISDIG_AUTH","OK");
+        sessionStorage.setItem("SISDIG_USERNAME", data.username);
+        sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
+        sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
+        sessionStorage.setItem("SISDIG_ROLE", data.role);
+        sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
+        location.href = "index.html";
+      }else{
         err.style.display="block";
         err.textContent = data.message;
       }
