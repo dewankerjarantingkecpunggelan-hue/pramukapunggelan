@@ -16,6 +16,14 @@ body{
   background: radial-gradient(circle at top,#1e293b,#020617 70%);
 }
 
+html,body{
+  height:100%;
+  overflow:hidden;
+}
+
+.auth-container{
+  min-height:100vh;
+}
 #forgotModal { z-index: 1500; }
 #registerModal { z-index: 2000; }
 
@@ -171,18 +179,308 @@ button:active{
   margin-bottom:4px;
   text-align:left;
 }
+
+#otpModal { z-index: 3000; }
+
+/* ===== Password Strength ===== */
+
+.strength-text{
+  font-size:12px;
+  margin-top:6px;
+  text-align:left;
+  font-weight:600;
+}
+
+.strength-bar{
+  width:100%;
+  height:6px;
+  background:#e2e8f0;
+  border-radius:6px;
+  margin-top:4px;
+  overflow:hidden;
+}
+
+#strengthFill{
+  height:100%;
+  width:0%;
+  transition:0.3s;
+  border-radius:6px;
+}
+
+.match-text{
+  font-size:12px;
+  margin-top:6px;
+  text-align:left;
+  font-weight:600;
+}
+
+.suggestion-text{
+  font-size:11px;
+  margin-top:6px;
+  text-align:left;
+  color:#64748b;
+  line-height:1.4;
+}
+
+/* ===== TOAST SUCCESS ===== */
+
+.toast{
+  position:fixed;
+  top:30px;
+  right:30px;
+  background:linear-gradient(145deg,#16a34a,#15803d);
+  color:white;
+  padding:16px 20px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  opacity:0;
+  transform:translateY(-20px);
+  pointer-events:none;
+  transition:all .4s ease;
+  z-index:5000;
+  min-width:260px;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.toast-content{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.toast-icon{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.toast-title{
+  font-weight:600;
+  font-size:14px;
+}
+
+.toast-desc{
+  font-size:12px;
+  opacity:.9;
+  margin-top:2px;
+}
+
+/* ===============================
+   SPLIT SCREEN LAYOUT
+=================================*/
+
+.auth-container{
+  display:flex;
+  width:100%;
+  min-height:100vh;
+}
+
+/* LEFT SIDE */
+/* ===== LEFT SIDE PREMIUM ===== */
+
+.auth-left{
+  flex:1;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06), transparent 40%),
+    linear-gradient(135deg,#4338ca,#0f172a);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:70px;
+}
+
+.brand-box{
+  max-width:420px;
+}
+
+.brand-line{
+  width:60px;
+  height:4px;
+  background:white;
+  border-radius:2px;
+  margin-bottom:28px;
+  opacity:.9;
+}
+
+.auth-left h1{
+  font-size:52px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:14px;
+}
+
+.subtitle{
+  font-size:18px;
+  opacity:.9;
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+.desc{
+  font-size:15px;
+  opacity:.75;
+  line-height:1.7;
+}
+
+.descp{
+  font-size:15px;
+  background-color:#e2e8f0;
+  line-height:1.7;
+  color:#4338ca;
+}
+
+.brand-footer{
+  margin-top:50px;
+  font-size:12px;
+  opacity:.6;
+  letter-spacing:1px;
+}
+
+.auth-left::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:rgba(255,255,255,.08);
+  border-radius:50%;
+  top:-150px;
+  left:-150px;
+}
+
+.overlay{
+  position:relative;
+  z-index:2;
+  max-width:400px;
+}
+
+.overlay h1{
+  font-size:48px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.overlay p{
+  font-size:18px;
+  line-height:1.6;
+  opacity:.9;
+  margin-bottom:15px;
+}
+
+.tagline{
+  font-size:14px;
+  opacity:.8;
+  letter-spacing:2px;
+}
+
+/* RIGHT SIDE */
+.auth-right{
+  flex:1;
+  background:#f1f5f9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Override login-wrap agar tidak full center lagi */
+.login-wrap{
+  max-width:420px;
+  width:100%;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .auth-container{
+    flex-direction:column;
+  }
+
+  .auth-left{
+    display:none;
+  }
+
+  .auth-right{
+    flex:1;
+    background: radial-gradient(circle at top,#1e293b,#020617 70%);
+  }
+}
+
+/* ===== FORM PREMIUM LOOK ===== */
+
+.card{
+  background:#ffffff;
+  border-radius:20px;
+  padding:34px;
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.12),
+    0 2px 6px rgba(0,0,0,.05);
+  text-align:center;
+}
+
+h2{
+  font-size:24px;
+  margin-bottom:4px;
+}
+
+h3{
+  font-size:14px;
+  margin-bottom:22px;
+}
+
+.input-group input{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+}
+
+button{
+  background:#4338ca;
+  box-shadow:0 10px 20px rgba(67,56,202,.25);
+}
 </style>
 </head>
 
 <body>
-<div class="login-wrap">
-  <div class="card">
+
+<div class="auth-container">
+
+<div class="auth-left">
+  <div class="brand-box">
+    <div class="brand-line"></div>
+
+    <h1>e-DKRP</h1>
+    <p class="subtitle">
+      Sistem Digital Dewan Kerja Ranting Punggelan
+    </p>
+
+    <p class="desc">
+      Platform manajemen kegiatan, absensi, dan administrasi
+      yang modern, cepat, dan transparan.
+    </p>
+
+    <p class="descp">
+      #Dewan Kerja Ranting Punggelan Cakap Digital
+    </p>
+
+    <div class="brand-footer">
+      © 2026 DKRP Punggelan
+    </div>
+  </div>
+</div>
+
+  <!-- RIGHT SIDE -->
+  <div class="auth-right">
+    <div class="login-wrap">
+      <div class="card">
     <img src="assets/images/sisdig.png" class="logo" title="SISDIG Logo">
     <h2>Welcome to e-DKRP</h2>
     <h3>Sistem Digital DKR Punggelan</h3>
 
 <div class="input-group">
-  <input id="user" name="login_user" type="text" placeholder="Username/ Email" autocomplete="off">
+  <input id="user" name="login_user" type="text" placeholder="Username" autocomplete="off">
 </div>
 <div class="input-group" style="position:relative;">
   <input id="pass" name="login_pass" type="password" placeholder="Password" autocomplete="new-password">
@@ -196,7 +494,10 @@ button:active{
       user-select:none;
   ">🙉</span>
 </div>
-
+<div style="display:flex;align-items:center;right:12px;gap:8px;margin-top:14px;font-size:13px;color:#475569;text-align:left;">
+  <input type="checkbox" id="rememberMe" style="width:16px;height:16px;">
+  <label for="rememberMe" style="cursor:pointer;">Ingat saya</label>
+</div>
     <button id="btnLogin">Masuk Sistem</button>
     <div class="error" id="err"></div>
 
@@ -251,11 +552,18 @@ button:active{
 
 <div class="input-group" style="position:relative;">
   <label for="regPass" class="label-text">Password <span style="color:red">*</span></label>
-  <input id="regPass" type="password" placeholder="Password">
+<input id="regPass" type="password" placeholder="Password">
+
+<div id="passStrength" class="strength-text"></div>
+
+<div class="strength-bar">
+  <div id="strengthFill"></div>
+</div>
+<div id="passSuggestion" class="suggestion-text"></div>
   <span id="togglePass" style="
       position:absolute;
       right:12px;
-      top:70%;
+      top:60%;
       transform:translateY(-50%);
       cursor:pointer;
       font-size:18px;
@@ -266,6 +574,7 @@ button:active{
 <div class="input-group" style="position:relative;">
   <label for="regPass2" class="label-text">Ulangi Password <span style="color:red">*</span></label>
   <input id="regPass2" type="password" placeholder="Ulangi Password">
+  <div id="passMatch" class="match-text"></div>
   <span id="togglePass2" style="
       position:absolute;
       right:12px;
@@ -283,7 +592,7 @@ button:active{
     </div>
 
     <div class="input-group">
-      <label for="regJabatan" class="label-text">Jabatan (Diisi Anggota Baru) <span style="color:red">*</span></label>
+      <label for="regJabatan" class="label-text">Jabatan (DKR baru diisi Jabatan yang diminati) <span style="color:red">*</span></label>
       <input id="regJabatan" placeholder="Jabatan">
     </div>
 
@@ -320,6 +629,10 @@ button:active{
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  // AUTO LOGIN CHECK
+if(localStorage.getItem("SISDIG_AUTH")==="OK"){
+  location.href="index.html";
+}
 
   const registerModal = document.getElementById("registerModal");
   const forgotModal = document.getElementById("forgotModal");
@@ -422,24 +735,133 @@ togglePass2.addEventListener("click", () => {
   }
 });
 
+// ===== PASSWORD STRENGTH CHECK =====
+
+const strengthText = document.getElementById("passStrength");
+const strengthFill = document.getElementById("strengthFill");
+const matchText = document.getElementById("passMatch");
+
+regPass.addEventListener("input", checkStrength);
+regPass2.addEventListener("input", checkMatch);
+
+function checkStrength(){
+
+  const val = regPass.value;
+  let score = 0;
+  let suggestions = [];
+
+  const hasLength = val.length >= 8;
+  const hasUpper = /[A-Z]/.test(val);
+  const hasLower = /[a-z]/.test(val);
+  const hasNumber = /[0-9]/.test(val);
+  const hasSymbol = /[^A-Za-z0-9]/.test(val);
+
+  if(hasLength) score++;
+  if(hasUpper) score++;
+  if(hasNumber) score++;
+  if(hasSymbol) score++;
+
+  if(val.length === 0){
+    strengthText.textContent = "";
+    strengthFill.style.width = "0%";
+    document.getElementById("passSuggestion").textContent="";
+    return;
+  }
+
+  if(!hasLength) suggestions.push("Minimal 8 karakter");
+  if(!hasUpper) suggestions.push("Tambahkan huruf besar (A-Z)");
+  if(!hasLower) suggestions.push("Tambahkan huruf kecil (a-z)");
+  if(!hasNumber) suggestions.push("Tambahkan angka (0-9)");
+  if(!hasSymbol) suggestions.push("Tambahkan simbol (!@#$%)");
+
+  let text = "";
+  let color = "";
+  let width = "0%";
+
+  switch(score){
+    case 1:
+      text = "Lemah Euy";
+      color = "#dc2626";
+      width = "25%";
+      break;
+    case 2:
+      text = "Lumayan Lah";
+      color = "#f59e0b";
+      width = "50%";
+      break;
+    case 3:
+      text = "Patia Kuat";
+      color = "#3b82f6";
+      width = "75%";
+      break;
+    case 4:
+      text = "Kuate Pol!";
+      color = "#16a34a";
+      width = "100%";
+      break;
+  }
+
+  strengthText.textContent = text;
+  strengthText.style.color = color;
+  strengthFill.style.background = color;
+  strengthFill.style.width = width;
+
+  const suggestionBox = document.getElementById("passSuggestion");
+
+  if(suggestions.length > 0){
+    suggestionBox.innerHTML = "Saran: <br>• " + suggestions.join("<br>• ");
+  }else{
+    suggestionBox.innerHTML = "Password sudah memenuhi standar keamanan ✓";
+  }
+}
+
+function checkMatch(){
+
+  const pass1 = regPass.value;
+  const pass2 = regPass2.value;
+
+  if(pass2.length === 0){
+    matchText.textContent = "";
+    return;
+  }
+
+  if(pass1 === pass2){
+    matchText.textContent = "Password cocok ✓";
+    matchText.style.color = "#16a34a";
+  }else{
+    matchText.textContent = "Password tidak sama";
+    matchText.style.color = "#dc2626";
+  }
+}
+
+// ===== OTP HANDLER (WAJIB DI LUAR TOGGLE) =====
+const otpModal = document.getElementById("otpModal");
+const btnVerifyOtp = document.getElementById("btnVerifyOtp");
+const resendOtpBtn = document.getElementById("resendOtp");
+
+btnVerifyOtp.addEventListener("click", verifyOtp);
+resendOtpBtn.addEventListener("click", resendOTP);
+
+// jika reload dan OTP masih pending
+if(localStorage.getItem("OTP_PENDING") === "true"){
+  otpModal.style.display="flex";
+}
+
 // Modifikasi fungsi register
 async function register(){
-  const user = document.getElementById("regUser").value.trim();
-  const pass = document.getElementById("regPass").value.trim();
-  const pass2 = document.getElementById("regPass2").value.trim();
-  const nama = document.getElementById("regNama").value.trim();
-  const jabatan = document.getElementById("regJabatan").value.trim();
-  const telp = document.getElementById("regTelp").value.trim();
-  const nta = document.getElementById("regNta").value.trim();
-  const tgl = document.getElementById("regTgl").value;
-  const email = document.getElementById("regEmail").value.trim();
-  const alamat = document.getElementById("regAlamat").value.trim();
+  const user = regUser.value.trim();
+  const pass = regPass.value.trim();
+  const pass2 = regPass2.value.trim();
+  const nama = regNama.value.trim();
+  const jabatan = regJabatan.value.trim();
+  const telp = regTelp.value.trim();
+  const nta = regNta.value.trim();
+  const tgl = regTgl.value;
+  const email = regEmail.value.trim();
+  const alamat = regAlamat.value.trim();
 
   const err = document.getElementById("regErr");
-  const success = document.getElementById("regSuccess");
-
   err.style.display="none";
-  success.textContent="";
 
   if(!user || !pass || !pass2 || !nama || !telp || !jabatan || !tgl || !email || !alamat){
     err.style.display="block";
@@ -449,83 +871,142 @@ async function register(){
 
   if(pass !== pass2){
     err.style.display="block";
-    err.textContent="Password tidak sama, mohon cek kembali";
+    err.textContent="Password tidak sama";
     return;
   }
 
-  const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
-  try{
-    const hashedPass = await hashPassword(pass);
-    const res = await fetch(url,{
-      method:"POST",
-      body: JSON.stringify({
-        action:"register",
-        username:user,
-        password:hashedPass,
-        nama_lengkap:nama,
-        jabatan:jabatan,
-        telp:telp,
-        no_nta:nta,
-        tanggal_lahir:tgl,
-        email:email,
-        alamat:alamat
-      })
-    });
-    const data = await res.json();
-    if(data.status==="ok"){
-      success.textContent="Akun berhasil dibuat!";
-      setTimeout(closeRegisterModal,1500);
-    }else{
+  const otp = Math.floor(100000 + Math.random()*900000);
+
+  localStorage.setItem("OTP_CODE", otp);
+  localStorage.setItem("OTP_EMAIL", email);
+  localStorage.setItem("OTP_PENDING", "true");
+
+  localStorage.setItem("REGISTER_DATA", JSON.stringify({
+    user, pass, nama, jabatan, telp, nta, tgl, email, alamat
+  }));
+
+  sendOTP(email, otp);
+
+  document.getElementById("otpModal").style.display="flex";
+}
+
+async function sendOTP(email, otp){
+  const data = JSON.parse(localStorage.getItem("REGISTER_DATA"));
+
+  const url = "https://script.google.com/macros/s/AKfycbx-0afG81z7UKUlBGNJ0e67DDqODCcvXQX54o3D19Al6GuZUU2iGCvA40K4-hHFv41h/exec";
+
+  await fetch(url,{
+    method:"POST",
+    body: JSON.stringify({
+      action:"send_otp",
+      email:email,
+      otp:otp,
+      nama:data.nama
+    })
+  });
+}
+
+async function verifyOtp(){
+  const input = document.getElementById("otpInput").value;
+  const err = document.getElementById("otpErr");
+
+  if(input !== localStorage.getItem("OTP_CODE")){
+    err.style.display="block";
+    err.textContent="OTP salah";
+    return;
+  }
+
+  const data = JSON.parse(localStorage.getItem("REGISTER_DATA"));
+  const hashedPass = await hashPassword(data.pass);
+
+  const url = "https://script.google.com/macros/s/AKfycbx-0afG81z7UKUlBGNJ0e67DDqODCcvXQX54o3D19Al6GuZUU2iGCvA40K4-hHFv41h/exec";
+
+  const res = await fetch(url,{
+    method:"POST",
+    body: JSON.stringify({
+      action:"register",
+      username:data.user,
+      password:hashedPass,
+      nama_lengkap:data.nama,
+      jabatan:data.jabatan,
+      telp:data.telp,
+      no_nta:data.nta,
+      tanggal_lahir:data.tgl,
+      email:data.email,
+      alamat:data.alamat
+    })
+  });
+
+  const result = await res.json();
+
+  if(result.status==="ok"){
+    localStorage.removeItem("OTP_PENDING");
+    document.getElementById("otpModal").style.display="none";
+    showSuccessToast();
+
+    setTimeout(()=>{
+      location.reload();
+    }, 2500);
+  }
+}
+
+function resendOTP(){
+  const email = localStorage.getItem("OTP_EMAIL");
+  const otp = Math.floor(100000 + Math.random()*900000);
+
+  localStorage.setItem("OTP_CODE", otp);
+  sendOTP(email, otp);
+
+  document.getElementById("otpSuccess").textContent="OTP baru dikirim";
+}
+
+
+  async function login(){
+    const user = document.getElementById("user").value.trim();
+    const pass = document.getElementById("pass").value.trim();
+    const err = document.getElementById("err");
+    err.style.display="none";
+
+    if(!user || !pass){
       err.style.display="block";
-      err.textContent=data.message;
-    }
-  }catch(e){
-    err.style.display="block";
-    err.textContent="Server error";
-    console.error(e);
-  }
-}
-
-async function login(){
-  const user = document.getElementById("user").value.trim();
-  const pass = document.getElementById("pass").value.trim();
-  const err = document.getElementById("err");
-  err.style.display="none";
-
-  if(!user || !pass){
-    err.style.display="block";
-    err.textContent="Semua kolom wajib diisi";
-    return;
-  }
-
-  const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
-
-  try{
-    const hashedPass = await hashPassword(pass);
-    const body = JSON.stringify({ username:user, password:hashedPass }); // tetap field username
-    const res = await fetch(url,{ method:"POST", body });
-    const data = await res.json();
-
-    if(data.status==="ok"){
-      sessionStorage.setItem("SISDIG_AUTH","OK");
-      sessionStorage.setItem("SISDIG_USERNAME", data.username);
-      sessionStorage.setItem("SISDIG_NAMA", data.nama_lengkap);
-      sessionStorage.setItem("SISDIG_JABATAN", data.jabatan);
-      sessionStorage.setItem("SISDIG_ROLE", data.role);
-      sessionStorage.setItem("SISDIG_FOTO", data.foto || "");
-      location.href = "index.html";
-    }else{
-      err.style.display="block";          // tampilkan error di bawah tombol
-      err.textContent = data.message;     // pesan dari backend
+      err.textContent="Semua kolom wajib diisi";
+      return;
     }
 
-  }catch(e){
-    err.style.display="block";
-    err.textContent="Server tidak merespons / JSON invalid";
-    console.error(e);
+    const url = "https://script.google.com/macros/s/AKfycbx-0afG81z7UKUlBGNJ0e67DDqODCcvXQX54o3D19Al6GuZUU2iGCvA40K4-hHFv41h/exec";
+
+    try{
+      const hashedPass = await hashPassword(pass);
+      const body = JSON.stringify({ username:user, password:hashedPass });
+      const res = await fetch(url,{ method:"POST", body });
+      const data = await res.json();
+
+if(data.status==="ok"){
+
+  const remember = document.getElementById("rememberMe").checked;
+
+  const storage = remember ? localStorage : sessionStorage;
+
+  storage.setItem("SISDIG_AUTH","OK");
+  storage.setItem("SISDIG_USERNAME", data.username);
+  storage.setItem("SISDIG_NAMA", data.nama_lengkap);
+  storage.setItem("SISDIG_JABATAN", data.jabatan);
+  storage.setItem("SISDIG_ROLE", data.role);
+  storage.setItem("SISDIG_FOTO", data.foto || "");
+
+  location.href = "index.html";
+}else{
+        err.style.display="block";
+        err.textContent = data.message;
+      }
+
+    }catch(e){
+      err.style.display="block";
+      err.textContent="Server tidak merespons / JSON invalid";
+      console.error(e);
+    }
   }
-}
-  
+
 async function forgotPassword(){
     const username = document.getElementById("fpUser").value.trim();
     const telpRaw = document.getElementById("fpTelp").value;
@@ -545,7 +1026,7 @@ async function forgotPassword(){
       return;
     }
 
-    const url = "https://script.google.com/macros/s/AKfycbyqLrYfsLm-gnl4RcFT84Ixd6M7HWQu02ceKJyFqF78_80pwBP7zg5HLZSGIa1BvKr1/exec";
+    const url = "https://script.google.com/macros/s/AKfycbx-0afG81z7UKUlBGNJ0e67DDqODCcvXQX54o3D19Al6GuZUU2iGCvA40K4-hHFv41h/exec";
 
     try{
       const res = await fetch(url,{
@@ -576,8 +1057,48 @@ async function forgotPassword(){
     }
   }
 }); // DOMContentLoaded
+
+function showSuccessToast(){
+  const toast = document.getElementById("toastSuccess");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 4000);
+}
 </script>
+
+<!-- Modal OTP -->
+<div class="modal" id="otpModal">
+  <div class="modal-content">
+    <h3>Verifikasi OTP</h3>
+    <p>Kode OTP dikirim ke email kamu</p>
+
+    <div class="input-group">
+      <input id="otpInput" placeholder="Masukkan OTP">
+    </div>
+
+    <button id="btnVerifyOtp">Verifikasi</button>
+    <span class="link-text" id="resendOtp">Kirim Ulang OTP</span>
+
+    <div class="error" id="otpErr"></div>
+    <div class="success-msg" id="otpSuccess"></div>
+  </div>
+</div>
+
+<div id="toastSuccess" class="toast">
+  <div class="toast-content">
+    <span class="toast-icon">✓</span>
+    <div>
+      <div class="toast-title">Akun Berhasil Dibuat</div>
+      <div class="toast-desc">Selamat! Akun Anda telah terdaftar dan siap digunakan.</div>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+</div>
 </body>
-
 </html>
-
