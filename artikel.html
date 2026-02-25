@@ -2088,8 +2088,25 @@ window.addEventListener("scroll", () => {
   progressBar.style.width = progress + "%";
 });
 </script>
+
+<script>
+document.addEventListener("copy", function(e) {
+    const selection = window.getSelection().toString().trim(); // teks yang diseleksi pengguna
+    if(!selection) return; // jika tidak ada yang diseleksi, biarkan normal
+
+    const judul = document.getElementById("judul").innerText.trim();
+    const url = window.location.href;
+
+    // Teks akhir yang akan disalin: teks yang dipilih + catatan sumber
+    const teks = `${selection}\n\n---\n${judul}\nSumber: ${url}`;
+
+    e.clipboardData.setData("text/plain", teks);
+    e.preventDefault();
+});
+</script>
 </body>
 </html>
+
 
 
 
