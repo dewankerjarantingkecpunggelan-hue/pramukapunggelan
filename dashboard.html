@@ -219,10 +219,12 @@ input,select{
 
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
   <h1><i class='bx bx-layout'></i> Dashboard Artikel</h1>
-  <span id="adminName"></span>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <span id="adminName"></span>
+    <button id="logoutBtn" class="btn" style="background:#dc2626; padding:8px 12px;">Logout</button>
+  </div>
 </div>
 
 <div class="grid">
@@ -250,6 +252,9 @@ input,select{
 
   <label>Thumbnail (URL)</label>
   <input id="thumbnail" placeholder="https://...">
+
+  <label>Tag Artikel</label>
+<input id="tags" placeholder="contoh: kemah, punggelan, pramuka (pisahkan dengan koma (,))">
 
   <label>Isi Artikel</label>
 <div class="toolbar">
@@ -292,6 +297,13 @@ input,select{
     </thead>
     <tbody id="list"></tbody>
   </table>
+
+  <!-- PAGINATION -->
+  <div style="margin-top:12px; display:flex; justify-content:center; gap:8px;">
+    <button id="prevPage" class="btn" style="background:#6b7280;">Prev</button>
+    <span id="pageInfo" style="align-self:center;"></span>
+    <button id="nextPage" class="btn" style="background:#6b7280;">Next</button>
+  </div>
 </div>
 
 </div>
@@ -305,7 +317,7 @@ adminName.textContent="Login sebagai: "+USER.nama;
 </script>
 
 <script>
-const API="https://script.google.com/macros/s/AKfycby8ooELYz10mWr_oPs4TVT8aiJjaFHOD2gV3ARaT4lzn2pADHKtBVnJg5jnEkp-owPM/exec";
+const API="https://script.google.com/macros/s/AKfycbzhcy1Vo79LMUfGVhIcSKnqX8MASRTsQfD-NemwYGgMFhKLLE2q5ZRLfF_g3tJiyJLh/exec";
 const editor=document.getElementById("editor");
 
 function cmd(a,b=null){
@@ -351,6 +363,16 @@ function uploadArtikel(){
     `;
   }
 
+  // FORMAT TAG OTOMATIS
+let formattedTags = "";
+
+if(tags.value.trim()){
+  formattedTags = tags.value
+    .split(",")
+    .map(t => "#" + t.trim().toLowerCase())
+    .join(" ");
+}
+
   const cb = "cb_"+Date.now();
 
   window[cb] = res=>{
@@ -361,29 +383,60 @@ function uploadArtikel(){
 
     alert("Artikel berhasil dipublish");
 
-    judul.value="";
-    editor.innerHTML="";
-    thumbnail.value="";
-    bacajugaJudul.value="";
-    bacajugaLink.value="";
+judul.value="";
+editor.innerHTML="";
+thumbnail.value="";
+tags.value="";
+bacajugaJudul.value="";
+bacajugaLink.value="";
 
     loadArticles();
     delete window[cb];
   };
 
-  const p = new URLSearchParams({
-    action:"addArtikel",
-    judul:judul.value,
-    isi: editor.innerHTML + bacaJugaHTML, // sekarang aman
-    kategori:kategori.value,
-    penulis:USER.nama,
-    thumbnail:thumbnail.value,
-    callback:cb
-  });
+const p = new URLSearchParams({
+  action:"addArtikel",
+  judul:judul.value,
+  isi: editor.innerHTML,
+  kategori:kategori.value,
+  penulis:USER.nama,
+  thumbnail:thumbnail.value,
+  tags: formattedTags,  // ✅ TAMBAHAN
+  callback:cb
+});
 
   const s=document.createElement("script");
   s.src = API + "?" + p.toString();
   document.body.appendChild(s);
+}
+
+function insertBacaJuga() {
+  if(!bacajugaJudul.value.trim() || !bacajugaLink.value.trim()){
+    alert("Judul dan link baca juga wajib diisi");
+    return;
+  }
+
+  const bacaJugaHTML = `
+    <div class="baca-juga">
+      <span>Baca Juga</span>
+      <a href="${bacajugaLink.value}">${bacajugaJudul.value}</a>
+    </div>
+  `;
+
+  // sisipkan di posisi kursor
+  const sel = window.getSelection();
+  if(!sel.rangeCount) return;
+
+  const range = sel.getRangeAt(0);
+  range.deleteContents();
+
+  const el = document.createElement("div");
+  el.innerHTML = bacaJugaHTML;
+  const frag = document.createDocumentFragment();
+  while(el.firstChild){
+    frag.appendChild(el.firstChild);
+  }
+  range.insertNode(frag);
 }
 </script>
 <script>
@@ -431,11 +484,93 @@ function deleteArtikel(id){
 }
 
 loadArticles();
+
+let currentPage = 1;
+const pageSize = 8;
+let articlesData = [];
+
+function formatDate(iso){
+  const d = new Date(iso);
+  const day = String(d.getDate()).padStart(2,'0');
+  const month = String(d.getMonth()+1).padStart(2,'0');
+  const year = d.getFullYear();
+  const hours = String(d.getHours()).padStart(2,'0');
+  const minutes = String(d.getMinutes()).padStart(2,'0');
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+function renderArticlesPage(){
+  const el = document.getElementById("list");
+  el.innerHTML = "";
+
+  if(!articlesData.length){
+    el.innerHTML="<tr><td colspan='4'>Belum ada artikel</td></tr>";
+    document.getElementById("pageInfo").textContent = "";
+    return;
+  }
+
+  const start = (currentPage-1)*pageSize;
+  const end = start + pageSize;
+  const pageArticles = articlesData.slice(start, end);
+
+  pageArticles.forEach(a=>{
+    el.innerHTML+=`
+      <tr>
+        <td>${a.judul}</td>
+        <td>${formatDate(a.tanggal)}</td>
+        <td>${a.views}</td>
+        <td>
+          <button onclick="deleteArtikel('${a.id}')">🗑</button>
+        </td>
+      </tr>`;
+  });
+
+  const totalPages = Math.ceil(articlesData.length/pageSize);
+  document.getElementById("pageInfo").textContent = `Halaman ${currentPage} dari ${totalPages}`;
+  document.getElementById("prevPage").disabled = currentPage === 1;
+  document.getElementById("nextPage").disabled = currentPage === totalPages;
+}
+
+document.getElementById("prevPage").addEventListener("click", ()=>{
+  if(currentPage>1){ currentPage--; renderArticlesPage(); }
+});
+document.getElementById("nextPage").addEventListener("click", ()=>{
+  const totalPages = Math.ceil(articlesData.length/pageSize);
+  if(currentPage<totalPages){ currentPage++; renderArticlesPage(); }
+});
+
+function loadArticles(){
+  const cb="cb_"+Date.now();
+
+  window[cb]=res=>{
+    if(!res.data || !res.data.length){
+      articlesData=[];
+    } else {
+      // urutkan terbaru ke terlama
+      articlesData = res.data.sort((a,b)=>new Date(b.tanggal)-new Date(a.tanggal));
+    }
+
+    currentPage = 1;
+    renderArticlesPage();
+    delete window[cb];
+  };
+
+  const s=document.createElement("script");
+  s.src=API+"?action=adminList&callback="+cb;
+  document.body.appendChild(s);
+}
+
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+  if(confirm("Yakin ingin logout?")){
+    localStorage.removeItem("user"); // hapus data login
+    sessionStorage.clear();           // bersihkan session storage
+    location.href = "admin.html";     // redirect ke halaman login
+  }
+});
 </script>
 
 </body>
 </html>
-
 
 
 
