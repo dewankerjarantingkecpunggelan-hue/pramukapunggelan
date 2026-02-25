@@ -430,8 +430,9 @@ createBtn.addEventListener("click",async()=>{
     if(text==="OK"){
       const tbody=document.querySelector("#urlList tbody");
       const row=document.createElement("tr");
-      row.innerHTML=`<td>${shortCode}</td><td><a href="${longURL}" target="_blank">${longURL}</a></td><td>${new Date().toLocaleString()}</td>`;
-      tbody.prepend(row);
+      row.innerHTML=`<td>${shortCode}</td>
+<td><a href="redirect.html?short=${shortCode}" target="_blank">${longURL}</a></td>
+<td>${new Date().toLocaleString()}</td>`;tbody.prepend(row);
       result.innerHTML=`<i class='bx bx-copy'></i> https://pramukapunggelan.vercel.app/${shortCode}`;
       result.classList.add("show");
       result.onclick=()=>{navigator.clipboard.writeText(`https://pramukapunggelan.vercel.app/${shortCode}`);result.classList.add("copied");setTimeout(()=>result.classList.remove("copied"),800);}
