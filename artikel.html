@@ -374,59 +374,133 @@
   opacity: 0.9;
 }
 
-  /* KOMENTAR */
-  .comment-box{
-    margin-top:40px;
-  }
+/* =========================
+   KOMENTAR PROFESIONAL
+========================= */
 
-  .comment-box h3{
-    margin-bottom:14px;
-    color:var(--primary);
-    font-size:16px;
-  }
+.comment-box{
+  margin-top:50px;
+  padding-top:30px;
+  border-top:2px solid #f1f5f9;
+}
 
-  .comment{
-    background:#f9fafb;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:10px;
-  }
+.comment-box h3{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:20px;
+  color:var(--primary);
+}
 
-  .comment strong{
-    font-size:13px;
-  }
+/* LIST */
+#commentList{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
 
-  .comment p{
-    margin:4px 0 0;
-    font-size:14px;
-  }
+/* CARD */
+.comment{
+  display:flex;
+  gap:14px;
+  padding:18px;
+  border-radius:14px;
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  transition:.2s;
+}
 
-  .comment-form{
-    margin-top:14px;
-    display:grid;
-    gap:10px;
-  }
+.comment:hover{
+  border-color:var(--primary);
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
 
-  .comment-form input,
-  .comment-form textarea{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ddd;
-    font-family:'K2D';
-  }
+/* AVATAR */
+.comment-avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6f3aa6,#5b2c83);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:16px;
+  flex-shrink:0;
+}
 
-  .comment-form button{
-    align-self:flex-start;
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    padding:10px 16px;
-    border-radius:8px;
-    font-weight:600;
-    cursor:pointer;
-  }
+/* CONTENT */
+.comment-body{
+  flex:1;
+}
 
+.comment-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:6px;
+}
+
+.comment-name{
+  font-weight:700;
+  font-size:14px;
+  color:#111;
+}
+
+.comment-date{
+  font-size:12px;
+  color:#6b7280;
+}
+
+.comment-text{
+  font-size:14px;
+  line-height:1.7;
+  color:#374151;
+}
+
+/* FORM */
+.comment-form{
+  margin-top:30px;
+  padding:20px;
+  background:#f9fafb;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  display:grid;
+  gap:14px;
+}
+
+.comment-form input,
+.comment-form textarea{
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  font-family:'K2D';
+  font-size:14px;
+  transition:.2s;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px rgba(91,44,131,.15);
+}
+
+.comment-form button{
+  align-self:flex-end;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.comment-form button:hover{
+  background:var(--primary-light);
+}
   /* SIDEBAR */
   .sidebar{
     display:grid;
@@ -952,16 +1026,55 @@ main{
   line-height:1.4;
 }
 
-.popular-rank{
-  background:var(--primary);
-  color:#fff;
-  font-weight:800;
-  font-size:12px;
-  width:24px;
-  height:24px;
+/* === POPULAR NEWS PROFESSIONAL STYLE === */
+
+.popular-item{
   display:flex;
-  align-items:center;
-  justify-content:center;
+  align-items:flex-start;
+  gap:15px;
+  padding:16px 0;
+  border-bottom:1px solid #eee;
+  text-decoration:none;
+  transition:all .2s ease;
+}
+
+.popular-item:hover{
+  transform:translateX(4px);
+}
+
+.popular-title{
+  font-weight:600;
+  font-size:15px;
+  color:#111;
+  line-height:1.4;
+}
+
+.popular-rank{
+  font-weight:800;
+  font-size:22px;
+  min-width:32px;
+}
+
+/* === TOP 1 === */
+.rank-1 .popular-rank{
+  color:#d4af37;
+  font-size:26px;
+}
+
+/* === TOP 2 === */
+.rank-2 .popular-rank{
+  color:#9e9e9e;
+}
+
+/* === TOP 3 === */
+.rank-3 .popular-rank{
+  color:#cd7f32;
+}
+
+/* === RANK 4+ STYLE === */
+.popular-item:not(.rank-1):not(.rank-2):not(.rank-3) .popular-rank{
+  color:#888;
+  font-size:18px;
 }
 
 /* =========================
@@ -1225,6 +1338,15 @@ footer a:hover{
   <h3><i class='bx bx-link-alt'></i> Terhubung Dengan Kami</h3>
 
   <div style="display:grid;gap:10px">
+    <a href="https://instagram.com/kwarran.punggelan" target="_blank"
+       style="display:flex;align-items:center;gap:10px;
+              padding:10px;border-radius:10px;
+              background:#f9fafb;font-weight:600">
+      <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
+      Instagram Kwarran
+    </a>
+
+  <div style="display:grid;gap:10px">
     <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"
        style="display:flex;align-items:center;gap:10px;
               padding:10px;border-radius:10px;
@@ -1424,18 +1546,30 @@ function loadKomentar(){
     }
 
     res.data.forEach(k => {
-      const t = new Date(k.tanggal).toLocaleDateString("id-ID",{
-        day:"numeric",month:"long",year:"numeric"
-      });
 
-      wrap.innerHTML += `
-        <div class="comment">
-          <strong>${k.nama}</strong>
-          <small style="display:block;font-size:11px;color:#6b7280">${t}</small>
-          <p>${k.isi}</p>
+  const tanggal = new Date(k.tanggal).toLocaleDateString("id-ID",{
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  });
+
+  const inisial = k.nama
+    ? k.nama.trim().charAt(0).toUpperCase()
+    : "?";
+
+  wrap.innerHTML += `
+    <div class="comment">
+      <div class="comment-avatar">${inisial}</div>
+      <div class="comment-body">
+        <div class="comment-header">
+          <div class="comment-name">${k.nama}</div>
+          <div class="comment-date">${tanggal}</div>
         </div>
-      `;
-    });
+        <div class="comment-text">${k.isi}</div>
+      </div>
+    </div>
+  `;
+});
 
     delete window[cb];
   };
@@ -1523,17 +1657,17 @@ function renderPopular(data){
   if(!wrap) return;
 
   wrap.innerHTML = "";
-  data.forEach(n => {
+
+  data.forEach((n, index) => {
+    let rankClass = "";
+    if(index === 0) rankClass = "rank-1";
+    else if(index === 1) rankClass = "rank-2";
+    else if(index === 2) rankClass = "rank-3";
+
     wrap.innerHTML += `
-      <a href="artikel.html?id=${n.id}" class="popular-item">
-        <img src="${n.thumbnail}" alt="${n.judul}">
-        <div>
-          <span>${n.judul}</span>
-          <div class="popular-meta">
-            <span><i class='bx bx-show'></i> ${n.views || 0}</span>
-            <span><i class='bx bx-time-five'></i> ${waktuLaluAtauTanggal(n.tanggal)}</span>
-          </div>
-        </div>
+      <a href="artikel.html?id=${n.id}" class="popular-item ${rankClass}">
+        <div class="popular-rank">${index + 1}</div>
+        <div class="popular-title">${n.judul}</div>
       </a>
     `;
   });
@@ -1917,8 +2051,6 @@ window.addEventListener("scroll", () => {
 </script>
 </body>
 </html>
-
-
 
 
 
