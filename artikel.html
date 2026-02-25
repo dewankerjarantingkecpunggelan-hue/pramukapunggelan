@@ -1212,6 +1212,29 @@ footer a:hover{
   background:linear-gradient(90deg,#6f3aa6,#5b2c83);
   transition:width .15s linear;
 }
+
+.article-tags{
+  margin:18px 0 8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.article-tags a{
+  font-size:12px;
+  font-weight:700;
+  padding:6px 10px;
+  border:1px solid var(--primary);
+  border-radius:999px;
+  color:var(--primary);
+  text-decoration:none;
+  transition:.2s;
+}
+
+.article-tags a:hover{
+  background:var(--primary);
+  color:#fff;
+}
 </style>
 
 <script type="application/ld+json">
@@ -1294,12 +1317,12 @@ footer a:hover{
   </div>
 
   <img id="thumbnail" class="article-thumb" alt="">
-
+  
   <!-- ===== AREA SCROLL SAJA ===== -->
    <div class="article-scroll"></div>
     <div class="article-content" id="isi"></div>
   </div>
-
+  <div class="article-tags" id="tagsWrap"></div>
   <!-- ===== TIDAK SCROLL ===== -->
   <div class="article-nav" id="randomArticle"></div>
 
@@ -1462,7 +1485,7 @@ footer a:hover{
 </footer>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycby8ooELYz10mWr_oPs4TVT8aiJjaFHOD2gV3ARaT4lzn2pADHKtBVnJg5jnEkp-owPM/exec";
+const API = "https://script.google.com/macros/s/AKfycbyUbshWl7jXUipsxsoy2scYIxso3ibHtuc0HHRs2Co-XHl5sC88A8oXkyle7ouiRwa4/exec";
 
 const params = new URLSearchParams(location.search);
 const ARTICLE_ID = params.get("id");
@@ -1488,8 +1511,24 @@ window[cb] = res => {
   document.getElementById("judul").textContent = a.judul;
   document.getElementById("isi").innerHTML = a.isi;
   document.getElementById("kategori").textContent = a.kategori || "Tanpa Kategori";
+  // ===== TAGS =====
+const tagsWrap = document.getElementById("tagsWrap");
+tagsWrap.innerHTML = "";
+
+if(a.tags){
+  const arr = a.tags.split("#")
+    .map(t => t.trim())
+    .filter(t => t !== "");
+
+  arr.forEach(tag=>{
+    const el = document.createElement("a");
+    el.textContent = "#" + tag;
+    el.href = "tags?tag=" + encodeURIComponent(tag.replace("#",""));
+    tagsWrap.appendChild(el);
+  });
+}
   const penulisNama = a.penulis || "-";
-const penulisLink = document.getElementById("penulisLink");
+  const penulisLink = document.getElementById("penulisLink");
 
 penulisLink.textContent = penulisNama;
 penulisLink.href = "author.html?name=" + encodeURIComponent(penulisNama);
