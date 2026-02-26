@@ -234,17 +234,30 @@
   }
 }
 
-  .article-tag{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:var(--primary);
-    color:#fff;
-    font-size:12px;
-    padding:6px 14px;
-    border-radius:999px;
-    margin-bottom:14px;
-  }
+.article-tag{
+  position:relative;
+  display:inline-block;
+  background:var(--primary);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:6px 16px;
+  border-radius:999px;
+  margin-bottom:20px;
+}
+
+/* garis memanjang sampai ujung */
+.article-tag::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:calc(100% + 10px);  /* mulai setelah badge */
+  right:0;                  /* berhenti di ujung container */
+  height:2px;
+  background:var(--primary);
+  transform:translateY(-50%);
+  border-radius:2px;
+}}
 
 .article-title{
   font-size:34px;
@@ -1385,7 +1398,9 @@ footer a:hover{
 <main class="article-layout">
 
 <article class="article-box">
-  <span class="article-tag" id="kategori"></span>
+  <div class="article-tag">
+  <span id="kategori"></span>
+</div>
   <h1 class="article-title" id="judul"></h1>
 
   <div class="article-meta">
@@ -2240,6 +2255,7 @@ function loadRelatedArticles(currentArticle){
 
 </body>
 </html>
+
 
 
 
