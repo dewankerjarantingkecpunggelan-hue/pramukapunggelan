@@ -235,29 +235,31 @@
 }
 
 .article-tag{
-  position:relative;
-  display:inline-block;
+  display:flex;          /* ubah dari inline-block */
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+/* badge */
+.article-tag span{
   background:var(--primary);
   color:#fff;
   font-size:12px;
   font-weight:700;
   padding:6px 16px;
   border-radius:999px;
-  margin-bottom:20px;
+  white-space:nowrap;
 }
 
-/* garis memanjang sampai ujung */
+/* garis memanjang */
 .article-tag::after{
   content:"";
-  position:absolute;
-  top:50%;
-  left:calc(100% + 10px);  /* mulai setelah badge */
-  right:0;                  /* berhenti di ujung container */
+  flex:1;                 /* isi sisa ruang */
   height:2px;
   background:var(--primary);
-  transform:translateY(-50%);
   border-radius:2px;
-}}
+}
 
 .article-title{
   font-size:34px;
@@ -2255,6 +2257,7 @@ function loadRelatedArticles(currentArticle){
 
 </body>
 </html>
+
 
 
 
