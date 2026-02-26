@@ -226,33 +226,12 @@
     align-items: flex-start;
   }
 
-  /* ARTIKEL */
-  .article-box{
-    display:flex;
-    flex-direction:column;
-    max-height:calc(100vh - 110px);
-  }
-
-  .article-scroll{
-    overflow-y:auto;
-    padding-right:12px;
-  }
-
   /* SIDEBAR TETAP */
   aside.sidebar{
     position:sticky;
     top:100px;
     height:fit-content;
   }
-}
-
-
-  /* ARTIKEL */
-.article-box{
-  background:#fff;
-  border-radius:18px;
-  padding:28px;
-  box-shadow:0 10px 28px rgba(0,0,0,.08);
 }
 
   .article-tag{
@@ -912,37 +891,22 @@ nav a:hover{
 }
 
 .gif-center{
-  text-align:center;
   margin:28px 0;
 }
 
 .gif-center img{
-  max-width:100%;
-  width:420px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  display:block;
+  width:100%;        /* penuh selebar artikel */
+  height:auto;
+  border-radius:18px;
 }
-
-.gif-center img{
-  width:100%;
-  border-radius:14px;
-}
-
 /* =========================
    KONTEN UTAMA / ARTIKEL
    ========================= */
 main{
-  max-width:1400px;
-  margin:auto;
-  padding:0 20px;
-}
-
-.article-layout,
-.news-layout{
-  display:grid;
-  grid-template-columns:3fr 1.2fr;
-  gap:28px;
-  align-items:flex-start;
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 16px;
 }
 
 /* MOBILE */
@@ -1161,11 +1125,6 @@ footer a:hover{
     overflow: visible !important;
     max-height: none !important;
   }
-
-  .article-scroll{
-    max-height: calc(100vh - 320px);
-    overflow-y: auto;
-  }
 }
 
 /* ===== BACK TO TOP (SYMMETRIC VERSION) ===== */
@@ -1338,7 +1297,7 @@ footer a:hover{
 /* ===== VIDEO TENGAH ARTIKEL ===== */
 .video-center{
   text-align:center;
-  margin:28px 0;
+  margin:10px 0;
 }
 
 .video-center video{
@@ -1347,6 +1306,15 @@ footer a:hover{
   border-radius:10px;
   box-shadow: 0 10px 28px rgba(0,0,0,.15);
   object-fit:cover;
+}
+
+.article-box{
+  padding:24px;
+  border-radius:18px;
+}
+
+.sidebar{
+  position:relative;
 }
 </style>
 
@@ -1432,9 +1400,7 @@ footer a:hover{
   <img id="thumbnail" class="article-thumb" alt="">
   
   <!-- ===== AREA SCROLL SAJA ===== -->
-   <div class="article-scroll"></div>
     <div class="article-content" id="isi"></div>
-  </div>
   <div class="article-tags" id="tagsWrap"></div>
   <!-- ===== TIDAK SCROLL ===== -->
   <div class="article-nav" id="randomArticle"></div>
@@ -1476,47 +1442,34 @@ footer a:hover{
       <h3><i class='bx bx-trending-up'></i> Berita Populer</h3>
       <div id="popularNews"></div>
     </div>
-    <div class="side-box">
+<div class="side-box">
   <h3><i class='bx bx-link-alt'></i> Terhubung Dengan Kami</h3>
 
   <div style="display:grid;gap:10px">
-    <a href="https://instagram.com/kwarran.punggelan" target="_blank"
-       style="display:flex;align-items:center;gap:10px;
-              padding:10px;border-radius:10px;
-              background:#f9fafb;font-weight:600">
+
+    <a href="https://instagram.com/kwarran.punggelan" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f9fafb;font-weight:600">
       <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
       Instagram Kwarran
     </a>
 
-  <div style="display:grid;gap:10px">
-    <a href="https://instagram.com/jurnalistik.punggelan" target="_blank"
-       style="display:flex;align-items:center;gap:10px;
-              padding:10px;border-radius:10px;
-              background:#f9fafb;font-weight:600">
+    <a href="https://instagram.com/jurnalistik.punggelan" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f9fafb;font-weight:600">
       <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
       Instagram Jurnalistik
     </a>
 
-    <a href="https://instagram.com/dkr__punggelan" target="_blank"
-       style="display:flex;align-items:center;gap:10px;
-              padding:10px;border-radius:10px;
-              background:#f9fafb;font-weight:600">
+    <a href="https://instagram.com/dkr__punggelan" target="_blank" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f9fafb;font-weight:600">
       <i class='bx bxl-instagram' style="font-size:20px;color:#e1306c"></i>
       Instagram DKR
     </a>
 
-    <a href="mailto:dewankerjarantingkecpunggelan@gmail.com"
-       style="display:flex;align-items:center;gap:10px;
-              padding:10px;border-radius:10px;
-              background:#f9fafb;font-weight:600">
+    <a href="mailto:dewankerjarantingkecpunggelan@gmail.com" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f9fafb;font-weight:600">
       <i class='bx bx-envelope' style="font-size:20px;color:#5b2c83"></i>
       Email Redaksi
     </a>
+
   </div>
 </div>
-
-  </aside>
-
+</aside>
 </main>
 
 <footer>
@@ -2284,24 +2237,9 @@ function loadRelatedArticles(currentArticle){
   document.body.appendChild(s);
 }
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const isi = document.getElementById("isi");
-  const p = isi.querySelectorAll("p");
 
-  if(p.length > 3){
-    const gif = document.createElement("div");
-    gif.className = "gif-center";
-    gif.innerHTML = `<img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif">`;
-    p[2].after(gif);
-  }
-});
-</script>
 </body>
 </html>
-
-
-
 
 
 
