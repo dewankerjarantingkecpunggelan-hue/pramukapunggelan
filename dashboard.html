@@ -212,6 +212,20 @@ input,select{
   }
 }
 
+/* PREVIEW MEDIA DI EDITOR */
+.media-center{
+  text-align:center;
+  margin:16px 0;
+}
+
+.media-center img,
+.media-center video{
+  max-width:100%;
+  width:320px;       /* ukuran preview */
+  border-radius:12px;
+  display:block;
+  margin:auto;
+}
 </style>
 </head>
 
@@ -271,6 +285,7 @@ input,select{
 
   <button onclick="insertLink()">🔗</button>
   <button onclick="insertImage()">🖼</button>
+  <button onclick="insertMedia()">🎬 GIF/Video</button>
 </div>
   <label>Baca Juga (opsional)</label>
 <input id="bacajugaJudul" placeholder="Judul artikel terkait">
@@ -329,9 +344,64 @@ function insertLink(){
   if(u) cmd("createLink",u);
 }
 function insertImage(){
-  const u=prompt("URL gambar:");
-  if(u) document.execCommand("insertHTML",false,
-    `<img src="${u}" style="max-width:100%;border-radius:12px;margin:10px 0">`);
+  const u = prompt("URL gambar:");
+  if(!u) return;
+
+  insertAtCursor(`
+    <div class="media-center">
+      <img src="${u}">
+    </div>
+  `);
+}
+
+function insertMedia(){
+  const url = prompt("Masukkan URL GIF atau MP4:");
+
+  if(!url) return;
+
+  let html = "";
+
+  if(url.match(/\.(mp4|webm|ogg)$/i)){
+    html = `
+      <div class="media-center">
+        <video src="${url}"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto">
+        </video>
+      </div>
+    `;
+  } else {
+    html = `
+      <div class="media-center">
+        <img src="${url}">
+      </div>
+    `;
+  }
+
+  insertAtCursor(html);
+}
+
+function insertAtCursor(html){
+  editor.focus();
+  const sel = window.getSelection();
+  if(!sel.rangeCount) return;
+
+  const range = sel.getRangeAt(0);
+  range.deleteContents();
+
+  const el = document.createElement("div");
+  el.innerHTML = html;
+
+  const frag = document.createDocumentFragment();
+  let node;
+  while((node = el.firstChild)){
+    frag.appendChild(node);
+  }
+
+  range.insertNode(frag);
 }
 </script>
 <script>
