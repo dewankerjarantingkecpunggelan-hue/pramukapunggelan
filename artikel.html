@@ -509,12 +509,16 @@
 
 .side-box{
   background:#fff;
-  border-radius:0;
-  padding:16px 0;
-  box-shadow:none;
-  border-bottom:1px solid #e5e7eb;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  transition:.2s;
 }
 
+.side-box:hover{
+  border-color:var(--primary);
+}
 
   .sidebar{
   align-self:start;
@@ -542,8 +546,14 @@
   transition:.2s;
 }
 
+.popular-item{
+  border-radius:14px;
+  padding:14px;
+  transition:.2s;
+}
+
 .popular-item:hover{
-  background:#f3f4f6;
+  background:#f9fafb;
 }
 
 .popular-item img{
@@ -895,6 +905,23 @@ nav a:hover{
   color:var(--primary);
 }
 
+.gif-center{
+  text-align:center;
+  margin:28px 0;
+}
+
+.gif-center img{
+  max-width:100%;
+  width:420px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.gif-center img{
+  width:100%;
+  border-radius:14px;
+}
+
 /* =========================
    KONTEN UTAMA / ARTIKEL
    ========================= */
@@ -1235,6 +1262,86 @@ footer a:hover{
   background:var(--primary);
   color:#fff;
 }
+
+/* =========================
+   ARTIKEL TERKAIT
+========================= */
+
+.related-section{
+  margin-top:60px;
+  padding-top:30px;
+  border-top:2px solid #f1f5f9;
+}
+
+.related-section h3{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:20px;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.related-card{
+  border:1px solid #e5e7eb;
+  background:#fff;
+  transition:.2s;
+  display:flex;
+  flex-direction:column;
+}
+
+.related-card:hover{
+  border-color:var(--primary);
+}
+
+.related-card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+
+.related-body{
+  padding:14px;
+}
+
+.related-title{
+  font-weight:700;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.related-date{
+  font-size:12px;
+  color:#6b7280;
+  margin-top:6px;
+}
+
+@media(max-width:900px){
+  .related-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ===== VIDEO TENGAH ARTIKEL ===== */
+.video-center{
+  text-align:center;
+  margin:28px 0;
+}
+
+.video-center video{
+  width:100%;
+  max-width:480px;
+  border-radius:10px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.15);
+  object-fit:cover;
+}
 </style>
 
 <script type="application/ld+json">
@@ -1349,6 +1456,12 @@ footer a:hover{
       <button type="submit">Kirim Komentar</button>
     </form>
   </div>
+
+  <!-- ===== ARTIKEL TERKAIT ===== -->
+<section class="related-section">
+  <h3><i class='bx bx-link'></i> Artikel Terkait</h3>
+  <div class="related-grid" id="relatedArticles"></div>
+</section>
 </article>
 
   <!-- SIDEBAR -->
@@ -1553,6 +1666,8 @@ penulisLink.href = "author.html?name=" + encodeURIComponent(penulisNama);
 
   // load komentar
   loadKomentar();
+
+  loadRelatedArticles(a);
 };
 
 // ambil data artikel
@@ -2103,11 +2218,81 @@ document.addEventListener("copy", function(e) {
     e.clipboardData.setData("text/plain", teks);
     e.preventDefault();
 });
+
+// ===== ARTIKEL TERKAIT BERDASARKAN TAG =====
+function loadRelatedArticles(currentArticle){
+
+  if(!currentArticle.tags) return;
+
+  const currentTags = currentArticle.tags
+    .split("#")
+    .map(t => t.trim().toLowerCase())
+    .filter(t => t !== "");
+
+  if(!currentTags.length) return;
+
+  const cbRelated = "cb_related_" + Date.now();
+
+  window[cbRelated] = res => {
+
+    if(res.status !== "ok") return;
+
+    const nowId = Number(ARTICLE_ID);
+
+    const filtered = res.data.filter(a => {
+
+      if(Number(a.id) === nowId) return false;
+      if(!a.tags) return false;
+
+      const tags = a.tags
+        .split("#")
+        .map(t => t.trim().toLowerCase())
+        .filter(t => t !== "");
+
+      return tags.some(tag => currentTags.includes(tag));
+    });
+
+    const wrap = document.getElementById("relatedArticles");
+
+    if(!wrap || !filtered.length){
+      wrap.innerHTML = "<p style='font-size:13px;color:#6b7280'>Belum ada artikel terkait.</p>";
+      delete window[cbRelated];
+      return;
+    }
+
+    wrap.innerHTML = filtered.slice(0,3).map(a=>`
+      <a href="artikel.html?id=${a.id}" class="related-card">
+        ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.judul}">` : ""}
+        <div class="related-body">
+          <div class="related-title">${a.judul}</div>
+          <div class="related-date">${formatTanggal(a.tanggal)}</div>
+        </div>
+      </a>
+    `).join("");
+
+    delete window[cbRelated];
+  };
+
+  const s = document.createElement("script");
+  s.src = API + "?action=list&callback=" + cbRelated;
+  document.body.appendChild(s);
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const isi = document.getElementById("isi");
+  const p = isi.querySelectorAll("p");
+
+  if(p.length > 3){
+    const gif = document.createElement("div");
+    gif.className = "gif-center";
+    gif.innerHTML = `<img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif">`;
+    p[2].after(gif);
+  }
+});
 </script>
 </body>
 </html>
-
-
 
 
 
