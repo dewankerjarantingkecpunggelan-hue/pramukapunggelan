@@ -21,6 +21,7 @@
     { "source": "/404", "destination": "/404.html" },
     { "source": "/kategori", "destination": "/tag.html" },
     { "source": "/tag", "destination": "/tags.html" },
+    { "source": "/pusdig", "destination": "/pusdig.html" },
     { "source": "/:code", "destination": "/api/:code" }
   ]
 }
