@@ -458,6 +458,109 @@ main{
   color:#6b7280;
 }
 
+/* ===== DATA META PROFESSIONAL ===== */
+.data-meta-section{
+  margin-top:60px;
+  background:linear-gradient(135deg,#ffffff,#f8fafc);
+  border-top:1px solid #e5e7eb;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.data-meta-container{
+  max-width:1200px;
+  margin:auto;
+  padding:28px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.data-meta-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.data-meta-left i{
+  font-size:38px;
+  color:var(--primary);
+  background:#ede9fe;
+  padding:12px;
+  border-radius:14px;
+}
+
+.meta-title{
+  font-size:16px;
+  font-weight:700;
+  color:#111827;
+}
+
+.meta-sub{
+  font-size:13px;
+  color:#6b7280;
+}
+
+.data-meta-right{
+  text-align:right;
+}
+
+.meta-label{
+  font-size:12px;
+  color:#6b7280;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.meta-date{
+  font-size:16px;
+  font-weight:700;
+  color:var(--primary);
+  margin-top:4px;
+}
+
+@media(max-width:700px){
+  .data-meta-container{
+    flex-direction:column;
+    text-align:center;
+  }
+  .data-meta-right{
+    text-align:center;
+  }
+}
+
+/* ===== SEARCH STATUS ===== */
+.search-status{
+  margin:20px auto;
+  max-width:520px;
+  text-align:center;
+  padding:14px 18px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:500;
+  display:none;
+}
+
+.status-info{
+  background:#eef2ff;
+  color:#3730a3;
+}
+
+.status-warning{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.status-error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.status-success{
+  background:#e6f4ea;
+  color:#065f46;
+}
 </style>
 </head>
 
@@ -528,6 +631,7 @@ main{
       font-size:15px;
     ">
 </div>
+<div id="searchStatus" class="search-status"></div>
 
 <div id="searchResult" class="gudep-grid"></div>
 
@@ -629,17 +733,28 @@ main{
 
 </section>
 
-<section class="data-meta">
-  <div class="data-meta-box">
-    <i class='bx bx-data'></i>
-    <div class="data-meta-text">
-      <div class="data-meta-title">
-        Data Versi <span>v1.0</span>
-      </div>
-      <div class="data-meta-sub">
-        Terakhir diperbarui: <span>17 Agustus 2024</span>
+<section class="data-meta-section">
+  <div class="data-meta-container">
+
+    <div class="data-meta-left">
+      <i class='bx bx-refresh'></i>
+      <div>
+        <div class="meta-title">
+          Versi Data Garuda
+        </div>
+        <div class="meta-sub">
+          Data terintegrasi langsung dengan Spreadsheet Kwarran Punggelan
+        </div>
       </div>
     </div>
+
+    <div class="data-meta-right">
+      <div class="meta-label">Terakhir Diperbarui</div>
+      <div class="meta-date" id="lastUpdateText">
+        Memuat data...
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -694,13 +809,14 @@ function toggleDropdown(el){el.parentElement.classList.toggle("open");}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbwXwRTMyeztyiHa11b865OfZo4r7Bf-uAWT8uDdLAvr7OFQHjktYwnjRDRf6RUCJPaw/exec";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbykg94jJ38NKJHj42gtLZ2HpobCJH-7xkiVtsfFZ6W42llQDdbvzBM0sjovOb0H2fMO/exec";
 
 fetch(ENDPOINT)
   .then(r=>r.json())
   .then(d=>{
-  renderGaruda(d.garuda);
-  initSearch(d.garuda);
+    renderGaruda(d.garuda);
+    initSearch(d.garuda);
+    updateLastUpdate(d.garuda); // TAMBAHKAN INI
 });
 </script>
 <script>
@@ -774,48 +890,90 @@ function formatTanggalISO(iso){
 function initSearch(data){
   const input = document.getElementById("searchInput");
   const result = document.getElementById("searchResult");
+  const statusBox = document.getElementById("searchStatus");
 
   input.addEventListener("input", ()=>{
     const q = input.value.toLowerCase().trim();
     result.innerHTML = "";
 
-    if(q.length < 3) return;
-
-    const found = data.filter(x =>
-      x.nama_lengkap.toLowerCase().includes(q) ||
-      x.no_sertifikat.toLowerCase().includes(q)
-    );
-
-    if(found.length === 0){
-      result.innerHTML = "<p style='text-align:center;color:#777'>Data tidak ditemukan, hubungi admin untuk menambah data kamu :D</p>";
+    if(q.length === 0){
+      statusBox.style.display="none";
       return;
     }
 
-    found.forEach(x=>{
-      const warna = {
-        "Siaga":"#16a34a",
-        "Penggalang":"#dc2626",
-        "Penegak":"#facc15",
-        "Pandega":"#7c2d12"
-      }[x.golongan] || "#999";
+    if(q.length < 3){
+      statusBox.className="search-status status-warning";
+      statusBox.style.display="block";
+      statusBox.innerHTML="Ketik minimal 3 karakter untuk mulai mencari...";
+      return;
+    }
 
-      result.innerHTML += `
-        <div class="search-card">
-          <h4>${x.nama_lengkap}</h4>
-          <div class="search-row"><b>No. Sertifikat:</b> ${x.no_sertifikat}</div>
-          <div class="search-row"><b>Golongan:</b> ${x.golongan}</div>
-          <div class="search-row"><b>Gugus Depan:</b> ${x.gugus_depan}</div>
-          <div class="search-row"><b>Tanggal Dilantik:</b> ${formatTanggalISO(x.tanggal_dilantik)}</div>
-          <span class="search-badge" style="background:${warna};color:#fff">
-            Pramuka Garuda
-          </span>
-        </div>
-      `;
-    });
+    statusBox.className="search-status status-info";
+    statusBox.style.display="block";
+    statusBox.innerHTML="🔎 Sedang mencari data...";
+
+    setTimeout(()=>{
+
+      const found = data.filter(x =>
+        x.nama_lengkap.toLowerCase().includes(q) ||
+        x.no_sertifikat.toLowerCase().includes(q)
+      );
+
+      if(found.length === 0){
+        statusBox.className="search-status status-error";
+        statusBox.innerHTML="⚠️ Data tidak ditemukan. Jika merasa sudah terdaftar, silakan hubungi admin.";
+        return;
+      }
+
+      statusBox.className="search-status status-success";
+      statusBox.innerHTML=`📄 Ditemukan ${found.length} data`;
+
+      found.forEach(x=>{
+        const warna = {
+          "Siaga":"#16a34a",
+          "Penggalang":"#dc2626",
+          "Penegak":"#facc15",
+          "Pandega":"#7c2d12"
+        }[x.golongan] || "#999";
+
+        result.innerHTML += `
+          <div class="search-card">
+            <h4>${x.nama_lengkap}</h4>
+            <div class="search-row"><b>No. Sertifikat:</b> ${x.no_sertifikat}</div>
+            <div class="search-row"><b>Golongan:</b> ${x.golongan}</div>
+            <div class="search-row"><b>Gugus Depan:</b> ${x.gugus_depan}</div>
+            <div class="search-row"><b>Tanggal Dilantik:</b> ${formatTanggalISO(x.tanggal_dilantik)}</div>
+            <span class="search-badge" style="background:${warna};color:#fff">
+              Pramuka Garuda
+            </span>
+          </div>
+        `;
+      });
+
+    },300); // efek loading kecil biar profesional
   });
 }
+
+function updateLastUpdate(data){
+  if(!data.length) return;
+
+  const last = data
+    .map(x => new Date(x.last_update))
+    .filter(d => !isNaN(d))
+    .sort((a,b)=>b-a)[0];
+
+  if(!last) return;
+
+  const formatted = last.toLocaleDateString("id-ID",{
+    day:"2-digit",
+    month:"long",
+    year:"numeric"
+  });
+
+  document.getElementById("lastUpdateText").textContent = formatted;
+}
 </script>
+
 </body>
 </html>
-
 
