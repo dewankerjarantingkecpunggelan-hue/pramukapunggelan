@@ -533,37 +533,94 @@ body{
   color:var(--primary);
 }
 
+/* =========================
+   DATA META PROFESSIONAL
+========================= */
+
 .data-meta{
-  margin:40px auto 10px;
-  max-width:1200px;
-  padding:0 16px;
+  margin:50px 0 20px;
 }
 
 .data-meta-box{
   display:flex;
   align-items:center;
-  gap:14px;
-  background:#f8fafc;
-  border-left:5px solid var(--primary);
-  border-radius:10px;
-  padding:14px 18px;
-  font-size:14px;
-  color:#374151;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+  background:linear-gradient(135deg,#ffffff,#f8fafc);
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:18px 22px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  position:relative;
+  overflow:hidden;
 }
 
-.data-meta-box i{
-  font-size:26px;
+.data-meta-box::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:6px;
+  background:var(--primary);
+}
+
+.data-meta-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.data-meta-icon{
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(91,44,131,.1);
+  border-radius:14px;
+  font-size:24px;
   color:var(--primary);
+}
+
+.data-meta-text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
 }
 
 .data-meta-title{
   font-weight:700;
+  font-size:15px;
   color:#111827;
+  letter-spacing:.3px;
 }
 
-.data-meta-sub{
+.data-meta-version{
   font-size:13px;
   color:#6b7280;
+}
+
+.data-meta-update{
+  font-size:14px;
+  font-weight:600;
+  color:#374151;
+}
+
+.data-meta-update span{
+  color:var(--primary);
+  font-weight:700;
+}
+
+.data-meta-badge{
+  background:#e6f4ea;
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:999px;
+  letter-spacing:.4px;
 }
 
 </style>
@@ -819,21 +876,38 @@ body{
       </a>
     </div>
   </div>
-</div>
 
 <section class="data-meta">
   <div class="data-meta-box">
-    <i class='bx bx-data'></i>
-    <div class="data-meta-text">
-      <div class="data-meta-title">
-        Data Versi <span>v1.0</span>
+
+    <div class="data-meta-left">
+      <div class="data-meta-icon">
+        <i class='bx bx-data'></i>
       </div>
-      <div class="data-meta-sub">
-        Terakhir diperbarui: <span>17 Agustus 2024</span>
+
+      <div class="data-meta-text">
+        <div class="data-meta-title">
+          Sistem Rekapitulasi Data Potensi Pramuka
+        </div>
+
+        <div class="data-meta-version">
+          Versi v1.0
+        </div>
+
+        <div class="data-meta-update">
+          Terakhir diperbarui:
+          <span id="lastUpdate">Memuat data...</span>
+        </div>
       </div>
     </div>
+
+    <div class="data-meta-badge">
+      LIVE DATA
+    </div>
+
   </div>
 </section>
+</div>
 
 </div>
 <footer>
@@ -962,9 +1036,39 @@ function loadData(){
   document.body.appendChild(s);
 }
 function handle(data){
-  RAW=data;
-  renderRekap(data.gudep,data.saka);
-renderCharts(data.gudep);
+  RAW = data;
+
+  renderRekap(data.gudep, data.saka);
+  renderCharts(data.gudep);
+
+  // ===== UPDATE LAST UPDATE =====
+  updateLastUpdate(data);
+}
+
+function updateLastUpdate(data){
+  const el = document.getElementById("lastUpdate");
+
+  // Jika backend kirim field lastUpdated
+  if(data.lastUpdated){
+    const date = new Date(data.lastUpdated);
+
+    const options = {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    };
+
+    el.textContent = date.toLocaleDateString("id-ID", options);
+  } 
+  else {
+    // Fallback jika tidak ada field lastUpdated
+    const now = new Date();
+    el.textContent = now.toLocaleDateString("id-ID", {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
 }
 
 /* ================= REKAP ================= */
@@ -1401,7 +1505,6 @@ function downloadPDF(){
 
 </body>
 </html>
-
 
 
 
