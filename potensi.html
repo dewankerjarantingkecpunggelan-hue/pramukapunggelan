@@ -723,6 +723,69 @@ body{
 .btn-purple:hover {
   background: var(--wosm-purple-light);
 }
+  /* =========================
+   MOBILE IMPROVEMENT - DATA META
+========================= */
+@media (max-width: 768px){
+
+  .data-meta{
+    margin:30px 0 10px;
+  }
+
+  .data-meta-box{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:18px;
+    gap:14px;
+    border-radius:16px;
+  }
+
+  .data-meta-box::before{
+    width:100%;
+    height:5px;
+    top:0;
+    left:0;
+  }
+
+  .data-meta-left{
+    width:100%;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .data-meta-icon{
+    width:42px;
+    height:42px;
+    font-size:20px;
+    border-radius:12px;
+  }
+
+  .data-meta-text{
+    width:100%;
+  }
+
+  .data-meta-title{
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  .data-meta-version{
+    font-size:12px;
+  }
+
+  .data-meta-update{
+    font-size:13px;
+    margin-top:4px;
+  }
+
+  .data-meta-badge{
+    align-self:flex-start;
+    font-size:11px;
+    padding:5px 10px;
+    letter-spacing:.5px;
+  }
+
+}
 </style>
   
   <div class="kop-laporan" style="display:none;text-align:center;margin-bottom:24px">
@@ -899,10 +962,6 @@ body{
           <span id="lastUpdate">Memuat data...</span>
         </div>
       </div>
-    </div>
-
-    <div class="data-meta-badge">
-      LIVE DATA
     </div>
 
   </div>
@@ -1505,6 +1564,7 @@ function downloadPDF(){
 
 </body>
 </html>
+
 
 
 
