@@ -22,6 +22,7 @@
     { "source": "/kategori", "destination": "/tag.html" },
     { "source": "/tag", "destination": "/tags.html" },
     { "source": "/pusdig", "destination": "/pusdig.html" },
+    { "source": "/verval", "destination": "/verval.html" },
     { "source": "/:code", "destination": "/api/:code" }
   ]
 }
