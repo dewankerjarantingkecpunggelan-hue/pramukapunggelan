@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input Data Pramuka Garuda • Kwarran Punggelan</title>
+
+<link rel="icon" href="assets/images/logologo.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --bg:#f4f6f8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  background:var(--bg);
+}
+
+.hero{
+  height:260px;
+  background:linear-gradient(rgba(91,44,131,.8),rgba(91,44,131,.8)),
+  url("https://pramuka.id/assets/uploads/2022/12/2.jpg") center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  text-align:center;
+}
+.hero h2{font-size:30px;margin:0}
+
+main{
+  max-width:700px;
+  margin:-60px auto 60px;
+  padding:20px;
+}
+
+.form-card{
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.form-card h3{
+  margin-top:0;
+  color:var(--primary);
+  text-align:center;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+input, select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:2px solid #e5e7eb;
+  font-size:14px;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:var(--primary);
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  font-size:15px;
+  transition:.3s;
+}
+
+button:hover{
+  background:var(--primary-light);
+}
+
+.notice{
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  font-size:14px;
+  text-align:center;
+  display:none;
+}
+
+.success{background:#dcfce7;color:#166534}
+.error{background:#fee2e2;color:#991b1b}
+
+.hidden-field{
+  display:none;
+}
+
+.info-box{
+  background:#f3e8ff;
+  border-left:5px solid var(--primary);
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:20px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.info-box h4{
+  margin-top:0;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.info-box ul{
+  padding-left:18px;
+  margin:10px 0 0 0;
+}
+
+.warning-box{
+  background:#fff7ed;
+  border-left:5px solid #f97316;
+  padding:16px;
+  border-radius:12px;
+  margin-top:20px;
+  font-size:14px;
+}
+
+.warning-box a{
+  color:#5b2c83;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.warning-box a:hover{
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div>
+    <h2>Form Input Data Pramuka Garuda</h2>
+    <p>Kwartir Ranting Gerakan Pramuka Punggelan</p>
+  </div>
+</section>
+
+<main>
+  <div class="form-card">
+    <h3>Tambah Data Garuda</h3>
+    <div class="info-box">
+  <h4><i class='bx bx-info-circle'></i> Tata Cara Pengisian Form</h4>
+  <ul>
+    <li>Pastikan nomor sertifikat sesuai dengan dokumen resmi.</li>
+    <li>Nama lengkap ditulis tanpa gelar dan sesuai sertifikat.</li>
+    <li>Pilih golongan sesuai jenjang Garuda yang dilantik.</li>
+    <li>Isi gugus depan lengkap (opsional boleh dituliskan no. gudep).</li>
+    <li>Tanggal dilantik sesuai tanggal pada sertifikat.</li>
+    <li>Gunakan email aktif untuk menerima kode verifikasi.</li>
+    <li>Masukkan kode verifikasi sebelum menekan tombol Simpan Data.</li>
+  </ul>
+</div>
+    <form id="pradaForm">
+
+      <!-- Honeypot Anti Spam -->
+      <input type="text" id="website" class="hidden-field">
+
+      <div class="form-group">
+        <label>No Sertifikat</label>
+        <input type="text" id="no_sertifikat" required 
+        placeholder="Contoh: 11.04.12.00000.0000">
+      </div>
+
+      <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" id="nama_lengkap" required 
+placeholder="Contoh: Ahmad Fauzan Pratama">
+      </div>
+
+      <div class="form-group">
+        <label>Golongan</label>
+<select id="golongan" required>
+  <option value="" disabled selected>-- Pilih Golongan Garuda --</option>
+  <option>Siaga</option>
+  <option>Penggalang</option>
+  <option>Penegak</option>
+  <option>Pandega</option>
+</select>
+      </div>
+
+      <div class="form-group">
+        <label>Gugus Depan</label>
+        <input type="text" id="gugus_depan" required 
+placeholder="Contoh: SDN 10 Punggelan - 11.087">
+      </div>
+
+      <div class="form-group">
+        <label>Tanggal Dilantik</label>
+        <input type="date" id="tanggal_dilantik" required 
+title="Pilih tanggal sesuai sertifikat">
+      </div>
+
+      <div class="form-group">
+  <label>Email Verifikasi</label>
+  <input type="email" id="email_verifikasi" required placeholder="contoh@email.com">
+    <button type="button" onclick="kirimKode()" style="margin-top:8px;background:#6f3aa6">
+    <i class='bx bx-send'></i> Kirim Kode
+  </button>
+</div>
+
+<div class="form-group">
+  <label>Kode Verifikasi</label>
+  <input type="text" id="kode_verifikasi" placeholder="Masukkan kode dari email">
+</div>
+
+<button type="submit" id="btnSubmit">
+  <i class='bx bx-save'></i> Simpan Data
+</button>
+
+      <div id="responseMsg" class="notice"></div>
+
+    </form>
+  </div>
+
+<div class="warning-box">
+  <strong><i class='bx bx-error-circle'></i> Catatan Penting:</strong><br><br>
+  Untuk pengiriman data dalam jumlah banyak (bulk data), 
+  <strong>harap tidak menginput satu per satu melalui form ini</strong>.<br><br>
+  Silakan hubungi Admin untuk pengiriman kolektif agar diproses melalui sistem khusus (kirim data csv atau xlsx).<br><br>
+
+  📞 Admin: 
+  <a href="https://wa.me/6282136065407" target="_blank">
+    <strong>082136065407 (Aryo)</strong>
+  </a><br>
+
+  📧 Email: 
+  <a href="mailto:kwarrankecamatanpunggelan@gmail.com">
+    <strong>kwarrankecamatanpunggelan@gmail.com</strong>
+  </a><br>
+
+  📷 Instagram: 
+  <a href="https://instagram.com/kwarran.punggelan" target="_blank">
+    <strong>@kwarran.punggelan</strong>
+  </a>
+</div>
+</main>
+
+<script>
+const POST_ENDPOINT = "https://script.google.com/macros/s/AKfycbwluCB8-4BqSZaRu8_jQIol2ko6qexL9qQYrVK3doEaRPIMGVcsgQFN73hvw3GYFYeg/exec";
+
+document.getElementById("pradaForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const honeypot = document.getElementById("website").value;
+  if(honeypot !== "") return; // blok bot
+
+  const btn = document.getElementById("btnSubmit");
+  btn.disabled = true;
+  btn.innerHTML = "Mengirim...";
+
+const data = {
+  action:"verifyAndSave",
+  id: "GRD-" + Date.now(),
+  no_sertifikat: document.getElementById("no_sertifikat").value.trim(),
+  nama_lengkap: document.getElementById("nama_lengkap").value.trim(),
+  golongan: document.getElementById("golongan").value,
+  gugus_depan: document.getElementById("gugus_depan").value.trim(),
+  tanggal_dilantik: document.getElementById("tanggal_dilantik").value,
+  email: document.getElementById("email_verifikasi").value.trim(),
+  kode: document.getElementById("kode_verifikasi").value.trim()
+};
+
+  fetch(POST_ENDPOINT,{
+    method:"POST",
+    body: JSON.stringify(data)
+  })
+.then(r=>r.json())
+.then(res=>{
+  if(res.status==="success"){
+    showMessage("Data berhasil disimpan ✅","success");
+    document.getElementById("pradaForm").reset();
+  }else{
+    showMessage(res.message || "Kode salah ❌","error");
+  }
+})
+  .catch(()=>{
+    showMessage("Gagal mengirim data ❌","error");
+  })
+  .finally(()=>{
+    btn.disabled = false;
+    btn.innerHTML = "<i class='bx bx-save'></i> Simpan Data";
+  });
+});
+
+function showMessage(msg,type){
+  const box = document.getElementById("responseMsg");
+  box.className = "notice " + type;
+  box.style.display = "block";
+  box.innerHTML = msg;
+}
+
+let emailTerverifikasi = false;
+
+function kirimKode(){
+  const email = document.getElementById("email_verifikasi").value.trim();
+
+  if(!email){
+    showMessage("Isi email dulu ❌","error");
+    return;
+  }
+
+  fetch(POST_ENDPOINT,{
+    method:"POST",
+    body: JSON.stringify({
+      action:"sendCode",
+      email: email
+    })
+  })
+  .then(r=>r.json())
+  .then(res=>{
+    if(res.status==="sent"){
+      showMessage("Kode dikirim ke email ✅","success");
+    }else{
+      showMessage("Gagal kirim kode ❌","error");
+    }
+  });
+}
+</script>
+
+</body>
+</html>

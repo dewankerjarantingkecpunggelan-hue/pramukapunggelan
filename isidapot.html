@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Input Data Gudep</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#7c3aed;
+  --bg:#f4f6fb;
+  --border:#e5e7eb;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  background:linear-gradient(135deg,#f4f6fb,#eef2ff);
+}
+
+.container{
+  max-width:950px;
+  margin:50px auto;
+  background:#fff;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.header h1{
+  margin:0;
+  color:var(--primary);
+  font-size:26px;
+}
+
+.header p{
+  margin-top:8px;
+  font-size:14px;
+  color:#666;
+}
+
+.header-pro{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;   /* 🔥 penting */
+  gap:40px;
+  margin-bottom:40px;
+  padding-bottom:20px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.header-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;  /* 🔥 sejajar kanan */
+  gap:12px;
+}
+
+.header-left{
+  flex:1;
+}
+
+.title-wrapper h1{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+  color:#111827;
+  letter-spacing:.2px;
+}
+
+.title-wrapper p{
+  margin:8px 0 12px;
+  font-size:14px;
+  color:#6b7280;
+  font-weight:500;
+}
+
+.header-line{
+  width:70px;
+  height:4px;
+  background:linear-gradient(90deg,#5b2c83,#7c3aed);
+  border-radius:10px;
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  flex-wrap:nowrap;   /* 🔥 cegah turun */
+}
+
+.badge-mode{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  padding:4px 12px;
+  margin-bottom:12px;
+
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+
+  border-radius:999px;
+
+  background:#eef2ff;
+  color:#5b2c83;
+
+  border:1px solid rgba(91,44,131,.15);
+}
+
+.badge-mode i{
+  font-size:14px;
+}
+
+.badge-edit{
+  background:linear-gradient(135deg,#f3e8ff,#ede9fe);
+  color:#6b21a8;
+  border:1px solid rgba(107,33,168,.15);
+}
+
+.btn-edit-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 18px;
+  font-size:13px;
+  font-weight:600;
+  border:none;
+  border-radius:10px;
+  background:#111827;
+  color:#fff;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.btn-edit-header:hover{
+  background:#000;
+  transform:translateY(-2px);
+  box-shadow:0 6px 15px rgba(0,0,0,.15);
+}
+
+@media(max-width:768px){
+
+  .header-pro{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .header-actions{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .btn-edit-header{
+    flex:1;
+    justify-content:center;
+  }
+
+  .header-actions{
+  flex-direction:column;
+  align-items:stretch;
+  gap:12px;
+}
+
+.badge-mode{
+  width:100%;
+}
+
+.btn-edit-header{
+  width:100%;
+}
+}
+
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+label{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#444;
+}
+
+input, select{
+  padding:13px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  font-size:14px;
+  transition:.2s;
+  background:#fafafa;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:var(--primary-light);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(124,58,237,.15);
+}
+
+button{
+  margin-top:35px;
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:var(--primary);
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+}
+
+button:hover{
+  background:var(--primary-light);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.message{
+  margin-top:20px;
+  padding:14px;
+  border-radius:12px;
+  display:none;
+  font-size:14px;
+}
+
+.success{
+  background:#e6f4ea;
+  color:#065f46;
+}
+
+.error{
+  background:#fee2e2;
+  color:#7f1d1d;
+}
+
+.footer-note{
+  margin-top:30px;
+  text-align:center;
+  font-size:12px;
+  color:#777;
+}
+
+@media(max-width:600px){
+  .container{
+    margin:20px;
+    padding:25px;
+  }
+}
+
+.gudep-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.gudep-title{
+  font-weight:700;
+  color:var(--primary);
+  margin-bottom:10px;
+  font-size:16px;
+}
+
+.golongan-list{
+  font-size:14px;
+  color:#444;
+  line-height:1.7;
+}
+
+.total-anggota{
+  margin-top:10px;
+  font-weight:600;
+  color:#16a34a;
+}
+
+@media(max-width:768px){
+
+  .header-pro{
+    flex-direction:column;
+  }
+
+  .header-right{
+    width:100%;
+    align-items:stretch;
+  }
+
+  .badge-mode,
+  .btn-edit-header{
+    width:100%;
+    justify-content:center;
+  }
+}
+
+/* ============================= */
+/* MOBILE HEADER FIX PROFESSIONAL */
+/* ============================= */
+
+@media(max-width:768px){
+
+  /* Container lebih rapat */
+  .container{
+    margin:20px;
+    padding:25px;
+  }
+
+  /* Header jadi center */
+  .header-pro{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:15px;
+    margin-bottom:25px;   /* 🔥 lebih pendek */
+  }
+
+  .title-wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .header-line{
+    margin:10px auto 0 auto;
+  }
+
+  /* Tombol jangan terlalu turun */
+  .header-right{
+    width:100%;
+    align-items:center;
+    margin-top:1px;  /* 🔥 kecilin jarak */
+  }
+
+  .btn-edit-header{
+    width:100%;
+    max-width:320px;
+    justify-content:center;
+  }
+
+  /* Badge tetap kecil dan center */
+  .badge-mode{
+    margin-bottom:8px;
+  }
+
+}
+
+.modal-box{
+  position:relative;
+}
+
+.modal-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  color:#6b7280;
+}
+
+.modal-close:hover{
+  background:#f3f4f6;
+  color:#111827;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header-pro">
+
+  <div class="header-left">
+  <div class="title-wrapper">
+
+    <div class="badge-mode" id="modeBadge">
+      <i class='bx bx-plus-circle'></i>
+      Mode Input Data
+    </div>
+
+    <h1>
+      Sistem Rekapitulasi Data Potensi Pramuka
+    </h1>
+
+    <p>
+      Kwartir Ranting Gerakan Pramuka Punggelan
+    </p>
+
+    <div class="header-line"></div>
+
+  </div>
+</div>
+
+  <div class="header-right">
+
+    <button type="button"
+            class="btn-edit-header"
+            onclick="bukaVerifikasi()">
+      <i class='bx bx-edit'></i>
+      Edit / Perbarui Data
+    </button>
+
+  </div>
+
+</div>
+
+  <!-- Honeypot Anti Spam -->
+  <input type="text" id="website" style="display:none">
+
+  <div class="form-grid">
+
+    <div class="form-group">
+      <label>Nama Gudep *</label>
+      <input type="text" id="NamaGudep" placeholder="Contoh: SD Negeri 10 Punggelan" required>
+    </div>
+
+    <div class="form-group">
+      <label>NPSN</label>
+      <input type="text" id="NPSN">
+    </div>
+
+    <div class="form-group">
+      <label>Alamat</label>
+      <input type="text" id="Alamat">
+    </div>
+
+    <div class="form-group">
+      <label>Kamabigus</label>
+      <input type="text" id="Kamabigus">
+    </div>
+
+    <div class="form-group">
+      <label>Golongan</label>
+      <select id="Golongan">
+        <option>Siaga</option>
+        <option>Penggalang</option>
+        <option>Penegak</option>
+        <option>Pandega</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Jumlah Putra</label>
+      <input type="number" id="JumlahPutra" min="0" value="0">
+    </div>
+
+    <div class="form-group">
+      <label>Jumlah Putri</label>
+      <input type="number" id="JumlahPutri" min="0" value="0">
+    </div>
+
+<div class="form-group">
+  <label>Regu Putra</label>
+  <input 
+    type="text" 
+    id="ReguPutra"
+    placeholder="Contoh: Oryx, Ababil"
+  >
+  <small style="font-size:12px;color:#777;margin-top:4px;">
+    Jika lebih dari satu dipisah koma (,)
+  </small>
+</div>
+
+<div class="form-group">
+  <label>Regu Putri</label>
+  <input 
+    type="text" 
+    id="ReguPutri"
+    placeholder="Contoh: Wijaya Kusuma, Edelweiss"
+  >
+  <small style="font-size:12px;color:#777;margin-top:4px;">
+    Jika lebih dari satu dipisah koma (,)
+  </small>
+</div>
+
+    <div class="form-group">
+      <label>Pramuka Garuda</label>
+      <input type="number" id="Garuda" min="0" value="0">
+    </div>
+
+    <div class="form-group">
+      <label>Pembina Putra</label>
+      <input type="number" id="PembinaPutra" min="0" value="0">
+    </div>
+
+    <div class="form-group">
+      <label>Pembina Putri</label>
+      <input type="number" id="PembinaPutri" min="0" value="0">
+    </div>
+
+    <div class="form-group">
+      <label>Koordinator Pembina</label>
+      <input type="text" id="KoordinatorPembina">
+    </div>
+
+    <div class="form-group">
+      <label>Kontak Pembina</label>
+      <input type="text" id="KontakPembina">
+    </div>
+
+  </div>
+
+  <button id="submitBtn" onclick="kirimData()">
+    <i class='bx bx-send'></i> Simpan Data
+  </button>
+
+  <div class="message success" id="successMsg">Data berhasil disimpan!</div>
+  <div class="message error" id="errorMsg">Terjadi kesalahan!</div>
+
+<div class="footer-note" style="margin-top:35px">
+
+  <div style="background:#f9fafb;border:1px solid #e5e7eb;padding:18px;border-radius:14px;margin-bottom:18px">
+    <strong style="color:#b91c1c;">
+      ⚠️ Catatan Penting:
+    </strong>
+    <div style="margin-top:8px;font-size:13px;color:#444;line-height:1.6">
+      Jika dalam satu sekolah terdapat lebih dari satu golongan 
+      (contoh: <b>Siaga & Penggalang</b>), 
+      maka <b>form wajib diisi 2 kali</b> sesuai masing-masing golongan.
+      <br><br>
+      Sistem hanya menerima <b>1 golongan per 1 pengiriman data</b>.
+    </div>
+  </div>
+
+  <div style="background:#f3f4f6;border:1px solid #e5e7eb;padding:18px;border-radius:14px">
+    <strong style="color:var(--primary);">
+      📞 Kontak Admin Kwarran Punggelan
+    </strong>
+    <div style="margin-top:10px;font-size:13px;color:#444;line-height:1.8">
+
+      <div>
+        <i class='bx bxl-whatsapp' style="color:#16a34a;"></i>
+        WhatsApp: <b>082136065407</b> (Aryo)
+      </div>
+
+      <div>
+        <i class='bx bxl-instagram' style="color:#e11d48;"></i>
+        Instagram: <b>@kwarran.punggelan</b>
+      </div>
+
+      <div>
+        <i class='bx bx-envelope' style="color:#2563eb;"></i>
+        Email: <b>kwarrankecamatanpunggelan@gmail.com</b>
+      </div>
+
+    </div>
+
+    <hr style="margin:50px 0">
+
+<div>
+  <h2 style="color:var(--primary);margin-bottom:20px;">
+    Gudep yang Sudah Melengkapi Pendataan
+  </h2>
+
+  <div id="daftarGudep" style="display:grid;gap:18px;"></div>
+</div>
+  </div>
+
+  <div style="margin-top:18px;font-size:12px;color:#777">
+    Sistem otomatis akan menolak pengiriman spam, duplikasi berulang, 
+    dan pengiriman berturut-turut dalam waktu singkat.
+  </div>
+
+</div>
+
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnP2lchpan-ISPEwO08JfVyA-f2-gOT5WyHuoHPoGiO_bXDRyL9E-qcZZMpQstvjey/exec";
+
+let lastSubmitTime = 0;
+
+function sanitize(str){
+  return str.replace(/[<>]/g,"");
+}
+
+function kirimData(){
+
+  const now = Date.now();
+
+  // Anti spam delay 5 detik
+  if(now - lastSubmitTime < 5000){
+    alert("Tunggu beberapa detik sebelum mengirim lagi.");
+    return;
+  }
+
+  // Honeypot
+  if(document.getElementById("website").value !== ""){
+    return;
+  }
+
+  const NamaGudep = sanitize(document.getElementById("NamaGudep").value.trim());
+  if(!NamaGudep){
+    alert("Nama Gudep wajib diisi!");
+    return;
+  }
+
+  const data = {
+    NamaGudep,
+    NPSN: sanitize(NPSN.value),
+    Alamat: sanitize(Alamat.value),
+    Kamabigus: sanitize(Kamabigus.value),
+    Golongan: Golongan.value,
+    JumlahPutra: JumlahPutra.value,
+    JumlahPutri: JumlahPutri.value,
+    ReguPutra: sanitize(ReguPutra.value),
+    ReguPutri: sanitize(ReguPutri.value),
+    Garuda: Garuda.value,
+    PembinaPutra: PembinaPutra.value,
+    PembinaPutri: PembinaPutri.value,
+    KoordinatorPembina: sanitize(KoordinatorPembina.value),
+    KontakPembina: sanitize(KontakPembina.value)
+  };
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Mengirim...";
+
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    body:JSON.stringify(data)
+  })
+  .then(res=>res.json())
+  .then(res=>{
+    if(res.status==="success"){
+      successMsg.style.display="block";
+      errorMsg.style.display="none";
+      document.querySelectorAll("input").forEach(i=>i.value="");
+      lastSubmitTime = Date.now();
+    }else{
+      throw "error";
+    }
+  })
+  .catch(()=>{
+    errorMsg.style.display="block";
+    successMsg.style.display="none";
+  })
+  .finally(()=>{
+    btn.disabled = false;
+    btn.innerHTML = "<i class='bx bx-send'></i> Simpan Data";
+  });
+}
+
+function tampilGudep(){
+
+  fetch(SCRIPT_URL)
+  .then(res=>res.json())
+  .then(res=>{
+
+    const container = document.getElementById("daftarGudep");
+    container.innerHTML = "";
+
+    if(!res.gudep || res.gudep.length === 0){
+      container.innerHTML = "<p>Belum ada data.</p>";
+      return;
+    }
+
+    res.gudep.forEach(g=>{
+
+      let totalSemua = 0;
+      let golonganHTML = "";
+
+      g.golonganPramuka.forEach(gl=>{
+        const totalGol = gl.jumlahPutra + gl.jumlahPutri;
+        totalSemua += totalGol;
+
+        golonganHTML += `
+          <div>
+            <strong>${gl.golongan}</strong> :
+            ${gl.jumlahPutra} Putra + 
+            ${gl.jumlahPutri} Putri 
+            = <b>${totalGol} anggota</b>
+          </div>
+        `;
+      });
+
+      const card = document.createElement("div");
+      card.className = "gudep-card";
+      card.innerHTML = `
+        <div class="gudep-title">
+          <i class='bx bx-school'></i> ${g.NamaGudep}
+        </div>
+        <div class="golongan-list">
+          ${golonganHTML}
+        </div>
+        <div class="total-anggota">
+          Total Seluruh Anggota: ${totalSemua}
+        </div>
+      `;
+
+      container.appendChild(card);
+
+    });
+
+  })
+  .catch(()=>{
+    document.getElementById("daftarGudep").innerHTML =
+      "<p style='color:red'>Gagal memuat data.</p>";
+  });
+
+}
+
+window.onload = tampilGudep;
+</script>
+
+<div id="modalUpdate" style="display:none;
+position:fixed;inset:0;
+background:rgba(0,0,0,.5);
+justify-content:center;
+align-items:center;z-index:999">
+
+<div class="modal-box" style="background:#fff;padding:30px;border-radius:18px;
+width:95%;max-width:450px">
+<div class="modal-close" onclick="tutupModal('modalUpdate')">
+  <i class='bx bx-x' style="font-size:20px;"></i>
+</div>
+
+<h3 style="margin-top:0;color:var(--primary)">
+Verifikasi Data
+</h3>
+<div style="
+background:#f9fafb;
+border:1px solid #e5e7eb;
+padding:14px;
+border-radius:12px;
+margin-bottom:18px;
+font-size:12px;
+color:#444;
+line-height:1.6">
+
+<strong style="color:#b91c1c;">
+⚠️ Ketentuan Sistem:
+</strong>
+
+<ul style="padding-left:18px;margin:8px 0 0 0;">
+  <li>Golongan <b>tidak dapat dirubah</b> setelah data pertama kali disimpan.</li>
+  <li>Jika golongan diubah dan disimpan, sistem akan tetap menyimpan sesuai golongan awal.</li>
+  <li>Pastikan NPSN dan Nomor Pembina sesuai dengan data saat input pertama.</li>
+  <li>Perubahan hanya berlaku untuk jumlah anggota dan data pendukung.</li>
+</ul>
+
+</div>
+<input type="text" id="verifNPSN"
+placeholder="Masukkan NPSN"
+style="width:100%;margin-bottom:15px;padding:12px;border-radius:12px;border:1px solid #ddd">
+
+<input type="text" id="verifKontak"
+placeholder="Nomor Telepon Pembina"
+style="width:100%;margin-bottom:15px;padding:12px;border-radius:12px;border:1px solid #ddd">
+
+<button onclick="cekVerifikasi()"
+style="width:100%;padding:12px;border:none;border-radius:12px;
+background:var(--primary);color:#fff;font-weight:600">
+Verifikasi
+</button>
+
+</div>
+</div>
+<div id="modalGolongan" style="
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+justify-content:center;
+align-items:center;
+z-index:999">
+
+<div style="
+background:#fff;
+padding:30px;
+border-radius:18px;
+width:95%;
+max-width:450px">
+
+<h3 style="margin-top:0;color:var(--primary)">
+Pilih Golongan yang Akan Diedit
+</h3>
+
+<select id="pilihGolongan"
+style="width:100%;margin-bottom:20px;padding:12px;border-radius:12px;border:1px solid #ddd">
+</select>
+
+<button onclick="lanjutPilihGolongan()"
+style="width:100%;padding:12px;border:none;border-radius:12px;
+background:var(--primary);color:#fff;font-weight:600">
+Lanjutkan
+</button>
+
+</div>
+</div>
+<script>
+  let dataGudepGlobal = [];
+
+function bukaVerifikasi(){
+  document.getElementById("modalUpdate").style.display="flex";
+}
+
+function cekVerifikasi(){
+
+  const npsn = verifNPSN.value.trim();
+  const kontak = verifKontak.value.trim();
+
+  fetch(SCRIPT_URL)
+  .then(res=>res.json())
+  .then(res=>{
+
+    dataGudepGlobal = res.gudep;
+
+    const cocok = dataGudepGlobal.find(g =>
+      g.NPSN == npsn &&
+      g.KontakPembina == kontak
+    );
+
+    if(!cocok){
+      alert("Data tidak ditemukan atau tidak cocok!");
+      return;
+    }
+
+    // Kalau lebih dari 1 golongan → tampilkan dropdown
+    if(cocok.golonganPramuka.length > 1){
+
+      const select = document.getElementById("pilihGolongan");
+      select.innerHTML = "";
+
+      cocok.golonganPramuka.forEach(gl=>{
+        const opt = document.createElement("option");
+        opt.value = gl.golongan;
+        opt.textContent = gl.golongan;
+        select.appendChild(opt);
+      });
+
+      window.gudepTerpilih = cocok;
+
+      modalUpdate.style.display = "none";
+      modalGolongan.style.display = "flex";
+
+    } else {
+      isiFormUpdate(cocok, cocok.golonganPramuka[0]);
+      modalUpdate.style.display = "none";
+    }
+
+  });
+}
+
+function lanjutPilihGolongan(){
+
+  const gol = pilihGolongan.value;
+
+  const gl = gudepTerpilih.golonganPramuka
+    .find(g=>g.golongan === gol);
+
+  if(!gl){
+    alert("Golongan tidak valid.");
+    return;
+  }
+
+  isiFormUpdate(gudepTerpilih, gl);
+
+  modalGolongan.style.display = "none";
+}
+
+function isiFormUpdate(g, gl){
+  // Ubah badge jadi Mode Edit
+const badge = document.getElementById("modeBadge");
+badge.innerHTML = "<i class='bx bx-edit'></i> Mode Edit Data";
+badge.classList.add("badge-edit");
+  
+  NamaGudep.value = g.NamaGudep;
+  NPSN.value = g.NPSN;
+  Alamat.value = g.Alamat;                 // TAMBAH INI
+  Kamabigus.value = g.Kamabigus;           // TAMBAH INI
+
+  Golongan.value = gl.golongan;
+  JumlahPutra.value = gl.jumlahPutra;
+  JumlahPutri.value = gl.jumlahPutri;
+  ReguPutra.value = gl.namaReguPutra.join(", ");
+  ReguPutri.value = gl.namaReguPutri.join(", ");
+
+  Garuda.value = g.Garuda;
+  PembinaPutra.value = g.PembinaPutra;
+  PembinaPutri.value = g.PembinaPutri;
+
+  KoordinatorPembina.value = g.KoordinatorPembina; // TAMBAH
+  KontakPembina.value = g.KontakPembina;           // TAMBAH
+
+  submitBtn.innerHTML =
+    "<i class='bx bx-refresh'></i> Update Data";
+
+  submitBtn.onclick = function(){
+    updateData(g.NamaGudep, gl.golongan);
+  };
+}
+
+function updateData(nama, gol){
+
+  const data = {
+    action: "update",
+    NamaGudep: nama,
+    Golongan: gol,
+
+    NPSN: NPSN.value,
+    Alamat: Alamat.value,                   // TAMBAH
+    Kamabigus: Kamabigus.value,             // TAMBAH
+
+    JumlahPutra: JumlahPutra.value,
+    JumlahPutri: JumlahPutri.value,
+    ReguPutra: ReguPutra.value,
+    ReguPutri: ReguPutri.value,
+
+    Garuda: Garuda.value,
+    PembinaPutra: PembinaPutra.value,
+    PembinaPutri: PembinaPutri.value,
+
+    KoordinatorPembina: KoordinatorPembina.value, // TAMBAH
+    KontakPembina: KontakPembina.value
+  };
+
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    body:JSON.stringify(data)
+  })
+  .then(res=>res.json())
+  .then(res=>{
+    if(res.status==="updated"){
+      alert("Data berhasil diupdate!");
+      document.getElementById("modeBadge").innerHTML =
+  "<i class='bx bx-plus-circle'></i> Mode Input Data";
+document.getElementById("modeBadge")
+  .classList.remove("badge-edit");
+      location.reload();
+    }else{
+      alert("Gagal update.");
+    }
+  })
+  .catch(()=>{
+    alert("Terjadi kesalahan koneksi.");
+  });
+}
+function tutupModal(id){
+  document.getElementById(id).style.display="none";
+}
+
+window.onclick = function(e){
+  const modalUpdate = document.getElementById("modalUpdate");
+  const modalGolongan = document.getElementById("modalGolongan");
+
+  if(e.target === modalUpdate){
+    modalUpdate.style.display = "none";
+  }
+
+  if(e.target === modalGolongan){
+    modalGolongan.style.display = "none";
+  }
+};
+</script>
+</body>
+</html>

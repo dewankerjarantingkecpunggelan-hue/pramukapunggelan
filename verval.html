@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verval Data • Kwarran Punggelan</title>
+
+<link rel="icon" href="assets/images/logologo.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#5b2c83;
+  --primary-light:#6f3aa6;
+  --bg:#f4f6f8;
+  --success:#16a34a;
+  --danger:#dc2626;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  background:var(--bg);
+}
+
+/* HERO */
+.hero{
+  height:260px;
+  background:linear-gradient(rgba(91,44,131,.85),rgba(91,44,131,.85)),
+  url("https://pramuka.id/assets/uploads/2022/12/2.jpg") center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  padding:20px;
+}
+.hero h1{margin:0;font-size:32px}
+.hero p{margin-top:10px;opacity:.9}
+
+/* MAIN */
+main{
+  max-width:900px;
+  margin:-60px auto 60px;
+  padding:20px;
+}
+
+.card-wrapper{
+  background:#fff;
+  border-radius:22px;
+  padding:40px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.nav-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+
+/* NAV CARD */
+.nav-card{
+  position:relative;
+  background:#fafafa;
+  border-radius:18px;
+  padding:50px 30px 30px;
+  text-align:center;
+  transition:.3s ease;
+  border:2px solid transparent;
+}
+
+.nav-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--primary);
+  box-shadow:0 10px 25px rgba(91,44,131,.15);
+}
+
+/* BADGE */
+.badge{
+  position:absolute;
+  top:15px;
+  left:15px;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:20px;
+  letter-spacing:.5px;
+}
+
+.badge-guru{
+  background:rgba(91,44,131,.1);
+  color:var(--primary);
+  border:1px solid var(--primary);
+}
+
+.badge-umum{
+  background:rgba(22,163,74,.1);
+  color:var(--success);
+  border:1px solid var(--success);
+}
+
+/* LOGO */
+.nav-card img{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  margin-bottom:15px;
+}
+
+.nav-card h3{margin:10px 0;font-size:18px;color:#111827}
+.nav-card p{font-size:14px;color:#6b7280;margin-bottom:20px}
+
+.nav-card a{
+  display:inline-block;
+  padding:10px 22px;
+  background:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  border-radius:12px;
+  font-weight:600;
+  font-size:14px;
+  transition:.3s;
+}
+.nav-card a:hover{background:var(--primary-light)}
+
+.locked{
+  background:#9ca3af !important;
+  pointer-events:none;
+  cursor:not-allowed;
+}
+
+/* NOTE */
+.note{
+  margin-top:35px;
+  padding:15px;
+  background:#f3e8ff;
+  border-left:5px solid var(--primary);
+  border-radius:12px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  visibility:hidden;
+  opacity:0;
+  transition:.3s;
+}
+.modal.active{
+  visibility:visible;
+  opacity:1;
+}
+.modal-box{
+  background:#fff;
+  padding:30px;
+  border-radius:18px;
+  text-align:center;
+  max-width:350px;
+  width:90%;
+}
+.modal-box h3{margin-top:0}
+.modal-box button{
+  margin:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn-yes{background:var(--primary);color:#fff}
+.btn-no{background:var(--danger);color:#fff}
+
+@media(max-width:600px){
+  .hero h1{font-size:24px}
+  .card-wrapper{padding:25px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div>
+    <h1>Verifikasi & Validasi Data</h1>
+    <p>Kwartir Ranting Gerakan Pramuka Punggelan</p>
+  </div>
+</section>
+
+<main>
+<div class="card-wrapper">
+<div class="nav-grid">
+
+<!-- POTENSI -->
+<div class="nav-card">
+  <span class="badge badge-guru">🔒 KHUSUS GURU / PEMBINA</span>
+  <img src="assets/images/logologo.png">
+  <h3>Input Data Potensi Pramuka</h3>
+  <p>Form pengisian dan pembaruan Data Potensi Pramuka.</p>
+  <a href="#" id="btnPotensi">Buka Halaman</a>
+</div>
+
+<!-- GARUDA -->
+<div class="nav-card">
+  <span class="badge badge-umum">UNTUK UMUM</span>
+  <img src="assets/images/garuda.png">
+  <h3>Input Data Pramuka Garuda</h3>
+  <p>Pengisian data peserta Pramuka Garuda.</p>
+  <a href="isiprada.html">Buka Halaman</a>
+</div>
+
+</div>
+
+<div class="note">
+Halaman ini merupakan pusat navigasi untuk proses verifikasi dan validasi data.
+Pastikan memilih menu sesuai kebutuhan penginputan.
+</div>
+<div style="text-align:center;margin-top:25px;">
+  <button id="resetAksesBtn" 
+    style="background:#6b7280;color:#fff;border:none;
+           padding:10px 20px;border-radius:10px;
+           font-weight:600;cursor:pointer;">
+    Reset Validasi Akses
+  </button>
+</div>
+</div>
+</main>
+
+<!-- MODAL -->
+<div class="modal" id="modalValidasi">
+  <div class="modal-box">
+    <h3>Validasi Akses</h3>
+    <p>Apakah Anda seorang Pembina atau Guru?</p>
+    <button class="btn-yes" onclick="aksesGuru(true)">Ya</button>
+    <button class="btn-no" onclick="aksesGuru(false)">Bukan</button>
+  </div>
+</div>
+
+<script>
+const btnPotensi = document.getElementById("btnPotensi");
+const modal = document.getElementById("modalValidasi");
+
+if(localStorage.getItem("bukanGuru") === "true"){
+  btnPotensi.classList.add("locked");
+}
+
+btnPotensi.addEventListener("click", function(e){
+  if(localStorage.getItem("bukanGuru") === "true"){
+    e.preventDefault();
+    return;
+  }
+  e.preventDefault();
+  modal.classList.add("active");
+});
+
+function aksesGuru(isGuru){
+  modal.classList.remove("active");
+
+  if(isGuru){
+    window.location.href="isidapot.html";
+  } else {
+    localStorage.setItem("bukanGuru","true");
+    btnPotensi.classList.add("locked");
+    alert("Akses hanya untuk Guru/Pembina.");
+  }
+}
+</script>
+<!-- MODAL RESET TOKEN -->
+<div class="modal" id="modalReset">
+  <div class="modal-box">
+    <h3>Reset Validasi Akses</h3>
+    <p>Masukkan Token Admin</p>
+    <input type="password" id="resetTokenInput" 
+      placeholder="Masukkan token admin..."
+      style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;margin-top:10px;margin-bottom:15px;">
+    <div>
+      <button class="btn-yes" onclick="verifikasiReset()">Reset</button>
+      <button class="btn-no" onclick="tutupReset()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+    const resetBtn = document.getElementById("resetAksesBtn");
+const modalReset = document.getElementById("modalReset");
+
+// GANTI TOKEN ADMIN DI SINI
+const TOKEN_ADMIN = "PGL110412";
+
+resetBtn.addEventListener("click", function(){
+  modalReset.classList.add("active");
+});
+
+function tutupReset(){
+  modalReset.classList.remove("active");
+}
+
+function verifikasiReset(){
+  const input = document.getElementById("resetTokenInput").value.trim();
+
+  if(input === TOKEN_ADMIN){
+    localStorage.removeItem("bukanGuru");
+    btnPotensi.classList.remove("locked");
+    modalReset.classList.remove("active");
+    alert("Validasi akses berhasil direset.");
+  } else {
+    alert("Token admin salah.");
+  }
+}
+</script>
+</body>
+</html>
