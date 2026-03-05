@@ -561,6 +561,65 @@ main{
   background:#e6f4ea;
   color:#065f46;
 }
+
+  /* =========================
+   MOBILE FIX - DATA META
+========================= */
+@media(max-width:700px){
+
+  .data-meta-section{
+    margin-top:40px;
+  }
+
+  .data-meta-container{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:22px 18px;
+    gap:18px;
+  }
+
+  .data-meta-left{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .data-meta-left i{
+    font-size:26px;
+    padding:10px;
+    border-radius:12px;
+  }
+
+  .meta-title{
+    font-size:14px;
+  }
+
+  .meta-sub{
+    font-size:12px;
+    line-height:1.6;
+    max-width:320px;
+  }
+
+  .data-meta-right{
+    text-align:center;
+    width:100%;
+    background:#ffffff;
+    padding:14px;
+    border-radius:12px;
+    box-shadow:0 6px 16px rgba(0,0,0,.06);
+  }
+
+  .meta-label{
+    font-size:11px;
+    letter-spacing:.8px;
+  }
+
+  .meta-date{
+    font-size:15px;
+    margin-top:6px;
+  }
+
+}
 </style>
 </head>
 
@@ -740,10 +799,10 @@ main{
       <i class='bx bx-refresh'></i>
       <div>
         <div class="meta-title">
-          Versi Data Garuda
+          Pramuka Garuda Kwarran Punggelan
         </div>
         <div class="meta-sub">
-          Data terintegrasi langsung dengan Database Kwarran Punggelan
+          Data terintegrasi dengan Database Kwarran Punggelan
         </div>
       </div>
     </div>
@@ -976,6 +1035,7 @@ function updateLastUpdate(data){
 
 </body>
 </html>
+
 
 
 
