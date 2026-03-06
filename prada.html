@@ -300,35 +300,120 @@ main{
   font-weight:900;
 }
 
+/* ===== SEARCH CARD MODERN ===== */
 .search-card{
-  background:#fff;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 8px 22px rgba(0,0,0,.1);
+  background:#ffffff;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
   border-left:6px solid var(--gold);
+  transition:transform 0.15s ease-in-out;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
 .search-card h4{
-  margin:0 0 6px;
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.search-card h4::before{
+  content:'\f007'; /* FontAwesome user icon unicode */
+  font-family:'boxicons';
+  font-weight:900;
+  font-size:18px;
   color:var(--primary);
 }
 
 .search-row{
   font-size:14px;
-  margin:6px 0;
-  color:#333;
+  color:#374151;
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px dashed #e5e7eb;
+}
+
+.search-row:last-child{
+  border-bottom:none;
 }
 
 .search-badge{
   display:inline-block;
-  padding:4px 10px;
-  font-size:12px;
+  margin-top:12px;
+  padding:6px 14px;
+  font-size:13px;
   border-radius:20px;
   font-weight:600;
-  margin-top:8px;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  align-self:flex-start;
 }
 
-/* ===== KETENTUAN & INFORMASI PROFESIONAL ===== */
+.search-status{
+  font-weight:600;
+  font-size:14px;
+  border-radius:14px;
+  padding:14px 18px;
+  margin-bottom:20px;
+  display:none;
+}
+
+.status-info{
+  background:#eef2ff;
+  color:#3730a3;
+  border-left:4px solid var(--primary);
+}
+
+.status-warning{
+  background:#fff7ed;
+  color:#c2410c;
+  border-left:4px solid #f97316;
+}
+
+.status-error{
+  background:#fef2f2;
+  color:#991b1b;
+  border-left:4px solid #dc2626;
+}
+
+.status-success{
+  background:#ecfdf5;
+  color:#065f46;
+  border-left:4px solid #10b981;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:700px){
+  .search-card{
+    padding:18px;
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  }
+
+  .search-card h4{
+    font-size:16px;
+  }
+
+  .search-row{
+    font-size:13px;
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .search-badge{
+    font-size:12px;
+    padding:5px 12px;
+  }
+}
+  /* ===== KETENTUAN & INFORMASI PROFESIONAL ===== */
 .policy-section{
   margin-top:50px;
   display:grid;
@@ -1035,6 +1120,7 @@ function updateLastUpdate(data){
 
 </body>
 </html>
+
 
 
 
