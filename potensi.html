@@ -623,6 +623,69 @@ body{
   letter-spacing:.4px;
 }
 
+/* =========================
+   MOBILE IMPROVEMENT - DATA META
+========================= */
+@media (max-width: 768px){
+
+  .data-meta{
+    margin:30px 0 10px;
+  }
+
+  .data-meta-box{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:18px;
+    gap:14px;
+    border-radius:16px;
+  }
+
+  .data-meta-box::before{
+    width:100%;
+    height:5px;
+    top:0;
+    left:0;
+  }
+
+  .data-meta-left{
+    width:100%;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .data-meta-icon{
+    width:42px;
+    height:42px;
+    font-size:20px;
+    border-radius:12px;
+  }
+
+  .data-meta-text{
+    width:100%;
+  }
+
+  .data-meta-title{
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  .data-meta-version{
+    font-size:12px;
+  }
+
+  .data-meta-update{
+    font-size:13px;
+    margin-top:4px;
+  }
+
+  .data-meta-badge{
+    align-self:flex-start;
+    font-size:11px;
+    padding:5px 10px;
+    letter-spacing:.5px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -723,69 +786,6 @@ body{
 .btn-purple:hover {
   background: var(--wosm-purple-light);
 }
-  /* =========================
-   MOBILE IMPROVEMENT - DATA META
-========================= */
-@media (max-width: 768px){
-
-  .data-meta{
-    margin:30px 0 10px;
-  }
-
-  .data-meta-box{
-    flex-direction:column;
-    align-items:flex-start;
-    padding:18px;
-    gap:14px;
-    border-radius:16px;
-  }
-
-  .data-meta-box::before{
-    width:100%;
-    height:5px;
-    top:0;
-    left:0;
-  }
-
-  .data-meta-left{
-    width:100%;
-    align-items:flex-start;
-    gap:12px;
-  }
-
-  .data-meta-icon{
-    width:42px;
-    height:42px;
-    font-size:20px;
-    border-radius:12px;
-  }
-
-  .data-meta-text{
-    width:100%;
-  }
-
-  .data-meta-title{
-    font-size:14px;
-    line-height:1.4;
-  }
-
-  .data-meta-version{
-    font-size:12px;
-  }
-
-  .data-meta-update{
-    font-size:13px;
-    margin-top:4px;
-  }
-
-  .data-meta-badge{
-    align-self:flex-start;
-    font-size:11px;
-    padding:5px 10px;
-    letter-spacing:.5px;
-  }
-
-}
 </style>
   
   <div class="kop-laporan" style="display:none;text-align:center;margin-bottom:24px">
@@ -846,12 +846,12 @@ body{
 </div>
 
 <div class="card">
-  <h3>Rekap Peserta Didik</h3>
+  <h3>Rekap Anggota Pramuka</h3>
   <div class="rekap-grid" id="pesertaBody"></div>
 </div>
 
 <div class="card">
-  <h3>Visualisasi Peserta Didik Pramuka</h3>
+  <h3>Visualisasi Anggota Pramuka</h3>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px">
     
@@ -963,7 +963,7 @@ body{
         </div>
       </div>
     </div>
-
+    
   </div>
 </section>
 </div>
@@ -1085,7 +1085,7 @@ function toggleDropdown(el){el.parentElement.classList.toggle("open");}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbz-wZs5Y2T6m2SluhdH8_XUOPm3beilTUWpLxpIcGl7gwWexs6QKKrTMThGDPQMAnU0/exec";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbwQOUoSpxX-qAQGnXrL60iveD4kZdF7WCZTsYV9eQxC6lTHgX-TvDjN3iqlCmxj5XpB/exec";
 let RAW=null;
 
 /* JSONP */
@@ -1128,60 +1128,6 @@ function updateLastUpdate(data){
       year: 'numeric'
     });
   }
-}
-
-/* ================= REKAP ================= */
-function renderRekap(gudep, saka){
-  const peserta = {};
-  const garuda = {};
-  let pbP = 0, pbW = 0;
-
-  gudep.forEach(g=>{
-    pbP += g.PembinaPutra;
-    pbW += g.PembinaPutri;
-
-    g.golonganPramuka.forEach(x=>{
-      // PESERTA DIDIK
-      if(!peserta[x.golongan]) peserta[x.golongan]={p:0,w:0};
-      peserta[x.golongan].p += x.jumlahPutra;
-      peserta[x.golongan].w += x.jumlahPutri;
-
-      // GARUDA
-      if(!garuda[x.golongan]) garuda[x.golongan]={p:0,w:0};
-      const totalGaruda = g.Garuda || 0;
-      const totalPD = x.jumlahPutra + x.jumlahPutri || 1;
-
-      garuda[x.golongan].p += Math.round((x.jumlahPutra/totalPD)*totalGaruda);
-      garuda[x.golongan].w += Math.round((x.jumlahPutri/totalPD)*totalGaruda);
-    });
-  });
-
-  /* ===== PESERTA DIDIK ===== */
-  pesertaBody.innerHTML="";
-  Object.keys(peserta).forEach(k=>{
-    const v=peserta[k];
-    pesertaBody.innerHTML+=
-      `<tr><td>${k}</td><td>${v.p}</td><td>${v.w}</td><td><b>${v.p+v.w}</b></td></tr>`;
-  });
-
-  /* ===== PEMBINA (AMAN) ===== */
-  pembinaBody.innerHTML=
-    `<tr><td>Pembina Gudep</td><td>${pbP}</td><td>${pbW}</td><td><b>${pbP+pbW}</b></td></tr>`;
-
-  /* ===== GARUDA (FIX) ===== */
-  garudaBody.innerHTML="";
-  Object.keys(garuda).forEach(k=>{
-    const v=garuda[k];
-    garudaBody.innerHTML+=
-      `<tr><td>${k}</td><td>${v.p}</td><td>${v.w}</td><td><b>${v.p+v.w}</b></td></tr>`;
-  });
-
-  /* ===== SAKA (AMAN) ===== */
-  sakaBody.innerHTML="";
-  saka.forEach(s=>{
-    sakaBody.innerHTML+=
-      `<tr><td>${s.NamaSAKA}</td><td>${s.AnggotaPutra}</td><td>${s.AnggotaPutri}</td><td><b>${s.AnggotaPutra+s.AnggotaPutri}</b></td></tr>`;
-  });
 }
 
 
@@ -1235,36 +1181,48 @@ function showGudep(data){
   data.forEach(g=>{
     let golHTML="";
 
-    g.golonganPramuka.forEach(x=>{
-      golHTML+=`
-        <div class="gudep-section">
-         <div class="golongan-header">
-  <img src="${logoGolongan(x.golongan)}" class="golongan-icon">
-  <div class="golongan-title">${x.golongan}</div>
-</div>
+ g.golonganPramuka.forEach(x=>{
+  golHTML+=`
+    <div class="gudep-section">
 
-          <div class="gudep-row">
-            <span class="gudep-label">Putra</span>
-            <span class="gudep-value">${x.jumlahPutra}</span>
-          </div>
+      <div class="golongan-header">
+        <img src="${logoGolongan(x.golongan)}" class="golongan-icon">
+        <div class="golongan-title">${x.golongan}</div>
+      </div>
 
-          <div class="gudep-row">
-            <span class="gudep-label">Putri</span>
-            <span class="gudep-value">${x.jumlahPutri}</span>
-          </div>
+      <div class="gudep-row">
+        <span class="gudep-label">Anggota Putra</span>
+        <span class="gudep-value">${x.jumlahPutra}</span>
+      </div>
 
-          <div class="gudep-row">
-            <span class="gudep-label">Regu Putra</span>
-            <span class="gudep-value">${x.namaReguPutra.join(", ") || "-"}</span>
-          </div>
+      <div class="gudep-row">
+        <span class="gudep-label">Anggota Putri</span>
+        <span class="gudep-value">${x.jumlahPutri}</span>
+      </div>
 
-          <div class="gudep-row">
-            <span class="gudep-label">Regu Putri</span>
-            <span class="gudep-value">${x.namaReguPutri.join(", ") || "-"}</span>
-          </div>
-        </div>
-      `;
-    });
+      <div class="gudep-row">
+        <span class="gudep-label">Garuda Putra</span>
+        <span class="gudep-value">${x.garudaPutra || 0}</span>
+      </div>
+
+      <div class="gudep-row">
+        <span class="gudep-label">Garuda Putri</span>
+        <span class="gudep-value">${x.garudaPutri || 0}</span>
+      </div>
+
+      <div class="gudep-row">
+        <span class="gudep-label">Regu Putra</span>
+        <span class="gudep-value">${x.namaReguPutra.join(", ") || "-"}</span>
+      </div>
+
+      <div class="gudep-row">
+        <span class="gudep-label">Regu Putri</span>
+        <span class="gudep-value">${x.namaReguPutri.join(", ") || "-"}</span>
+      </div>
+
+    </div>
+  `;
+});
 
     detailGudepBody.innerHTML+=`
       <div class="gudep-card">
@@ -1281,11 +1239,6 @@ function showGudep(data){
             <span class="gudep-value">${g.Kamabigus}</span>
           </div>
 
-          <div class="gudep-row">
-            <span class="gudep-label">Pramuka Garuda</span>
-            <span class="gudep-value">${g.Garuda}</span>
-          </div>
-        </div>
 
         ${golHTML}
 
@@ -1383,16 +1336,27 @@ loadData();
 
 function renderRekap(gudep, saka){
   // ===== PESERTA DIDIK =====
-  pesertaBody.innerHTML = "";
-  const peserta = {};
+// ===== PESERTA DIDIK =====
+pesertaBody.innerHTML = "";
+const peserta = {};
 
-  gudep.forEach(g => {
-    g.golonganPramuka.forEach(x => {
-      if(!peserta[x.golongan]) peserta[x.golongan] = {p:0, w:0};
-      peserta[x.golongan].p += x.jumlahPutra;
-      peserta[x.golongan].w += x.jumlahPutri;
-    });
+let totalPutra = 0;
+let totalPutri = 0;
+
+gudep.forEach(g => {
+  g.golonganPramuka.forEach(x => {
+
+    if(!peserta[x.golongan]) peserta[x.golongan] = {p:0, w:0};
+
+    peserta[x.golongan].p += x.jumlahPutra;
+    peserta[x.golongan].w += x.jumlahPutri;
+
+    // TOTAL KWARRAN
+    totalPutra += x.jumlahPutra;
+    totalPutri += x.jumlahPutri;
+
   });
+});
 
   Object.keys(peserta).forEach(k=>{
     const v = peserta[k];
@@ -1406,6 +1370,15 @@ function renderRekap(gudep, saka){
     `;
   });
 
+  // ===== TOTAL KWARRAN =====
+pesertaBody.innerHTML += `
+  <div class="rekap-card" style="border:2px solid var(--primary)">
+    <div class="rekap-title">TOTAL ANGGOTA PRAMUKA KWARRAN PUNGGELAN</div>
+    <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${totalPutra}</span></div>
+    <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${totalPutri}</span></div>
+    <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${totalPutra + totalPutri}</span></div>
+  </div>
+`;
   // ===== PEMBINA =====
   pembinaBody.innerHTML = "";
   let pbP = 0, pbW = 0;
@@ -1420,30 +1393,36 @@ function renderRekap(gudep, saka){
     </div>
   `;
 
-  // ===== GARUDA =====
-  garudaBody.innerHTML = "";
-  const garuda = {};
-  gudep.forEach(g => {
-    g.golonganPramuka.forEach(x=>{
-      if(!garuda[x.golongan]) garuda[x.golongan] = {p:0, w:0};
-      const totalGaruda = g.Garuda || 0;
-      const totalPD = x.jumlahPutra + x.jumlahPutri || 1;
-      garuda[x.golongan].p += Math.round((x.jumlahPutra/totalPD)*totalGaruda);
-      garuda[x.golongan].w += Math.round((x.jumlahPutri/totalPD)*totalGaruda);
-    });
+// ===== GARUDA =====
+garudaBody.innerHTML = "";
+const garuda = {};
+
+gudep.forEach(g => {
+
+  g.golonganPramuka.forEach(x => {
+
+    if(!garuda[x.golongan]) {
+      garuda[x.golongan] = {p:0, w:0};
+    }
+
+    garuda[x.golongan].p += x.garudaPutra || 0;
+    garuda[x.golongan].w += x.garudaPutri || 0;
+
   });
 
-  Object.keys(garuda).forEach(k=>{
-    const v = garuda[k];
-    garudaBody.innerHTML += `
-      <div class="rekap-card">
-        <div class="rekap-title">${k}</div>
-        <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${v.p}</span></div>
-        <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${v.w}</span></div>
-        <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${v.p+v.w}</span></div>
-      </div>
-    `;
-  });
+});
+
+Object.keys(garuda).forEach(k=>{
+  const v = garuda[k];
+  garudaBody.innerHTML += `
+    <div class="rekap-card">
+      <div class="rekap-title">${k}</div>
+      <div class="rekap-row"><span class="rekap-label">Putra</span><span class="rekap-value">${v.p}</span></div>
+      <div class="rekap-row"><span class="rekap-label">Putri</span><span class="rekap-value">${v.w}</span></div>
+      <div class="rekap-row"><span class="rekap-label">Total</span><span class="rekap-value">${v.p+v.w}</span></div>
+    </div>
+  `;
+});
 
   // ===== SAKA =====
   sakaBody.innerHTML = "";
@@ -1494,7 +1473,7 @@ function renderCharts(gudep){
     data:{
       labels:labels,
       datasets:[{
-        label:"Jumlah Peserta Didik",
+        label:"Jumlah Anggota Pramuka",
         data:values,
         backgroundColor:colors
       }]
@@ -1564,7 +1543,6 @@ function downloadPDF(){
 
 </body>
 </html>
-
 
 
 
