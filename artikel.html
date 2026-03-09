@@ -440,6 +440,13 @@
   align-items:center;
   margin-bottom:6px;
 }
+.comment-meta{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  color:#6b7280;
+}
 
 .comment-name{
   font-weight:700;
@@ -1362,6 +1369,27 @@ footer a:hover{
   color:#6b7280;
   margin-left:6px;
 }
+
+@media (max-width:480px){
+
+  .comment-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+
+  .comment-meta{
+    display:flex;
+    gap:12px;
+    font-size:12px;
+  }
+
+  .reply-to{
+    display:block;
+    margin-top:2px;
+  }
+
+}
 </style>
 
 <script type="application/ld+json">
@@ -1751,15 +1779,17 @@ const tanggal = new Date(k.tanggal).toLocaleDateString(
       <div class="comment-avatar">${inisial}</div>
       <div class="comment-body">
 <div class="comment-header">
-  <span class="comment-name">
+
+<div class="comment-name">
   ${namaHTML}
   ${parentNama ? `<span class="reply-to">↪ ${parentNama}</span>` : ""}
-</span>
+</div>
 
-  <div class="comment-meta">
-    <span class="comment-date">${tanggal}</span>
-    <button onclick="balasKomentar('${k.id}','${k.nama}')" class="reply-comment">Balas</button>
-  </div>
+<div class="comment-meta">
+  <span class="comment-date">${tanggal}</span>
+  <button onclick="balasKomentar('${k.id}','${k.nama}')" class="reply-comment">Balas</button>
+</div>
+
 </div>
         <div class="comment-text">${k.isi}</div>
       </div>
