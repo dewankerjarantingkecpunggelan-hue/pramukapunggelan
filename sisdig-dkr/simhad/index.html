@@ -306,19 +306,146 @@ async function startScanner(id){
 function restartScanner(){startScanner(cameraSelect.value)}
 async function stopScanner(){if(html5QrCode) await html5QrCode.stop().catch(()=>{});html5QrCode.clear();}
 
-// ===== PDF DOWNLOAD =====
 document.getElementById('downloadPdf').onclick=()=>{
-  if(!attendance.length) return toast('Data kosong','info');
-  const { jsPDF } = window.jspdf;const doc=new jsPDF();
-  const tgl=tanggal.value;const ket=keterangan.value||'-';
-  doc.setFontSize(14);doc.text('DAFTAR HADIR',105,20,null,'center');doc.setFontSize(10);
-  doc.text(`Kegiatan: ${ket}`,14,28);doc.text(`Tanggal: ${tgl}`,14,36);
-  const startY=42;
-  doc.autoTable({head:[['Nama','Jabatan','Waktu']],body:attendance.map(a=>[a.nama,a.jabatan,a.waktu]),startY,theme:'grid',styles:{fontSize:9}});
-  doc.save(`Daftar_Hadir_${tgl}.pdf`);
-  toast('PDF siap diunduh','success');
-}
 
+  if(!attendance.length) return toast('Data kosong','info');
+
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF({
+    unit:'pt',
+    format:'a4'
+  });
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  const marginX = 40;
+  const marginTop = 40;
+  const marginBottom = 60;
+
+  let y = marginTop;
+
+  const tgl = tanggal.value || '-';
+  const kegiatan = keterangan.value || '-';
+
+  function addPageIfNeeded(h){
+    if(y + h > pageHeight - marginBottom){
+      doc.addPage();
+      y = marginTop;
+    }
+  }
+
+  // ===== KOP SURAT =====
+
+  const kopImg = new Image();
+  kopImg.src="../assets/images/kopdkr.png";
+
+  kopImg.onload=function(){
+
+    const ratio = kopImg.height / kopImg.width;
+    const kopWidth = pageWidth - marginX*2;
+    const kopHeight = kopWidth * ratio;
+
+    doc.addImage(kopImg,'PNG',marginX,y,kopWidth,kopHeight);
+    y += kopHeight + 10;
+
+    // ===== JUDUL =====
+
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(16);
+
+    doc.text('DAFTAR HADIR KEGIATAN', pageWidth/2, y, {align:'center'});
+    y += 20;
+
+    doc.setFontSize(12);
+    doc.text(kegiatan, pageWidth/2, y, {align:'center'});
+    y += 18;
+
+    doc.setFont('helvetica','normal');
+
+    doc.text(`Tanggal : ${tgl}`, marginX, y);
+    y += 20;
+
+    // ===== TABEL ABSENSI =====
+
+    const tableData = attendance.map((a,i)=>[
+      i+1,
+      a.nama,
+      a.jabatan,
+      a.waktu
+    ]);
+
+doc.autoTable({
+  startY:y,
+  head:[['No','Nama','Jabatan','Waktu']],
+  body:tableData,
+
+  theme:'grid',
+
+  styles:{
+    fontSize:10,
+    textColor:[0,0,0]   // TEKS BODY HITAM
+  },
+
+  headStyles:{
+    fillColor:[11,35,64],
+    textColor:[255,255,255]  // TEKS HEADER PUTIH
+  },
+
+  bodyStyles:{
+    textColor:[0,0,0]  // memastikan isi tabel hitam
+  }
+});
+
+    y = doc.lastAutoTable.finalY + 40;
+
+    // ===== TANGGAL TTD =====
+
+    const d = new Date(tgl);
+
+    const tglStr =
+      `Banjarnegara, ${
+        d.getDate().toString().padStart(2,'0')
+      } ${
+        d.toLocaleString('id-ID',{month:'long'})
+      } ${
+        d.getFullYear()
+      }`;
+
+    doc.text(tglStr, pageWidth - marginX, y, {align:'right'});
+    y += 40;
+
+    // ===== FOOTER =====
+
+    const footerText =
+      "Dokumen ini dicetak secara digital oleh Sistem Informasi Manajemen Kehadiran (SIMHAD).";
+
+    const pages = doc.getNumberOfPages();
+
+    doc.setFont('helvetica','italic');
+    doc.setFontSize(9);
+
+    for(let i=1;i<=pages;i++){
+      doc.setPage(i);
+      doc.text(
+        footerText,
+        pageWidth/2,
+        pageHeight-30,
+        {align:'center'}
+      );
+    }
+
+    doc.save(`Daftar_Hadir_${tgl}.pdf`);
+
+    toast('PDF berhasil diunduh','success');
+  }
+
+  kopImg.onerror=function(){
+    toast('Gagal memuat kop surat','error');
+  }
+
+}
 // ===== TIME & INTERNET SPEED =====
 function updateTime(){const d=new Date();const t=d.toLocaleTimeString('id-ID');document.getElementById('currentTime').textContent=t;document.getElementById('footerTime').textContent=t;}
 setInterval(updateTime,1000);updateTime();
@@ -351,4 +478,5 @@ document.getElementById("usernameDisplay").textContent = username || "Guest";
 </script>
 </body>
 </html>
+
 
