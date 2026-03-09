@@ -148,58 +148,41 @@
 
 /* ===== BACA JUGA BOX ===== */
 
-/* ===== BACA JUGA STYLE ===== */
-
 .baca-juga{
+  display: flex;
+  gap: 14px;
+  align-items: center;
   margin: 28px 0;
-  padding-top: 14px;
-  border-top: 1px solid #e5e5e5;
+  padding: 16px 18px;
+  background: linear-gradient(135deg,#f4ecff,#ffffff);
+  border-left: 5px solid #6a0dad;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(106,13,173,0.08);
 }
 
-/* judul */
 .baca-juga span{
-  display:block;
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:.8px;
-  color:#111;
-  margin-bottom:10px;
-  position:relative;
-  padding-bottom:8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6a0dad;
+  letter-spacing: .5px;
+  background: #efe4ff;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
-/* garis aksen */
-.baca-juga span::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:55px;
-  height:3px;
-  background:#6a1b9a;
-  border-radius:2px;
-}
-
-/* link artikel */
 .baca-juga a{
-  display:block;
-  text-decoration:none;
-  font-weight:600;
-  line-height:1.5;
-  color:#111;
-  padding:10px 0;
-  border-bottom:1px solid #f1f1f1;
-  transition:.2s;
-}
-
-.baca-juga a:last-child{
-  border-bottom:none;
+  text-decoration: none;
+  font-weight: 600;
+  color: #2d1b46;
+  line-height: 1.4;
 }
 
 .baca-juga a:hover{
-  color:#6a1b9a;
+  color: #6a0dad;
 }
-  /* ===== QUOTE STYLE UNGU PROFESIONAL ===== */
+
+/* ===== QUOTE STYLE UNGU PROFESIONAL ===== */
 
 .article-content blockquote{
   position: relative;
@@ -1348,6 +1331,37 @@ footer a:hover{
 .sidebar{
   position:relative;
 }
+
+.delete-comment{
+  border:none;
+  background:none;
+  color:#ef4444;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.delete-comment:hover{
+  text-decoration:underline;
+}
+
+.reply-comment{
+  border:none;
+  background:none;
+  color:#5b2c83;
+  font-size:12px;
+  cursor:pointer;
+  margin-left:8px;
+}
+
+.reply-comment:hover{
+  text-decoration:underline;
+}
+
+.reply-to{
+  font-size:12px;
+  color:#6b7280;
+  margin-left:6px;
+}
 </style>
 
 <script type="application/ld+json">
@@ -1417,7 +1431,7 @@ footer a:hover{
 <main class="article-layout">
 
 <article class="article-box">
-  <div class="article-tag">
+<div class="article-tag">
   <span id="kategori"></span>
 </div>
   <h1 class="article-title" id="judul"></h1>
@@ -1456,11 +1470,24 @@ footer a:hover{
     <h3>Komentar</h3>
     <div id="commentList"></div>
 
-    <form class="comment-form" onsubmit="kirimKomentar(event)">
-      <input type="text" id="nama" placeholder="Nama" required>
-      <textarea id="komentar" rows="3" placeholder="Tulis komentar..." required></textarea>
-      <button type="submit">Kirim Komentar</button>
-    </form>
+<form class="comment-form" onsubmit="kirimKomentar(event)">
+
+<input type="text" id="nama" placeholder="Nama *" required>
+
+<input type="email" id="email" placeholder="Email *" required>
+
+<input type="url" id="website" placeholder="Website (opsional)">
+
+<textarea id="komentar" rows="4" placeholder="Tulis komentar..." required></textarea>
+
+<label style="font-size:13px;color:#555;display:flex;gap:8px;align-items:center">
+<input type="checkbox" id="saveInfo">
+Simpan nama, email, dan situs web saya pada peramban ini untuk komentar saya berikutnya.
+</label>
+
+<button type="submit">Kirim Komentar</button>
+
+</form>
   </div>
 
   <!-- ===== ARTIKEL TERKAIT ===== -->
@@ -1591,10 +1618,11 @@ footer a:hover{
 </footer>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyUbshWl7jXUipsxsoy2scYIxso3ibHtuc0HHRs2Co-XHl5sC88A8oXkyle7ouiRwa4/exec";
+const API = "https://script.google.com/macros/s/AKfycbxkcWEmHitEQS3wBh4CT_gvCjBGZNzp3eBua4W2ubm8vIVG6apM5CfTcOUYz0neL6xn/exec";
 
 const params = new URLSearchParams(location.search);
 const ARTICLE_ID = params.get("id");
+let parentKomentar = "";
 
 if(!ARTICLE_ID){
   document.body.innerHTML = "<h2>Artikel tidak ditemukan</h2>";
@@ -1692,26 +1720,47 @@ function loadKomentar(){
       return;
     }
 
-    res.data.forEach(k => {
+res.data.forEach(k => {
+let parentNama = "";
 
-  const tanggal = new Date(k.tanggal).toLocaleDateString("id-ID",{
-    day:"numeric",
-    month:"long",
-    year:"numeric"
-  });
+if(k.parent){
+  const parent = res.data.find(x => x.id === k.parent);
+  if(parent){
+    parentNama = parent.nama;
+  }
+}
+const isMobile = window.innerWidth <= 500;
+
+const tanggal = new Date(k.tanggal).toLocaleDateString(
+  "id-ID",
+  isMobile
+    ? { day: "2-digit", month: "2-digit" }
+    : { day: "numeric", month: "long", year: "numeric" }
+);
 
   const inisial = k.nama
-    ? k.nama.trim().charAt(0).toUpperCase()
+    ? k.nama.split(" ").map(n => n[0]).join("").substring(0,2).toUpperCase()
     : "?";
+
+  const namaHTML = k.website
+    ? `<a href="${k.website}" target="_blank">${k.nama}</a>`
+    : k.nama;
 
   wrap.innerHTML += `
     <div class="comment">
       <div class="comment-avatar">${inisial}</div>
       <div class="comment-body">
-        <div class="comment-header">
-          <div class="comment-name">${k.nama}</div>
-          <div class="comment-date">${tanggal}</div>
-        </div>
+<div class="comment-header">
+  <span class="comment-name">
+  ${namaHTML}
+  ${parentNama ? `<span class="reply-to">↪ ${parentNama}</span>` : ""}
+</span>
+
+  <div class="comment-meta">
+    <span class="comment-date">${tanggal}</span>
+    <button onclick="balasKomentar('${k.id}','${k.nama}')" class="reply-comment">Balas</button>
+  </div>
+</div>
         <div class="comment-text">${k.isi}</div>
       </div>
     </div>
@@ -1726,28 +1775,64 @@ function loadKomentar(){
   document.body.appendChild(s);
 }
 
+function balasKomentar(id,nama){
+
+  parentKomentar = id;
+
+  const textarea = document.getElementById("komentar");
+
+  textarea.value = "@" + nama + " ";
+  textarea.focus();
+
+  textarea.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
 function kirimKomentar(e){
   e.preventDefault();
+
   const nama = document.getElementById("nama").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const website = document.getElementById("website").value.trim();
   const isi  = document.getElementById("komentar").value.trim();
-  if(!nama || !isi) return;
+  const save = document.getElementById("saveInfo").checked;
+
+  if(!nama || !email || !isi) return;
+
+  if(save){
+    localStorage.setItem("commentNama", nama);
+    localStorage.setItem("commentEmail", email);
+    localStorage.setItem("commentWebsite", website);
+  }
 
   const cb = "cb_send_" + Date.now();
+
   window[cb] = res => {
-    if(res.status === "ok"){
-      document.getElementById("komentar").value = "";
-      loadKomentar();
-    }else{
+if(res.status === "ok"){
+  document.getElementById("komentar").value = "";
+  parentKomentar = "";
+  loadKomentar();
+}else{
       alert("Gagal kirim komentar");
     }
     delete window[cb];
   };
 
   const s = document.createElement("script");
-  s.src = API + "?action=komentar&id=" + ARTICLE_ID +
-          "&nama=" + encodeURIComponent(nama) +
-          "&isi=" + encodeURIComponent(isi) +
-          "&callback=" + cb;
+
+s.src = API +
+  "?action=komentar" +
+  "&id=" + ARTICLE_ID +
+  "&nama=" + encodeURIComponent(nama) +
+  "&email=" + encodeURIComponent(email) +
+  "&website=" + encodeURIComponent(website) +
+  "&isi=" + encodeURIComponent(isi) +
+  "&parent=" + parentKomentar +
+  "&callback=" + cb;
+
   document.body.appendChild(s);
 }
 
@@ -2119,70 +2204,6 @@ accessToggle.addEventListener("keydown", e=>{
   }
 });
 
-function renderArticleHTML(id){
-  const sh = SpreadsheetApp.openById(SS_ID).getSheetByName(SHEET_BERITA);
-  const d = sh.getDataRange().getValues();
-
-  for(let i=1;i<d.length;i++){
-    if(String(d[i][0]) === String(id)){
-
-      const judul = d[i][1];
-      const isi = d[i][2];
-      const kategori = d[i][3];
-      const penulis = d[i][4];
-      const tanggal = d[i][5];
-      const thumbnail = d[i][6];
-
-      const shareURL = location.origin + "/share/?id=" + ARTICLE_ID;
-
-      const html = `
-<!doctype html>
-<html lang="id">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>${judul}</title>
-<meta name="description" content="${judul} - Pramuka Punggelan">
-
-<meta property="og:title" content="${judul}">
-<meta property="og:description" content="Berita resmi kegiatan Pramuka Punggelan">
-<meta property="og:image" content="${thumbnail}">
-<meta property="og:url" content="${url}">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Pramuka Punggelan">
-
-<meta property="article:published_time" content="${tanggal}">
-<meta property="article:author" content="${penulis}">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<style>
-body{font-family:Arial, sans-serif; max-width:800px; margin:auto; padding:20px; line-height:1.6}
-img{max-width:100%; border-radius:10px}
-h1{margin-bottom:5px}
-.meta{color:#777; font-size:14px; margin-bottom:20px}
-</style>
-
-</head>
-<body>
-
-<h1>${judul}</h1>
-<div class="meta">${kategori} • ${penulis} • ${tanggal}</div>
-<img src="${thumbnail}">
-<div>${isi}</div>
-
-</body>
-</html>
-`;
-
-      return HtmlService.createHtmlOutput(html)
-        .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-    }
-  }
-
-  return HtmlService.createHtmlOutput("Artikel tidak ditemukan");
-}
 
 </script>
 
@@ -2270,14 +2291,22 @@ function loadRelatedArticles(currentArticle){
   s.src = API + "?action=list&callback=" + cbRelated;
   document.body.appendChild(s);
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  const nama = localStorage.getItem("commentNama");
+  const email = localStorage.getItem("commentEmail");
+  const website = localStorage.getItem("commentWebsite");
+
+  if(nama) document.getElementById("nama").value = nama;
+  if(email) document.getElementById("email").value = email;
+  if(website) document.getElementById("website").value = website;
+
+});
 </script>
 
 </body>
 </html>
-
-
-
-
 
 
 
