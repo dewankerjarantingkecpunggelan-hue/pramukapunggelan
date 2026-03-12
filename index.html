@@ -204,9 +204,12 @@
   margin:0;
   font-size:14px;
   color:var(--muted);
-  flex-grow:1;
+  line-height:1.5;
+
+  display:-webkit-box;
+  -webkit-line-clamp:3;   /* jumlah baris preview */
+  -webkit-box-orient:vertical;
   overflow:hidden;
-  text-overflow:ellipsis;
 }
     /* Modal */
     .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.5);overflow:auto}
@@ -478,7 +481,65 @@
   .dev-nav{
     display:none; 
   }
-}  </style>
+}  
+/* ===== QUICK ACCESS MENU ===== */
+.quick-menu{
+  max-width:1200px;
+  margin:-40px auto 20px; /* naik sedikit agar nempel banner */
+  padding:0 20px;
+  position:relative;
+  z-index:10;
+}
+
+.quick-grid{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 28px rgba(0,0,0,.12);
+  padding:18px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:16px;
+}
+
+.quick-item{
+  text-decoration:none;
+  color:#333;
+  text-align:center;
+  padding:10px 6px;
+  border-radius:12px;
+  transition:.3s;
+}
+
+.quick-item:hover{
+  background:#f6f3ff;
+  transform:translateY(-3px);
+}
+
+.quick-item i{
+  font-size:28px;
+  color:var(--wosm-purple);
+  margin-bottom:6px;
+}
+
+.quick-item img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  margin-bottom:6px;
+}
+
+.quick-item span{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+}
+
+@media(max-width:600px){
+  .quick-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+</style>
 
   <!-- Accessibility Button -->
 <div id="accessibility-btn">
@@ -1045,7 +1106,34 @@
     font-size:20px;
   }
 }
+@media (max-width:600px){
 
+  .caption{
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:420px;
+    text-align:center;
+  }
+
+}
+
+.tim-slider{
+display:flex;
+gap:20px;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+padding-bottom:10px;
+}
+
+.tim-slider::-webkit-scrollbar{
+display:none;
+}
+
+.tim-card{
+min-width:250px;
+scroll-snap-align:start;
+}
 </style>
 
   <!-- Hero -->
@@ -1069,6 +1157,57 @@
     </div>
   </section>
 
+  <!-- ===== QUICK ACCESS MENU ===== -->
+<section class="quick-menu">
+  <div class="quick-grid">
+
+    <a href="/" class="quick-item">
+      <i class='bx bx-home'></i>
+      <span>Beranda</span>
+    </a>
+
+    <a href="/agenda" class="quick-item">
+      <i class='bx bx-calendar'></i>
+      <span>Agenda</span>
+    </a>
+
+    <a href="/warta" class="quick-item">
+      <i class='bx bx-news'></i>
+      <span>Berita</span>
+    </a>
+
+    <a href="/twibbon" class="quick-item">
+      <i class='bx bx-image'></i>
+      <span>Twibbon</span>
+    </a>
+
+    <a href="/pusdig" class="quick-item">
+      <i class='bx bx-book'></i>
+      <span>Pusdig</span>
+    </a>
+
+    <a href="/rekrutmendkr" class="quick-item">
+      <i class='bx bx-user-plus'></i>
+      <span>Rekrutmen</span>
+    </a>
+
+    <a href="/potonglink" class="quick-item">
+      <i class='bx bx-link-alt'></i>
+      <span>S.Link</span>
+    </a>
+
+      <a href="/verval" class="quick-item">
+      <i class='bx bx-check'></i>
+      <span>Verval</span>
+    </a>
+
+    <!--<a href="/prada" class="quick-item">
+      <img src="assets/images/garuda.png">
+      <span>Prada</span>
+    </a>-->
+
+  </div>
+</section>
   <!-- Poster Sambutan Ketua Kwarnas -->
 <section style="max-width:1200px;margin:10px auto 5px;padding:8px;">
   <img src="assets/images/poster.png" 
@@ -1343,11 +1482,6 @@
     untuk mendukung transparansi informasi seputar Pramuka Punggelan.
   </p>
 
-  <div class="dev-slider-wrapper">
-    <button class="dev-nav prev" onclick="slideDev(-1)">
-      <i class='bx bx-chevron-left'></i>
-    </button>
-
     <div class="dev-slider" id="devSlider">
       <!-- Tim Pengembang -->
       <div class="dev-card">
@@ -1386,10 +1520,6 @@
         <span>Kontributor Teknis</span>
       </div>
     </div>
-
-    <button class="dev-nav next" onclick="slideDev(1)">
-      <i class='bx bx-chevron-right'></i>
-    </button>
   </div>
 </section>
 
@@ -1500,15 +1630,43 @@
   <script src="https://cdn.jsdelivr.net/npm/rss-parser/dist/rss-parser.min.js"></script>
   <script>
     // Slider
-    const slides=document.querySelectorAll('.slide');
-    const dots=document.querySelectorAll('.dot');
-    let current=0;let interval;
-    function show(i){slides.forEach(s=>s.classList.remove('active'));dots.forEach(d=>d.classList.remove('active'));slides[i].classList.add('active');dots[i].classList.add('active');current=i;}
-    function next(){show((current+1)%slides.length);}
-    dots.forEach(d=>d.addEventListener('click',()=>{show(+d.dataset.index);reset();}));
-    function start(){interval=setInterval(next,5000);}
-    function reset(){clearInterval(interval);start();}
-    start();
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+let current = 0;
+let interval;
+
+function show(i){
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+
+  slides[i].classList.add('active');
+  dots[i].classList.add('active');
+
+  current = i;
+}
+
+function next(){
+  show((current + 1) % slides.length);
+}
+
+dots.forEach(d =>
+  d.addEventListener('click', () => {
+    show(+d.dataset.index);
+    reset();
+  })
+);
+
+function start(){
+  interval = setInterval(next, 5000);
+}
+
+function reset(){
+  clearInterval(interval);
+  start();
+}
+
+start();
 
     // Event Modal
     function openEvent(title,start,end,location,desc,img){
@@ -1569,7 +1727,7 @@
 
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzyaoJSAAHTbMOJBTq8qr9w8Srkpb5AAnF4muXOcHajCFCETpyBTFwvP0Pb6f3kAng6/exec";
+const API = "https://script.google.com/macros/s/AKfycbxi2mkvHRWLyAGq0w_YqcwauEO77rQgzjiNtVhIh70TPYCrYUsMph9qCq6BcH7l1knV/exec";
 const postsContainer = document.getElementById("posts");
 const runningText = document.getElementById("runningText");
 
@@ -1593,22 +1751,30 @@ function loadBeritaDanRunningText(limit = 8){
       const img = a.thumbnail || "https://via.placeholder.com/400x250?text=DKR+Punggelan";
       const kategori = a.kategori || "Umum";
       // Ambil 150 karakter pertama sebagai preview
-      const excerpt = a.isi ? a.isi.replace(/(<([^>]+)>)/gi,"").slice(0,150) : "";
+      const cleanText = a.isi
+  ? a.isi.replace(/<[^>]*>/g,"").replace(/\s+/g," ").trim()
+  : "";
 
-      const card = document.createElement("div");
-      card.className = "post";
+const excerpt = cleanText.slice(0,160);
 
-      card.innerHTML = `
-        <div style="position:relative">
-          <img src="${img}" alt="${a.judul}">
-          <span class="label-kategori">${kategori}</span>
-        </div>
-        <div class="p-body">
-          <h4>${a.judul}</h4>
-          <p>${excerpt}${excerpt.length > 0 ? "..." : ""}</p>
-          <a href="${link}" class="read-more" style="color:var(--primary);text-decoration:none;font-weight:500;">Baca Selengkapnya</a>
-        </div>
-      `;
+const card = document.createElement("div");
+card.className = "post";
+
+card.innerHTML = `
+  <a href="${link}" style="text-decoration:none;color:inherit;">
+  
+    <div style="position:relative">
+      <img src="${img}" alt="${a.judul}">
+      <span class="label-kategori">${kategori}</span>
+    </div>
+
+    <div class="p-body">
+      <h4>${a.judul}</h4>
+      <p>${excerpt}${excerpt.length > 0 ? "..." : ""}</p>
+    </div>
+
+  </a>
+`;
       postsContainer.appendChild(card);
 
       // ===== RUNNING TEXT =====
@@ -1867,63 +2033,29 @@ window.addEventListener("scroll", ()=>{
 </script>
 
 <script>
-fetch("https://script.google.com/macros/s/AKfycby6AVaV9k8Dz2SNCkEsGYoZzqgs4bQHf-PheLWIUomxDgIxD-_DHsXPCXRrH6Y2bxER/exec")
+
+const VISITOR_API = "https://script.google.com/macros/s/AKfycbxHzVXvjrpU0T4x1F11zdR-Fo6RWnHrV07ZD_ZIWJ0RnKxDohGGezKHR3KhXu8PwPT7/exec";
+
+function loadVisitor(){
+  fetch(VISITOR_API + "?t=" + Date.now())
   .then(res => res.json())
   .then(data => {
-    document.getElementById('visitor-online').textContent = data.online;
-    document.getElementById('visitor-today').textContent  = data.hari;
-    document.getElementById('visitor-month').textContent  = data.bulan;
-    document.getElementById('visitor-year').textContent   = data.tahun;
-    document.getElementById('visitor-total').textContent  = data.total;
+
+    document.getElementById("visitor-online").textContent = data.online;
+    document.getElementById("visitor-today").textContent = data.hari;
+    document.getElementById("visitor-month").textContent = data.bulan;
+    document.getElementById("visitor-year").textContent = data.tahun;
+    document.getElementById("visitor-total").textContent = data.total;
+
   })
-  .catch(err => {
-    console.error("Statistik error", err);
-  });
-</script>
+  .catch(err => console.error("Visitor error:", err));
+}
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const devSlider = document.getElementById("devSlider");
-  if (!devSlider) return;
+loadVisitor();
 
-  // Duplicate items for infinite scroll
-  devSlider.innerHTML += devSlider.innerHTML;
-
-  let scrollPos = 0;
-  const speed = 1; // kecepatan scroll
-
-  function step(){
-    scrollPos += speed;
-
-    // loop infinite
-    if(scrollPos >= devSlider.scrollWidth / 2){
-      scrollPos = 0;
-    }
-    devSlider.scrollLeft = scrollPos;
-    requestAnimationFrame(step);
-  }
-
-  // Start animation
-  step();
-
-  // Pause on hover / touch
-  devSlider.addEventListener("mouseenter", ()=> speed = 0);
-  devSlider.addEventListener("mouseleave", ()=> speed = 0.5);
-  devSlider.addEventListener("touchstart", ()=> speed = 0);
-  devSlider.addEventListener("touchend", ()=> speed = 0.5);
-
-  // Tombol panah manual
-  window.slideDev = function(direction){
-    devSlider.scrollBy({
-      left: direction * 280,
-      behavior: "smooth"
-    });
-  };
-});
 </script>
 </body>
 </html>
-
 
 
 
