@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta property="og:title" content="Warta Pramuka Punggelan">
-<meta property="og:description" content="Berita resmi kegiatan Pramuka Punggelan">
-<meta property="og:image" content="https://pramukapunggelan.or.id/assets/images/logologo.png">
-<meta property="og:url" content="https://pramukapunggelan.or.id">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2026-02-21">
 <meta property="article:author" content="Pramuka Punggelan">
@@ -1869,7 +1869,7 @@ s.src = API +
 function setShare(){
 
   const slug = ARTICLE_ID;
-  const shareURL = location.origin + "/s/" + slug;
+  const shareURL = location.origin + "/api/share?id=" + slug;
 
   const encodedURL  = encodeURIComponent(shareURL);
   const encodedText = encodeURIComponent(document.getElementById("judul").textContent);
