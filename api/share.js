@@ -28,7 +28,7 @@ res.send(`
 <meta property="og:title" content="${a.judul}">
 <meta property="og:description" content="${a.isi.substring(0,150)}">
 <meta property="og:image" content="${a.thumbnail}">
-<meta property="og:url" content="https://www.pramukapunggelan.or.id/artikel?id=${id}">
+<meta property="og:url" content="https://pramukapunggelan.or.id/artikel?id=${id}">
 <meta property="og:type" content="article">
 
 <meta name="twitter:card" content="summary_large_image">
