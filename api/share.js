@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(400).send("ID tidak ditemukan");
   }
 
-  const API = "https://script.google.com/macros/s/AKfycby8ooELYz10mWr_oPs4TVT8aiJjaFHOD2gV3ARaT4lzn2pADHKtBVnJg5jnEkp-owPM/exec";
+  const API = "https://script.google.com/macros/s/AKfycbwUg_yXbafgZNK2oTH0MVGYHl9lGsRkMbtoh8hkqU19LsvfXV-nIZU8pwX3qmS2_3X1/exec";
 
   try {
     const response = await fetch(`${API}?action=detail&id=${id}`);
