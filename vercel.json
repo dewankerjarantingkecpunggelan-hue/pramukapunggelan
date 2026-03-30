@@ -26,6 +26,10 @@
     {
   "source": "/s/:code",
   "destination": "/api/:code"
+},
+    {
+  "source": "/artikel",
+  "destination": "/artikel.html"
 }
   ]
 }
