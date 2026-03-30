@@ -1,6 +1,5 @@
 export default async function handler(req, res) {
-  const { code } = req.query;
-const id = code;
+  const { id } = req.query;
 
   if (!id) {
     return res.status(400).send("ID tidak ditemukan");
@@ -20,30 +19,31 @@ const id = code;
 
     res.setHeader("Content-Type", "text/html");
 
-res.send(`
-<!DOCTYPE html>
+    res.send(`
+<!doctype html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>${a.judul}</title>
 
 <meta property="og:title" content="${a.judul}">
-<meta property="og:description" content="${a.isi.substring(0,150)}">
+<meta property="og:description" content="${a.isi.replace(/<[^>]+>/g, "").slice(0,160)}">
 <meta property="og:image" content="${a.thumbnail}">
-<meta property="og:url" content="https://pramukapunggelan.or.id/artikel?id=${id}">
+<meta property="og:url" content="https://pramukapunggelan.or.id/artikel.html?id=${id}">
 <meta property="og:type" content="article">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${a.judul}">
-<meta name="twitter:description" content="${a.isi.substring(0,150)}">
+<meta name="twitter:description" content="${a.isi.replace(/<[^>]+>/g, "").slice(0,160)}">
 <meta name="twitter:image" content="${a.thumbnail}">
-
-<meta http-equiv="refresh" content="2;url=/artikel?id=${id}">
 </head>
 <body>
-Redirecting...
+<script>
+location.href="/artikel.html?id=${id}";
+</script>
 </body>
 </html>
-`);
+    `);
 
   } catch (err) {
     res.status(500).send("Terjadi kesalahan server");
