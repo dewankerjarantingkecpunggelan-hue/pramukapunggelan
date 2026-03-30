@@ -17,14 +17,8 @@
   <url>
     <loc>https://www.pramukapunggelan.or.id/dkrpunggelan</loc>
   </url>
-  <url>
-    <loc>https://www.pramukapunggelan.or.id/profildkr</loc>
-  </url>
 
   <!-- ORGANISASI -->
-  <url>
-    <loc>https://www.pramukapunggelan.or.id/mediaunduh</loc>
-  </url>
   <url>
     <loc>https://www.pramukapunggelan.or.id/agenda</loc>
   </url>
@@ -46,9 +40,6 @@
   </url>
   <url>
     <loc>https://www.pramukapunggelan.or.id/warta</loc>
-  </url>
-  <url>
-    <loc>https://www.pramukapunggelan.or.id/login</loc>
   </url>
 
 </urlset>
