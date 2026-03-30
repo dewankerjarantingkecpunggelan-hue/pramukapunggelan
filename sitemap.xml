@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- BERANDA -->
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- PROFIL -->
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/kwarran</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/dapot</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/dkrpunggelan</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/profildkr</loc>
+  </url>
+
+  <!-- ORGANISASI -->
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/mediaunduh</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/agenda</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/rekrutmendkr</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/pusdig</loc>
+  </url>
+
+  <!-- TOOLS -->
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/potonglink</loc>
+  </url>
+
+  <!-- LAINNYA -->
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/twibbon</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/warta</loc>
+  </url>
+  <url>
+    <loc>https://www.pramukapunggelan.or.id/login</loc>
+  </url>
+
+</urlset>
