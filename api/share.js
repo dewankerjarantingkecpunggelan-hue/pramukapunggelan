@@ -1,5 +1,6 @@
 export default async function handler(req, res) {
-  const { id } = req.query;
+  const { code } = req.query;
+const id = code;
 
   if (!id) {
     return res.status(400).send("ID tidak ditemukan");
