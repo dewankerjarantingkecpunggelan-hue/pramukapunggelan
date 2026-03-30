@@ -36,7 +36,7 @@ res.send(`
 <meta name="twitter:description" content="${a.isi.substring(0,150)}">
 <meta name="twitter:image" content="${a.thumbnail}">
 
-<meta http-equiv="refresh" content="0;url=/artikel?id=${id}">
+<meta http-equiv="refresh" content="2;url=/artikel?id=${id}">
 </head>
 <body>
 Redirecting...
