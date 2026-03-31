@@ -25,6 +25,10 @@
     { "source": "/verval", "destination": "/verval.html" },
     { "source": "/:code", "destination": "/api/:code" },
     {
+  "source": "/warta/:slug",
+  "destination": "/artikel.html?id=:slug"
+},
+    {
   "source": "/artikel",
   "destination": "/artikel.html"
 }
