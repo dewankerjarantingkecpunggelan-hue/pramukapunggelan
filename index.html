@@ -1159,6 +1159,34 @@ display:none;
 min-width:250px;
 scroll-snap-align:start;
 }
+
+.info-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.info-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-link {
+  display: block;
+  width: 250px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.card-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
 </style>
 
   <!-- Hero -->
@@ -1240,6 +1268,55 @@ scroll-snap-align:start;
        style="width:100%; height:auto; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);" />
 </section>
 
+  <section class="info-section">
+  <h2>Informasi Pramuka Punggelan</h2>
+  <p>Jelajahi berbagai informasi resmi Pramuka Punggelan.</p>
+
+  <div class="info-links">
+
+    <a href="/warta" class="card-link">
+      <h3>Berita</h3>
+      <p>Informasi dan kegiatan terbaru.</p>
+    </a>
+
+    <a href="/agenda" class="card-link">
+      <h3>Agenda</h3>
+      <p>Jadwal kegiatan Pramuka.</p>
+    </a>
+
+    <a href="/kwarran" class="card-link">
+      <h3>Pengurus Kwarran</h3>
+      <p>Struktur kepengurusan resmi.</p>
+    </a>
+
+    <a href="/dapot" class="card-link">
+      <h3>Data Potensi</h3>
+      <p>Data anggota dan gugus depan.</p>
+    </a>
+
+    <a href="/dkrpunggelan" class="card-link">
+      <h3>Tentang DKR</h3>
+      <p>Profil Dewan Kerja Ranting.</p>
+    </a>
+
+    <a href="/profildkr" class="card-link">
+      <h3>Profil Anggota DKR</h3>
+      <p>Data anggota DKR Punggelan.</p>
+    </a>
+
+    <a href="/twibbon" class="card-link">
+      <h3>Twibbon</h3>
+      <p>Dukung kegiatan dengan twibbon resmi.</p>
+    </a>
+
+    <a href="/potonglink" class="card-link">
+      <h3>Short Link</h3>
+      <p>Pemendek URL resmi Pramuka.</p>
+    </a>
+
+  </div>
+</section>
+  
  <main>
 <!-- ===== DATA ANGGOTA PRAMUKA ===== -->
 <section class="anggota-section">
