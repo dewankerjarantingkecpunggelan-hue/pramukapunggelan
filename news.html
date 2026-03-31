@@ -1219,7 +1219,7 @@ function beritaCard(b){
 
   return `
   <div class="news-card">
-    <a href="/warta/${b.id}" class="thumb-wrap">
+    <a href="artikel.html?id=${b.id}" class="thumb-wrap">
       <img src="${b.thumbnail || 'assets/images/pramuka.png'}">
       <span class="thumb-cat cat-${b.kategori.replace(/\s+/g,'').toLowerCase()}">
         ${b.kategori}
@@ -1227,7 +1227,7 @@ function beritaCard(b){
     </a>
 
     <div class="news-body">
-      <a href="/warta/${b.id}" class="news-title">
+      <a href="artikel.html?id=${b.id}" class="news-title">
         ${b.judul}
       </a>
       <div class="news-meta">${b.penulis} · ${formatTanggal(b.tanggal)}</div>
@@ -1376,7 +1376,7 @@ function renderPopularAndTags(){
 
   popularEl.innerHTML = popular.length
     ? popular.map((b,i)=>`
-      <a href="/warta/${b.id}" class="popular-link">
+      <a href="artikel.html?id=${b.id}" class="popular-link">
         <span class="popular-rank">${i+1}</span>
         <img src="${b.thumbnail || 'assets/images/pramuka.png'}">
         <span>${b.judul}</span>
@@ -1446,7 +1446,7 @@ function renderPersBuletin(){
 
     <div class="pers-list">
       ${list.map(b=>`
-        <a href="/warta/${b.id}">
+        <a href="artikel.html?id=${b.id}">
           <img src="${b.thumbnail || 'assets/images/pramuka.png'}">
           <span>${b.judul}</span>
         </a>
@@ -1540,7 +1540,7 @@ function renderFeaturedCategory(){
 
   // LIST BERITA
   document.getElementById("fcList").innerHTML = list.map(b=>`
-    <a href="/warta/${b.id}" class="fc-item" style="text-decoration:none;color:inherit">
+    <a href="artikel.html?id=${b.id}" class="fc-item" style="text-decoration:none;color:inherit">
       <img src="${b.thumbnail}">
       <div>
         <h4>${b.judul}</h4>
@@ -1608,7 +1608,6 @@ const youtubeVideos = [
 
 </body>
 </html>
-
 
 
 
