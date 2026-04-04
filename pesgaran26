@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pesta Siaga 2026 - Kwaran Punggelan</title>
+<link rel="icon" href="assets/images/siaga26.png" type="image/png">
+<meta name="description" content="Microsite resmi Pesta Siaga Kwartir Ranting Punggelan Tahun 2026">
+<meta property="og:title" content="Pesta Siaga 2026">
+<meta property="og:description" content="Kwartir Ranting Punggelan">
+<meta property="og:image" content="https://yourdomain.com/cover.jpg">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+:root {
+  --primary: #5b2c83;
+  --bg: #f6f3fa;
+  --card: #ffffff;
+  --text: #1b1b1b;
+}
+
+.dark {
+  --primary: #c39cf0;
+  --bg: #0f0a18;
+  --card: #1c1428;
+  --text: #f3eaff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'K2D', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  color: var(--text);
+}
+
+/* LOADER */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeOut 1s ease 2s forwards;
+}
+
+.spin {
+  width: 60px;
+  animation: rotate 1.2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* WRAPPER */
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #4a226b, #5b2c83);
+  padding: 30px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.hero img {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.hero h1 {
+  font-size: 20px;
+}
+
+/* TOGGLE */
+.toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.toggle i {
+  font-size: 22px;
+}
+
+/* COUNTDOWN */
+.countdown {
+  margin: 20px;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.box {
+  background: var(--primary);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  width: 22%;
+}
+
+/* MENU */
+.menu {
+  padding: 0 20px;
+  flex: 1;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+}
+
+.icon i {
+  font-size: 22px;
+}
+
+/* RIPPLE */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background: rgba(91,44,131,0.3);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* SOSMED */
+.sosmed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 20px;
+}
+
+.sosmed a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  padding: 14px 8px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 11px;
+  transition: 0.25s;
+}
+
+.sosmed a:hover {
+  transform: translateY(-5px);
+  background: var(--primary);
+  color: white;
+}
+
+.sosmed i {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+  color: #777;
+}
+
+/* BG PATTERN */
+.wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+.landing {
+  padding: 40px 20px 20px;
+  text-align: center;
+}
+
+.landing h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.landing p {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 15px;
+}
+
+.landing button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.landing button:hover {
+  transform: scale(1.05);
+}
+
+.share {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+}
+
+.share i {
+  font-size: 22px;
+  color: white;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.viewer-page {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.viewer-page.active {
+  transform: translateX(0);
+}
+
+.viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+}
+
+.viewer-header i {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.viewer-page iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 2000;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--card);
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.check {
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+.center i {
+  font-size: 50px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.wa-btn {
+  display: block;
+  margin-top: 15px;
+  background: #25D366;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+  height: 70px;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.check input {
+  display: none;
+}
+
+/* BOX */
+.custom-check {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CHECK ICON */
+.custom-check::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  top: 1px;
+  left: 4px;
+  transition: 0.2s;
+}
+
+/* ACTIVE */
+.check input:checked + .custom-check {
+  background: var(--primary);
+}
+
+.check input:checked + .custom-check::after {
+  transform: rotate(45deg) scale(1);
+}
+
+/* PENDAFTAR */
+.pendaftar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.pendaftar-header .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#totalPendaftar {
+  background: var(--primary);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+#arrow {
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+/* BOX LIST */
+#pendaftarBox {
+  background: var(--card);
+  border-radius: 12px;
+  margin-top: 8px;
+  overflow: hidden;
+  max-height: 0;
+  transition: 0.4s ease;
+}
+
+/* ACTIVE */
+#pendaftarBox.active {
+  max-height: 400px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+/* ITEM */
+.pendaftar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 12px;
+}
+
+.pendaftar-item:last-child {
+  border-bottom: none;
+}
+
+/* NOMOR */
+.nomor {
+  width: 22px;
+  height: 22px;
+  background: var(--primary);
+  color: white;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close:hover {
+  color: red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader">
+  <img src="assets/images/siaga.png" class="spin">
+</div>
+
+<div class="wrapper">
+
+  <div class="hero">
+    <div class="share" onclick="shareLink()">
+  <i class='bx bx-share-alt'></i>
+</div>
+
+    <div class="toggle" onclick="toggleDark()">
+      <i class='bx bx-moon'></i>
+    </div>
+
+    <img src="assets/images/siaga26.png">
+    <h1>Pesta Siaga 2026</h1>
+    <p>Kwartir Ranting Punggelan</p>
+  </div>
+
+  <div class="countdown">
+    <b>Menuju Kegiatan</b>
+    <div class="time">
+      <div class="box"><span id="d">0</span><br><small>Hari</small></div>
+      <div class="box"><span id="h">0</span><br><small>Jam</small></div>
+      <div class="box"><span id="m">0</span><br><small>Menit</small></div>
+      <div class="box"><span id="s">0</span><br><small>Detik</small></div>
+    </div>
+  </div>
+
+  <div class="menu">
+    <a href="#" class="btn" onclick="openViewer()">
+      <span>Juknis & Edaran</span>
+      <div class="icon"><i class='bx bx-file'></i></div>
+    </a>
+
+    <a href="https://drive.google.com/drive/folders/1SqFOcKwBsnMUJ6uXXmDCVOqOMDGcUAVa?usp=drive_link" class="btn">
+      <span>Dokumentasi</span>
+      <div class="icon"><i class='bx bx-camera'></i></div>
+    </a>
+
+    <a href="/verval" class="btn">
+      <span>Pendataan Potensi</span>
+      <div class="icon"><i class='bx bx-line-chart'></i></div>
+    </a>
+
+    <a href="#" id="btnDaftar" class="btn" onclick="handleDaftar()">
+      <span>Pendaftaran Sangker</span>
+      <div class="icon"><i class='bx bx-edit'></i></div>
+    </a>
+  </div>
+
+  <div class="menu">
+
+  <div class="pendaftar-header" onclick="togglePendaftar()">
+    <span>Pendaftar Sangker</span>
+    <div class="right">
+      <span id="totalPendaftar">0</span>
+      <i class='bx bx-chevron-down' id="arrow"></i>
+    </div>
+  </div>
+
+  <div id="pendaftarBox">
+    <div id="listPendaftar"></div>
+  </div>
+
+</div>
+
+  <!-- SOSMED -->
+  <div class="sosmed">
+    <a href="https://www.instagram.com/kwarran.punggelan">
+      <i class='bx bxl-instagram'></i>
+      <span>Kwaran</span>
+    </a>
+
+    <a href="https://www.instagram.com/dkr__punggelan">
+      <i class='bx bxl-instagram'></i>
+      <span>DKR</span>
+    </a>
+
+    <a href="https://www.instagram.com/jurnalistik.punggelan">
+      <i class='bx bxl-instagram'></i>
+      <span>Jurnalistik</span>
+    </a>
+
+    <a href="https://www.instagram.com/kegop.dkr.punggelan">
+      <i class='bx bxl-instagram'></i>
+      <span>Kegop</span>
+    </a>
+
+    <a href="https://www.facebook.com/p/Dkr-Punggelan-100077502488230/">
+      <i class='bx bxl-facebook'></i>
+      <span>Facebook</span>
+    </a>
+
+    <a href="https://www.youtube.com/@DKR_Punggelan">
+      <i class='bx bxl-youtube'></i>
+      <span>YouTube</span>
+    </a>
+
+    <a href="https://www.pramukapunggelan.or.id">
+      <i class='bx bx-globe'></i>
+      <span>Website</span>
+    </a>
+
+    <a href="https://x.com/dkr__punggelan">
+      <i class='bx bxl-twitter'></i>
+      <span>X</span>
+    </a>
+
+    <a href="mailto:dewankerjarantingkecpunggelan@gmail.com">
+  <i class='bx bx-envelope'></i>
+  <span>Email</span>
+</a>
+
+  </div>
+
+  <div class="viewer-page" id="viewerPage">
+
+  <div class="viewer-header">
+    <i class='bx bx-arrow-back' onclick="closeViewer()"></i>
+    <span>Juknis & Edaran</span>
+    <a href="https://drive.google.com/uc?export=download&id=1OST3tMht0K36XsH_Omx73-6BAxu9TGyB">
+      <i class='bx bx-download'></i>
+    </a>
+  </div>
+
+  <iframe 
+    src="https://drive.google.com/file/d/1OST3tMht0K36XsH_Omx73-6BAxu9TGyB/preview"
+    frameborder="0">
+  </iframe>
+
+</div>
+
+
+<div class="modal" id="formModal">
+  <div class="modal-content">
+    <i class='bx bx-x close' onclick="closeForm()"></i>
+
+    <h3>Pendaftaran Sangga Kerja</h3>
+
+    <input type="text" id="nama" placeholder="Nama Lengkap">
+    <input type="text" id="pangkalan" placeholder="Asal Pangkalan">
+    <input type="text" id="kwarran" placeholder="Kwarran">
+    <textarea id="alamat" placeholder="Alamat"></textarea>
+    <input type="text" id="nta" placeholder="NTA (Opsional)">
+    <input type="tel" id="hp" placeholder="No HP">
+    <input type="email" id="email" placeholder="Email">
+
+    <label class="check">
+      <input type="checkbox" id="setuju">
+      <span class="custom-check"></span>
+      Saya siap bertugas
+    </label>
+
+    <button onclick="submitForm()">Kirim</button>
+  </div>
+</div>
+
+
+<div class="modal" id="successModal">
+<div class="modal-content center">
+  <i class='bx bx-x close' onclick="closeSuccess()"></i>
+
+    <i class='bx bx-check-circle'></i>
+    <h3>Pendaftaran Berhasil</h3>
+    <p>Terima kasih sudah mendaftar sebagai Sangga Kerja.</p>
+
+    <a href="https://chat.whatsapp.com/H6eC0hb2VtC1OydT8WHF58?mode=gi_t" target="_blank" class="wa-btn">
+      Gabung Grup WhatsApp
+    </a>
+
+  </div>
+
+</div>
+
+  <div class="footer">
+    © 2026 Pramuka Punggelan <br>
+  </div>
+
+</div>
+
+<script>
+const MAX_PENDAFTAR = 45;
+let totalPendaftarGlobal = 0;
+const target = new Date("April 11, 2026 08:00:00").getTime();
+
+setInterval(()=>{
+  let now = new Date().getTime();
+  let diff = target - now;
+
+  document.getElementById("d").innerText = Math.floor(diff/(1000*60*60*24));
+  document.getElementById("h").innerText = Math.floor(diff/(1000*60*60)%24);
+  document.getElementById("m").innerText = Math.floor(diff/(1000*60)%60);
+  document.getElementById("s").innerText = Math.floor(diff/1000%60);
+},1000);
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  const icon = document.querySelector(".toggle i");
+  icon.classList.toggle("bx-moon");
+  icon.classList.toggle("bx-sun");
+}
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", function(e) {
+    const circle = document.createElement("span");
+    const diameter = Math.max(this.clientWidth, this.clientHeight);
+
+    circle.style.width = circle.style.height = diameter + "px";
+    circle.style.left = e.clientX - this.offsetLeft - diameter / 2 + "px";
+    circle.style.top = e.clientY - this.offsetTop - diameter / 2 + "px";
+    circle.classList.add("ripple");
+
+    const ripple = this.getElementsByClassName("ripple")[0];
+    if (ripple) ripple.remove();
+
+    this.appendChild(circle);
+  });
+});
+
+function scrollToMenu(){
+  document.querySelector(".menu").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function shareLink(){
+  const url = window.location.href;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "Pesta Siaga 2026",
+      text: "Ayo ikuti Pesta Siaga Kwaran Punggelan 2026!",
+      url: url
+    });
+  } else {
+    navigator.clipboard.writeText(url);
+    showToast();
+  }
+}
+
+function showToast(){
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },2000);
+}
+
+function openViewer(){
+  document.getElementById("viewerPage").classList.add("active");
+}
+
+function closeViewer(){
+  document.getElementById("viewerPage").classList.remove("active");
+}
+
+function openForm(){
+  document.getElementById("formModal").classList.add("active");
+}
+
+function closeForm(){
+  document.getElementById("formModal").classList.remove("active");
+}
+
+function submitForm(){
+  let nama = document.getElementById("nama").value;
+  let pangkalan = document.getElementById("pangkalan").value;
+  let kwarran = document.getElementById("kwarran").value;
+  let alamat = document.getElementById("alamat").value;
+  let nta = document.getElementById("nta").value;
+  let hp = document.getElementById("hp").value;
+  let email = document.getElementById("email").value;
+  let setuju = document.getElementById("setuju").checked;
+
+  if(!nama || !pangkalan || !kwarran || !alamat || !hp || !email){
+    alert("Lengkapi semua data terlebih dahulu!");
+    return;
+  }
+
+  if(!setuju){
+    alert("Harus menyetujui pernyataan!");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbx4ALEFRjmwa0zwffGu8BkcprkKAih2QbE1GFNqgzp-r7SfhZNnKRZiZ6IdgUpUe7nqtg/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      nama: nama,
+      pangkalan: pangkalan,
+      kwarran: kwarran,
+      alamat: alamat,
+      nta: nta,
+      hp: hp,
+      email: email
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById("formModal").classList.remove("active");
+    document.getElementById("successModal").classList.add("active");
+
+    // reset form
+    document.querySelectorAll("#formModal input, #formModal textarea").forEach(el => el.value = "");
+    document.getElementById("setuju").checked = false;
+
+    loadPendaftar();
+  })
+  .catch(err => {
+    alert("Gagal mengirim data!");
+  });
+
+}
+
+const API_URL = "https://script.google.com/macros/s/AKfycbx4ALEFRjmwa0zwffGu8BkcprkKAih2QbE1GFNqgzp-r7SfhZNnKRZiZ6IdgUpUe7nqtg/exec";
+
+function maskNama(nama){
+  return nama.split(" ").map(kata => {
+    if(kata.length <= 1) return kata;
+    return kata[0] + "*".repeat(kata.length - 1);
+  }).join(" ");
+}
+
+function loadPendaftar(){
+  fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+
+    totalPendaftarGlobal = data.length;
+
+    document.getElementById("totalPendaftar").innerText = data.length;
+
+    let html = "";
+
+    data.reverse().forEach((item, index) => {
+      html += `
+        <div class="pendaftar-item">
+          <div class="nomor">${index + 1}</div>
+          <div>${maskNama(item.nama || "Anonim")}</div>
+        </div>
+      `;
+    });
+
+    document.getElementById("listPendaftar").innerHTML = html;
+
+  })
+  .catch(err => {
+    document.getElementById("listPendaftar").innerHTML = "Gagal memuat data";
+  });
+}
+
+window.onload = function(){
+  loadPendaftar();
+}
+
+function togglePendaftar(){
+  const box = document.getElementById("pendaftarBox");
+  const arrow = document.getElementById("arrow");
+
+  box.classList.toggle("active");
+  arrow.classList.toggle("bx-chevron-down");
+  arrow.classList.toggle("bx-chevron-up");
+}
+
+function handleDaftar(){
+
+  if(totalPendaftarGlobal >= MAX_PENDAFTAR){
+    showFullAlert();
+    return;
+  }
+
+  openForm();
+}
+
+function showFullAlert(){
+  document.getElementById("fullModal").classList.add("active");
+}
+
+// klik luar modal = close
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.addEventListener("click", function(e){
+    if(e.target === modal){
+      modal.classList.remove("active");
+    }
+  });
+});
+
+function closeSuccess(){
+  document.getElementById("successModal").classList.remove("active");
+}
+
+function closeFull(){
+  document.getElementById("fullModal").classList.remove("active");
+}
+</script>
+<div class="modal" id="fullModal">
+    <div class="modal-content center">
+
+  <i class='bx bx-x close' onclick="closeFull()"></i>
+    <i class='bx bx-x-circle'></i>
+    <h3>Kuota Penuh</h3>
+    <p>Pendaftaran Sangga Kerja telah mencapai batas maksimal (45 orang).</p>
+    <p>Silakan menghubungi admin untuk informasi lebih lanjut.</p>
+
+    <a href="https://wa.me/6282136065407" target="_blank" class="wa-btn">
+      Hubungi Admin
+    </a>
+  </div>
+</div>
+
+<div class="toast" id="toast">Link berhasil disalin</div>
+</body>
+</html>
