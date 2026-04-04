@@ -23,6 +23,7 @@
     { "source": "/tag", "destination": "/tags.html" },
     { "source": "/pusdig", "destination": "/pusdig.html" },
     { "source": "/verval", "destination": "/verval.html" },
+    { "source": "/pesgaran26", "destination": "/pesgaran26.html" },
     {
   "source": "/warta/:slug",
   "destination": "/artikel.html?id=:slug"
