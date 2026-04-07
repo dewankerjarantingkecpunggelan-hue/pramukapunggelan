@@ -694,6 +694,61 @@ textarea {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
+
+  /* ADS AVAILABLE */
+.ads-box {
+  margin: 0 20px 20px;
+  padding: 14px;
+  border-radius: 14px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(91,44,131,0.05),
+    rgba(91,44,131,0.05) 10px,
+    rgba(91,44,131,0.08) 10px,
+    rgba(91,44,131,0.08) 20px
+  );
+  border: 2px dashed rgba(91,44,131,0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ads-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ads-content i {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.ads-content b {
+  display: block;
+  font-size: 13px;
+}
+
+.ads-content small {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.ads-btn {
+  background: var(--primary);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  transition: 0.25s;
+}
+
+.ads-btn:hover {
+  transform: scale(1.05);
+}
 </style>
 </head>
 
@@ -762,6 +817,20 @@ textarea {
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15829.770692001131!2d109.63125328694308!3d-7.304061383823357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7000c393b11871%3A0xb5deb146be67b43f!2sBalai%20Desa%20Tlaga!5e0!3m2!1sid!2sid!4v1775565994837!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
+  <div class="ads-box">
+  <div class="ads-content">
+    <i class='bx bx-megaphone'></i>
+    <div>
+      <b>Ads Space Available</b>
+      <small>Pasang iklan / promosi di microsite ini</small>
+    </div>
+  </div>
+
+  <a href="https://wa.me/6282136065407" target="_blank" class="ads-btn">
+    Hubungi
+  </a>
+</div>
+  
   <div class="menu">
     <a href="#" class="btn" onclick="openViewer()">
       <span>Juknis & Edaran</span>
