@@ -558,6 +558,71 @@ textarea {
 .close:hover {
   color: red;
 }
+
+/* INFO EVENT */
+.info-event {
+  margin: 0 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.info-item i {
+  font-size: 22px;
+  color: var(--primary);
+  background: rgba(91,44,131,0.1);
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.info-item small {
+  display: block;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.info-item b {
+  font-size: 13px;
+}
+
+/* MAPS */
+.maps-section {
+  margin: 0 20px 20px;
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.maps-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.maps-header i {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.maps-section iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
 </style>
 </head>
 
@@ -593,6 +658,33 @@ textarea {
     </div>
   </div>
 
+    <div class="info-event">
+  <div class="info-item">
+    <i class='bx bx-calendar'></i>
+    <div>
+      <small>Tanggal Pelaksanaan</small>
+      <b>11 April 2026</b>
+    </div>
+  </div>
+
+  <div class="info-item">
+    <i class='bx bx-map'></i>
+    <div>
+      <small>Tempat</small>
+      <b>Lapangan Desa Tlaga Mlaya Punggelan</b>
+    </div>
+  </div>
+</div>
+
+<div class="maps-section">
+  <div class="maps-header">
+    <i class='bx bx-map-pin'></i>
+    <span>Lokasi Kegiatan</span>
+  </div>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15829.770692001131!2d109.63125328694308!3d-7.304061383823357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7000c393b11871%3A0xb5deb146be67b43f!2sBalai%20Desa%20Tlaga!5e0!3m2!1sid!2sid!4v1775565994837!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
   <div class="menu">
     <a href="#" class="btn" onclick="openViewer()">
       <span>Juknis & Edaran</span>
@@ -624,11 +716,7 @@ textarea {
       <i class='bx bx-chevron-down' id="arrow"></i>
     </div>
   </div>
-
-  <div id="pendaftarBox">
-    <div id="listPendaftar"></div>
-  </div>
-
+    
 </div>
 
   <!-- SOSMED -->
