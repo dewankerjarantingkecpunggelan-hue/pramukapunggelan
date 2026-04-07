@@ -623,6 +623,53 @@ textarea {
   height: 200px;
   border: none;
 }
+
+  /* PROMO BANNER */
+.promo-banner {
+  margin: 0 20px 20px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #5b2c83, #7a3bb5);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
+.promo-text b {
+  display: block;
+  font-size: 14px;
+}
+
+.promo-text small {
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.promo-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  color: #25D366;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.promo-btn i {
+  font-size: 16px;
+}
+
+.promo-btn:hover {
+  transform: scale(1.05);
+}
 </style>
 </head>
 
@@ -833,7 +880,18 @@ textarea {
     </a>
 
   </div>
+</div>
 
+  <div class="promo-banner">
+  <div class="promo-text">
+    <b>Mau bikin microsite juga?</b>
+    <small>Website event, organisasi, atau promosi profesional seperti ini</small>
+  </div>
+
+  <a href="https://wa.me/6282136065407" target="_blank" class="promo-btn">
+    <i class='bx bxl-whatsapp'></i>
+    Hubungi Admin
+  </a>
 </div>
 
   <div class="footer">
