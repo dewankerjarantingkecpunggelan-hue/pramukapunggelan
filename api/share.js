@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 </head>
 <body>
 <script>
-location.href="/artikel.html?id=${id}";
+location.href="/warta/${id}";
 </script>
 </body>
 </html>
