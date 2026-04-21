@@ -1675,6 +1675,9 @@ window[cb] = res => {
 
   const a = res.data;
 
+  document.getElementById("canonicalLink").href =
+  location.origin + "/warta/" + ARTICLE_ID;
+  
   // isi halaman
   document.title = a.judul + " Pramuka Punggelan";
   document.getElementById("judul").textContent = a.judul;
