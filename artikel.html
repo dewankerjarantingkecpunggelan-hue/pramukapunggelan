@@ -1876,7 +1876,7 @@ s.src = API +
 function setShare(){
 
   const slug = ARTICLE_ID;
-  const shareURL = location.origin + "/api/share?id=" + slug;
+  const shareURL = location.origin + "/warta/" + slug;
 
   const encodedURL  = encodeURIComponent(shareURL);
   const encodedText = encodeURIComponent(document.getElementById("judul").textContent);
