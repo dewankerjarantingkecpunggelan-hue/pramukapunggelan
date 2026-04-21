@@ -1933,8 +1933,8 @@ function renderPopular(data){
     else if(index === 1) rankClass = "rank-2";
     else if(index === 2) rankClass = "rank-3";
 
-    wrap.innerHTML += `
-      <a href="artikel.html?id=${n.id}" class="popular-item ${rankClass}">
+wrap.innerHTML += `
+  <a href="/warta/${n.id}" class="popular-item ${rankClass}">
         <div class="popular-rank">${index + 1}</div>
         <div class="popular-title">${n.judul}</div>
       </a>
@@ -1972,8 +1972,8 @@ window[cbRandom] = res => {
   const wrap = document.getElementById("randomArticle");
   if(!wrap || !list.length) return;
 
-  wrap.innerHTML = list.slice(0,2).map(a=>`
-    <a href="artikel.html?id=${a.id}">
+wrap.innerHTML = list.slice(0,2).map(a=>`
+  <a href="/warta/${a.id}">
       <small>Mungkin kakak juga suka</small>
       <span>${a.judul}</span>
     </a>
@@ -2311,8 +2311,8 @@ function loadRelatedArticles(currentArticle){
       return;
     }
 
-    wrap.innerHTML = filtered.slice(0,3).map(a=>`
-      <a href="artikel.html?id=${a.id}" class="related-card">
+wrap.innerHTML = filtered.slice(0,3).map(a=>`
+  <a href="/warta/${a.id}" class="related-card">
         ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.judul}">` : ""}
         <div class="related-body">
           <div class="related-title">${a.judul}</div>
