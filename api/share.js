@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 <meta property="og:title" content="${a.judul}">
 <meta property="og:description" content="${a.isi.replace(/<[^>]+>/g, "").slice(0,160)}">
 <meta property="og:image" content="${a.thumbnail}">
-<meta property="og:url" content="https://pramukapunggelan.or.id/artikel.html?id=${id}">
+<meta property="og:url" content="https://pramukapunggelan.or.id/warta/${id}">
 <meta property="og:type" content="article">
 
 <meta name="twitter:card" content="summary_large_image">
